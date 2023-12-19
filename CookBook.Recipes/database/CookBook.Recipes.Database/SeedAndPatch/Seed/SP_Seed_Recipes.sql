@@ -1,0 +1,5 @@
+﻿CREATE PROCEDURE [seed].[SP_Seed_Recipes]
+AS
+BEGIN
+    RETURN 0;
+END
