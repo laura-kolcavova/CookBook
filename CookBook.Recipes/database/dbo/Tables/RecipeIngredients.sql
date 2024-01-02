@@ -2,7 +2,7 @@
 (
     [Id]                TINYINT IDENTITY(1, 1) NOT NULL,
     [RecipeId]          BIGINT NOT NULL,
-    [Note]              NVARCHAR(500) NOT NULL,
+    [Note]              NVARCHAR(256) NOT NULL,
     [OrderIndex]        TINYINT NOT NULL DEFAULT 0,
     [DateCreatedAt]     DATETIMEOFFSET DEFAULT SYSDATETIMEOFFSET(),
     [DateUpdatedAt]     DATETIMEOFFSET,

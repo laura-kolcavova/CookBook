@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{39083A28-E6E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{BA39595A-311C-4F83-995F-FC89CC88D6D3}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CookBook.Recipes.Database", "database\CookBook.Recipes.Database\CookBook.Recipes.Database.sqlproj", "{A77CC596-6238-4CF9-95E6-E84DC48A3A0A}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CookBook.Recipes.Database", "database\CookBook.Recipes.Database.sqlproj", "{A77CC596-6238-4CF9-95E6-E84DC48A3A0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

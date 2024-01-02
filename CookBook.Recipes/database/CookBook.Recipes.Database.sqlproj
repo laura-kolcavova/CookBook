@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{a77cc596-6238-4cf9-95e6-e84dc48a3a0a}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -56,5 +56,27 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo" />
+    <Folder Include="PublishProfiles" />
+    <Folder Include="Scripts" />
+    <Folder Include="Security" />
+    <Folder Include="SeedAndPatch" />
+    <Folder Include="Security\Schemas" />
+    <Folder Include="dbo\Tables" />
+    <Folder Include="SeedAndPatch\Seed" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\RecipeIngredients.sql" />
+    <Build Include="dbo\Tables\RecipeInstructions.sql" />
+    <Build Include="dbo\Tables\Recipes.sql" />
+    <Build Include="Security\Schemas\seed.sql" />
+    <None Include="SeedAndPatch\Seed.sql" />
+    <Build Include="SeedAndPatch\Seed\SP_Seed_Recipes.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PublishProfiles\Local.publish.xml" />
   </ItemGroup>
 </Project>
