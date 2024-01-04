@@ -1,5 +1,10 @@
+using CookBook.Extensions.AspNetCore.Filters;
+using CookBook.Extensions.Configuration.SqlServer;
+using CookBook.Recipes.Api.Configuration;
+using CookBook.Recipes.Api.Endpoints;
 using Microsoft.OpenApi.Models;
-using System.Text.Json.Serialization;
+using Opw.HttpExceptions.AspNetCore;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,13 +22,13 @@ var configuration = builder.Configuration;
 var cookBookRecipesConnectionString = configuration
     .GetSqlConnectionString(ConfigurationConstants.CookBookRecipesConnectionStringSectionName);
 
-services
-    .AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(options => builder.Configuration.GetSection(nameof(JwtBearerOptions)).Bind(options));
+//services
+//    .AddAuthentication(options =>
+//    {
+//        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//    })
+//    .AddJwtBearer(options => builder.Configuration.GetSection(nameof(JwtBearerOptions)).Bind(options));
 
 services
     .AddOptions();
@@ -47,21 +52,21 @@ services
         xmlFiles.ForEach(xmlFile => options.IncludeXmlComments(xmlFile));
     });
 
-services
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    })
-    .AddHttpExceptions(options =>
-    {
-        // Only log the when it has a status code of 500 or higher, or when it not is a HttpException.
-        options.ShouldLogException = exception =>
-        {
-            return (exception is HttpExceptionBase httpException &&
-                (int)httpException.StatusCode >= 500) ||
-                exception is not HttpExceptionBase;
-        };
-    });
+//services
+//.AddJsonOptions(options =>
+//{
+//    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+//})
+//.AddHttpExceptions(options =>
+//{
+//    // Only log the when it has a status code of 500 or higher, or when it not is a HttpException.
+//    options.ShouldLogException = exception =>
+//    {
+//        return (exception is HttpExceptionBase httpException &&
+//            (int)httpException.StatusCode >= 500) ||
+//            exception is not HttpExceptionBase;
+//    };
+//});
 
 
 var app = builder.Build();
@@ -91,7 +96,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app
-    .AddEndpointFilter<OperationCancelledExceptionFilter>()
+    .AddEndpoints()
+    .AddEndpointFilter<OperationCanceledExceptionFilter>()
     .WithOpenApi();
 
 app.Run();
