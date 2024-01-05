@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AF04097D-A94D-4846-84F9-73749F285475}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Extensions.AspNetCore", "src\CookBook.Extensions.AspNetCore.csproj", "{34F52002-8963-498E-84B2-A0FB8DBD9A62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34F52002-8963-498E-84B2-A0FB8DBD9A62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34F52002-8963-498E-84B2-A0FB8DBD9A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34F52002-8963-498E-84B2-A0FB8DBD9A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34F52002-8963-498E-84B2-A0FB8DBD9A62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{34F52002-8963-498E-84B2-A0FB8DBD9A62} = {AF04097D-A94D-4846-84F9-73749F285475}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1D6578B-F22F-4064-AAA5-982E8C6CCAF1}
+	EndGlobalSection
+EndGlobal

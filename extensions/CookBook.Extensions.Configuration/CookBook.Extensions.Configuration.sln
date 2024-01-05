@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9EB9A78D-CE25-416F-8453-21C65824E4A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Extensions.Configuration", "src\CookBook.Extensions.Configuration.csproj", "{EF1E97A1-6452-4DFC-8301-52469F77859F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF1E97A1-6452-4DFC-8301-52469F77859F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1E97A1-6452-4DFC-8301-52469F77859F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1E97A1-6452-4DFC-8301-52469F77859F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1E97A1-6452-4DFC-8301-52469F77859F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EF1E97A1-6452-4DFC-8301-52469F77859F} = {9EB9A78D-CE25-416F-8453-21C65824E4A6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C43D488C-374E-4F10-BC60-EC21BF338320}
+	EndGlobalSection
+EndGlobal
