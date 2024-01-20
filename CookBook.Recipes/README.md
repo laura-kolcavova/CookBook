@@ -14,10 +14,10 @@ Run this command to create the image and tag it with the name book-catalog:
 docker build -t cookbook-recipes .
 ```
 
-To run the web API service, run the following command to start a new Docker container using the book-catalog image and expose the service on port 8000:
+To run the web API service, run the following command to start a new Docker container using the book-catalog image and expose the service on port 8010:
 
 ```Bash
-docker run -it --rm -p 8000:80 --name cookbook-recipes-container cookbook-recipes
+docker run -it --rm -p 8010:80 --name cookbook-recipes-container cookbook-recipes
 ```
 
-This service will be hosted on http://localhost:8000
+This service will be hosted on http://localhost:8010

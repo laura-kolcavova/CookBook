@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{58617E86-9688-4A9E-B1EB-E8484657274E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.NugetRepository.Server", "src\CookBook.NugetRepository.Server\CookBook.NugetRepository.Server.csproj", "{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541} = {58617E86-9688-4A9E-B1EB-E8484657274E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F3C4F020-0B19-4339-86CB-1732BCC2F166}
+	EndGlobalSection
+EndGlobal
