@@ -6,7 +6,6 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>CookBook.Extensions.AspNetCore</Title>
-    <PackageOutputPath>../../../nuget</PackageOutputPath>
   </PropertyGroup>
 
   <PropertyGroup>

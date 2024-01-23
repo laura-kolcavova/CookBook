@@ -4,20 +4,20 @@
 
 CookBook Recipes is a service for managing recipes, its ingredients and instructions.
 
-## Use of CookBook Recipes
+## Run CookBook Recipes service as a standalone Docker container
 
 Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your computer.
 
-Run this command to create the image and tag it with the name book-catalog:
+Run the following command to create a Docker image and tag it with the name book-recipes (host network must be used for building the image):
 
 ```Bash
-docker build -t cookbook-recipes .
+docker build -t cookbook-recipes --network host .
 ```
 
-To run the web API service, run the following command to start a new Docker container using the book-catalog image and expose the service on port 8000:
+Run the following command to start a new Docker container using the book-catalog image:
 
 ```Bash
-docker run -it --rm -p 8000:80 --name cookbook-recipes-container cookbook-recipes
+docker run -it --rm -p 8010:8010 --name cookbook-recipes-container cookbook-recipes
 ```
 
-This service will be hosted on http://localhost:8000
+The CookBook Recipes service will be hosted on http://localhost:8010

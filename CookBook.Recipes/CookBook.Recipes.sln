@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E81BAD29-B633-42CB-B478-C4A9384E456F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{D6A63125-E852-4E56-85A8-9F33E384BB69}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DC205A2E-BF1F-4B27-88B5-FB057E3ED6EA}"
 EndProject
@@ -19,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CookBook.Recipes.Database", "database\CookBook.Recipes.Database.sqlproj", "{A77CC596-6238-4CF9-95E6-E84DC48A3A0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.Recipes.Api", "src\CookBook.Recipes.Api\CookBook.Recipes.Api.csproj", "{FBC42211-3A9C-4E17-973B-5D71B4ACD526}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Recipes.Api", "src\CookBook.Recipes.Api\CookBook.Recipes.Api.csproj", "{FBC42211-3A9C-4E17-973B-5D71B4ACD526}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

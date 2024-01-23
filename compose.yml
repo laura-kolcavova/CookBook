@@ -1,0 +1,30 @@
+version: '3.4'
+
+volumes:
+  baget-data:
+      name: baget-data
+
+services: 
+    cookbook-nuget-repository:
+        image: loicsharma/baget:latest
+        container_name: cookbook-nuget-repository-container
+        ports:
+          - "5555:80"
+        env_file:
+          - ./CookBook.NugetRepository/src/CookBook.NugetRepository.Server/baget.env
+        volumes:
+          - baget-data:/var/baget
+        networks:
+          default:
+            aliases:
+              - cookbook-nuget-repository.app
+
+    cookbook-recipes:
+        image: cookbook-recipes
+        build:
+          context: ./CookBook.Recipes
+          dockerfile: Dockerfile
+          network: host
+        container_name: cookbook-recipes-container
+        ports:
+          - "8010:8010"
