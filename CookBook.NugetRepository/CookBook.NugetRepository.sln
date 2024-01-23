@@ -5,7 +5,12 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{58617E86-9688-4A9E-B1EB-E8484657274E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.NugetRepository.Server", "src\CookBook.NugetRepository.Server\CookBook.NugetRepository.Server.csproj", "{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.NugetRepository.Server", "src\CookBook.NugetRepository.Server\CookBook.NugetRepository.Server.csproj", "{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{743C2806-45FA-4C99-880A-F3CCFFF77F42}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
