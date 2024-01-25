@@ -1,8 +1,8 @@
-# CookBook Servers
+# CookBook servers
 
 [Nuget Repository](CookBook.NugetRepository/README.md)
 
-# CookBook Nuget Packages
+# CookBook Nuget packages
 
 [Extensions Configuration](extensions/CookBook.Extensions.Configuration/README.md)
 

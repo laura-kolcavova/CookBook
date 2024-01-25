@@ -8,7 +8,7 @@ CookBook Nuget Repository is a private NuGet feed server based on [BaGet server]
 
 Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your computer.
 
-Execute this command to pull the BaGet server Docker image:
+Run the following command to pull the BaGet server Docker image:
 
 ```Bash
 docker pull loicsharma/baget
