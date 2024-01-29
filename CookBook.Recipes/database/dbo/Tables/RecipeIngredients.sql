@@ -7,8 +7,8 @@
     [DateCreatedAt]     DATETIMEOFFSET DEFAULT SYSDATETIMEOFFSET(),
     [DateUpdatedAt]     DATETIMEOFFSET,
 
-    CONSTRAINT [PK_RecipeIngredients] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [PK_dbo_RecipeIngredients] PRIMARY KEY CLUSTERED ([Id] ASC),
 
-    CONSTRAINT [FK_RecipeIngredients_Recipes] FOREIGN KEY ([RecipeId])
+    CONSTRAINT [FK_dbo_RecipeIngredients_Recipes] FOREIGN KEY ([RecipeId])
     REFERENCES [dbo].[Recipes] ([Id]) ON DELETE CASCADE
 )

@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E8156891-4DDD-4A2B-9F93-E07E2B7F196E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Extensions.CSharpExtended", "src\CookBook.Extensions.CSharpExtended.csproj", "{95C0FA40-5583-44D6-9AFA-6AA9667BAAD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{64C9F4C4-3AC7-496C-B8D8-DE61252FBBAB}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95C0FA40-5583-44D6-9AFA-6AA9667BAAD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95C0FA40-5583-44D6-9AFA-6AA9667BAAD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95C0FA40-5583-44D6-9AFA-6AA9667BAAD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95C0FA40-5583-44D6-9AFA-6AA9667BAAD0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{95C0FA40-5583-44D6-9AFA-6AA9667BAAD0} = {E8156891-4DDD-4A2B-9F93-E07E2B7F196E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E41CDD76-7ED3-444E-90EB-478B55DD0289}
+	EndGlobalSection
+EndGlobal

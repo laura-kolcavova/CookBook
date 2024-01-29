@@ -8,4 +8,9 @@ call 01_PackNuget.bat
 call 02_PublishNuget.bat
 cd ../../../build
 
+cd ../extensions/CookBook.Extensions.CSharpExtended/build
+call 01_PackNuget.bat
+call 02_PublishNuget.bat
+cd ../../../build
+
 

@@ -17,4 +17,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.12" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CookBook.Recipes.Persistence\CookBook.Recipes.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
