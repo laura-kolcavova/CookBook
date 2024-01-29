@@ -16,20 +16,20 @@ public class RecipeIngredientEntity : IEntity<short>, ITrackableEntity
 
     public DateTimeOffset? UpdatedAt { get; private set; }
 
-    public RecipeIngredientEntity(string note)
+    public RecipeIngredientEntity()
     {
-        Note = note;
+        Note = string.Empty;
     }
 
-    public RecipeIngredientEntity SetNote(string newNote)
+    public RecipeIngredientEntity SetNote(string note)
     {
-        Note = newNote;
+        Note = note;
         return this;
     }
 
-    public RecipeIngredientEntity SetOrderIndex(short newOrderIndex)
+    public RecipeIngredientEntity SetOrderIndex(short orderIndex)
     {
-        OrderIndex = newOrderIndex;
+        OrderIndex = orderIndex;
         return this;
     }
 }

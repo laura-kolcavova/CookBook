@@ -19,12 +19,12 @@ services:
             aliases:
               - cookbook-nuget-repository.app
 
-    cookbook-recipes:
-        image: cookbook-recipes
-        build:
-          context: ./CookBook.Recipes
-          dockerfile: Dockerfile
-          network: host
-        container_name: cookbook-recipes-container
-        ports:
-          - "8010:8010"
+    # cookbook-recipes:
+    #     image: cookbook-recipes
+    #     build:
+    #       context: ./CookBook.Recipes
+    #       dockerfile: Dockerfile
+    #       network: host
+    #     container_name: cookbook-recipes-container
+    #     ports:
+    #       - "8010:8010"

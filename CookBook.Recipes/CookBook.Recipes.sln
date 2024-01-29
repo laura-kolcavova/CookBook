@@ -24,7 +24,9 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CookBook.Recipes.Database",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Recipes.Api", "src\CookBook.Recipes.Api\CookBook.Recipes.Api.csproj", "{FBC42211-3A9C-4E17-973B-5D71B4ACD526}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.Recipes.Domain", "src\CookBook.Recipes.Domain\CookBook.Recipes.Domain.csproj", "{A763515F-A81B-45BC-8872-D0F03FCD2727}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Recipes.Domain", "src\CookBook.Recipes.Domain\CookBook.Recipes.Domain.csproj", "{A763515F-A81B-45BC-8872-D0F03FCD2727}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.Recipes.Persistence", "src\CookBook.Recipes.Persistence\CookBook.Recipes.Persistence.csproj", "{754F9E68-033D-4DF0-8B50-F0BD84DD5916}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{A763515F-A81B-45BC-8872-D0F03FCD2727}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A763515F-A81B-45BC-8872-D0F03FCD2727}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A763515F-A81B-45BC-8872-D0F03FCD2727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{754F9E68-033D-4DF0-8B50-F0BD84DD5916}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{754F9E68-033D-4DF0-8B50-F0BD84DD5916}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{754F9E68-033D-4DF0-8B50-F0BD84DD5916}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{754F9E68-033D-4DF0-8B50-F0BD84DD5916}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{A77CC596-6238-4CF9-95E6-E84DC48A3A0A} = {9177256B-8B15-483D-BD50-B5D6FE5DD795}
 		{FBC42211-3A9C-4E17-973B-5D71B4ACD526} = {39083A28-E6EB-4E60-9744-8E648085F33E}
 		{A763515F-A81B-45BC-8872-D0F03FCD2727} = {4BD53829-6DB0-4255-9A8E-8DFD3536238C}
+		{754F9E68-033D-4DF0-8B50-F0BD84DD5916} = {BA39595A-311C-4F83-995F-FC89CC88D6D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3C15A968-324A-4EC2-9451-9F5ED5F62BF4}

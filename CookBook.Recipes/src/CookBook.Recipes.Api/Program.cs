@@ -3,6 +3,7 @@ using CookBook.Extensions.Configuration.SqlServer;
 using CookBook.Recipes.Api.Configuration;
 using CookBook.Recipes.Api.Endpoints;
 using CookBook.Recipes.Api.Extensions;
+using CookBook.Recipes.Persistence;
 using Opw.HttpExceptions.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ builder.Host
 // Add services to the container.
 var services = builder.Services;
 var configuration = builder.Configuration;
+var isDevelopment = builder.Environment.IsDevelopment();
 
 var cookBookRecipesConnectionString = configuration
     .GetSqlConnectionString(ConfigurationConstants.CookBookRecipesConnectionStringSectionName);
@@ -27,7 +29,8 @@ services
 services
     .InstallDbServices(cookBookRecipesConnectionString)
     .InstallSwaggerServices(builder.Environment.ApplicationName)
-    .InstallApiServices();
+    .InstallApiServices()
+    .InstallPersistenceServices(cookBookRecipesConnectionString, isDevelopment);
 
 var app = builder.Build();
 

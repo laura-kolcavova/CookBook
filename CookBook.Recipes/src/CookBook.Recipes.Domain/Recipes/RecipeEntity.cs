@@ -12,6 +12,14 @@ public class RecipeEntity : IEntity<long>, ITrackableEntity
 
     public string? Description { get; private set; }
 
+    public string? Notes { get; private set; }
+
+    public short Servings { get; private set; }
+
+    public short PreparationTime { get; private set; }
+
+    public short CookTime { get; private set; }
+
     public DateTimeOffset? CreatedAt { get; private set; }
 
     public DateTimeOffset? UpdatedAt { get; private set; }
@@ -28,21 +36,59 @@ public class RecipeEntity : IEntity<long>, ITrackableEntity
 
     #endregion NavigationProperties
 
-    public RecipeEntity(int userId, string title, string? description)
+    public RecipeEntity(int userId)
     {
         UserId = userId;
-        Title = title;
-        Description = description;
+
+        Title = string.Empty;
 
         _ingredients = new List<RecipeIngredientEntity>();
         _instructions = new List<RecipeInstructionEntity>();
     }
 
+    public RecipeEntity SetTitle(string title)
+    {
+        Title = title;
+        return this;
+    }
+
+    public RecipeEntity SetDescription(string? description)
+    {
+        Description = description;
+        return this;
+    }
+
+    public RecipeEntity SetNotes(string? notes)
+    {
+        Notes = notes;
+        return this;
+    }
+
+    public RecipeEntity SetServings(short servings)
+    {
+        Servings = servings;
+        return this;
+    }
+
+    public RecipeEntity SetPreparationTime(short preparationTime)
+    {
+        PreparationTime = preparationTime;
+        return this;
+    }
+
+    public RecipeEntity SetCookTime(short cookTime)
+    {
+        CookTime = cookTime;
+        return this;
+    }
+
     public RecipeEntity AddIngredient(string note, short orderIndex = 0)
     {
-        var newIngredient = new RecipeIngredientEntity(note);
+        var newIngredient = new RecipeIngredientEntity();
 
-        newIngredient.SetOrderIndex(orderIndex);
+        newIngredient
+            .SetNote(note)
+            .SetOrderIndex(orderIndex);
 
         _ingredients.Add(newIngredient);
 
@@ -70,9 +116,11 @@ public class RecipeEntity : IEntity<long>, ITrackableEntity
 
     public RecipeEntity AddInstruction(string note, short orderIndex = 0)
     {
-        var newInstruction = new RecipeInstructionEntity(note);
+        var newInstruction = new RecipeInstructionEntity();
 
-        newInstruction.SetOrderIndex(orderIndex);
+        newInstruction
+            .SetNote(note)
+            .SetOrderIndex(orderIndex);
 
         _instructions.Add(newInstruction);
 
