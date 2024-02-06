@@ -2,7 +2,7 @@
 
 namespace CookBook.Recipes.Domain.Entities.Recipes;
 
-public class RecipeEntity : IEntity<long>, ITrackableEntity
+public class RecipeAggregate : IAggregateRoot<long>, ITrackableEntity
 {
     public long Id { get; }
 
@@ -36,7 +36,7 @@ public class RecipeEntity : IEntity<long>, ITrackableEntity
 
     #endregion NavigationProperties
 
-    public RecipeEntity(int userId)
+    public RecipeAggregate(int userId)
     {
         UserId = userId;
 
@@ -46,43 +46,43 @@ public class RecipeEntity : IEntity<long>, ITrackableEntity
         _instructions = new List<RecipeInstructionEntity>();
     }
 
-    public RecipeEntity SetTitle(string title)
+    public RecipeAggregate SetTitle(string title)
     {
         Title = title;
         return this;
     }
 
-    public RecipeEntity SetDescription(string? description)
+    public RecipeAggregate SetDescription(string? description)
     {
         Description = description;
         return this;
     }
 
-    public RecipeEntity SetNotes(string? notes)
+    public RecipeAggregate SetNotes(string? notes)
     {
         Notes = notes;
         return this;
     }
 
-    public RecipeEntity SetServings(short servings)
+    public RecipeAggregate SetServings(short servings)
     {
         Servings = servings;
         return this;
     }
 
-    public RecipeEntity SetPreparationTime(short preparationTime)
+    public RecipeAggregate SetPreparationTime(short preparationTime)
     {
         PreparationTime = preparationTime;
         return this;
     }
 
-    public RecipeEntity SetCookTime(short cookTime)
+    public RecipeAggregate SetCookTime(short cookTime)
     {
         CookTime = cookTime;
         return this;
     }
 
-    public RecipeEntity AddIngredient(string note, short orderIndex = 0)
+    public RecipeAggregate AddIngredient(string note, short orderIndex = 0)
     {
         var newIngredient = new RecipeIngredientEntity();
 
@@ -95,7 +95,7 @@ public class RecipeEntity : IEntity<long>, ITrackableEntity
         return this;
     }
 
-    public RecipeEntity RemoveIngredient(short ingredientId)
+    public RecipeAggregate RemoveIngredient(short ingredientId)
     {
         var index = _ingredients
             .FindIndex(ingredient => ingredient.Id == ingredientId);
@@ -108,13 +108,13 @@ public class RecipeEntity : IEntity<long>, ITrackableEntity
         return this;
     }
 
-    public RecipeEntity RemoveAllIngredients()
+    public RecipeAggregate RemoveAllIngredients()
     {
         _ingredients.Clear();
         return this;
     }
 
-    public RecipeEntity AddInstruction(string note, short orderIndex = 0)
+    public RecipeAggregate AddInstruction(string note, short orderIndex = 0)
     {
         var newInstruction = new RecipeInstructionEntity();
 
@@ -127,7 +127,7 @@ public class RecipeEntity : IEntity<long>, ITrackableEntity
         return this;
     }
 
-    public RecipeEntity RemoveInstruction(short instructionId)
+    public RecipeAggregate RemoveInstruction(short instructionId)
     {
         var index = _instructions
             .FindIndex(instruction => instruction.Id == instructionId);
@@ -140,7 +140,7 @@ public class RecipeEntity : IEntity<long>, ITrackableEntity
         return this;
     }
 
-    public RecipeEntity RemoveAllInstructions()
+    public RecipeAggregate RemoveAllInstructions()
     {
         _instructions.Clear();
         return this;

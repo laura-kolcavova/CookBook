@@ -28,23 +28,18 @@ internal class TrackableDbContext : DbContext
             switch (entry.State)
             {
                 case EntityState.Modified:
-                    {
-                        entry.Property(p => p.UpdatedAt).CurrentValue = now;
-                        break;
-                    }
-
+                    entry.Property(p => p.UpdatedAt).CurrentValue = now;
+                    break;
 
                 case EntityState.Added:
+                    var currentValue = entry.Property(p => p.CreatedAt).CurrentValue;
+
+                    if (currentValue == null)
                     {
-                        var currentValue = entry.Property(p => p.CreatedAt).CurrentValue;
-
-                        if (currentValue == null)
-                        {
-                            entry.Property(p => p.CreatedAt).CurrentValue = now;
-                        }
-
-                        break;
+                        entry.Property(p => p.CreatedAt).CurrentValue = now;
                     }
+
+                    break;
             }
         }
     }

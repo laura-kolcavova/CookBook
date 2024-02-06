@@ -1,1 +1,0 @@
-dotnet pack "..\src\CookBook.Extensions.AspNetCore.csproj" -c Release
