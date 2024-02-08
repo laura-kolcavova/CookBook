@@ -1,20 +1,20 @@
 ﻿using CookBook.Recipes.Application.Common.Filtering;
 using CookBook.Recipes.Application.Common.Sorting;
-using CookBook.Recipes.Application.Services;
+using CookBook.Recipes.Application.Repositories;
 using CookBook.Recipes.Domain.Entities.Recipes;
 using CookBook.Recipes.Infrastructure.DatabaseContexts;
 using CookBook.Recipes.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace CookBook.Recipes.Persistence.Services;
+namespace CookBook.Recipes.Persistence.Repositories;
 
-internal class RecipeService : IRecipeService
+internal class RecipeRepository : IRecipeRepository
 {
     private readonly RecipesContext _recipesContext;
     private readonly DbSet<RecipeAggregate> _dbSet;
 
-    public RecipeService(RecipesContext recipesContext)
+    public RecipeRepository(RecipesContext recipesContext)
     {
         _recipesContext = recipesContext;
         _dbSet = _recipesContext.Set<RecipeAggregate>();
@@ -102,7 +102,7 @@ internal class RecipeService : IRecipeService
             .SingleOrDefaultAsync(filter, cancellationToken);
     }
 
-    public async Task RemoveAsync(long primaryKey, CancellationToken cancellationToken)
+    public async Task ExecuteRemoveAsync(long primaryKey, CancellationToken cancellationToken)
     {
         await _dbSet
             .Where(recipe => recipe.Id == primaryKey)
@@ -112,7 +112,7 @@ internal class RecipeService : IRecipeService
     public void Remove(RecipeAggregate aggregateRoot)
     {
         _dbSet
-             .Remove(aggregateRoot);
+            .Remove(aggregateRoot);
     }
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

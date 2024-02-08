@@ -2,10 +2,8 @@
 
 namespace CookBook.Recipes.Domain.Entities.Recipes;
 
-public class RecipeAggregate : IAggregateRoot<long>, ITrackableEntity
+public class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 {
-    public long Id { get; }
-
     public int UserId { get; private set; }
 
     public string Title { get; private set; }
@@ -46,103 +44,69 @@ public class RecipeAggregate : IAggregateRoot<long>, ITrackableEntity
         _instructions = new List<RecipeInstructionEntity>();
     }
 
-    public RecipeAggregate SetTitle(string title)
+    public void SetTitle(string title)
     {
         Title = title;
-        return this;
     }
 
-    public RecipeAggregate SetDescription(string? description)
+    public void SetDescription(string? description)
     {
         Description = description;
-        return this;
     }
 
-    public RecipeAggregate SetNotes(string? notes)
+    public void SetNotes(string? notes)
     {
         Notes = notes;
-        return this;
     }
 
-    public RecipeAggregate SetServings(short servings)
+    public void SetServings(short servings)
     {
         Servings = servings;
-        return this;
     }
 
-    public RecipeAggregate SetPreparationTime(short preparationTime)
+    public void SetPreparationTime(short preparationTime)
     {
         PreparationTime = preparationTime;
-        return this;
     }
 
-    public RecipeAggregate SetCookTime(short cookTime)
+    public void SetCookTime(short cookTime)
     {
         CookTime = cookTime;
-        return this;
     }
 
-    public RecipeAggregate AddIngredient(string note, short orderIndex = 0)
-    {
-        var newIngredient = new RecipeIngredientEntity();
-
-        newIngredient
-            .SetNote(note)
-            .SetOrderIndex(orderIndex);
-
-        _ingredients.Add(newIngredient);
-
-        return this;
-    }
-
-    public RecipeAggregate RemoveIngredient(short ingredientId)
-    {
-        var index = _ingredients
-            .FindIndex(ingredient => ingredient.Id == ingredientId);
-
-        if (index >= 0)
-        {
-            _ingredients.RemoveAt(index);
-        }
-
-        return this;
-    }
-
-    public RecipeAggregate RemoveAllIngredients()
+    public void SaveIngredients(SaveIngredientsParameters saveIngredientsParameters)
     {
         _ingredients.Clear();
-        return this;
-    }
 
-    public RecipeAggregate AddInstruction(string note, short orderIndex = 0)
-    {
-        var newInstruction = new RecipeInstructionEntity();
-
-        newInstruction
-            .SetNote(note)
-            .SetOrderIndex(orderIndex);
-
-        _instructions.Add(newInstruction);
-
-        return this;
-    }
-
-    public RecipeAggregate RemoveInstruction(short instructionId)
-    {
-        var index = _instructions
-            .FindIndex(instruction => instruction.Id == instructionId);
-
-        if (index >= 0)
+        short orderIndex = 10;
+        foreach (var ingredientParameters in saveIngredientsParameters.Ingredients)
         {
-            _instructions.RemoveAt(index);
-        }
+            var ingredient = new RecipeIngredientEntity(ingredientParameters.Id);
 
-        return this;
+            ingredient.SetNote(ingredientParameters.Note);
+            ingredient.SetOrderIndex(orderIndex);
+
+            _ingredients.Add(ingredient);
+
+            orderIndex++;
+        }
     }
 
-    public RecipeAggregate RemoveAllInstructions()
+    public void SaveInstructions(SaveInstructionsParameters saveInstructionsParameters)
     {
-        _instructions.Clear();
-        return this;
+        _ingredients.Clear();
+
+        short orderIndex = 10;
+        foreach (var instructionParameters in saveInstructionsParameters.Instructions)
+        {
+            var ingredient = new RecipeIngredientEntity(instructionParameters.Id);
+
+            ingredient.SetNote(instructionParameters.Note);
+            ingredient.SetOrderIndex(orderIndex);
+
+            _ingredients.Add(ingredient);
+
+            orderIndex++;
+        }
     }
 }

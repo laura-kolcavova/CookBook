@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[RecipeIngredients]
 (
-    [Id]                TINYINT IDENTITY(1, 1) NOT NULL,
+    [Id]                BIGINT IDENTITY(1, 1) NOT NULL,
     [RecipeId]          BIGINT NOT NULL,
     [Note]              NVARCHAR(256) NOT NULL,
     [OrderIndex]        TINYINT NOT NULL DEFAULT 0,

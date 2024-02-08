@@ -38,7 +38,7 @@ public interface IAggregateRootRepository<TAggregateRoot, TPrimaryKey>
         TAggregateRoot aggregateRoot,
         CancellationToken cancellationToken = default);
 
-    Task RemoveAsync(
+    Task ExecuteRemoveAsync(
        TPrimaryKey primaryKey,
        CancellationToken cancellationToken);
 

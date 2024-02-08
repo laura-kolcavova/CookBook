@@ -1,10 +1,6 @@
 ﻿namespace CookBook.Recipes.Domain.Common;
 
-public interface IEntity
-{
-}
-
-public interface IEntity<out TPrimaryKey> : IEntity
+public interface IEntity<out TPrimaryKey>
 {
     TPrimaryKey Id { get; }
 }

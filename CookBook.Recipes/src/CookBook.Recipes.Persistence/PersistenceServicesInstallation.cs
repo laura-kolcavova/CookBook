@@ -1,6 +1,6 @@
-﻿using CookBook.Recipes.Application.Services;
+﻿using CookBook.Recipes.Application.Repositories;
 using CookBook.Recipes.Infrastructure.DatabaseContexts;
-using CookBook.Recipes.Persistence.Services;
+using CookBook.Recipes.Persistence.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.Recipes.Persistence;
@@ -25,7 +25,7 @@ public static class PersistenceServicesInstallation
         //});
 
         services
-            .AddScoped<IRecipeService, RecipeService>();
+            .AddScoped<IRecipeRepository, RecipeRepository>();
 
         return services;
     }
