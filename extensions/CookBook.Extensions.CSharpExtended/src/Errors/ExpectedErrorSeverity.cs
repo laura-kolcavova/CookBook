@@ -1,6 +1,6 @@
 ﻿namespace CookBook.Extensions.CSharpExtended.Errors;
 
-public enum ValidationErrorSeverity
+public enum ExpectedErrorSeverity
 {
     Error = 0,
 

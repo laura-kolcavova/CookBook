@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -11,9 +11,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.15" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.8" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CookBook.Recipes.Application\CookBook.Recipes.Application.csproj" />
     <ProjectReference Include="..\CookBook.Recipes.Domain\CookBook.Recipes.Domain.csproj" />
   </ItemGroup>
 

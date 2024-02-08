@@ -2,13 +2,11 @@
 
 namespace CookBook.Recipes.Domain.Entities.Recipes;
 
-public class RecipeInstructionEntity : IEntity<short>, ITrackableEntity
+public class RecipeInstructionEntity : Entity<long>, ITrackableEntity
 {
-    public short Id { get; }
-
     public long RecipeId { get; }
 
-    public string Note { get; private set; }
+    public string Note { get; private set; } = string.Empty;
 
     public short OrderIndex { get; private set; }
 
@@ -18,18 +16,20 @@ public class RecipeInstructionEntity : IEntity<short>, ITrackableEntity
 
     public RecipeInstructionEntity()
     {
-        Note = string.Empty;
     }
 
-    public RecipeInstructionEntity SetNote(string note)
+    public RecipeInstructionEntity(long id)
+        : base(id)
+    {
+    }
+
+    public void SetNote(string note)
     {
         Note = note;
-        return this;
     }
 
-    public RecipeInstructionEntity SetOrderIndex(short orderIndex)
+    public void SetOrderIndex(short orderIndex)
     {
         OrderIndex = orderIndex;
-        return this;
     }
 }
