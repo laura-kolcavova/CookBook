@@ -54,6 +54,8 @@ if (app.Environment.IsDevelopment())
     {
         options.SwaggerEndpoint("/.less-known/api-docs/v1.json", "v1");
         options.RoutePrefix = ".less-known/api-docs/ui";
+        options.ConfigObject.Filter = string.Empty;
+        options.ConfigObject.TryItOutEnabled = true;
     });
 }
 

@@ -4,7 +4,7 @@ using CookBook.Recipes.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CookBook.Recipes.Persistence.EntityTypeConfigurations;
+namespace CookBook.Recipes.Persistence.Recipes;
 internal class RecipeEntityTypeConfiguration : IEntityTypeConfiguration<RecipeAggregate>
 {
     public void Configure(EntityTypeBuilder<RecipeAggregate> builder)

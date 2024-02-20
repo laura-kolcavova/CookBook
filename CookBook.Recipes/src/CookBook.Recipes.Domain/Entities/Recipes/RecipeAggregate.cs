@@ -94,17 +94,17 @@ public class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 
     public void SaveInstructions(SaveInstructionsParameters saveInstructionsParameters)
     {
-        _ingredients.Clear();
+        _instructions.Clear();
 
         short orderIndex = 10;
         foreach (var instructionParameters in saveInstructionsParameters.Instructions)
         {
-            var ingredient = new RecipeIngredientEntity(instructionParameters.Id);
+            var instruction = new RecipeInstructionEntity(instructionParameters.Id);
 
-            ingredient.SetNote(instructionParameters.Note);
-            ingredient.SetOrderIndex(orderIndex);
+            instruction.SetNote(instructionParameters.Note);
+            instruction.SetOrderIndex(orderIndex);
 
-            _ingredients.Add(ingredient);
+            _instructions.Add(instruction);
 
             orderIndex++;
         }

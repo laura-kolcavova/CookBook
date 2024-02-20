@@ -15,9 +15,18 @@ internal static class ApiServicesInstallation
             .AddSwaggerExamplesFromAssemblyOf<Program>()
             .AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = applicationName, Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = applicationName,
+                    Version = "v1"
+                });
+
                 options.ExampleFilters();
-                options.CustomSchemaIds(x => x.FullName?.Replace("Dto", string.Empty));
+                options.SupportNonNullableReferenceTypes();
+
+                options.CustomSchemaIds(x => x.FullName?
+                    .Replace("Dto", string.Empty)
+                    .Replace("+", "."));
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "CookBook.Recipes.*.xml", SearchOption.TopDirectoryOnly).ToList();

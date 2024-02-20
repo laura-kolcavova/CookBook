@@ -4,14 +4,14 @@ using CookBook.Recipes.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CookBook.Recipes.Persistence.EntityTypeConfigurations;
+namespace CookBook.Recipes.Persistence.Recipes;
 
-internal class RecipeIngredientEntityTypeConfiguration : IEntityTypeConfiguration<RecipeIngredientEntity>
+internal class RecipeInstructionEntityTypeConfiguration : IEntityTypeConfiguration<RecipeInstructionEntity>
 {
-    public void Configure(EntityTypeBuilder<RecipeIngredientEntity> builder)
+    public void Configure(EntityTypeBuilder<RecipeInstructionEntity> builder)
     {
         builder
-            .ToTable(nameof(RecipesContext.RecipeIngredients), RecipesContext.Schema);
+            .ToTable(nameof(RecipesContext.RecipeInstructions), RecipesContext.Schema);
 
         builder
             .HasKey(e => e.Id);
@@ -22,7 +22,7 @@ internal class RecipeIngredientEntityTypeConfiguration : IEntityTypeConfiguratio
 
         builder
             .Property(e => e.Note)
-            .HasMaxLength(256)
+            .HasMaxLength(1024)
             .IsRequired();
 
         builder
