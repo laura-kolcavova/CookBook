@@ -1,6 +1,6 @@
 ﻿using CookBook.Recipes.Domain.Entities.Recipes;
 using CookBook.Recipes.Infrastructure.Common;
-using CookBook.Recipes.Persistence.EntityTypeConfigurations;
+using CookBook.Recipes.Persistence.Recipes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

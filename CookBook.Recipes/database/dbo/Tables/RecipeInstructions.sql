@@ -3,7 +3,7 @@
     [Id]                BIGINT IDENTITY(1, 1) NOT NULL,
     [RecipeId]          BIGINT NOT NULL,
     [Note]              NVARCHAR(1024) NOT NULL,
-    [OrderIndex]        TINYINT NOT NULL DEFAULT 0,
+    [OrderIndex]        SMALLINT NOT NULL DEFAULT 0,
     [DateCreatedAt]     DATETIMEOFFSET DEFAULT SYSDATETIMEOFFSET(),
     [DateUpdatedAt]     DATETIMEOFFSET,
 

@@ -6,6 +6,8 @@ namespace CookBook.Recipes.Application.Features.Recipes.SaveRecipe;
 
 public record SaveRecipeCommand : IRequest<Result<long, ExpectedError>>
 {
+    public required long RecipeId { get; init; }
+
     public required int UserId { get; init; }
 
     public required string Title { get; init; }

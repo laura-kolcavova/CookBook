@@ -2,6 +2,8 @@
 
 internal sealed record SaveRecipeRequestDto
 {
+    public required long RecipeId { get; init; }
+
     public required int UserId { get; init; }
 
     public required string Title { get; init; }

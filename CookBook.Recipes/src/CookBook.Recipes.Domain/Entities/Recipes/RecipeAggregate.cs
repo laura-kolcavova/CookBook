@@ -76,37 +76,71 @@ public class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 
     public void SaveIngredients(SaveIngredientsParameters saveIngredientsParameters)
     {
-        _ingredients.Clear();
-
+        var newIngredients = new List<RecipeIngredientEntity>();
         short orderIndex = 10;
-        foreach (var ingredientParameters in saveIngredientsParameters.Ingredients)
-        {
-            var ingredient = new RecipeIngredientEntity(ingredientParameters.Id);
 
-            ingredient.SetNote(ingredientParameters.Note);
+        foreach (var ingredientParameter in saveIngredientsParameters.Ingredients)
+        {
+            var ingredient = GetOrCreateIngredient(ingredientParameter.Id);
+
+            ingredient.SetNote(ingredientParameter.Note);
             ingredient.SetOrderIndex(orderIndex);
 
-            _ingredients.Add(ingredient);
+            newIngredients.Add(ingredient);
 
-            orderIndex++;
+            orderIndex += 10;
         }
+
+        _ingredients.Clear();
+        _ingredients.AddRange(newIngredients);
     }
 
     public void SaveInstructions(SaveInstructionsParameters saveInstructionsParameters)
     {
-        _instructions.Clear();
-
+        var newInstructions = new List<RecipeInstructionEntity>();
         short orderIndex = 10;
-        foreach (var instructionParameters in saveInstructionsParameters.Instructions)
-        {
-            var instruction = new RecipeInstructionEntity(instructionParameters.Id);
 
-            instruction.SetNote(instructionParameters.Note);
+        foreach (var instructionParameter in saveInstructionsParameters.Instructions)
+        {
+            var instruction = GetOrCreateInstruction(instructionParameter.Id);
+
+            instruction.SetNote(instructionParameter.Note);
             instruction.SetOrderIndex(orderIndex);
 
-            _instructions.Add(instruction);
+            newInstructions.Add(instruction);
 
-            orderIndex++;
+            orderIndex += 10;
         }
+
+        _instructions.Clear();
+        _instructions.AddRange(newInstructions);
+    }
+
+    private RecipeIngredientEntity GetOrCreateIngredient(long ingredientId)
+    {
+        var ingredient = ingredientId <= 0
+            ? null
+            : _ingredients.FirstOrDefault(ingredient => ingredient.Id == ingredientId);
+
+        if (ingredient is null)
+        {
+            return new RecipeIngredientEntity();
+        }
+
+        return ingredient;
+    }
+
+    private RecipeInstructionEntity GetOrCreateInstruction(long instructionId)
+    {
+        var instruction = instructionId <= 0
+            ? null
+            : _instructions.FirstOrDefault(instruction => instruction.Id == instructionId);
+
+        if (instruction is null)
+        {
+            return new RecipeInstructionEntity();
+        }
+
+        return instruction;
     }
 }
