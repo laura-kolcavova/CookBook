@@ -4,7 +4,7 @@ namespace CookBook.Recipes.Domain.Entities.Recipes;
 
 public class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 {
-    public int UserId { get; private set; }
+    public int UserId { get; }
 
     public string Title { get; private set; }
 
@@ -76,37 +76,71 @@ public class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 
     public void SaveIngredients(SaveIngredientsParameters saveIngredientsParameters)
     {
-        _ingredients.Clear();
-
+        var newIngredients = new List<RecipeIngredientEntity>();
         short orderIndex = 10;
-        foreach (var ingredientParameters in saveIngredientsParameters.Ingredients)
-        {
-            var ingredient = new RecipeIngredientEntity(ingredientParameters.Id);
 
-            ingredient.SetNote(ingredientParameters.Note);
+        foreach (var ingredientParameter in saveIngredientsParameters.Ingredients)
+        {
+            var ingredient = GetOrCreateIngredient(ingredientParameter.Id);
+
+            ingredient.SetNote(ingredientParameter.Note);
             ingredient.SetOrderIndex(orderIndex);
 
-            _ingredients.Add(ingredient);
+            newIngredients.Add(ingredient);
 
-            orderIndex++;
+            orderIndex += 10;
         }
+
+        _ingredients.Clear();
+        _ingredients.AddRange(newIngredients);
     }
 
     public void SaveInstructions(SaveInstructionsParameters saveInstructionsParameters)
     {
-        _ingredients.Clear();
-
+        var newInstructions = new List<RecipeInstructionEntity>();
         short orderIndex = 10;
-        foreach (var instructionParameters in saveInstructionsParameters.Instructions)
+
+        foreach (var instructionParameter in saveInstructionsParameters.Instructions)
         {
-            var ingredient = new RecipeIngredientEntity(instructionParameters.Id);
+            var instruction = GetOrCreateInstruction(instructionParameter.Id);
 
-            ingredient.SetNote(instructionParameters.Note);
-            ingredient.SetOrderIndex(orderIndex);
+            instruction.SetNote(instructionParameter.Note);
+            instruction.SetOrderIndex(orderIndex);
 
-            _ingredients.Add(ingredient);
+            newInstructions.Add(instruction);
 
-            orderIndex++;
+            orderIndex += 10;
         }
+
+        _instructions.Clear();
+        _instructions.AddRange(newInstructions);
+    }
+
+    private RecipeIngredientEntity GetOrCreateIngredient(long ingredientId)
+    {
+        var ingredient = ingredientId <= 0
+            ? null
+            : _ingredients.FirstOrDefault(ingredient => ingredient.Id == ingredientId);
+
+        if (ingredient is null)
+        {
+            return new RecipeIngredientEntity();
+        }
+
+        return ingredient;
+    }
+
+    private RecipeInstructionEntity GetOrCreateInstruction(long instructionId)
+    {
+        var instruction = instructionId <= 0
+            ? null
+            : _instructions.FirstOrDefault(instruction => instruction.Id == instructionId);
+
+        if (instruction is null)
+        {
+            return new RecipeInstructionEntity();
+        }
+
+        return instruction;
     }
 }

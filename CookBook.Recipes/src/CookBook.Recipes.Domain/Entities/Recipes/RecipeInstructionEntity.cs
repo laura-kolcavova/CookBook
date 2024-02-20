@@ -18,11 +18,6 @@ public class RecipeInstructionEntity : Entity<long>, ITrackableEntity
     {
     }
 
-    public RecipeInstructionEntity(long id)
-        : base(id)
-    {
-    }
-
     public void SetNote(string note)
     {
         Note = note;

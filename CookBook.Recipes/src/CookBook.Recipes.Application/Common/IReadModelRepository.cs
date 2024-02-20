@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 namespace CookBook.Recipes.Application.Common;
 
 public interface IReadModelRepository<TReadModel, TPrimaryKey>
-    where TReadModel : class, IReadModel
+    where TReadModel : class, IReadModel<TPrimaryKey>
 {
     ValueTask<TReadModel?> GetOneAsync(
         TPrimaryKey primaryKey,

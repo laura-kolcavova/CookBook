@@ -4,10 +4,10 @@ using CookBook.Recipes.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CookBook.Recipes.Persistence.EntityTypeConfigurations;
-internal class RecipeEntityTypeConfiguration : IEntityTypeConfiguration<RecipeEntity>
+namespace CookBook.Recipes.Persistence.Recipes;
+internal class RecipeEntityTypeConfiguration : IEntityTypeConfiguration<RecipeAggregate>
 {
-    public void Configure(EntityTypeBuilder<RecipeEntity> builder)
+    public void Configure(EntityTypeBuilder<RecipeAggregate> builder)
     {
         builder
             .ToTable(nameof(RecipesContext.Recipes), RecipesContext.Schema);

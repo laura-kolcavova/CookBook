@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 namespace CookBook.Recipes.Application.Common;
 
 public interface IAggregateRootRepository<TAggregateRoot, TPrimaryKey>
-    where TAggregateRoot : class, IAggregateRoot
+    where TAggregateRoot : class, IAggregateRoot<TPrimaryKey>
 {
     ValueTask<TAggregateRoot?> GetOneAsync(
        TPrimaryKey primaryKey,

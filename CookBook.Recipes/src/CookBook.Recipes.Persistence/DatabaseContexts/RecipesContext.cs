@@ -1,6 +1,6 @@
 ﻿using CookBook.Recipes.Domain.Entities.Recipes;
 using CookBook.Recipes.Infrastructure.Common;
-using CookBook.Recipes.Persistence.EntityTypeConfigurations;
+using CookBook.Recipes.Persistence.Recipes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -10,7 +10,7 @@ internal class RecipesContext : TrackableDbContext
 {
     public const string Schema = "dbo";
 
-    public DbSet<RecipeEntity> Recipes => Set<RecipeEntity>();
+    public DbSet<RecipeAggregate> Recipes => Set<RecipeAggregate>();
 
     public DbSet<RecipeIngredientEntity> RecipeIngredients => Set<RecipeIngredientEntity>();
 

@@ -1,10 +1,6 @@
-﻿using CookBook.Extensions.CSharpExtended.Errors;
-using CSharpFunctionalExtensions;
-using MediatR;
+﻿namespace CookBook.Recipes.Api.Features.Recipes.SaveRecipe;
 
-namespace CookBook.Recipes.Application.Features.Recipes.SaveRecipe;
-
-public record SaveRecipeCommand : IRequest<Result<long, ExpectedError>>
+internal sealed record SaveRecipeRequestDto
 {
     public required long RecipeId { get; init; }
 

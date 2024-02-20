@@ -77,7 +77,7 @@ internal class RecipeRepository : IRecipeRepository
     public async ValueTask<RecipeAggregate?> GetOneAsync(long primaryKey, CancellationToken cancellationToken = default)
     {
         var recipe = await _dbSet
-            .FindAsync(primaryKey, cancellationToken);
+            .FindAsync(new object?[] { primaryKey, cancellationToken }, cancellationToken: cancellationToken);
 
         if (recipe is not null)
         {

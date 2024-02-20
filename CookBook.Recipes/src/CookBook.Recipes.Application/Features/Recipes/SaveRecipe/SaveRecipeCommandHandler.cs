@@ -23,14 +23,17 @@ internal class SaveRecipeCommandHandler : IRequestHandler<SaveRecipeCommand, Res
     {
         using var loggerScope = _logger.BeginScope(new Dictionary<string, object>
         {
+            ["RecipeId"] = request.RecipeId,
             ["UserId"] = request.UserId,
             ["Title"] = request.Title,
         });
 
         try
         {
-            var recipe = await _recipeRepository
-                .GetOneAsync(request.UserId, cancellationToken);
+            var recipe = request.RecipeId <= 0
+                ? null
+                : await _recipeRepository
+                .GetOneAsync(request.RecipeId, cancellationToken);
 
             if (recipe is null)
             {

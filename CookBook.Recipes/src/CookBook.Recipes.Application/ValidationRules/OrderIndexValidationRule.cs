@@ -4,7 +4,7 @@ namespace CookBook.Recipes.Application.ValidationRules;
 
 public static class OrderIndexValidationRule
 {
-    public static IRuleBuilderOptionsConditions<T, short> OrderIndex<T, TElement>(this IRuleBuilder<T, short> ruleBuilder)
+    public static IRuleBuilderOptionsConditions<T, short> OrderIndex<T>(this IRuleBuilder<T, short> ruleBuilder)
     {
         return ruleBuilder.Custom((value, context) =>
         {

@@ -5,9 +5,9 @@
     [Title]             NVARCHAR(256) NOT NULL,
     [Description]       NVARCHAR(1024),
     [Notes]             NVARCHAR(1024),
-    [Servings]          TINYINT NOT NULL DEFAULT 0,
-    [PreparationTime]   TINYINT NOT NULL DEFAULT 0,
-    [CookTime]          TINYINT NOT NULL DEFAULT 0,
+    [Servings]          SMALLINT NOT NULL DEFAULT 0,
+    [PreparationTime]   SMALLINT NOT NULL DEFAULT 0,
+    [CookTime]          SMALLINT NOT NULL DEFAULT 0,
     [DateCreatedAt]     DATETIMEOFFSET DEFAULT SYSDATETIMEOFFSET(),
     [DateUpdatedAt]     DATETIMEOFFSET,
 

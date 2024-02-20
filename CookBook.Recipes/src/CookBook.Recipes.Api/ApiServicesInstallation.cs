@@ -4,40 +4,35 @@ using Opw.HttpExceptions.AspNetCore;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
-namespace CookBook.Recipes.Api.Extensions;
+namespace CookBook.Recipes.Api;
 
-public static class ServiceCollectionExtensions
+internal static class ApiServicesInstallation
 {
-    public static IServiceCollection InstallDbServices(this IServiceCollection services, string cookBookRecipesConnectionString)
-    {
-        services
-            .AddHealthChecks()
-            .AddSqlServer(cookBookRecipesConnectionString, name: "CookBookRecipes_DB", tags: new[] { "readiness" });
-
-        return services;
-    }
-
-    public static IServiceCollection InstallSwaggerServices(this IServiceCollection services, string applicationName)
+    public static IServiceCollection InstallApiServices(this IServiceCollection services, string applicationName)
     {
         services
             .AddEndpointsApiExplorer()
             .AddSwaggerExamplesFromAssemblyOf<Program>()
             .AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = applicationName, Version = "v1" });
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = applicationName,
+                    Version = "v1"
+                });
+
                 options.ExampleFilters();
-                options.CustomSchemaIds(x => x.FullName?.Replace("Dto", string.Empty));
+                options.SupportNonNullableReferenceTypes();
+
+                options.CustomSchemaIds(x => x.FullName?
+                    .Replace("Dto", string.Empty)
+                    .Replace("+", "."));
 
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "CookBook.Recipes.*.xml", SearchOption.TopDirectoryOnly).ToList();
                 xmlFiles.ForEach(xmlFile => options.IncludeXmlComments(xmlFile));
             });
 
-        return services;
-    }
-
-    public static IServiceCollection InstallApiServices(this IServiceCollection services)
-    {
         //services
         //    .AddAuthentication(options =>
         //    {
@@ -64,13 +59,23 @@ public static class ServiceCollectionExtensions
                 // Only log the when it has a status code of 500 or higher, or when it not is a HttpException.
                 options.ShouldLogException = exception =>
                 {
-                    return (exception is HttpExceptionBase httpException &&
-                        (int)httpException.StatusCode >= 500) ||
+                    return exception is HttpExceptionBase httpException &&
+                        (int)httpException.StatusCode >= 500 ||
                         exception is not HttpExceptionBase;
                 };
             });
 
-        services.AddProblemDetails();
+        services
+            .AddProblemDetails();
+
+        return services;
+    }
+
+    public static IServiceCollection InstallDbServices(this IServiceCollection services, string cookBookRecipesConnectionString)
+    {
+        services
+            .AddHealthChecks()
+            .AddSqlServer(cookBookRecipesConnectionString, name: "CookBookRecipes_DB", tags: new[] { "readiness" });
 
         return services;
     }
