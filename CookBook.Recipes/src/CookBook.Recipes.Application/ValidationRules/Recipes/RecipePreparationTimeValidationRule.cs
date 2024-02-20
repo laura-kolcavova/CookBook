@@ -4,7 +4,7 @@ namespace CookBook.Recipes.Application.ValidationRules.Recipes;
 
 public static class RecipePreparationTimeValidationRule
 {
-    public static IRuleBuilderOptionsConditions<T, short> RecipePreparationTime<T, TElement>(this IRuleBuilder<T, short> ruleBuilder)
+    public static IRuleBuilderOptionsConditions<T, short> RecipePreparationTime<T>(this IRuleBuilder<T, short> ruleBuilder)
     {
         return ruleBuilder.Custom((value, context) =>
         {

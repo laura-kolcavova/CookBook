@@ -4,7 +4,7 @@ namespace CookBook.Recipes.Domain.Entities.Recipes;
 
 public class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 {
-    public int UserId { get; private set; }
+    public int UserId { get; }
 
     public string Title { get; private set; }
 

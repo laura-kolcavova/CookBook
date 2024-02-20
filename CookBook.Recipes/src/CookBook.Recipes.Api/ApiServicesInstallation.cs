@@ -4,20 +4,11 @@ using Opw.HttpExceptions.AspNetCore;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
-namespace CookBook.Recipes.Api.Extensions;
+namespace CookBook.Recipes.Api;
 
-public static class ServiceCollectionExtensions
+internal static class ApiServicesInstallation
 {
-    public static IServiceCollection InstallDbServices(this IServiceCollection services, string cookBookRecipesConnectionString)
-    {
-        services
-            .AddHealthChecks()
-            .AddSqlServer(cookBookRecipesConnectionString, name: "CookBookRecipes_DB", tags: new[] { "readiness" });
-
-        return services;
-    }
-
-    public static IServiceCollection InstallSwaggerServices(this IServiceCollection services, string applicationName)
+    public static IServiceCollection InstallApiServices(this IServiceCollection services, string applicationName)
     {
         services
             .AddEndpointsApiExplorer()
@@ -33,11 +24,6 @@ public static class ServiceCollectionExtensions
                 xmlFiles.ForEach(xmlFile => options.IncludeXmlComments(xmlFile));
             });
 
-        return services;
-    }
-
-    public static IServiceCollection InstallApiServices(this IServiceCollection services)
-    {
         //services
         //    .AddAuthentication(options =>
         //    {
@@ -64,13 +50,23 @@ public static class ServiceCollectionExtensions
                 // Only log the when it has a status code of 500 or higher, or when it not is a HttpException.
                 options.ShouldLogException = exception =>
                 {
-                    return (exception is HttpExceptionBase httpException &&
-                        (int)httpException.StatusCode >= 500) ||
+                    return exception is HttpExceptionBase httpException &&
+                        (int)httpException.StatusCode >= 500 ||
                         exception is not HttpExceptionBase;
                 };
             });
 
-        services.AddProblemDetails();
+        services
+            .AddProblemDetails();
+
+        return services;
+    }
+
+    public static IServiceCollection InstallDbServices(this IServiceCollection services, string cookBookRecipesConnectionString)
+    {
+        services
+            .AddHealthChecks()
+            .AddSqlServer(cookBookRecipesConnectionString, name: "CookBookRecipes_DB", tags: new[] { "readiness" });
 
         return services;
     }

@@ -4,7 +4,7 @@ namespace CookBook.Recipes.Application.ValidationRules.Recipes;
 
 public static class RecipeNotesValidationRule
 {
-    public static IRuleBuilderOptionsConditions<T, string?> RecipeNotes<T, TElement>(this IRuleBuilder<T, string?> ruleBuilder)
+    public static IRuleBuilderOptionsConditions<T, string?> RecipeNotes<T>(this IRuleBuilder<T, string?> ruleBuilder)
     {
         return ruleBuilder.Custom((value, context) =>
         {

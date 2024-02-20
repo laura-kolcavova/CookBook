@@ -1,8 +1,8 @@
 using CookBook.Extensions.AspNetCore.Filters;
 using CookBook.Extensions.Configuration.SqlServer;
+using CookBook.Recipes.Api;
 using CookBook.Recipes.Api.Configuration;
-using CookBook.Recipes.Api.Endpoints;
-using CookBook.Recipes.Api.Extensions;
+using CookBook.Recipes.Application;
 using CookBook.Recipes.Persistence;
 using Opw.HttpExceptions.AspNetCore;
 
@@ -28,9 +28,9 @@ services
 
 services
     .InstallDbServices(cookBookRecipesConnectionString)
-    .InstallSwaggerServices(builder.Environment.ApplicationName)
-    .InstallApiServices()
-    .InstallPersistenceServices(cookBookRecipesConnectionString, isDevelopment);
+    .InstallApiServices(builder.Environment.ApplicationName)
+    .InstallPersistenceServices(cookBookRecipesConnectionString, isDevelopment)
+    .InstallApplicationServices();
 
 var app = builder.Build();
 

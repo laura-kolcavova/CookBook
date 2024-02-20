@@ -10,7 +10,7 @@ internal class RecipesContext : TrackableDbContext
 {
     public const string Schema = "dbo";
 
-    public DbSet<RecipeEntity> Recipes => Set<RecipeEntity>();
+    public DbSet<RecipeAggregate> Recipes => Set<RecipeAggregate>();
 
     public DbSet<RecipeIngredientEntity> RecipeIngredients => Set<RecipeIngredientEntity>();
 
