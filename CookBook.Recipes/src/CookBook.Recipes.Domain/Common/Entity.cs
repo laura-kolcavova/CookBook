@@ -4,11 +4,6 @@ public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>, IEquatable<Ent
 {
     public TPrimaryKey Id { get; }
 
-    protected Entity(TPrimaryKey id)
-    {
-        Id = id;
-    }
-
     protected Entity()
     {
         Id = default!;
