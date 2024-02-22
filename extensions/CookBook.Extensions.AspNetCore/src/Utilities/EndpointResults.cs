@@ -92,9 +92,8 @@ public static class EndpointResults
 
         return TypedResults.ValidationProblem(
             errors: validationErrors.ToDictionary(k => k.Key, v => v.Value.ToArray()),
-            detail: "Please refer to the errors property for additional details",
             instance: httpContext.Request.Path,
             title: "One or more validation errors occurred.",
-            type: "https://httpwg.org/specs/rfc9110.html#status.400");
+            type: "https://tools.ietf.org/html/rfc7231#section-6.5.1");
     }
 }

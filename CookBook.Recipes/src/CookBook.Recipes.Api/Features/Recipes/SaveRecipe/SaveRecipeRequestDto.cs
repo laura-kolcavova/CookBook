@@ -16,11 +16,11 @@ internal sealed record SaveRecipeRequestDto
 
     public required short ServingsTime { get; init; }
 
+    public required string? Notes { get; init; }
+
     public required IReadOnlyCollection<IngredientItem> Ingredients { get; init; }
 
     public required IReadOnlyCollection<InstructionItem> Instructions { get; init; }
-
-    public required string? Notes { get; init; }
 
     public record IngredientItem
     {
