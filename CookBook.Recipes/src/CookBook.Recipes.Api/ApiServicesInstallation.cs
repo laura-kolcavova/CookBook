@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using CookBook.Extensions.AspNetCore.Extensions;
+using Microsoft.OpenApi.Models;
 using Opw.HttpExceptions;
 using Opw.HttpExceptions.AspNetCore;
 using Swashbuckle.AspNetCore.Filters;
@@ -66,7 +67,8 @@ internal static class ApiServicesInstallation
             });
 
         services
-            .AddProblemDetails();
+        .AddProblemDetails()
+        .AddInternalOrPublicValidators(typeof(Program).Assembly, ServiceLifetime.Singleton);
 
         return services;
     }

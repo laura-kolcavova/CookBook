@@ -1,4 +1,4 @@
-using CookBook.Extensions.AspNetCore.Filters;
+using CookBook.Extensions.AspNetCore.EndpointFilters;
 using CookBook.Extensions.Configuration.SqlServer;
 using CookBook.Recipes.Api;
 using CookBook.Recipes.Api.Configuration;
@@ -62,6 +62,7 @@ if (app.Environment.IsDevelopment())
 app
     .AddEndpoints()
     .AddEndpointFilter<OperationCanceledExceptionFilter>()
+    .AddEndpointFilter<FluentValidationEndpointFilter>()
     .WithOpenApi();
 
 app.Run();

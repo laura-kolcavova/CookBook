@@ -37,5 +37,4 @@ public static class IQueryableExtensions
 
         return queryable.OrderBy(sb.ToString());
     }
-
 }
