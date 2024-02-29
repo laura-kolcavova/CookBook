@@ -1,6 +1,7 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
 
-namespace CookBook.Recipes.Domain.Entities.Recipes;
+namespace CookBook.Recipes.Domain.Recipes;
+
 public static class RecipeErrors
 {
     private const string prefix = "Recipe";
