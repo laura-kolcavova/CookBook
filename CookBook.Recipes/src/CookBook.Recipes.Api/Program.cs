@@ -4,7 +4,6 @@ using CookBook.Recipes.Api;
 using CookBook.Recipes.Api.Configuration;
 using CookBook.Recipes.Application;
 using CookBook.Recipes.Persistence;
-using Opw.HttpExceptions.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,12 +34,18 @@ services
 var app = builder.Build();
 
 app.UseRouting();
-app.UseHttpExceptions();
 
+
+if (!isDevelopment)
+{
+    app.UseExceptionHandler();
+}
+
+//app.UseCors();
 //app.UseAuthentication();
 //app.UseAuthorization();
 
-if (app.Environment.IsDevelopment())
+if (isDevelopment)
 {
     app.UseSwagger(options =>
     {

@@ -3,7 +3,6 @@ using CookBook.Recipes.Api.Features.Shared.Dto;
 using CookBook.Recipes.Application.Common.Filtering;
 using CookBook.Recipes.Application.Features.Recipes.SearchRecipes;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CookBook.Recipes.Api.Features.Recipes.SearchRecipes;
 
@@ -12,8 +11,8 @@ internal static class SearchRecipesEndpoint
     public static void Configure(RouteGroupBuilder recipesGroup)
     {
         recipesGroup
-            .MapPost(string.Empty, HandleAsync)
-            .WithName("SearchRecipe")
+            .MapGet(string.Empty, HandleAsync)
+            .WithName("SearchRecipes")
             .WithSummary("Search for existing recipes")
             .WithDescription("This endpoint returns a DTO containing a collection of recipe listing item DTOs.")
             .Produces<SearchRecipesEndpointResponse>(StatusCodes.Status200OK)
@@ -22,16 +21,20 @@ internal static class SearchRecipesEndpoint
     }
 
     private static async Task<IResult> HandleAsync(
-        [FromQuery] OffsetFilterRequestDto? offsetFilterRequest,
+        [AsParameters]
+        OffsetFilterRequestDto offsetFilterRequest,
         IMediator mediator,
         HttpContext httpContext,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken
+        )
     {
-        var offsetFilter = offsetFilterRequest != null
+        var offsetFilter =
+            offsetFilterRequest.Limit is not null ||
+            offsetFilterRequest.Offset is not null
             ? new OffsetFilter
             {
                 Offset = offsetFilterRequest.Offset ?? 0,
-                Limit = offsetFilterRequest.Limit ?? int.MaxValue,
+                Limit = offsetFilterRequest.Limit ?? 100,
             }
             : null;
 

@@ -1,7 +1,5 @@
 ﻿using CookBook.Recipes.Application.Features;
-using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Infrastructure.DatabaseContexts;
-using CookBook.Recipes.Persistence.Common;
 using CookBook.Recipes.Persistence.DatabaseContexts;
 using CookBook.Recipes.Persistence.Recipes;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,12 +30,8 @@ public static class PersistenceServicesInstallation
         //});
 
         services
-            .AddScoped<IRecipeRepository, RecipeRepository>();
-
-        services
-            .AddScoped(
-            typeof(IRecipeListingItemsRepository),
-            typeof(EntityFrameworkReadModelRepository<RecipesReadContext, RecipeListingItemReadModel, long>));
+            .AddScoped<IRecipeRepository, RecipeRepository>()
+            .AddScoped<IRecipeListingItemsRepository, RecipeListingItemsRepository>();
 
         return services;
     }

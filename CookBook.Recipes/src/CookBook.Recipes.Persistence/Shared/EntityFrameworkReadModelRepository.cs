@@ -8,14 +8,14 @@ using System.Linq.Expressions;
 
 namespace CookBook.Recipes.Persistence.Common;
 
-internal class EntityFrameworkReadModelRepository<TDbContext, TReadModel, TPrimaryKey> :
+internal abstract class EntityFrameworkReadModelRepository<TDbContext, TReadModel, TPrimaryKey> :
     IReadModelRepository<TReadModel, TPrimaryKey>
     where TReadModel : class, IReadModel<TPrimaryKey>
     where TDbContext : DbContext
 {
     private readonly DbSet<TReadModel> _readModelSet;
 
-    public EntityFrameworkReadModelRepository(TDbContext dbContext)
+    protected EntityFrameworkReadModelRepository(TDbContext dbContext)
     {
         _readModelSet = dbContext.Set<TReadModel>();
     }
