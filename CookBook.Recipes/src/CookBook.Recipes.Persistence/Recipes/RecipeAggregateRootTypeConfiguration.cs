@@ -1,11 +1,11 @@
-﻿using CookBook.Recipes.Domain.Entities.Recipes;
+﻿using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Infrastructure.DatabaseContexts;
 using CookBook.Recipes.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CookBook.Recipes.Persistence.Recipes;
-internal class RecipeEntityTypeConfiguration : IEntityTypeConfiguration<RecipeAggregate>
+internal class RecipeAggregateRootTypeConfiguration : IEntityTypeConfiguration<RecipeAggregate>
 {
     public void Configure(EntityTypeBuilder<RecipeAggregate> builder)
     {

@@ -2,9 +2,9 @@
 
 namespace CookBook.Recipes.Api.Features.Recipes.RemoveRecipe;
 
-internal class RemoveRecipeRequestDtoValidator : AbstractValidator<RemoveRecipeRequestDto>
+internal class RemoveRecipeRequestValidator : AbstractValidator<RemoveRecipeRequestDto>
 {
-    public RemoveRecipeRequestDtoValidator()
+    public RemoveRecipeRequestValidator()
     {
         RuleFor(request => request.RecipeId)
             .GreaterThanOrEqualTo(0);

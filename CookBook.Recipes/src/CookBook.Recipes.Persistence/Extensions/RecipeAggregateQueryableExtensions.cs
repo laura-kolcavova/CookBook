@@ -1,4 +1,4 @@
-﻿using CookBook.Recipes.Domain.Entities.Recipes;
+﻿using CookBook.Recipes.Domain.Recipes;
 using Microsoft.EntityFrameworkCore;
 
 namespace CookBook.Recipes.Persistence.Extensions;
