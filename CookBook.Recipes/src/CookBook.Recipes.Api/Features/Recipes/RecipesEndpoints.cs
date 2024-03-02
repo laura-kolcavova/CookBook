@@ -1,5 +1,6 @@
 ﻿using CookBook.Recipes.Api.Features.Recipes.RemoveRecipe;
 using CookBook.Recipes.Api.Features.Recipes.SaveRecipe;
+using CookBook.Recipes.Api.Features.Recipes.SearchRecipes;
 
 namespace CookBook.Recipes.Api.Features.Recipes;
 
@@ -13,6 +14,7 @@ internal static class RecipesEndpoints
 
         SaveRecipeEndpoint.Configure(recipesGroup);
         RemoveRecipeEndpoint.Configure(recipesGroup);
+        SearchRecipesEndpoint.Configure(recipesGroup);
 
         return group;
     }

@@ -1,13 +1,13 @@
 ﻿using CookBook.Recipes.Application.Common.Filtering;
 using CookBook.Recipes.Application.Common.Sorting;
-using CookBook.Recipes.Application.Repositories;
-using CookBook.Recipes.Domain.Entities.Recipes;
+using CookBook.Recipes.Application.Features;
+using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Infrastructure.DatabaseContexts;
 using CookBook.Recipes.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace CookBook.Recipes.Persistence.Repositories;
+namespace CookBook.Recipes.Persistence.Recipes;
 
 internal class RecipeRepository : IRecipeRepository
 {

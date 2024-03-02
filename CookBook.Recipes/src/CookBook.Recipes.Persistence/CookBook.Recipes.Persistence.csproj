@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CookBook.Recipes.Application\CookBook.Recipes.Application.csproj" />
+    <ProjectReference Include="..\CookBook.Recipes.Constants\CookBook.Recipes.Constants.csproj" />
     <ProjectReference Include="..\CookBook.Recipes.Domain\CookBook.Recipes.Domain.csproj" />
   </ItemGroup>
 

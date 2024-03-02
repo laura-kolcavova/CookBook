@@ -1,7 +1,5 @@
 ﻿using CookBook.Extensions.AspNetCore.Extensions;
 using Microsoft.OpenApi.Models;
-using Opw.HttpExceptions;
-using Opw.HttpExceptions.AspNetCore;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
@@ -54,16 +52,6 @@ internal static class ApiServicesInstallation
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            })
-            .AddHttpExceptions(options =>
-            {
-                // Only log the when it has a status code of 500 or higher, or when it not is a HttpException.
-                options.ShouldLogException = exception =>
-                {
-                    return exception is HttpExceptionBase httpException &&
-                        (int)httpException.StatusCode >= 500 ||
-                        exception is not HttpExceptionBase;
-                };
             });
 
         services
