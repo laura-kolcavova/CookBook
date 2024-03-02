@@ -1,4 +1,4 @@
-﻿namespace CookBook.Recipes.Domain.Entities.Recipes;
+﻿namespace CookBook.Recipes.Domain.Recipes;
 
 public record SaveIngredientsParameters
 {

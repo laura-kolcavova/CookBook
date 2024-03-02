@@ -1,6 +1,5 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
-using CookBook.Recipes.Application.Repositories;
-using CookBook.Recipes.Domain.Entities.Recipes;
+using CookBook.Recipes.Domain.Recipes;
 using CSharpFunctionalExtensions;
 using MediatR;
 using Microsoft.Extensions.Logging;

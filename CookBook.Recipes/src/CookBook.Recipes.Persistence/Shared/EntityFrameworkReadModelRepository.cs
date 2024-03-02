@@ -8,23 +8,32 @@ using System.Linq.Expressions;
 
 namespace CookBook.Recipes.Persistence.Common;
 
-internal class EntityFrameworkReadModelRepository<TDbContext, TReadModel, TPrimaryKey> : IReadModelRepository<TReadModel, TPrimaryKey>
+internal abstract class EntityFrameworkReadModelRepository<TDbContext, TReadModel, TPrimaryKey> :
+    IReadModelRepository<TReadModel, TPrimaryKey>
     where TReadModel : class, IReadModel<TPrimaryKey>
     where TDbContext : DbContext
 {
     private readonly DbSet<TReadModel> _readModelSet;
 
-    public EntityFrameworkReadModelRepository(TDbContext dbContext)
+    protected EntityFrameworkReadModelRepository(TDbContext dbContext)
     {
         _readModelSet = dbContext.Set<TReadModel>();
     }
 
-    public async Task<IEnumerable<TReadModel>> GetAllAsync(
+    public async Task<IReadOnlyCollection<TReadModel>> GetAllAsync(
         IReadOnlyCollection<SortBy>? sorting,
+        OffsetFilter? offsetFilter,
         CancellationToken cancellationToken = default)
     {
         var queryable = _readModelSet
             .AsNoTracking();
+
+        if (offsetFilter is not null)
+        {
+            queryable = queryable
+                .Skip(offsetFilter.Offset)
+                .Take(offsetFilter.Limit);
+        }
 
         if (sorting is not null)
         {
@@ -52,7 +61,7 @@ internal class EntityFrameworkReadModelRepository<TDbContext, TReadModel, TPrima
             .SingleOrDefaultAsync(filter, cancellationToken);
     }
 
-    public async Task<IEnumerable<TReadModel>> GetManyAsync(
+    public async Task<IReadOnlyCollection<TReadModel>> GetManyAsync(
         Expression<Func<TReadModel, bool>> filter,
         OffsetFilter? offsetFilter = null,
         IReadOnlyCollection<SortBy>? sorting = null,

@@ -1,6 +1,6 @@
 ﻿using CookBook.Recipes.Domain.Common;
 
-namespace CookBook.Recipes.Domain.Entities.Recipes;
+namespace CookBook.Recipes.Domain.Recipes;
 
 public class RecipeIngredientEntity : Entity<long>, ITrackableEntity
 {

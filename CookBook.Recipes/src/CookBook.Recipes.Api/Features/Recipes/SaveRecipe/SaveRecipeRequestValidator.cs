@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace CookBook.Recipes.Api.Features.Recipes.SaveRecipe;
 
-internal class SaveRecipeRequestDtoValidator : AbstractValidator<SaveRecipeRequestDto>
+internal class SaveRecipeRequestValidator : AbstractValidator<SaveRecipeRequestDto>
 {
-    public SaveRecipeRequestDtoValidator()
+    public SaveRecipeRequestValidator()
     {
         RuleFor(request => request.RecipeId)
             .GreaterThanOrEqualTo(0);
