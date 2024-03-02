@@ -1,7 +1,7 @@
 ﻿using CookBook.Recipes.Application.Common;
-using CookBook.Recipes.Domain.Entities.Recipes;
+using CookBook.Recipes.Domain.Recipes;
 
-namespace CookBook.Recipes.Application.Repositories;
+namespace CookBook.Recipes.Application.Features;
 
 public interface IRecipeRepository : IAggregateRootRepository<RecipeAggregate, long>
 {

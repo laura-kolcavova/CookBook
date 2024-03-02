@@ -1,28 +1,23 @@
 ﻿using CookBook.Recipes.Domain.Recipes;
-using CookBook.Recipes.Infrastructure.Common;
 using CookBook.Recipes.Persistence.Recipes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.Recipes.Infrastructure.DatabaseContexts;
+namespace CookBook.Recipes.Persistence.DatabaseContexts;
 
-internal class RecipesContext : TrackableDbContext
+internal class RecipesReadContext : DbContext
 {
     public const string Schema = "dbo";
 
-    public DbSet<RecipeAggregate> Recipes => Set<RecipeAggregate>();
-
-    public DbSet<RecipeIngredientEntity> RecipeIngredients => Set<RecipeIngredientEntity>();
-
-    public DbSet<RecipeInstructionEntity> RecipeInstructions => Set<RecipeInstructionEntity>();
+    public DbSet<RecipeListingItemReadModel> RecipeListingItemsView => Set<RecipeListingItemReadModel>();
 
     private readonly string _connectionString;
 
     private readonly bool _useDevelopmentLogging;
 
-    public RecipesContext(
-        string connectionString,
-        bool useDevelopmentLogging)
+    public RecipesReadContext(
+       string connectionString,
+       bool useDevelopmentLogging)
     {
         _connectionString = connectionString;
         _useDevelopmentLogging = useDevelopmentLogging;
@@ -44,9 +39,7 @@ internal class RecipesContext : TrackableDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new RecipeAggregateRootTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new RecipeIngredientEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new RecipeInstructionEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new RecipeListingItemReadModelTypeConfiguration());
     }
 
     private static ILoggerFactory CreateLoggerFactory()

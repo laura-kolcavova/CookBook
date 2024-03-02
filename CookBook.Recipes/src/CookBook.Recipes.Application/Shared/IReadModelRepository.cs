@@ -8,21 +8,22 @@ namespace CookBook.Recipes.Application.Common;
 public interface IReadModelRepository<TReadModel, TPrimaryKey>
     where TReadModel : class, IReadModel<TPrimaryKey>
 {
+    Task<IReadOnlyCollection<TReadModel>> GetAllAsync(
+       IReadOnlyCollection<SortBy>? sorting = null,
+       OffsetFilter? offsetFilter = null,
+       CancellationToken cancellationToken = default);
+
+    Task<IReadOnlyCollection<TReadModel>> GetManyAsync(
+        Expression<Func<TReadModel, bool>> filter,
+        OffsetFilter? offsetFilter = null,
+        IReadOnlyCollection<SortBy>? sorting = null,
+        CancellationToken cancellationToken = default);
+
     ValueTask<TReadModel?> GetOneAsync(
         TPrimaryKey primaryKey,
         CancellationToken cancellationToken = default);
 
     Task<TReadModel?> GetOneAsync(
         Expression<Func<TReadModel, bool>> filter,
-        CancellationToken cancellationToken = default);
-
-    Task<IEnumerable<TReadModel>> GetManyAsync(
-        Expression<Func<TReadModel, bool>> filter,
-        OffsetFilter? offsetFilter = null,
-        IReadOnlyCollection<SortBy>? sorting = null,
-        CancellationToken cancellationToken = default);
-
-    Task<IEnumerable<TReadModel>> GetAllAsync(
-        IReadOnlyCollection<SortBy>? sorting = null,
         CancellationToken cancellationToken = default);
 }
