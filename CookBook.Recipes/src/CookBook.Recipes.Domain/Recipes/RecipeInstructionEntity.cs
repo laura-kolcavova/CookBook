@@ -1,8 +1,8 @@
-﻿using CookBook.Recipes.Domain.Common;
+﻿using CookBook.Recipes.Domain.Shared;
 
 namespace CookBook.Recipes.Domain.Recipes;
 
-public class RecipeInstructionEntity : Entity<long>, ITrackableEntity
+public sealed class RecipeInstructionEntity : Entity<long>, ITrackableEntity
 {
     public long RecipeId { get; }
 

@@ -1,20 +1,14 @@
 ﻿using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Infrastructure.Common;
-using CookBook.Recipes.Persistence.Recipes;
+using CookBook.Recipes.Persistence.Recipes.EntityTypeConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CookBook.Recipes.Infrastructure.DatabaseContexts;
 
-internal class RecipesContext : TrackableDbContext
+internal sealed class RecipesContext : TrackableDbContext
 {
     public const string Schema = "dbo";
-
-    public DbSet<RecipeAggregate> Recipes => Set<RecipeAggregate>();
-
-    public DbSet<RecipeIngredientEntity> RecipeIngredients => Set<RecipeIngredientEntity>();
-
-    public DbSet<RecipeInstructionEntity> RecipeInstructions => Set<RecipeInstructionEntity>();
 
     private readonly string _connectionString;
 
@@ -27,6 +21,16 @@ internal class RecipesContext : TrackableDbContext
         _connectionString = connectionString;
         _useDevelopmentLogging = useDevelopmentLogging;
     }
+
+    #region Tables
+
+    public DbSet<RecipeAggregate> Recipes => Set<RecipeAggregate>();
+
+    public DbSet<RecipeIngredientEntity> RecipeIngredients => Set<RecipeIngredientEntity>();
+
+    public DbSet<RecipeInstructionEntity> RecipeInstructions => Set<RecipeInstructionEntity>();
+
+    #endregion Tables
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

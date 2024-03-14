@@ -1,6 +1,6 @@
 ﻿using CookBook.Recipes.Application.Common.Filtering;
 using CookBook.Recipes.Application.Common.Sorting;
-using CookBook.Recipes.Domain.Common;
+using CookBook.Recipes.Domain.Shared;
 using System.Linq.Expressions;
 
 namespace CookBook.Recipes.Application.Common;
@@ -16,13 +16,13 @@ public interface IAggregateRootRepository<TAggregateRoot, TPrimaryKey>
         Expression<Func<TAggregateRoot, bool>> filter,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<TAggregateRoot>> GetManyAsync(
+    Task<IReadOnlyCollection<TAggregateRoot>> GetManyAsync(
       Expression<Func<TAggregateRoot, bool>> filter,
       OffsetFilter? offsetFilter = null,
       IReadOnlyCollection<SortBy>? sorting = null,
       CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<TAggregateRoot>> GetAllAsync(
+    Task<IReadOnlyCollection<TAggregateRoot>> GetAllAsync(
         IReadOnlyCollection<SortBy>? sorting = null,
         CancellationToken cancellationToken = default);
 

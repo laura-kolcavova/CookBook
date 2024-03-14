@@ -1,6 +1,6 @@
-﻿namespace CookBook.Recipes.Domain.Common;
+﻿namespace CookBook.Recipes.Domain.Shared;
 
-public interface IReadModel<out TPrimaryKey> : IEntity<TPrimaryKey>
+public interface IReadModel
 {
 }
 
