@@ -1,4 +1,4 @@
-﻿namespace CookBook.Recipes.Domain.Common;
+﻿namespace CookBook.Recipes.Domain.Shared;
 
 public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>, IEquatable<Entity<TPrimaryKey>>
 {

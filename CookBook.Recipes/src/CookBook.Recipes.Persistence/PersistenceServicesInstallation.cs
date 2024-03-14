@@ -1,7 +1,6 @@
-﻿using CookBook.Recipes.Application.Features;
+﻿using CookBook.Recipes.Application.Recipes.Services;
 using CookBook.Recipes.Infrastructure.DatabaseContexts;
-using CookBook.Recipes.Persistence.DatabaseContexts;
-using CookBook.Recipes.Persistence.Recipes;
+using CookBook.Recipes.Persistence.Recipes.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.Recipes.Persistence;
@@ -17,21 +16,10 @@ public static class PersistenceServicesInstallation
             connectionString: connectionString,
             useDevelopmentLogging: isDevelopment));
 
-        services.AddScoped(_ => new RecipesReadContext(
-            connectionString: connectionString,
-            useDevelopmentLogging: isDevelopment));
-
-        //services.AddDbContext<BookCatalogContext>((_, options) =>
-        //{
-        //    options
-        //        .UseSqlServer(connectionString)
-        //        .EnableDetailedErrors(isDevelopment)
-        //        .EnableSensitiveDataLogging(isDevelopment);
-        //});
-
         services
-            .AddScoped<IRecipeRepository, RecipeRepository>()
-            .AddScoped<IRecipeListingItemsRepository, RecipeListingItemsRepository>();
+            .AddScoped<IRecipeService, RecipeService>()
+            .AddScoped<IRecipeListingItemReadModelService, RecipeListingItemReadModelService>()
+            .AddScoped<IRecipeDetailReadModelService, RecipeDetailReadModelService>();
 
         return services;
     }

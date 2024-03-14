@@ -1,4 +1,4 @@
-﻿using CookBook.Recipes.Api.Features.Recipes;
+﻿using CookBook.Recipes.Api.Recipes;
 
 namespace CookBook.Recipes.Api;
 

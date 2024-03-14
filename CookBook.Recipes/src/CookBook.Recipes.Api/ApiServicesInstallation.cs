@@ -1,7 +1,6 @@
 ﻿using CookBook.Extensions.AspNetCore.Extensions;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using System.Text.Json.Serialization;
 
 namespace CookBook.Recipes.Api;
 
@@ -47,12 +46,12 @@ internal static class ApiServicesInstallation
         //    })
         //    .AddClientsRightAsPolicy();
 
-        services
-            .AddControllers()
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
+        //services
+        //    .AddControllers()
+        //    .AddJsonOptions(options =>
+        //    {
+        //        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        //    });
 
         services
         .AddProblemDetails()

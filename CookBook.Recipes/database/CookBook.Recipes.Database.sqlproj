@@ -64,7 +64,6 @@
     <Folder Include="Security\Schemas" />
     <Folder Include="dbo\Tables" />
     <Folder Include="SeedAndPatch\Seed" />
-    <Folder Include="dbo\Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\RecipeIngredients.sql" />
@@ -73,7 +72,6 @@
     <Build Include="Security\Schemas\seed.sql" />
     <None Include="SeedAndPatch\Seed.sql" />
     <Build Include="SeedAndPatch\Seed\SP_Seed_Recipes.sql" />
-    <Build Include="dbo\Views\VW_RecipeListingItemsView.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

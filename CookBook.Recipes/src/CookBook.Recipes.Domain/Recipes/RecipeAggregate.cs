@@ -1,8 +1,9 @@
-﻿using CookBook.Recipes.Domain.Common;
+﻿using CookBook.Recipes.Domain.Recipes.Parameters;
+using CookBook.Recipes.Domain.Shared;
 
 namespace CookBook.Recipes.Domain.Recipes;
 
-public class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
+public sealed class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 {
     public int UserId { get; }
 
@@ -116,9 +117,9 @@ public class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
         _instructions.AddRange(newInstructions);
     }
 
-    private RecipeIngredientEntity GetOrCreateIngredient(long ingredientId)
+    private RecipeIngredientEntity GetOrCreateIngredient(long? ingredientId)
     {
-        var ingredient = ingredientId <= 0
+        var ingredient = ingredientId is null || ingredientId <= 0
             ? null
             : _ingredients.FirstOrDefault(ingredient => ingredient.Id == ingredientId);
 
@@ -130,9 +131,9 @@ public class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
         return ingredient;
     }
 
-    private RecipeInstructionEntity GetOrCreateInstruction(long instructionId)
+    private RecipeInstructionEntity GetOrCreateInstruction(long? instructionId)
     {
-        var instruction = instructionId <= 0
+        var instruction = instructionId is null || instructionId <= 0
             ? null
             : _instructions.FirstOrDefault(instruction => instruction.Id == instructionId);
 

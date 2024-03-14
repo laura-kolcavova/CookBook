@@ -1,4 +1,4 @@
-﻿using CookBook.Recipes.Domain.Common;
+﻿using CookBook.Recipes.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

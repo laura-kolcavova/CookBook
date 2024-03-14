@@ -4,6 +4,7 @@ using CookBook.Recipes.Api;
 using CookBook.Recipes.Api.Configuration;
 using CookBook.Recipes.Application;
 using CookBook.Recipes.Persistence;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,12 @@ var cookBookRecipesConnectionString = configuration
 
 services
     .AddOptions();
+
+services
+    .ConfigureHttpJsonOptions(options =>
+    {
+        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 
 services
     .InstallDbServices(cookBookRecipesConnectionString)

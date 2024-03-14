@@ -1,16 +1,16 @@
 ﻿using CookBook.Recipes.Application.Common;
 using CookBook.Recipes.Application.Common.Filtering;
 using CookBook.Recipes.Application.Common.Sorting;
-using CookBook.Recipes.Domain.Common;
+using CookBook.Recipes.Domain.Shared;
 using CookBook.Recipes.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace CookBook.Recipes.Persistence.Common;
 
-internal abstract class EntityFrameworkReadModelRepository<TDbContext, TReadModel, TPrimaryKey> :
-    IReadModelRepository<TReadModel, TPrimaryKey>
-    where TReadModel : class, IReadModel<TPrimaryKey>
+internal abstract class EntityFrameworkReadModelRepository<TDbContext, TReadModel> :
+    IReadModelRepository<TReadModel>
+    where TReadModel : class, IReadModel
     where TDbContext : DbContext
 {
     private readonly DbSet<TReadModel> _readModelSet;
@@ -28,6 +28,11 @@ internal abstract class EntityFrameworkReadModelRepository<TDbContext, TReadMode
         var queryable = _readModelSet
             .AsNoTracking();
 
+        if (sorting is not null)
+        {
+            queryable.SortBy(sorting);
+        }
+
         if (offsetFilter is not null)
         {
             queryable = queryable
@@ -35,30 +40,8 @@ internal abstract class EntityFrameworkReadModelRepository<TDbContext, TReadMode
                 .Take(offsetFilter.Limit);
         }
 
-        if (sorting is not null)
-        {
-            queryable.SortBy(sorting);
-        }
-
         return await queryable
              .ToListAsync(cancellationToken);
-    }
-
-    public async ValueTask<TReadModel?> GetOneAsync(
-        TPrimaryKey primaryKey,
-        CancellationToken cancellationToken = default)
-    {
-        return await _readModelSet
-            .FindAsync(primaryKey, cancellationToken);
-    }
-
-    public async Task<TReadModel?> GetOneAsync(
-        Expression<Func<TReadModel, bool>> filter,
-        CancellationToken cancellationToken = default)
-    {
-        return await _readModelSet
-            .AsNoTracking()
-            .SingleOrDefaultAsync(filter, cancellationToken);
     }
 
     public async Task<IReadOnlyCollection<TReadModel>> GetManyAsync(
@@ -71,6 +54,12 @@ internal abstract class EntityFrameworkReadModelRepository<TDbContext, TReadMode
             .AsNoTracking()
             .Where(filter);
 
+        if (sorting is not null)
+        {
+            queryable = queryable
+                .SortBy(sorting);
+        }
+
         if (offsetFilter is not null)
         {
             queryable = queryable
@@ -78,13 +67,16 @@ internal abstract class EntityFrameworkReadModelRepository<TDbContext, TReadMode
                 .Take(offsetFilter.Limit);
         }
 
-        if (sorting is not null)
-        {
-            queryable = queryable
-                .SortBy(sorting);
-        }
-
         return await queryable
            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<TReadModel?> GetOneAsync(
+        Expression<Func<TReadModel, bool>> filter,
+        CancellationToken cancellationToken = default)
+    {
+        return await _readModelSet
+            .AsNoTracking()
+            .SingleOrDefaultAsync(filter, cancellationToken);
     }
 }

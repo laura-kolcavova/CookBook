@@ -1,4 +1,4 @@
-﻿namespace CookBook.Recipes.Domain.Common;
+﻿namespace CookBook.Recipes.Domain.Shared;
 
 public interface ITrackableEntity
 {
