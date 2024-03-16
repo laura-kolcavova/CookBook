@@ -81,11 +81,13 @@ public sealed class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
     public void SaveIngredients(SaveIngredientsParameters saveIngredientsParameters)
     {
         var newIngredients = new List<RecipeIngredientEntity>();
+        var lastLocalId = _ingredients.LastOrDefault()?.LocalId ?? 0;
         short orderIndex = 10;
 
         foreach (var ingredientParameters in saveIngredientsParameters.Ingredients)
         {
-            var ingredient = CreateOrUpdateIngredient(ingredientParameters, orderIndex);
+            var ingredient = CreateOrUpdateIngredient(
+                ingredientParameters, orderIndex, ref lastLocalId);
 
             newIngredients.Add(ingredient);
             orderIndex += 10;
@@ -98,11 +100,13 @@ public sealed class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
     public void SaveInstructions(SaveInstructionsParameters saveInstructionsParameters)
     {
         var newInstructions = new List<RecipeInstructionEntity>();
+        var lastLocalId = _instructions.LastOrDefault()?.LocalId ?? 0;
         short orderIndex = 10;
 
         foreach (var instructionParameters in saveInstructionsParameters.Instructions)
         {
-            var instruction = CreateOrUpdateInstruction(instructionParameters, orderIndex);
+            var instruction = CreateOrUpdateInstruction(
+                instructionParameters, orderIndex, ref lastLocalId);
 
             newInstructions.Add(instruction);
             orderIndex += 10;
@@ -114,7 +118,8 @@ public sealed class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 
     private RecipeIngredientEntity CreateOrUpdateIngredient(
         SaveIngredientsParameters.IngredientParameters ingredientParameters,
-        short orderIndex)
+        short orderIndex,
+        ref int lastLocalId)
     {
         var ingredient = ingredientParameters.LocalId is null || ingredientParameters.LocalId <= 0
             ? null
@@ -122,8 +127,8 @@ public sealed class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 
         if (ingredient is null)
         {
-            var lastLocalId = _ingredients.LastOrDefault()?.LocalId ?? 0;
-            ingredient = new RecipeIngredientEntity(lastLocalId + 1, ingredientParameters.Note);
+            lastLocalId++;
+            ingredient = new RecipeIngredientEntity(lastLocalId, ingredientParameters.Note);
         }
         else
         {
@@ -137,7 +142,8 @@ public sealed class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 
     private RecipeInstructionEntity CreateOrUpdateInstruction(
          SaveInstructionsParameters.InstructionParameters instructionParameters,
-         short orderIndex)
+         short orderIndex,
+         ref int lastLocalId)
     {
         var instruction = instructionParameters.LocalId is null || instructionParameters.LocalId <= 0
             ? null
@@ -145,8 +151,8 @@ public sealed class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 
         if (instruction is null)
         {
-            var lastLocalId = _instructions.LastOrDefault()?.LocalId ?? 0;
-            instruction = new RecipeInstructionEntity(lastLocalId + 1, instructionParameters.Note);
+            lastLocalId++;
+            instruction = new RecipeInstructionEntity(lastLocalId, instructionParameters.Note);
         }
 
         instruction.SetOrderIndex(orderIndex);

@@ -29,8 +29,6 @@ public sealed record RecipeDetailReadModel : IReadModel
         public required int LocalId { get; init; }
 
         public required string Note { get; init; }
-
-        public required short OrderIndex { get; init; }
     }
 
     public sealed record InstructionItem
@@ -38,7 +36,5 @@ public sealed record RecipeDetailReadModel : IReadModel
         public required int LocalId { get; init; }
 
         public required string Note { get; init; }
-
-        public required short OrderIndex { get; init; }
     }
 }
