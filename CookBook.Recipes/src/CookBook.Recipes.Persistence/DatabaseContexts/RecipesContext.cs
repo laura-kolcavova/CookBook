@@ -22,15 +22,19 @@ internal sealed class RecipesContext : TrackableDbContext
         _useDevelopmentLogging = useDevelopmentLogging;
     }
 
-    #region Tables
+    #region AggregateRoots
 
     public DbSet<RecipeAggregate> Recipes => Set<RecipeAggregate>();
+
+    #endregion AggregateRoots
+
+    #region Entities
 
     public DbSet<RecipeIngredientEntity> RecipeIngredients => Set<RecipeIngredientEntity>();
 
     public DbSet<RecipeInstructionEntity> RecipeInstructions => Set<RecipeInstructionEntity>();
 
-    #endregion Tables
+    #endregion Entities
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

@@ -26,19 +26,15 @@ public sealed record RecipeDetailReadModel : IReadModel
 
     public sealed record IngredientItem
     {
-        public required long Id { get; init; }
+        public required int LocalId { get; init; }
 
         public required string Note { get; init; }
-
-        public required short OrderIndex { get; init; }
     }
 
     public sealed record InstructionItem
     {
-        public required long Id { get; init; }
+        public required int LocalId { get; init; }
 
         public required string Note { get; init; }
-
-        public required short OrderIndex { get; init; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace CookBook.Recipes.Application.Recipes.Models;
+﻿using CookBook.Recipes.Domain.Recipes.Parameters;
+
+namespace CookBook.Recipes.Application.Recipes.Models;
 
 public sealed record SaveRecipeRequest
 {
@@ -16,9 +18,9 @@ public sealed record SaveRecipeRequest
 
     public required short CookTime { get; init; }
 
-    public required IReadOnlyCollection<IngredientItem> Ingredients { get; init; }
+    public required SaveIngredientsParameters Ingredients { get; init; }
 
-    public required IReadOnlyCollection<InstructionItem> Instructions { get; init; }
+    public required SaveInstructionsParameters Instructions { get; init; }
 
     public required string? Notes { get; init; }
 

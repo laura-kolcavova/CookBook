@@ -1,6 +1,7 @@
 ﻿namespace CookBook.Recipes.Domain.Shared;
 
 public interface IEntity<out TPrimaryKey>
+     where TPrimaryKey : notnull
 {
-    TPrimaryKey Id { get; }
+    public abstract TPrimaryKey GetPrimaryKey();
 }

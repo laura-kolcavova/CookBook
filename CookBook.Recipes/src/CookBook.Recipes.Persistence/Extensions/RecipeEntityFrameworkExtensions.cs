@@ -63,22 +63,22 @@ public static class RecipeEntityFrameworkExtensions
             Notes = recipe.Notes,
             Ingredients = recipe
                 .Ingredients
+                .OrderBy(recipeIngredient => recipeIngredient.OrderIndex)
                 .Select(recipeIngredient =>
                     new RecipeDetailReadModel.IngredientItem
                     {
-                        Id = recipeIngredient.Id,
+                        LocalId = recipeIngredient.LocalId,
                         Note = recipeIngredient.Note,
-                        OrderIndex = recipeIngredient.OrderIndex
                     })
                 .ToList(),
             Instructions = recipe
                 .Instructions
+                .OrderBy(recipeInstruction => recipeInstruction.OrderIndex)
                 .Select(recipeInstruction =>
                     new RecipeDetailReadModel.InstructionItem
                     {
-                        Id = recipeInstruction.Id,
+                        LocalId = recipeInstruction.LocalId,
                         Note = recipeInstruction.Note,
-                        OrderIndex = recipeInstruction.OrderIndex
                     })
                 .ToList(),
         });

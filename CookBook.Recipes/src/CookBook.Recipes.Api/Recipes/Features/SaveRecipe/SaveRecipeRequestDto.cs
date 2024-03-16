@@ -24,14 +24,14 @@ internal sealed class SaveRecipeRequestDto
 
     public sealed class IngredientItem
     {
-        public long? Id { get; init; }
+        public int? LocalId { get; init; }
 
         public string Note { get; init; } = string.Empty;
     }
 
     public sealed class InstructionItem
     {
-        public long? Id { get; init; }
+        public int? LocalId { get; init; }
 
         public string Note { get; init; } = string.Empty;
     }

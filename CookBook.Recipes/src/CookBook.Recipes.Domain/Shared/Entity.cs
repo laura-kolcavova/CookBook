@@ -1,13 +1,9 @@
 ﻿namespace CookBook.Recipes.Domain.Shared;
 
 public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>, IEquatable<Entity<TPrimaryKey>>
+    where TPrimaryKey : notnull
 {
-    public TPrimaryKey Id { get; }
-
-    protected Entity()
-    {
-        Id = default!;
-    }
+    public abstract TPrimaryKey GetPrimaryKey();
 
     public static bool operator ==(Entity<TPrimaryKey>? first, Entity<TPrimaryKey>? second)
     {
@@ -36,7 +32,7 @@ public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>, IEquatable<Ent
             return false;
         }
 
-        return EqualityComparer<TPrimaryKey>.Default.Equals(other.Id, this.Id);
+        return EqualityComparer<TPrimaryKey>.Default.Equals(other.GetPrimaryKey(), this.GetPrimaryKey());
     }
 
     public override bool Equals(object? obj)
@@ -52,11 +48,11 @@ public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>, IEquatable<Ent
         }
 
         return obj is Entity<TPrimaryKey> entity &&
-               EqualityComparer<TPrimaryKey>.Default.Equals(entity.Id, this.Id);
+               EqualityComparer<TPrimaryKey>.Default.Equals(entity.GetPrimaryKey(), this.GetPrimaryKey());
     }
 
     public override int GetHashCode()
     {
-        return this.Id!.GetHashCode() * 41;
+        return this.GetPrimaryKey().GetHashCode() * 41;
     }
 }

@@ -14,7 +14,11 @@ internal sealed class RecipeInstructionEntityTypeConfiguration : IEntityTypeConf
             .ToTable(nameof(RecipesContext.RecipeInstructions), RecipesContext.Schema);
 
         builder
-            .HasKey(e => e.Id);
+            .HasKey(e => new
+            {
+                e.RecipeId,
+                e.LocalId,
+            });
 
         builder
             .Property(e => e.RecipeId)
