@@ -3,9 +3,7 @@
     [RecipeId]          BIGINT NOT NULL,
     [LocalId]           INT NOT NULL,
     [Note]              NVARCHAR(256) NOT NULL,
-    [OrderIndex]        SMALLINT NOT NULL DEFAULT 0,
-    [DateCreatedAt]     DATETIMEOFFSET DEFAULT SYSDATETIMEOFFSET(),
-    [DateUpdatedAt]     DATETIMEOFFSET,
+    [OrderIndex]        SMALLINT NOT NULL DEFAULT 0
 
     CONSTRAINT [PK_dbo_RecipeIngredients] PRIMARY KEY CLUSTERED ([RecipeId] ASC, [LocalId] ASC),
 

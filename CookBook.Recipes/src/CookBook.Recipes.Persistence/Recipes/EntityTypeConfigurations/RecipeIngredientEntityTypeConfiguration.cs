@@ -1,6 +1,5 @@
 ﻿using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Infrastructure.DatabaseContexts;
-using CookBook.Recipes.Persistence.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -33,8 +32,5 @@ internal sealed class RecipeIngredientEntityTypeConfiguration : IEntityTypeConfi
             .Property(e => e.OrderIndex)
             .HasDefaultValue(0)
             .IsRequired();
-
-        builder
-            .HasTrackableProperties();
     }
 }
