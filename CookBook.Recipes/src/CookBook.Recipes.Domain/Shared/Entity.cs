@@ -3,6 +3,8 @@
 public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>, IEquatable<Entity<TPrimaryKey>>
     where TPrimaryKey : notnull
 {
+    public abstract TPrimaryKey GetPrimaryKey();
+
     public static bool operator ==(Entity<TPrimaryKey>? first, Entity<TPrimaryKey>? second)
     {
         if (first is null && second is null)
@@ -53,6 +55,4 @@ public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>, IEquatable<Ent
     {
         return this.GetPrimaryKey().GetHashCode() * 41;
     }
-
-    public abstract TPrimaryKey GetPrimaryKey();
 }
