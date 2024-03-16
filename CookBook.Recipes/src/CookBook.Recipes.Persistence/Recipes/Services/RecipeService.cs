@@ -2,7 +2,6 @@
 using CookBook.Recipes.Application.Recipes.Models;
 using CookBook.Recipes.Application.Recipes.Services;
 using CookBook.Recipes.Domain.Recipes;
-using CookBook.Recipes.Domain.Recipes.Parameters;
 using CookBook.Recipes.Infrastructure.DatabaseContexts;
 using CookBook.Recipes.Persistence.Extensions;
 using CSharpFunctionalExtensions;
@@ -75,13 +74,14 @@ internal sealed class RecipeService : IRecipeService
 
             if (recipe is null)
             {
-                recipe = new RecipeAggregate(request.UserId);
-                SaveRecipeInformation(recipe, request);
+                recipe = new RecipeAggregate(request.Title, request.UserId);
+                SaveRecipeOptionalInformation(recipe, request);
                 await _recipesContext.Recipes.AddAsync(recipe, cancellationToken);
             }
             else
             {
-                SaveRecipeInformation(recipe, request);
+                recipe.SetTitle(request.Title);
+                SaveRecipeOptionalInformation(recipe, request);
                 _recipesContext.Recipes.Update(recipe);
             }
 
@@ -99,33 +99,16 @@ internal sealed class RecipeService : IRecipeService
         }
     }
 
-    private static void SaveRecipeInformation(
+    private static void SaveRecipeOptionalInformation(
         RecipeAggregate recipe,
         SaveRecipeRequest request)
     {
-        recipe.SetTitle(request.Title);
         recipe.SetDescription(request.Description);
         recipe.SetServings(request.Servings);
         recipe.SetPreparationTime(request.PreparationTime);
         recipe.SetCookTime(request.CookTime);
         recipe.SetNotes(request.Notes);
-
-        recipe.SaveIngredients(new SaveIngredientsParameters
-        {
-            Ingredients = request.Ingredients.Select(ingredient => new SaveIngredientsParameters.IngredientParameters
-            {
-                Id = ingredient.Id,
-                Note = ingredient.Note,
-            })
-        });
-
-        recipe.SaveInstructions(new SaveInstructionsParameters
-        {
-            Instructions = request.Instructions.Select(instruction => new SaveInstructionsParameters.InstructionParameters
-            {
-                Id = instruction.Id,
-                Note = instruction.Note,
-            })
-        });
+        recipe.SaveIngredients(request.Ingredients);
+        recipe.SaveInstructions(request.Instructions);
     }
 }

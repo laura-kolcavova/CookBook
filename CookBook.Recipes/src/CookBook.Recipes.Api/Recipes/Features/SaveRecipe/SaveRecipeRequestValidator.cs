@@ -36,7 +36,7 @@ internal sealed class SaveRecipeRequestValidator : AbstractValidator<SaveRecipeR
         RuleForEach(request => request.Ingredients)
             .ChildRules(ingredient =>
             {
-                ingredient.RuleFor(x => x.Id)
+                ingredient.RuleFor(x => x.LocalId)
                     .GreaterThan(0);
 
                 ingredient.RuleFor(x => x.Note)
@@ -47,7 +47,7 @@ internal sealed class SaveRecipeRequestValidator : AbstractValidator<SaveRecipeR
         RuleForEach(request => request.Instructions)
            .ChildRules(instruction =>
            {
-               instruction.RuleFor(x => x.Id)
+               instruction.RuleFor(x => x.LocalId)
                    .GreaterThan(0);
 
                instruction.RuleFor(x => x.Note)

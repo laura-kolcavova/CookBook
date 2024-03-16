@@ -66,7 +66,7 @@ public static class RecipeEntityFrameworkExtensions
                 .Select(recipeIngredient =>
                     new RecipeDetailReadModel.IngredientItem
                     {
-                        Id = recipeIngredient.Id,
+                        LocalId = recipeIngredient.LocalId,
                         Note = recipeIngredient.Note,
                         OrderIndex = recipeIngredient.OrderIndex
                     })
@@ -76,7 +76,7 @@ public static class RecipeEntityFrameworkExtensions
                 .Select(recipeInstruction =>
                     new RecipeDetailReadModel.InstructionItem
                     {
-                        Id = recipeInstruction.Id,
+                        LocalId = recipeInstruction.LocalId,
                         Note = recipeInstruction.Note,
                         OrderIndex = recipeInstruction.OrderIndex
                     })
