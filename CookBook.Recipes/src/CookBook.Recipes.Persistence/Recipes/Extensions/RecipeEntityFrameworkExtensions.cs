@@ -2,7 +2,7 @@
 using CookBook.Recipes.Domain.Recipes.ReadModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace CookBook.Recipes.Persistence.Extensions;
+namespace CookBook.Recipes.Persistence.Recipes.Extensions;
 
 public static class RecipeEntityFrameworkExtensions
 {

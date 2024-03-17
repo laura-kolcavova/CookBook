@@ -1,6 +1,8 @@
-﻿CREATE PROCEDURE [dbo].[SP_Seed_Categories]
+﻿CREATE PROCEDURE [seed].[SP_Seed_Categories]
 AS
 BEGIN
+    SET IDENTITY_INSERT [dbo].[Categories] ON
+
     MERGE INTO [dbo].[Categories] AS Target
     USING (VALUES
         (1, 'Course', 0),

@@ -2,7 +2,7 @@
 using System.Linq.Dynamic.Core;
 using System.Text;
 
-namespace CookBook.Recipes.Persistence.Extensions;
+namespace CookBook.Recipes.Persistence.Shared.Extensions;
 
 public static class IQueryableExtensions
 {

@@ -1,6 +1,8 @@
-﻿using CookBook.Recipes.Application.Recipes.Services;
-using CookBook.Recipes.Infrastructure.DatabaseContexts;
+﻿using CookBook.Recipes.Application.Categories.Services;
+using CookBook.Recipes.Application.Recipes.Services;
+using CookBook.Recipes.Persistence.Categories.Services;
 using CookBook.Recipes.Persistence.Recipes.Services;
+using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.Recipes.Persistence;
@@ -17,6 +19,7 @@ public static class PersistenceServicesInstallation
             useDevelopmentLogging: isDevelopment));
 
         services
+            .AddScoped<ICategoryService, CategoryService>()
             .AddScoped<IRecipeService, RecipeService>()
             .AddScoped<IRecipeListingItemReadModelService, RecipeListingItemReadModelService>()
             .AddScoped<IRecipeDetailReadModelService, RecipeDetailReadModelService>();

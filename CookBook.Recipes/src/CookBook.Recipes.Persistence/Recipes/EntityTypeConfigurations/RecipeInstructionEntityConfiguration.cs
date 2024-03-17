@@ -1,11 +1,11 @@
 ﻿using CookBook.Recipes.Domain.Recipes;
-using CookBook.Recipes.Infrastructure.DatabaseContexts;
+using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CookBook.Recipes.Persistence.Recipes.EntityTypeConfigurations;
 
-internal sealed class RecipeInstructionEntityTypeConfiguration : IEntityTypeConfiguration<RecipeInstructionEntity>
+internal sealed class RecipeInstructionEntityConfiguration : IEntityTypeConfiguration<RecipeInstructionEntity>
 {
     public void Configure(EntityTypeBuilder<RecipeInstructionEntity> builder)
     {

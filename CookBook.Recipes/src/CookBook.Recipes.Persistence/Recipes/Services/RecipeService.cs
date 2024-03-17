@@ -2,8 +2,8 @@
 using CookBook.Recipes.Application.Recipes.Models;
 using CookBook.Recipes.Application.Recipes.Services;
 using CookBook.Recipes.Domain.Recipes;
-using CookBook.Recipes.Infrastructure.DatabaseContexts;
-using CookBook.Recipes.Persistence.Extensions;
+using CookBook.Recipes.Persistence.Recipes.Extensions;
+using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 
@@ -38,7 +38,7 @@ internal sealed class RecipeService : IRecipeService
 
             if (recipe is null)
             {
-                return RecipeErrors.NotFound(recipeId);
+                return Errors.Recipe.NotFound(recipeId);
             }
 
             _recipesContext.Recipes.Remove(recipe);
