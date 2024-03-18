@@ -1,4 +1,4 @@
-﻿namespace CookBook.Recipes.Api.Configuration;
+﻿namespace CookBook.Recipes.Api.Shared.Configuration;
 
 internal static class ConfigurationConstants
 {

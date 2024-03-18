@@ -1,7 +1,7 @@
 using CookBook.Extensions.AspNetCore.EndpointFilters;
 using CookBook.Extensions.Configuration.SqlServer;
 using CookBook.Recipes.Api;
-using CookBook.Recipes.Api.Configuration;
+using CookBook.Recipes.Api.Shared.Configuration;
 using CookBook.Recipes.Application;
 using CookBook.Recipes.Persistence;
 using System.Text.Json.Serialization;

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\CookBook.Recipes.Persistence\CookBook.Recipes.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Categories\" />
+  </ItemGroup>
+
 </Project>

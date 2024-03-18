@@ -13,15 +13,16 @@ public interface ICategoryService
     public Task<Result<AddSubCategoryResult, ExpectedError>> AddSubCategory(
         string name,
         int parentCategoryId,
-        CancellationTokenSource cancellationToken);
+        CancellationToken cancellationToken);
 
     public Task<UnitResult<ExpectedError>> MoveSubCategory(
         int id,
-        int parentCategoryId,
-        CancellationTokenSource cancellationToken);
+        int newParentCategoryId,
+        CancellationToken cancellationToken);
 
     public Task<UnitResult<ExpectedError>> RenameCategory(
         int id,
+        string newName,
         CancellationToken cancellationToken);
 
     public Task<UnitResult<ExpectedError>> RemoveCategory(

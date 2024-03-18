@@ -29,4 +29,16 @@ public sealed class CategoryAggregate : AggregateRoot<int>, ITrackableEntity
     }
 
     public override int GetPrimaryKey() => Id;
+
+    public bool IsMainCategory => ParentCategoryId == RootCategoryId;
+
+    public void ChangeParentCategory(CategoryAggregate parentCategory)
+    {
+        ParentCategoryId = parentCategory.Id;
+    }
+
+    public void Rename(string newName)
+    {
+        Name += newName;
+    }
 }

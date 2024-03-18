@@ -10,28 +10,29 @@ BEGIN
         (3, 'Season', 0),
         (4, 'Diet', 0),
 
-        (5, 'Breakfast', 1),        -- Course - Breakfast
-        (6, 'Starter', 1),          -- Course - Starter
-        (7, 'Main dish', 1),        -- Course - Main dish
-        (8, 'Side dish', 1),        -- Course - SideDish
-        (9, 'Dessert', 1),          -- Course - Dessert
-        (10, 'Cake', 1),            -- Course - Cake
+        (101, 'Breakfast', 1),          -- Course - Breakfast
+        (102, 'Starter', 1),            -- Course - Starter
+        (103, 'Main dish', 1),          -- Course - Main dish
+        (104, 'Side dish', 1),          -- Course - SideDish
+        (105, 'Dessert', 1),            -- Course - Dessert
+        (106, 'Cake', 1),               -- Course - Cake
+        (107, 'Drink', 1),              -- Course - Drink
 
-        (11, 'Asian', 2),           -- Cusine - Asian
-        (12, 'French', 2),          -- Cusine - French
-        (13, 'Italian', 2),         -- Cusine - Italian
-        (14, 'Mediterranean', 2),   -- Cusine - Mediterranean
-        (15, 'Mexican', 2),         -- Cusine - Mexican
+        (201, 'Asian', 2),              -- Cusine - Asian
+        (202, 'French', 2),             -- Cusine - French
+        (203, 'Italian', 2),            -- Cusine - Italian
+        (204, 'Mediterranean', 2),      -- Cusine - Mediterranean
+        (205, 'Mexican', 2),            -- Cusine - Mexican
 
-        (16, 'Spring', 3),          -- Season - Spring
-        (17, 'Summer', 3),          -- Season - Summer
-        (18, 'Autumn', 3),          -- Season - Autumn
-        (19, 'Winter', 3),          -- Season - Winter
+        (301, 'Spring', 3),             -- Season - Spring
+        (302, 'Summer', 3),             -- Season - Summer
+        (303, 'Autumn', 3),             -- Season - Autumn
+        (304, 'Winter', 3),             -- Season - Winter
 
-        (20, 'Vegetarian', 4),      -- Diet - Vegetarian
-        (21, 'Vegan', 4),           -- Diet - Vegan
-        (22, 'Gluten-free', 4),     -- Diet - Glueten-free
-        (23, 'Lactose-free', 4)     -- Diet - Lactose-free
+        (401, 'Vegetarian', 4),         -- Diet - Vegetarian
+        (402, 'Vegan', 4),              -- Diet - Vegan
+        (403, 'Gluten-free', 4),        -- Diet - Glueten-free
+        (404, 'Lactose-free', 4)        -- Diet - Lactose-free
     )
     AS SOURCE (
         [Id],
