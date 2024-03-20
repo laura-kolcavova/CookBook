@@ -5,7 +5,7 @@ using CookBook.Recipes.Api.Recipes.Features.SearchRecipes;
 
 namespace CookBook.Recipes.Api.Recipes;
 
-internal static class RecipesEndpoints
+internal static class CategoriesEndpoints
 {
     public static RouteGroupBuilder AddRecipesEndpoints(this RouteGroupBuilder group)
     {

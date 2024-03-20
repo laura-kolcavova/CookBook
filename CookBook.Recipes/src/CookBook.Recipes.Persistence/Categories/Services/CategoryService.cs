@@ -36,7 +36,7 @@ internal sealed class CategoryService : ICategoryService
                 var nameExists = await _recipesContext.Categories
                     .AnyAsync(category =>
                         category.Name == name &&
-                        category.IsMainCategory,
+                        category.ParentCategoryId == CategoryAggregate.RootCategoryId,
                         cancellationToken);
 
                 if (nameExists)

@@ -9,7 +9,7 @@ internal static class RemoveRecipeEndpoint
     public static void Configure(RouteGroupBuilder recipesGroup)
     {
         recipesGroup
-            .MapDelete("{recipeId}", HandleAsync)
+            .MapDelete("{recipeId}/remove", HandleAsync)
             .WithName("RemoveRecipe")
             .WithSummary("Removes a recipe by its id")
             .WithDescription("This endpoint returns Status 200 OK response if recipe was successfully removed.")
