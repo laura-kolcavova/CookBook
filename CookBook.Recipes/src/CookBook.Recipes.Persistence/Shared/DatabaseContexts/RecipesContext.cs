@@ -1,10 +1,12 @@
-﻿using CookBook.Recipes.Domain.Recipes;
+﻿using CookBook.Recipes.Domain.Categories;
+using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Infrastructure.Common;
+using CookBook.Recipes.Persistence.Categories.EntityTypeConfigurations;
 using CookBook.Recipes.Persistence.Recipes.EntityTypeConfigurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.Recipes.Infrastructure.DatabaseContexts;
+namespace CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 
 internal sealed class RecipesContext : TrackableDbContext
 {
@@ -23,6 +25,8 @@ internal sealed class RecipesContext : TrackableDbContext
     }
 
     #region AggregateRoots
+
+    public DbSet<CategoryAggregate> Categories => Set<CategoryAggregate>();
 
     public DbSet<RecipeAggregate> Recipes => Set<RecipeAggregate>();
 
@@ -52,9 +56,11 @@ internal sealed class RecipesContext : TrackableDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new RecipeAggregateRootTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new RecipeIngredientEntityTypeConfiguration());
-        modelBuilder.ApplyConfiguration(new RecipeInstructionEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new CategoryAggregateRootConfiguration());
+
+        modelBuilder.ApplyConfiguration(new RecipeAggregateRootConfiguration());
+        modelBuilder.ApplyConfiguration(new RecipeIngredientEntityConfiguration());
+        modelBuilder.ApplyConfiguration(new RecipeInstructionEntityConfiguration());
     }
 
     private static ILoggerFactory CreateLoggerFactory()

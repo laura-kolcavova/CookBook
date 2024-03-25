@@ -1,23 +1,22 @@
 ﻿using CookBook.Recipes.Domain.Recipes;
-using CookBook.Recipes.Infrastructure.DatabaseContexts;
-using CookBook.Recipes.Persistence.Extensions;
+using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CookBook.Recipes.Persistence.Recipes.EntityTypeConfigurations;
 
-internal sealed class RecipeInstructionEntityTypeConfiguration : IEntityTypeConfiguration<RecipeInstructionEntity>
+internal sealed class RecipeIngredientEntityConfiguration : IEntityTypeConfiguration<RecipeIngredientEntity>
 {
-    public void Configure(EntityTypeBuilder<RecipeInstructionEntity> builder)
+    public void Configure(EntityTypeBuilder<RecipeIngredientEntity> builder)
     {
         builder
-            .ToTable(nameof(RecipesContext.RecipeInstructions), RecipesContext.Schema);
+            .ToTable(nameof(RecipesContext.RecipeIngredients), RecipesContext.Schema);
 
         builder
             .HasKey(e => new
             {
                 e.RecipeId,
-                e.LocalId,
+                e.LocalId
             });
 
         builder
@@ -26,15 +25,12 @@ internal sealed class RecipeInstructionEntityTypeConfiguration : IEntityTypeConf
 
         builder
             .Property(e => e.Note)
-            .HasMaxLength(1024)
+            .HasMaxLength(256)
             .IsRequired();
 
         builder
             .Property(e => e.OrderIndex)
             .HasDefaultValue(0)
             .IsRequired();
-
-        builder
-            .HasTrackableProperties();
     }
 }

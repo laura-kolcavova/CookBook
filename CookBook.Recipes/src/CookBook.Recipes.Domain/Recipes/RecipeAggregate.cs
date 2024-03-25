@@ -21,9 +21,9 @@ public sealed class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 
     public short CookTime { get; private set; }
 
-    public DateTimeOffset? CreatedAt { get; private set; }
+    public DateTimeOffset? CreatedAt { get; }
 
-    public DateTimeOffset? UpdatedAt { get; private set; }
+    public DateTimeOffset? UpdatedAt { get; }
 
     #region NavigationProperties
 

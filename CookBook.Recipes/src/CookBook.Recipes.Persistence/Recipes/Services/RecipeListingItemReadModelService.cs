@@ -2,8 +2,9 @@
 using CookBook.Recipes.Application.Common.Sorting;
 using CookBook.Recipes.Application.Recipes.Services;
 using CookBook.Recipes.Domain.Recipes.ReadModels;
-using CookBook.Recipes.Infrastructure.DatabaseContexts;
-using CookBook.Recipes.Persistence.Extensions;
+using CookBook.Recipes.Persistence.Recipes.Extensions;
+using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
+using CookBook.Recipes.Persistence.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

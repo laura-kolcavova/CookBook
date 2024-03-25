@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CookBook.Recipes.Persistence.Extensions;
+namespace CookBook.Recipes.Persistence.Shared.Extensions;
 
 internal static class EntityTypeBuilderExtensions
 {

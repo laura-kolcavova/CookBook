@@ -7,7 +7,7 @@ internal static class GetRecipeDetailEndpoint
     public static void Configure(RouteGroupBuilder recipesGroup)
     {
         recipesGroup
-            .MapGet("{recipeId}", HandleAsync)
+            .MapGet("{recipeId}/detail", HandleAsync)
             .WithName("GetRecipeDetail")
             .WithSummary("Gets recipe detail by its id")
             .WithDescription("This endpoint returns recipe detail DTO")

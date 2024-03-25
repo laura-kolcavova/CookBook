@@ -2,7 +2,7 @@
 
 namespace CookBook.Recipes.Domain.Recipes;
 
-public sealed class RecipeIngredientEntity : Entity<RecipeIngredientPrimaryKey>, ITrackableEntity
+public sealed class RecipeIngredientEntity : Entity<RecipeIngredientPrimaryKey>
 {
     public long RecipeId { get; }
 
@@ -11,10 +11,6 @@ public sealed class RecipeIngredientEntity : Entity<RecipeIngredientPrimaryKey>,
     public string Note { get; private set; } = string.Empty;
 
     public short OrderIndex { get; private set; }
-
-    public DateTimeOffset? CreatedAt { get; private set; }
-
-    public DateTimeOffset? UpdatedAt { get; private set; }
 
     public RecipeIngredientEntity(int localId, string note)
     {
