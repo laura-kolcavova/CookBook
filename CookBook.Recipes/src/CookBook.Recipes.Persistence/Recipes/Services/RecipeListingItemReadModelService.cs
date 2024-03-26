@@ -31,8 +31,7 @@ internal sealed class RecipeListingItemReadModelService : IRecipeListingItemRead
         try
         {
             var queryable = _recipesContext.Recipes
-                .AsNoTracking()
-                .ProjectToRecipeListingItemReadModel();
+                .AsNoTracking();
 
             if (sorting is not null)
             {
@@ -48,6 +47,7 @@ internal sealed class RecipeListingItemReadModelService : IRecipeListingItemRead
             }
 
             return await queryable
+               .ProjectToRecipeListingItemReadModel()
                .ToListAsync(cancellationToken);
         }
         catch (Exception ex)

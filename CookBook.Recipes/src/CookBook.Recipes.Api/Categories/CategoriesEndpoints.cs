@@ -1,5 +1,6 @@
-﻿using CookBook.Recipes.Api.Categories.Features.AddMainCategory;
-using CookBook.Recipes.Api.Categories.Features.AddSubCategory;
+﻿using CookBook.Recipes.Api.Categories.Features.AddCategory;
+using CookBook.Recipes.Api.Categories.Features.GetCategories;
+using CookBook.Recipes.Api.Categories.Features.GetCategoryDetail;
 
 namespace CookBook.Recipes.Api.Categories;
 
@@ -11,8 +12,9 @@ internal static class CategoriesEndpoints
             .MapGroup("/categories")
             .WithTags("Categories");
 
-        AddMainCategoryEndpoint.Configure(categoriesGroup);
-        AddSubCategoryEndpoint.Configure(categoriesGroup);
+        AddCategoryEndpoint.Configure(categoriesGroup);
+        GetCategoriesEndpoint.Configure(categoriesGroup);
+        GetCategoryDetailEndpoint.Configure(categoriesGroup);
 
         return group;
     }

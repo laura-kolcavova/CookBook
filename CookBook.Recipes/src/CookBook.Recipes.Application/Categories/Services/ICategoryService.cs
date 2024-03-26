@@ -6,26 +6,26 @@ namespace CookBook.Recipes.Application.Categories.Services;
 
 public interface ICategoryService
 {
-    public Task<Result<AddMainCategoryResult, ExpectedError>> AddMainCategory(
-        string name,
-        CancellationToken cancellationToken);
-
-    public Task<Result<AddSubCategoryResult, ExpectedError>> AddSubCategory(
+    public Task<Result<AddCategoryResult, ExpectedError>> AddCategoryAsync(
         string name,
         int parentCategoryId,
         CancellationToken cancellationToken);
 
-    public Task<UnitResult<ExpectedError>> MoveSubCategory(
+    public Task<Result<AddCategoryResult, ExpectedError>> AddCategoryAsync(
+       string name,
+       CancellationToken cancellationToken);
+
+    public Task<UnitResult<ExpectedError>> MoveCategoryAsync(
         int id,
         int newParentCategoryId,
         CancellationToken cancellationToken);
 
-    public Task<UnitResult<ExpectedError>> RenameCategory(
+    public Task<UnitResult<ExpectedError>> RenameCategoryAsync(
         int id,
         string newName,
         CancellationToken cancellationToken);
 
-    public Task<UnitResult<ExpectedError>> RemoveCategory(
+    public Task<UnitResult<ExpectedError>> RemoveCategoryAsync(
         int id,
         CancellationToken cancellationToken);
 }

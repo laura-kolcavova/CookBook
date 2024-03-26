@@ -4,7 +4,7 @@ namespace CookBook.Recipes.Domain.Recipes.ReadModels;
 
 public sealed record RecipeDetailReadModel : IReadModel
 {
-    public required long RecipeId { get; init; }
+    public required long Id { get; init; }
 
     public required int UserId { get; init; }
 

@@ -20,6 +20,10 @@ public static class PersistenceServicesInstallation
 
         services
             .AddScoped<ICategoryService, CategoryService>()
+            .AddScoped<ICategoryListingItemReadModelService, CategoryListinItemReadModelService>()
+            .AddScoped<ICategoryDetailReadModelService, CategoryDetailReadModelService>();
+
+        services
             .AddScoped<IRecipeService, RecipeService>()
             .AddScoped<IRecipeListingItemReadModelService, RecipeListingItemReadModelService>()
             .AddScoped<IRecipeDetailReadModelService, RecipeDetailReadModelService>();

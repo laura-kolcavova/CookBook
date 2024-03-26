@@ -14,7 +14,7 @@ internal static class SearchRecipesEndpoint
             .MapGet("search", HandleAsync)
             .WithName("SearchRecipes")
             .WithSummary("Search for existing recipes")
-            .WithDescription("This endpoint returns a DTO containing a collection of recipe listing item DTOs.")
+            .WithDescription("Returns a DTO containing a collection of recipe listing item DTOs.")
             .Produces<SearchRecipesEndpointResponseDto>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem();

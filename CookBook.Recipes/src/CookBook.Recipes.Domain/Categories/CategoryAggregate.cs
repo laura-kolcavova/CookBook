@@ -4,7 +4,7 @@ namespace CookBook.Recipes.Domain.Categories;
 
 public sealed class CategoryAggregate : AggregateRoot<int>, ITrackableEntity
 {
-    public const int RootCategoryId = 0;
+    public const int RootCategoryId = 1;
 
     public int Id { get; }
 
