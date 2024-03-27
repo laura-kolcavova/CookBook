@@ -33,7 +33,7 @@ internal sealed class RecipeDetailReadModelService : IRecipeDetailReadModelServi
                 .AsNoTracking()
                 .ProjectToRecipeDetailReadModel()
                 .SingleOrDefaultAsync(recipeDetail =>
-                    recipeDetail.RecipeId == recipeId,
+                    recipeDetail.Id == recipeId,
                     cancellationToken);
         }
         catch (Exception ex)

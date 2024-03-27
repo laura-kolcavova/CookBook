@@ -5,34 +5,36 @@ BEGIN
 
     MERGE INTO [dbo].[Categories] AS Target
     USING (VALUES
-        (1, 'Course', 0),
-        (2, 'Cuisine', 0),
-        (3, 'Season', 0),
-        (4, 'Diet', 0),
+        (1, 'Root', 0),
 
-        (101, 'Breakfast', 1),          -- Course - Breakfast
-        (102, 'Starter', 1),            -- Course - Starter
-        (103, 'Main dish', 1),          -- Course - Main dish
-        (104, 'Side dish', 1),          -- Course - SideDish
-        (105, 'Dessert', 1),            -- Course - Dessert
-        (106, 'Cake', 1),               -- Course - Cake
-        (107, 'Drink', 1),              -- Course - Drink
+        (2, 'Course', 1),
+        (3, 'Cuisine', 1),
+        (4, 'Season', 1),
+        (5, 'Diet', 1),
 
-        (201, 'Asian', 2),              -- Cusine - Asian
-        (202, 'French', 2),             -- Cusine - French
-        (203, 'Italian', 2),            -- Cusine - Italian
-        (204, 'Mediterranean', 2),      -- Cusine - Mediterranean
-        (205, 'Mexican', 2),            -- Cusine - Mexican
+        (100, 'Breakfast', 2),          -- Course - Breakfast
+        (101, 'Starter', 2),            -- Course - Starter
+        (102, 'Main dish', 2),          -- Course - Main dish
+        (103, 'Side dish', 2),          -- Course - SideDish
+        (104, 'Dessert', 2),            -- Course - Dessert
+        (105, 'Cake', 2),               -- Course - Cake
+        (106, 'Drink', 2),              -- Course - Drink
 
-        (301, 'Spring', 3),             -- Season - Spring
-        (302, 'Summer', 3),             -- Season - Summer
-        (303, 'Autumn', 3),             -- Season - Autumn
-        (304, 'Winter', 3),             -- Season - Winter
+        (200, 'Asian', 3),              -- Cusine - Asian
+        (201, 'French', 3),             -- Cusine - French
+        (202, 'Italian', 3),            -- Cusine - Italian
+        (203, 'Mediterranean', 3),      -- Cusine - Mediterranean
+        (204, 'Mexican', 3),            -- Cusine - Mexican
 
-        (401, 'Vegetarian', 4),         -- Diet - Vegetarian
-        (402, 'Vegan', 4),              -- Diet - Vegan
-        (403, 'Gluten-free', 4),        -- Diet - Glueten-free
-        (404, 'Lactose-free', 4)        -- Diet - Lactose-free
+        (300, 'Spring', 4),             -- Season - Spring
+        (301, 'Summer', 4),             -- Season - Summer
+        (302, 'Autumn', 4),             -- Season - Autumn
+        (303, 'Winter', 4),             -- Season - Winter
+
+        (400, 'Vegetarian', 5),         -- Diet - Vegetarian
+        (401, 'Vegan', 5),              -- Diet - Vegan
+        (402, 'Gluten-free', 5),        -- Diet - Glueten-free
+        (403, 'Lactose-free', 5)        -- Diet - Lactose-free
     )
     AS SOURCE (
         [Id],

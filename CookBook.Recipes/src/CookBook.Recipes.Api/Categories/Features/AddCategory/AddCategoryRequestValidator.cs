@@ -1,18 +1,17 @@
 ﻿using CookBook.Recipes.Application.Categories.ValidationRules;
 using FluentValidation;
 
-namespace CookBook.Recipes.Api.Categories.Features.AddSubCategory;
+namespace CookBook.Recipes.Api.Categories.Features.AddCategory;
 
-internal sealed class AddSubCategoryRequestValidator : AbstractValidator<AddSubCategoryRequestDto>
+internal sealed class AddCategoryRequestValidator : AbstractValidator<AddCategoryRequestDto>
 {
-    public AddSubCategoryRequestValidator()
+    public AddCategoryRequestValidator()
     {
         RuleFor(request => request.Name)
             .NotNull()
             .CategoryName();
 
         RuleFor(request => request.ParentCategoryId)
-            .NotNull()
             .GreaterThan(0);
     }
 }

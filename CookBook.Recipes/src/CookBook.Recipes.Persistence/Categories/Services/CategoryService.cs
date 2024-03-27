@@ -22,49 +22,7 @@ internal sealed class CategoryService : ICategoryService
         _logger = logger;
     }
 
-    public async Task<Result<AddMainCategoryResult, ExpectedError>> AddMainCategory(
-        string name,
-        CancellationToken cancellationToken)
-    {
-        using (_logger.BeginScope(new Dictionary<string, object?>
-        {
-            ["Name"] = name,
-        }))
-        {
-            try
-            {
-                var nameExists = await _recipesContext.Categories
-                    .AnyAsync(category =>
-                        category.Name == name &&
-                        category.ParentCategoryId == CategoryAggregate.RootCategoryId,
-                        cancellationToken);
-
-                if (nameExists)
-                {
-                    return Result.Failure<AddMainCategoryResult, ExpectedError>(
-                        Errors.Category.AnotherCategoryWithNameAlreadyExists(name));
-                }
-
-                var newMainCategory = new CategoryAggregate(name);
-
-                await _recipesContext.AddAsync(newMainCategory, cancellationToken);
-
-                await _recipesContext.SaveChangesAsync(cancellationToken);
-
-                return new AddMainCategoryResult
-                {
-                    CategoryId = newMainCategory.Id,
-                };
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An unexpected error has occurred while adding a new main category");
-                throw;
-            }
-        }
-    }
-
-    public async Task<Result<AddSubCategoryResult, ExpectedError>> AddSubCategory(
+    public async Task<Result<AddCategoryResult, ExpectedError>> AddCategoryAsync(
         string name,
         int parentCategoryId,
         CancellationToken cancellationToken)
@@ -77,12 +35,12 @@ internal sealed class CategoryService : ICategoryService
         {
             try
             {
-                var mainCategory = await _recipesContext.Categories
-                    .FindAsync(parentCategoryId, cancellationToken);
+                var parentCategory = await _recipesContext.Categories
+                        .FindAsync(parentCategoryId, cancellationToken);
 
-                if (mainCategory is null)
+                if (parentCategory is null)
                 {
-                    return Result.Failure<AddSubCategoryResult, ExpectedError>(
+                    return Result.Failure<AddCategoryResult, ExpectedError>(
                         Errors.Category.NotFound(parentCategoryId));
                 }
 
@@ -94,17 +52,19 @@ internal sealed class CategoryService : ICategoryService
 
                 if (nameExists)
                 {
-                    return Result.Failure<AddSubCategoryResult, ExpectedError>(
+                    return Result.Failure<AddCategoryResult, ExpectedError>(
                         Errors.Category.AnotherCategoryWithNameAlreadyExists(name));
                 }
 
-                var newSubCategory = new CategoryAggregate(name, mainCategory);
+                var newSubCategory = parentCategory is null
+                    ? new CategoryAggregate(name)
+                    : new CategoryAggregate(name, parentCategory);
 
                 await _recipesContext.AddAsync(newSubCategory, cancellationToken);
 
                 await _recipesContext.SaveChangesAsync(cancellationToken);
 
-                return new AddSubCategoryResult
+                return new AddCategoryResult
                 {
                     CategoryId = newSubCategory.Id,
                 };
@@ -117,7 +77,17 @@ internal sealed class CategoryService : ICategoryService
         }
     }
 
-    public async Task<UnitResult<ExpectedError>> MoveSubCategory(
+    public Task<Result<AddCategoryResult, ExpectedError>> AddCategoryAsync(
+        string name,
+        CancellationToken cancellationToken)
+    {
+        return AddCategoryAsync(
+            name,
+            CategoryAggregate.RootCategoryId,
+            cancellationToken);
+    }
+
+    public async Task<UnitResult<ExpectedError>> MoveCategoryAsync(
         int id,
         int newParentCategoryId,
         CancellationToken cancellationToken)
@@ -130,33 +100,39 @@ internal sealed class CategoryService : ICategoryService
         {
             try
             {
-                var subCategory = await _recipesContext.Categories
+                if (id == CategoryAggregate.RootCategoryId)
+                {
+                    return UnitResult.Failure<ExpectedError>(
+                        Errors.Category.RootCategoryModificationNotAllowed());
+                }
+
+                var category = await _recipesContext.Categories
                     .FindAsync(id, cancellationToken);
 
-                if (subCategory is null)
+                if (category is null)
                 {
-                    return Result.Failure<AddSubCategoryResult, ExpectedError>(
+                    return UnitResult.Failure<ExpectedError>(
                         Errors.Category.NotFound(id));
                 }
 
-                var mainCategory = await _recipesContext.Categories
+                var parentCategory = await _recipesContext.Categories
                     .FindAsync(newParentCategoryId, cancellationToken);
 
-                if (mainCategory is null)
+                if (parentCategory is null)
                 {
-                    return Result.Failure<AddSubCategoryResult, ExpectedError>(
+                    return UnitResult.Failure<ExpectedError>(
                         Errors.Category.NotFound(newParentCategoryId));
                 }
 
-                if (mainCategory.Id == subCategory.Id)
+                if (category.Id == parentCategory.Id)
                 {
-                    return Result.Failure<AddSubCategoryResult, ExpectedError>(
-                       Errors.Category.ParentCategoryIsNotValid(mainCategory.Name, subCategory.Name));
+                    return UnitResult.Failure<ExpectedError>(
+                       Errors.Category.ParentCategoryIsNotValid(parentCategory.Name, category.Name));
                 }
 
-                subCategory.ChangeParentCategory(mainCategory);
+                category.ChangeParentCategory(parentCategory);
 
-                _recipesContext.Categories.Update(subCategory);
+                _recipesContext.Categories.Update(category);
 
                 await _recipesContext.SaveChangesAsync(cancellationToken);
 
@@ -170,7 +146,7 @@ internal sealed class CategoryService : ICategoryService
         }
     }
 
-    public async Task<UnitResult<ExpectedError>> RemoveCategory(
+    public async Task<UnitResult<ExpectedError>> RemoveCategoryAsync(
         int id,
         CancellationToken cancellationToken)
     {
@@ -181,6 +157,12 @@ internal sealed class CategoryService : ICategoryService
         {
             try
             {
+                if (id == CategoryAggregate.RootCategoryId)
+                {
+                    return UnitResult.Failure<ExpectedError>(
+                        Errors.Category.RootCategoryModificationNotAllowed());
+                }
+
                 var category = await _recipesContext.Categories
                     .FindAsync(id, cancellationToken);
 
@@ -204,7 +186,7 @@ internal sealed class CategoryService : ICategoryService
         }
     }
 
-    public async Task<UnitResult<ExpectedError>> RenameCategory(
+    public async Task<UnitResult<ExpectedError>> RenameCategoryAsync(
         int id,
         string newName,
         CancellationToken cancellationToken)
@@ -217,6 +199,12 @@ internal sealed class CategoryService : ICategoryService
         {
             try
             {
+                if (id == CategoryAggregate.RootCategoryId)
+                {
+                    return UnitResult.Failure<ExpectedError>(
+                        Errors.Category.RootCategoryModificationNotAllowed());
+                }
+
                 var category = await _recipesContext.Categories
                     .FindAsync(id, cancellationToken);
 

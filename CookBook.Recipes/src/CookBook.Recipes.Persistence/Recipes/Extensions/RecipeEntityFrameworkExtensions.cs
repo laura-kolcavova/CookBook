@@ -53,7 +53,7 @@ public static class RecipeEntityFrameworkExtensions
     {
         return recipes.Select(recipe => new RecipeDetailReadModel
         {
-            RecipeId = recipe.Id,
+            Id = recipe.Id,
             UserId = recipe.UserId,
             Title = recipe.Title,
             Description = recipe.Description,

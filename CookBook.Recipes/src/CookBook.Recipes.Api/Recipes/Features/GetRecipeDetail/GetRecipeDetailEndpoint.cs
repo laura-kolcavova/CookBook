@@ -10,10 +10,10 @@ internal static class GetRecipeDetailEndpoint
             .MapGet("{recipeId}/detail", HandleAsync)
             .WithName("GetRecipeDetail")
             .WithSummary("Gets recipe detail by its id")
-            .WithDescription("This endpoint returns recipe detail DTO")
+            .WithDescription("Returns a DTO containing recipe detail")
             .Produces<GetRecipeDetailResponseDto>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesProblem(StatusCodes.Status204NoContent)
             .ProducesValidationProblem();
     }
 
