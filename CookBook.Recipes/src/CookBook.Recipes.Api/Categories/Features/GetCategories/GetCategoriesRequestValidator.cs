@@ -6,7 +6,7 @@ internal sealed class GetCategoriesRequestValidator : AbstractValidator<GetCateg
 {
     public GetCategoriesRequestValidator()
     {
-        RuleFor(request => request.CategoryId)
+        RuleFor(request => request.ParentCategoryId)
             .GreaterThan(0);
     }
 }

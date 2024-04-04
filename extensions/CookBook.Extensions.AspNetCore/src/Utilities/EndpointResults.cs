@@ -10,7 +10,7 @@ public static class EndpointResults
     public static Results<ProblemHttpResult, ValidationProblem>
         Problem(IEnumerable<ExpectedError> errors, HttpContext httpContext)
     {
-        if (errors.Any())
+        if (!errors.Any())
         {
             throw new ArgumentException("A collection of errors cannot be empty", nameof(errors));
         }
@@ -59,7 +59,7 @@ public static class EndpointResults
                 type = "https://httpwg.org/specs/rfc9110.html#status.403";
                 break;
             default:
-                throw new InvalidEnumArgumentException(nameof(error.Type));
+                throw new InvalidEnumArgumentException(error.Type.ToString());
         }
 
         return TypedResults.Problem(
