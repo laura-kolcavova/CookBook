@@ -172,6 +172,10 @@ internal sealed class CategoryService : ICategoryService
                         Errors.Category.NotFound(id));
                 }
 
+                await _recipesContext.Categories
+                    .Where(category => category.ParentCategoryId == id)
+                    .ExecuteDeleteAsync(cancellationToken);
+
                 _recipesContext.Categories.Remove(category);
 
                 await _recipesContext.SaveChangesAsync(cancellationToken);

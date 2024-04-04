@@ -39,6 +39,6 @@ public sealed class CategoryAggregate : AggregateRoot<int>, ITrackableEntity
 
     public void Rename(string newName)
     {
-        Name += newName;
+        Name = newName;
     }
 }

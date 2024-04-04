@@ -4,6 +4,6 @@ namespace CookBook.Recipes.Api.Categories.Features.GetCategories;
 
 internal sealed class GetCategoriesRequestDto
 {
-    [FromQuery(Name = "categoryId")]
-    public int? CategoryId { get; init; }
+    [FromQuery(Name = "parentCategoryId")]
+    public int? ParentCategoryId { get; init; }
 }

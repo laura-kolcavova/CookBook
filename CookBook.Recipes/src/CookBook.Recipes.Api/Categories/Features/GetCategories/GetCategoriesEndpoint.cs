@@ -25,7 +25,7 @@ internal static class GetCategoriesEndpoint
         CancellationToken cancellationToken)
     {
         var categories = await categoryListingItemReadModel.GetCategoriesAsync(
-            request.CategoryId ?? CategoryAggregate.RootCategoryId,
+            request.ParentCategoryId ?? CategoryAggregate.RootCategoryId,
             cancellationToken);
 
         return Results.Ok(new GetCategoriesResponseDto
