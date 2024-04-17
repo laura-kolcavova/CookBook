@@ -1,4 +1,5 @@
 ﻿using CookBook.Recipes.Domain.Categories;
+using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 using CookBook.Recipes.Persistence.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -28,5 +29,10 @@ internal sealed class CategoryAggregateRootConfiguration : IEntityTypeConfigurat
 
         builder
             .HasTrackableProperties();
+
+        builder
+            .HasMany(nameof(RecipesContext.RecipeCategories))
+            .WithOne()
+            .HasForeignKey(nameof(RecipeCategoryEntity.CategoryId));
     }
 }

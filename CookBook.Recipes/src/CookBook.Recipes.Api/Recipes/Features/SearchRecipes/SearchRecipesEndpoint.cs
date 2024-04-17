@@ -23,7 +23,7 @@ internal static class SearchRecipesEndpoint
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         OffsetFilterRequestDto offsetFilterRequest,
-        IRecipeListingItemReadModelService recipeListingItemReadModelService,
+        IRecipeQueryService recipeQueryService,
         HttpContext httpContext,
         CancellationToken cancellationToken
         )
@@ -47,7 +47,7 @@ internal static class SearchRecipesEndpoint
             }
         };
 
-        var recipes = await recipeListingItemReadModelService.SearchRecipesAsync(
+        var recipes = await recipeQueryService.SearchRecipesAsync(
             sorting,
             offsetFilter,
             cancellationToken);

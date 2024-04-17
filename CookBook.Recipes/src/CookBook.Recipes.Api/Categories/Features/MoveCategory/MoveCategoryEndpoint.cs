@@ -22,7 +22,7 @@ internal static class MoveCategoryEndpoint
     private static async Task<IResult> HandleAsync(
         [FromBody]
         MoveCategoryRequestDto request,
-        ICategoryService categoryService,
+        ICategoryCommandService categoryService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {

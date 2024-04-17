@@ -1,22 +1,25 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
 using CookBook.Recipes.Application.Recipes.Models;
 using CookBook.Recipes.Application.Recipes.Services;
+using CookBook.Recipes.Domain.Categories;
 using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
 using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 using CSharpFunctionalExtensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Errors = CookBook.Recipes.Domain.Recipes.Errors;
 
 namespace CookBook.Recipes.Persistence.Recipes.Services;
 
-internal sealed class RecipeService : IRecipeService
+internal sealed class RecipeCommandService : IRecipeCommandService
 {
     private readonly RecipesContext _recipesContext;
-    private readonly ILogger<RecipeService> _logger;
+    private readonly ILogger<RecipeCommandService> _logger;
 
-    public RecipeService(
+    public RecipeCommandService(
         RecipesContext recipesContext,
-        ILogger<RecipeService> logger)
+        ILogger<RecipeCommandService> logger)
     {
         _recipesContext = recipesContext;
         _logger = logger;
@@ -75,13 +78,13 @@ internal sealed class RecipeService : IRecipeService
             if (recipe is null)
             {
                 recipe = new RecipeAggregate(request.Title, request.UserId);
-                SaveRecipeOptionalInformation(recipe, request);
+                await SaveRecipeOptionalInformation(recipe, request, cancellationToken);
                 await _recipesContext.Recipes.AddAsync(recipe, cancellationToken);
             }
             else
             {
                 recipe.SetTitle(request.Title);
-                SaveRecipeOptionalInformation(recipe, request);
+                await SaveRecipeOptionalInformation(recipe, request, cancellationToken);
                 _recipesContext.Recipes.Update(recipe);
             }
 
@@ -99,10 +102,20 @@ internal sealed class RecipeService : IRecipeService
         }
     }
 
-    private static void SaveRecipeOptionalInformation(
+    private async Task SaveRecipeOptionalInformation(
         RecipeAggregate recipe,
-        SaveRecipeRequest request)
+        SaveRecipeRequest request,
+        CancellationToken cancellationToken)
     {
+        var categories = Enumerable.Empty<CategoryAggregate>();
+
+        if (request.CategoryIds.Any())
+        {
+            categories = await _recipesContext.Categories
+                .Where(category => request.CategoryIds.Contains(category.Id))
+                .ToListAsync(cancellationToken);
+        }
+
         recipe.SetDescription(request.Description);
         recipe.SetServings(request.Servings);
         recipe.SetPreparationTime(request.PreparationTime);
@@ -110,5 +123,6 @@ internal sealed class RecipeService : IRecipeService
         recipe.SetNotes(request.Notes);
         recipe.SaveIngredients(request.Ingredients);
         recipe.SaveInstructions(request.Instructions);
+        recipe.SaveCategories(categories);
     }
 }

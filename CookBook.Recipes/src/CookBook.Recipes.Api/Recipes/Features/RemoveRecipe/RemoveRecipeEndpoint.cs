@@ -21,7 +21,7 @@ internal static class RemoveRecipeEndpoint
 
     private static async Task<IResult> HandleAsync(
         [AsParameters] RemoveRecipeRequestDto request,
-        IRecipeService recipeService,
+        IRecipeCommandService recipeService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {

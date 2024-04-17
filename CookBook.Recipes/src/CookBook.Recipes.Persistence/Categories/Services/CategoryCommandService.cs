@@ -9,14 +9,14 @@ using Microsoft.Extensions.Logging;
 
 namespace CookBook.Recipes.Persistence.Categories.Services;
 
-internal sealed class CategoryService : ICategoryService
+internal sealed class CategoryCommandService : ICategoryCommandService
 {
     private readonly RecipesContext _recipesContext;
-    private readonly ILogger<CategoryService> _logger;
+    private readonly ILogger<CategoryCommandService> _logger;
 
-    public CategoryService(
+    public CategoryCommandService(
         RecipesContext recipesContext,
-        ILogger<CategoryService> logger)
+        ILogger<CategoryCommandService> logger)
     {
         _recipesContext = recipesContext;
         _logger = logger;

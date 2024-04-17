@@ -22,6 +22,8 @@ public sealed record SaveRecipeRequest
 
     public required SaveInstructionsParameters Instructions { get; init; }
 
+    public required IEnumerable<int> CategoryIds { get; init; }
+
     public required string? Notes { get; init; }
 
     public record IngredientItem

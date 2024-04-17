@@ -19,7 +19,7 @@ internal static class GetRecipeDetailEndpoint
 
     private static async Task<IResult> HandleAsync(
         [AsParameters] GetRecipeDetailRequestDto request,
-        IRecipeDetailReadModelService recipeDetailReadModelService,
+        IRecipeQueryService recipeDetailReadModelService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {

@@ -19,14 +19,12 @@ public static class PersistenceServicesInstallation
             useDevelopmentLogging: isDevelopment));
 
         services
-            .AddScoped<ICategoryService, CategoryService>()
-            .AddScoped<ICategoryListingItemReadModelService, CategoryListinItemReadModelService>()
-            .AddScoped<ICategoryDetailReadModelService, CategoryDetailReadModelService>();
+            .AddScoped<ICategoryCommandService, CategoryCommandService>()
+            .AddScoped<ICategoryQueryService, CategoryQueryService>();
 
         services
-            .AddScoped<IRecipeService, RecipeService>()
-            .AddScoped<IRecipeListingItemReadModelService, RecipeListingItemReadModelService>()
-            .AddScoped<IRecipeDetailReadModelService, RecipeDetailReadModelService>();
+            .AddScoped<IRecipeCommandService, RecipeCommandService>()
+            .AddScoped<IRecipeQueryService, RecipeQueryService>();
 
         return services;
     }

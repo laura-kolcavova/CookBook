@@ -22,7 +22,7 @@ internal static class RenameCategoryEndpoint
     private static async Task<IResult> HandleAsync(
         [FromBody]
         RenameCategoryRequestDto request,
-        ICategoryService categoryService,
+        ICategoryCommandService categoryService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {

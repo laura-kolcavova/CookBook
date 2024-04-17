@@ -20,7 +20,7 @@ internal static class GetCategoryDetailEndpoint
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         GetCategoryDetailRequestDto request,
-        ICategoryDetailReadModelService categoryDetailReadModelService,
+        ICategoryQueryService categoryDetailReadModelService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
