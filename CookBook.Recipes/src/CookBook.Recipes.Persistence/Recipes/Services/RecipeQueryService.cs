@@ -66,12 +66,36 @@ internal sealed class RecipeQueryService : IRecipeQueryService
 
         try
         {
-            return await _recipesContext.Recipes
+            var readModel = await _recipesContext.Recipes
                 .AsNoTracking()
                 .ProjectToRecipeDetailReadModel()
                 .SingleOrDefaultAsync(recipeDetail =>
                     recipeDetail.Id == recipeId,
                     cancellationToken);
+
+            if (readModel == null)
+            {
+                return null;
+            }
+
+            var categoryIds = readModel.Categories
+                .Select(category => category.Id);
+
+            var categories = await _recipesContext.Categories
+                .Where(category => categoryIds.Contains(category.Id))
+                .Select(category => new RecipeDetailReadModel.CategoryItem
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                })
+                .ToListAsync(cancellationToken);
+
+            readModel = readModel with
+            {
+                Categories = categories
+            };
+
+            return readModel;
         }
         catch (Exception ex)
         {

@@ -25,6 +25,11 @@ public static class RecipeEntityFrameworkExtensions
                 .Entry(recipe)
                 .Collection(recipe => recipe.Instructions)
                 .LoadAsync(cancellationToken);
+
+            await recipes
+                .Entry(recipe)
+                .Collection(recipe => recipe.RecipeCategories)
+                .LoadAsync(cancellationToken);
         }
 
         return recipe;
@@ -34,7 +39,8 @@ public static class RecipeEntityFrameworkExtensions
     {
         return queryable
             .Include(recipe => recipe.Ingredients)
-            .Include(recipe => recipe.Instructions);
+            .Include(recipe => recipe.Instructions)
+            .Include(recipe => recipe.RecipeCategories);
     }
 
     public static IQueryable<RecipeListingItemReadModel> ProjectToRecipeListingItemReadModel(
@@ -79,6 +85,15 @@ public static class RecipeEntityFrameworkExtensions
                     {
                         LocalId = recipeInstruction.LocalId,
                         Note = recipeInstruction.Note,
+                    })
+                .ToList(),
+            Categories = recipe
+                .RecipeCategories
+                .Select(recipeCategory =>
+                    new RecipeDetailReadModel.CategoryItem
+                    {
+                        Id = recipeCategory.CategoryId,
+                        Name = string.Empty
                     })
                 .ToList(),
         });
