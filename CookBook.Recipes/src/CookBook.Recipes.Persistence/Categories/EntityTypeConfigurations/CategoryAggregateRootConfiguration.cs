@@ -28,5 +28,10 @@ internal sealed class CategoryAggregateRootConfiguration : IEntityTypeConfigurat
 
         builder
             .HasTrackableProperties();
+
+        builder
+            .HasMany(e => e.RecipeCategories)
+            .WithOne()
+            .HasForeignKey(f => f.CategoryId);
     }
 }

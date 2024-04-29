@@ -38,6 +38,8 @@ internal sealed class RecipesContext : TrackableDbContext
 
     public DbSet<RecipeInstructionEntity> RecipeInstructions => Set<RecipeInstructionEntity>();
 
+    public DbSet<RecipeCategoryEntity> RecipeCategories => Set<RecipeCategoryEntity>();
+
     #endregion Entities
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -61,6 +63,7 @@ internal sealed class RecipesContext : TrackableDbContext
         modelBuilder.ApplyConfiguration(new RecipeAggregateRootConfiguration());
         modelBuilder.ApplyConfiguration(new RecipeIngredientEntityConfiguration());
         modelBuilder.ApplyConfiguration(new RecipeInstructionEntityConfiguration());
+        modelBuilder.ApplyConfiguration(new RecipeCategoryEntityConfiguration());
     }
 
     private static ILoggerFactory CreateLoggerFactory()

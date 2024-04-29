@@ -10,14 +10,14 @@ using Microsoft.Extensions.Logging;
 
 namespace CookBook.Recipes.Persistence.Recipes.Services;
 
-internal sealed class RecipeListingItemReadModelService : IRecipeListingItemReadModelService
+internal sealed class RecipeQueryService : IRecipeQueryService
 {
     private readonly RecipesContext _recipesContext;
-    private readonly ILogger<RecipeListingItemReadModelService> _logger;
+    private readonly ILogger<RecipeQueryService> _logger;
 
-    public RecipeListingItemReadModelService(
+    public RecipeQueryService(
         RecipesContext recipesContext,
-        ILogger<RecipeListingItemReadModelService> logger)
+        ILogger<RecipeQueryService> logger)
     {
         _recipesContext = recipesContext;
         _logger = logger;
@@ -53,6 +53,53 @@ internal sealed class RecipeListingItemReadModelService : IRecipeListingItemRead
         catch (Exception ex)
         {
             _logger.LogError(ex, "An unexpected error occurred while searching for recipes");
+            throw;
+        }
+    }
+
+    public async Task<RecipeDetailReadModel?> GetRecipeDetailAsync(long recipeId, CancellationToken cancellationToken)
+    {
+        using var loggerScope = _logger.BeginScope(new Dictionary<string, object?>
+        {
+            ["RecipeId"] = recipeId
+        });
+
+        try
+        {
+            var readModel = await _recipesContext.Recipes
+                .AsNoTracking()
+                .ProjectToRecipeDetailReadModel()
+                .SingleOrDefaultAsync(recipeDetail =>
+                    recipeDetail.Id == recipeId,
+                    cancellationToken);
+
+            if (readModel == null)
+            {
+                return null;
+            }
+
+            var categoryIds = readModel.Categories
+                .Select(category => category.Id);
+
+            var categories = await _recipesContext.Categories
+                .Where(category => categoryIds.Contains(category.Id))
+                .Select(category => new RecipeDetailReadModel.CategoryItem
+                {
+                    Id = category.Id,
+                    Name = category.Name,
+                })
+                .ToListAsync(cancellationToken);
+
+            readModel = readModel with
+            {
+                Categories = categories
+            };
+
+            return readModel;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occurred while getting recipe detail");
             throw;
         }
     }

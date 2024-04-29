@@ -37,7 +37,9 @@ internal static class SaveRecipeMapper
                     Note = instruction.Note
                 })
                 .ToList()
-            }
+            },
+            CategoryIds = request.CategoryIds
+                .ToList()
         };
     }
 

@@ -74,6 +74,7 @@
     <Build Include="SeedAndPatch\Seed\SP_Seed_Recipes.sql" />
     <Build Include="dbo\Tables\Categories.sql" />
     <Build Include="SeedAndPatch\Seed\SP_Seed_Categories.sql" />
+    <Build Include="dbo\Tables\RecipeCategories.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

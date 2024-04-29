@@ -22,6 +22,8 @@ internal sealed class SaveRecipeRequestDto
 
     public IReadOnlyCollection<InstructionItem> Instructions { get; init; } = new List<InstructionItem>();
 
+    public IReadOnlyCollection<int> CategoryIds { get; init; } = new List<int>();
+
     public sealed class IngredientItem
     {
         public int? LocalId { get; init; }

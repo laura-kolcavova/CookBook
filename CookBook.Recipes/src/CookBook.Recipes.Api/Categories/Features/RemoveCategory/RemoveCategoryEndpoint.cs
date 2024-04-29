@@ -21,7 +21,7 @@ internal static class RemoveCategoryEndpoint
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         RemoveCategoryRequestDto request,
-        ICategoryService categoryService,
+        ICategoryCommandService categoryService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {

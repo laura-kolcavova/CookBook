@@ -4,7 +4,7 @@ using CSharpFunctionalExtensions;
 
 namespace CookBook.Recipes.Application.Categories.Services;
 
-public interface ICategoryService
+public interface ICategoryCommandService
 {
     public Task<Result<AddCategoryResult, ExpectedError>> AddCategoryAsync(
         string name,

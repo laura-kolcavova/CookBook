@@ -20,11 +20,11 @@ internal static class GetCategoriesEndpoint
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         GetCategoriesRequestDto request,
-        ICategoryListingItemReadModelService categoryListingItemReadModel,
+        ICategoryQueryService categoryQueryService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var categories = await categoryListingItemReadModel.GetCategoriesAsync(
+        var categories = await categoryQueryService.GetCategoriesAsync(
             request.ParentCategoryId ?? CategoryAggregate.RootCategoryId,
             cancellationToken);
 

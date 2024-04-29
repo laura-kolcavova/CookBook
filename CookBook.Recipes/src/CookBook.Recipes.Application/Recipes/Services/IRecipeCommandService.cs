@@ -4,7 +4,7 @@ using CSharpFunctionalExtensions;
 
 namespace CookBook.Recipes.Application.Recipes.Services;
 
-public interface IRecipeService
+public interface IRecipeCommandService
 {
     public Task<UnitResult<ExpectedError>> RemoveRecipeAsync(
         long recipeId,

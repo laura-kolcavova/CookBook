@@ -1,4 +1,5 @@
-﻿using CookBook.Recipes.Domain.Recipes.Parameters;
+﻿using CookBook.Recipes.Domain.Categories;
+using CookBook.Recipes.Domain.Recipes.Parameters;
 using CookBook.Recipes.Domain.Shared;
 
 namespace CookBook.Recipes.Domain.Recipes;
@@ -31,9 +32,13 @@ public sealed class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 
     private readonly List<RecipeInstructionEntity> _instructions;
 
-    public IReadOnlyCollection<RecipeIngredientEntity> Ingredients => _ingredients;
+    private readonly List<RecipeCategoryEntity> _recipeCategories;
 
-    public IReadOnlyCollection<RecipeInstructionEntity> Instructions => _instructions;
+    public IReadOnlyCollection<RecipeIngredientEntity> Ingredients => _ingredients.AsReadOnly();
+
+    public IReadOnlyCollection<RecipeInstructionEntity> Instructions => _instructions.AsReadOnly();
+
+    public IReadOnlyCollection<RecipeCategoryEntity> RecipeCategories => _recipeCategories.AsReadOnly();
 
     #endregion NavigationProperties
 
@@ -44,6 +49,7 @@ public sealed class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 
         _ingredients = new List<RecipeIngredientEntity>();
         _instructions = new List<RecipeInstructionEntity>();
+        _recipeCategories = new List<RecipeCategoryEntity>();
     }
 
     public override long GetPrimaryKey() => Id;
@@ -114,6 +120,15 @@ public sealed class RecipeAggregate : AggregateRoot<long>, ITrackableEntity
 
         _instructions.Clear();
         _instructions.AddRange(newInstructions);
+    }
+
+    public void SaveCategories(IEnumerable<CategoryAggregate> categories)
+    {
+        var recipeCategories = categories
+            .Select(category => new RecipeCategoryEntity(category.Id));
+
+        _recipeCategories.Clear();
+        _recipeCategories.AddRange(recipeCategories);
     }
 
     private RecipeIngredientEntity CreateOrUpdateIngredient(

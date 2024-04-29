@@ -21,7 +21,7 @@ internal static class AddCategoryEndpoint
 
     private static async Task<IResult> HandleAsync(
         [FromBody] AddCategoryRequestDto request,
-        ICategoryService categoryService,
+        ICategoryCommandService categoryService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {

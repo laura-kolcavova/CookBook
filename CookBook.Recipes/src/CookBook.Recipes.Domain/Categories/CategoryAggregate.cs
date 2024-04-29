@@ -1,4 +1,5 @@
-﻿using CookBook.Recipes.Domain.Shared;
+﻿using CookBook.Recipes.Domain.Recipes;
+using CookBook.Recipes.Domain.Shared;
 
 namespace CookBook.Recipes.Domain.Categories;
 
@@ -15,6 +16,12 @@ public sealed class CategoryAggregate : AggregateRoot<int>, ITrackableEntity
     public DateTimeOffset? CreatedAt { get; }
 
     public DateTimeOffset? UpdatedAt { get; }
+
+    #region NavigationProperties
+
+    public IReadOnlyCollection<RecipeCategoryEntity> RecipeCategories { get; } = new List<RecipeCategoryEntity>();
+
+    #endregion NavigationProperties
 
     public CategoryAggregate(string name)
     {

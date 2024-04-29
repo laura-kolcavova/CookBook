@@ -24,6 +24,8 @@ public sealed record RecipeDetailReadModel : IReadModel
 
     public required IReadOnlyCollection<InstructionItem> Instructions { get; init; }
 
+    public required IReadOnlyCollection<CategoryItem> Categories { get; init; } = new List<CategoryItem>();
+
     public sealed record IngredientItem
     {
         public required int LocalId { get; init; }
@@ -36,5 +38,12 @@ public sealed record RecipeDetailReadModel : IReadModel
         public required int LocalId { get; init; }
 
         public required string Note { get; init; }
+    }
+
+    public sealed record CategoryItem
+    {
+        public required int Id { get; init; }
+
+        public required string Name { get; init; }
     }
 }
