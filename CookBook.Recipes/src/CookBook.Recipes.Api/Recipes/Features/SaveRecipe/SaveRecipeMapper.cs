@@ -39,6 +39,9 @@ internal static class SaveRecipeMapper
                 .ToList()
             },
             CategoryIds = request.CategoryIds
+                .ToList(),
+
+            Tags = request.Tags
                 .ToList()
         };
     }

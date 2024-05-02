@@ -1,4 +1,4 @@
-﻿namespace CookBook.Recipes.Domain.Recipes;
+﻿namespace CookBook.Recipes.Domain.Recipes.Entities;
 
 public readonly struct RecipeIngredientPrimaryKey
 {

@@ -1,8 +1,8 @@
 ﻿using CookBook.Recipes.Domain.Shared;
 
-namespace CookBook.Recipes.Domain.Recipes;
+namespace CookBook.Recipes.Domain.Recipes.Entities;
 
-public sealed class RecipeCategoryEntity : Entity<RecipeCategoryPrimaryKey>
+public sealed class RecipeCategoryEntity : Entity
 {
     public long RecipeId { get; }
 
@@ -13,7 +13,7 @@ public sealed class RecipeCategoryEntity : Entity<RecipeCategoryPrimaryKey>
         CategoryId = categoryId;
     }
 
-    public override RecipeCategoryPrimaryKey GetPrimaryKey() => new RecipeCategoryPrimaryKey
+    public override object GetPrimaryKey() => new RecipeCategoryPrimaryKey
     {
         RecipeId = RecipeId,
         CategoryId = CategoryId,

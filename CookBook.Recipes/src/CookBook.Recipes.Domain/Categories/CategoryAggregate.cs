@@ -1,9 +1,9 @@
-﻿using CookBook.Recipes.Domain.Recipes;
+﻿using CookBook.Recipes.Domain.Recipes.Entities;
 using CookBook.Recipes.Domain.Shared;
 
 namespace CookBook.Recipes.Domain.Categories;
 
-public sealed class CategoryAggregate : AggregateRoot<int>, ITrackableEntity
+public sealed class CategoryAggregate : AggregateRoot, ITrackableEntity
 {
     public const int RootCategoryId = 1;
 
@@ -35,7 +35,7 @@ public sealed class CategoryAggregate : AggregateRoot<int>, ITrackableEntity
         ParentCategoryId = parentCategory.Id;
     }
 
-    public override int GetPrimaryKey() => Id;
+    public override object GetPrimaryKey() => Id;
 
     public bool IsMainCategory => ParentCategoryId == RootCategoryId;
 

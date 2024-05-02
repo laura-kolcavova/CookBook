@@ -65,5 +65,10 @@ internal sealed class RecipeAggregateRootConfiguration : IEntityTypeConfiguratio
             .HasMany(e => e.RecipeCategories)
             .WithOne()
             .HasForeignKey(f => f.RecipeId);
+
+        builder
+            .HasMany(e => e.RecipeTags)
+            .WithOne()
+            .HasForeignKey(f => f.RecipeId);
     }
 }
