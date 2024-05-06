@@ -1,24 +1,24 @@
 ﻿using CookBook.Recipes.Domain.Shared;
 
-namespace CookBook.Recipes.Domain.Recipes;
+namespace CookBook.Recipes.Domain.Recipes.Entities;
 
-public sealed class RecipeInstructionEntity : Entity<RecipeInstructionPrimaryKey>
+public sealed class RecipeIngredientEntity : Entity
 {
     public long RecipeId { get; }
 
     public int LocalId { get; }
 
-    public string Note { get; private set; }
+    public string Note { get; private set; } = string.Empty;
 
     public short OrderIndex { get; private set; }
 
-    public RecipeInstructionEntity(int localId, string note)
+    public RecipeIngredientEntity(int localId, string note)
     {
         LocalId = localId;
         Note = note;
     }
 
-    public override RecipeInstructionPrimaryKey GetPrimaryKey() => new()
+    public override object GetPrimaryKey() => new RecipeIngredientPrimaryKey
     {
         RecipeId = RecipeId,
         LocalId = LocalId,

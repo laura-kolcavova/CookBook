@@ -24,19 +24,7 @@ public sealed record SaveRecipeRequest
 
     public required IEnumerable<int> CategoryIds { get; init; }
 
+    public required IEnumerable<string> Tags { get; init; }
+
     public required string? Notes { get; init; }
-
-    public record IngredientItem
-    {
-        public required long? Id { get; init; }
-
-        public required string Note { get; init; }
-    }
-
-    public record InstructionItem
-    {
-        public required long? Id { get; init; }
-
-        public required string Note { get; init; }
-    }
 }

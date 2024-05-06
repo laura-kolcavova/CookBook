@@ -96,6 +96,11 @@ public static class RecipeEntityFrameworkExtensions
                         Name = string.Empty
                     })
                 .ToList(),
+            Tags = recipe
+                .RecipeTags
+                .Select(recipeTag =>
+                    recipeTag.Name)
+                .ToList()
         });
     }
 }

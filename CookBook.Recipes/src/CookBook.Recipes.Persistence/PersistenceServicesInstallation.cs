@@ -3,6 +3,7 @@ using CookBook.Recipes.Application.Recipes.Services;
 using CookBook.Recipes.Persistence.Categories.Services;
 using CookBook.Recipes.Persistence.Recipes.Services;
 using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
+using CookBook.Recipes.Persistence.Shared.Interceptors;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.Recipes.Persistence;
@@ -14,9 +15,20 @@ public static class PersistenceServicesInstallation
         string connectionString,
         bool isDevelopment)
     {
-        services.AddScoped(_ => new RecipesContext(
-            connectionString: connectionString,
-            useDevelopmentLogging: isDevelopment));
+        services
+            .AddSingleton<UpdateTrackingFieldsInterceptor>();
+
+        services
+            .AddScoped(serviceProvider =>
+            {
+                var updateTrackingFieldsInterceptor = serviceProvider
+                    .GetRequiredService<UpdateTrackingFieldsInterceptor>();
+
+                return new RecipesContext(
+                    connectionString: connectionString,
+                    useDevelopmentLogging: isDevelopment,
+                    updateTrackingFieldsInterceptor: updateTrackingFieldsInterceptor);
+            });
 
         services
             .AddScoped<ICategoryCommandService, CategoryCommandService>()

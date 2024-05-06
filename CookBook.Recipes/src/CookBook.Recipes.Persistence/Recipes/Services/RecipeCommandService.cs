@@ -124,5 +124,6 @@ internal sealed class RecipeCommandService : IRecipeCommandService
         recipe.SaveIngredients(request.Ingredients);
         recipe.SaveInstructions(request.Instructions);
         recipe.SaveCategories(categories);
+        recipe.SaveTags(request.Tags);
     }
 }

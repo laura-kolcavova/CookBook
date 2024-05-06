@@ -1,11 +1,10 @@
 ﻿namespace CookBook.Recipes.Domain.Shared;
 
-public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>, IEquatable<Entity<TPrimaryKey>>
-    where TPrimaryKey : notnull
+public abstract class Entity : IEntity, IEquatable<Entity>
 {
-    public abstract TPrimaryKey GetPrimaryKey();
+    public abstract object GetPrimaryKey();
 
-    public static bool operator ==(Entity<TPrimaryKey>? first, Entity<TPrimaryKey>? second)
+    public static bool operator ==(Entity? first, Entity? second)
     {
         if (first is null && second is null)
         {
@@ -15,12 +14,12 @@ public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>, IEquatable<Ent
         return first is not null && second is not null && first.Equals(second);
     }
 
-    public static bool operator !=(Entity<TPrimaryKey>? first, Entity<TPrimaryKey>? second)
+    public static bool operator !=(Entity? first, Entity? second)
     {
         return !(first == second);
     }
 
-    public bool Equals(Entity<TPrimaryKey>? other)
+    public bool Equals(Entity? other)
     {
         if (other is null)
         {
@@ -32,7 +31,7 @@ public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>, IEquatable<Ent
             return false;
         }
 
-        return EqualityComparer<TPrimaryKey>.Default.Equals(other.GetPrimaryKey(), this.GetPrimaryKey());
+        return other.GetPrimaryKey().Equals(this.GetPrimaryKey());
     }
 
     public override bool Equals(object? obj)
@@ -47,8 +46,8 @@ public abstract class Entity<TPrimaryKey> : IEntity<TPrimaryKey>, IEquatable<Ent
             return false;
         }
 
-        return obj is Entity<TPrimaryKey> entity &&
-               EqualityComparer<TPrimaryKey>.Default.Equals(entity.GetPrimaryKey(), this.GetPrimaryKey());
+        return obj is Entity entity &&
+               entity.GetPrimaryKey().Equals(this.GetPrimaryKey());
     }
 
     public override int GetHashCode()
