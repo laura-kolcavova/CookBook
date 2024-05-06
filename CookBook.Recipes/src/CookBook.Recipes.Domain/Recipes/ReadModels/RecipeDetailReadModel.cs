@@ -24,7 +24,9 @@ public sealed record RecipeDetailReadModel : IReadModel
 
     public required IReadOnlyCollection<InstructionItem> Instructions { get; init; }
 
-    public required IReadOnlyCollection<CategoryItem> Categories { get; init; } = new List<CategoryItem>();
+    public required IReadOnlyCollection<CategoryItem> Categories { get; init; }
+
+    public required IReadOnlyCollection<string> Tags { get; init; }
 
     public sealed record IngredientItem
     {
