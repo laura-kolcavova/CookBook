@@ -4,7 +4,7 @@ volumes:
   baget-data:
       name: baget-data
 
-services: 
+services:
     cookbook-nuget-repository:
         image: loicsharma/baget:latest
         container_name: cookbook-nuget-repository-container
