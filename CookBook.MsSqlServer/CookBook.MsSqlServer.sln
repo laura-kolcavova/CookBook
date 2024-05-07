@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FE55ED0F-B606-440E-B0A0-E12311CF33F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CookBook.MsSqlServer.Server", "CookBook.MsSqlServer.Server", "{8EF65364-BFFC-40C7-994F-76B2A5F43D70}"
+	ProjectSection(SolutionItems) = preProject
+		src\CookBook.MsSqlServer.Server\server.env = src\CookBook.MsSqlServer.Server\server.env
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{CA3B8368-5BA4-45DB-8427-561D56DD4E36}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8EF65364-BFFC-40C7-994F-76B2A5F43D70} = {FE55ED0F-B606-440E-B0A0-E12311CF33F2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A98CE31A-D83E-4AB5-A0AE-990E931D4522}
+	EndGlobalSection
+EndGlobal
