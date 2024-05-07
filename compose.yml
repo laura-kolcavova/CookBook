@@ -5,19 +5,31 @@ volumes:
       name: baget-data
 
 services:
-    cookbook-nuget-repository:
-        image: loicsharma/baget:latest
-        container_name: cookbook-nuget-repository-container
-        ports:
-          - "5555:80"
-        env_file:
-          - ./CookBook.NugetRepository/src/CookBook.NugetRepository.Server/baget.env
-        volumes:
-          - baget-data:/var/baget
-        networks:
-          default:
-            aliases:
-              - cookbook-nuget-repository.app
+  cookbook-nuget-repository:
+    image: loicsharma/baget:latest
+    container_name: cookbook-nuget-repository-container
+    ports:
+      - "5555:80"
+    env_file:
+      - ./CookBook.NugetRepository/src/CookBook.NugetRepository.Server/baget.env
+    volumes:
+      - baget-data:/var/baget
+    networks:
+      default:
+        aliases:
+          - cookbook-nuget-repository.app
+
+  cookbook-mssql-server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: cookbook-mssql-server-container
+    ports:
+      - 8000:8000
+    env_file:
+      - ./CookBook.MsSqlServer/src/CookBook.MsSqlServer.Server/server.env
+    networks:
+      default:
+        aliases:
+          - cookbook-mssql-server.app
 
     # cookbook-recipes:
     #     image: cookbook-recipes
