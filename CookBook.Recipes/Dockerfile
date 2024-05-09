@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0-bookworm-slim AS build-env
 WORKDIR /app
 
 COPY ./CookBook.Recipes.sln ./
@@ -13,16 +13,16 @@ COPY ./src/CookBook.Recipes.Domain/*.csproj ./src/CookBook.Recipes.Domain/
 COPY ./src/CookBook.Recipes.Persistence/*.csproj ./src/CookBook.Recipes.Persistence/
 
 # restore dependencies
-RUN dotnet restore ./src/CookBook.Recipes.Api/ -v diag -r linux-x64
+RUN dotnet restore ./src/CookBook.Recipes.Api/ -v diag
 
 # Copy sources and build
 COPY ./src ./src/
 
 # build
-RUN dotnet publish ./src/CookBook.Recipes.Api/CookBook.Recipes.Api.csproj -v diag -c Release --no-restore -o out -r linux-x64 --self-contained false /p:PublishSingleFile=true
+RUN dotnet publish ./src/CookBook.Recipes.Api/CookBook.Recipes.Api.csproj -v diag -c Release --no-restore -o out --self-contained false /p:PublishSingleFile=true
 
 # Create runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-bookworm-slim
 WORKDIR /app
 
 ENV TZ Europe/Prague
