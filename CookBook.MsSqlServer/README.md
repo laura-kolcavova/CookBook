@@ -20,4 +20,4 @@ Run the following command to start a new Docker container using the Microsoft SQ
 docker run --rm --name cookbook-mssql-server -p 8000:1433 --env-file "./src/CookBook.MsSqlServer.Server/server.env" -d mcr.microsoft.com/mssql/server:2022-latest
 ```
 
-The CookBook MsSql Server will be hosted on http://localhost:8000
+The CookBook MsSql Server will be hosted as `localhost,8000` or `host.docker.internal,8000`
