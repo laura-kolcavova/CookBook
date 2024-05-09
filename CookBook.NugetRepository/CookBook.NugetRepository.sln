@@ -5,29 +5,25 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{58617E86-9688-4A9E-B1EB-E8484657274E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.NugetRepository.Server", "src\CookBook.NugetRepository.Server\CookBook.NugetRepository.Server.csproj", "{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{743C2806-45FA-4C99-880A-F3CCFFF77F42}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CookBook.NugetRepository.Server", "CookBook.NugetRepository.Server", "{D932BBFA-290C-4CBB-B702-F753143EC3DD}"
+	ProjectSection(SolutionItems) = preProject
+		src\CookBook.NugetRepository.Server\baget.env = src\CookBook.NugetRepository.Server\baget.env
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "baget-data", "baget-data", "{AB6CD87A-E2A1-4F5A-8B6F-9CDB41EBD65E}"
+EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{F1EEE29C-FAC6-4E1A-8C57-C0A78AE17541} = {58617E86-9688-4A9E-B1EB-E8484657274E}
+		{D932BBFA-290C-4CBB-B702-F753143EC3DD} = {58617E86-9688-4A9E-B1EB-E8484657274E}
+		{AB6CD87A-E2A1-4F5A-8B6F-9CDB41EBD65E} = {D932BBFA-290C-4CBB-B702-F753143EC3DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F3C4F020-0B19-4339-86CB-1732BCC2F166}

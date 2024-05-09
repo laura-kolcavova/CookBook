@@ -1,0 +1,1 @@
+docker run -it --rm -p 8010:8010 --name cookbook-recipes-container cookbook-recipes

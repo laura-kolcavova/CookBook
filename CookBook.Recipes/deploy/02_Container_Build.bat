@@ -1,0 +1,1 @@
+docker build -t cookbook-recipes --network host ../

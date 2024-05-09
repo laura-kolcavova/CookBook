@@ -1,0 +1,1 @@
+sqlpackage /a:Publish /sf:"../database/CookBook.Recipes.Database.dacpac" /TargetConnectionString:"Data source=localhost,8000;User Id=SA;Initial Catalog=CookBookRecipes;Integrated Security=False;TrustServerCertificate=True;Application Name=CookBookRecipes;Password=y9WH7F4hNL"
