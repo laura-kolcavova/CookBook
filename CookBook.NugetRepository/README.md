@@ -17,7 +17,7 @@ docker pull loicsharma/baget
 Run the following command to start a new Docker container using the loicsharma/baget image:
 
 ```Bash
-docker run --rm --name cookbook-nuget-repository -p 5555:80 --env-file "./src/CookBook.NugetRepository.Server/baget.env" -v "./baget-data:/var/baget" loicsharma/baget:latest
+docker run --rm --name cookbook-nuget-repository -p 8005:80 --env-file "./src/CookBook.NugetRepository.Server/baget.env" -v "./baget-data:/var/baget" loicsharma/baget:latest
 ```
 
-The CookBook Nuget Repository server will be hosted on http://localhost:5555
+The CookBook Nuget Repository server will be hosted on http://localhost:8005
