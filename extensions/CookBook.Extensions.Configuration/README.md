@@ -4,18 +4,37 @@
 
 CookBook Extensions Configuration is a NuGet package which adds extensions for configuring of .NET Core applications.
 
-## Pack&Publish CookBook Extensions Configuration package
+## Prerequisites
 
-Ensure a standalone Docker container of `CookBook Nuget Repository` server is running.
+Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your computer.
 
-From the `build` folder run the following command to a create nuget package file:
+Ensure a [Cookbook Nuget Repository](../../CookBook.NugetRepository/README.md/) container is running.
+
+## Pack
+
+Run fololowing commands to build and create a nuget package file:
 
 ```Bash
-01_PackNuget.bat
+dotnet build ".\src\CookBook.Extensions.Configuration.csproj" --configuration Release
+dotnet pack ".\src\CookBook.Extensions.Configuration.csproj" -c Release
 ```
 
-After that run the following command to publish the nuget package file to the CookBook Nuget Repository server:
+Or from the `deploy` folder run the following command:
 
 ```Bash
-02_PublishNuget.bat
+01_Nuget_Pack.bat
+```
+
+## Release
+
+Run fololowing command to publish the nuget package file to the `CookBook Nuget Repository server`:
+
+```Bash
+dotnet nuget push ".\src\bin\Release\*.nupkg" --source CookBookPackages
+```
+
+Or from the `deploy` folder run the following command:
+
+```Bash
+02_Nuget_Release.bat
 ```
