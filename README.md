@@ -8,7 +8,7 @@
 
 ## CookBook Nuget packages
 
-[Extensions Configuration](extensions/CookBook.Extensions.CSharpExtended/README.md)
+[Extensions CSharpExtended](extensions/CookBook.Extensions.CSharpExtended/README.md)
 
 [Extensions Configuration](extensions/CookBook.Extensions.Configuration/README.md)
 

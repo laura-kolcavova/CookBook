@@ -4,6 +4,7 @@ import { Error } from 'src/pages/Error';
 import { NotFound } from 'src/pages/NotFound';
 import { Explore } from 'src/pages/Explore';
 import { Saved } from 'src/pages/Saved';
+import { LogIn } from 'src/pages/LogIn';
 
 export const Pages: IPages = {
   [Page.Home]: {
@@ -26,9 +27,15 @@ export const Pages: IPages = {
     component: Explore,
     public: true,
   },
+  [Page.LogIn]: {
+    paths: ['/login'],
+    component: LogIn,
+    public: true,
+  },
   [Page.Saved]: {
     paths: ['/saved'],
     component: Saved,
-    public: true,
+    public: false,
   },
 };
+
