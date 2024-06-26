@@ -5,21 +5,8 @@ const GlobalStyle = createGlobalStyle`
     position: absolute;
   }
 
-  #content {
-    padding: 0;
-  }
-
-  .content-wrapper {
-      margin-left: 7.688rem;
-  }
-
   .modal-content {
     height: 100%;
-  }
-
-  .page-header {
-    margin-top: 0;
-    height: 4rem;
   }
 
   .loading--small
@@ -29,3 +16,4 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default GlobalStyle;
+

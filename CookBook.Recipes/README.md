@@ -10,11 +10,39 @@ Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your c
 
 Ensure a [MsSql Server ](../CookBook.MsSqlServer//README.md/) container is running.
 
-Ensure a [Cookbook Nuget Repository](../CookBook.NugetRepository/README.md/) container is running.
+Ensure a [Nuget Repository](../CookBook.NugetRepository/README.md/) container is running.
 
-Ensure [nuget extensions packages](../README.md#deploy/) are deployed at `Cookbook Nuget Repository`.
+Ensure [nuget extensions packages](../README.md#deploy) are deployed at `Nuget Repository`.
 
-## Build
+## Build database
+
+Run the following command to build the database project:
+
+```bash
+dotnet build "./database/CookBook.Recipes.Database.sqlproj" /p:NetCoreBuild=true /p:NETCoreTargetsPath="C:\Users\laura.kolcavova\.azuredatastudio\extensions\microsoft.sql-database-projects-1.4.2\BuildDirectory" -o "./database/build_output"
+```
+
+Or from the `deploy` folder run the following command:
+
+```Bash
+01_Database_Build.bat
+```
+
+## Database release
+
+Run the following command to publish the database project to `MsSql Server`:
+
+```Bash
+sqlpackage /a:Publish /sf:"./database/build_output/CookBook.Recipes.Database.dacpac" /TargetConnectionString:"Data source=localhost,8000;User Id=SA;Initial Catalog=CookBookRecipes;Integrated Security=False;TrustServerCertificate=True;Application Name=CookBookRecipes;Password=y9WH7F4hNL"
+```
+
+Or from the `deploy` folder run the following command:
+
+```Bash
+02_Database_Release.bat
+```
+
+## Build container
 
 Run the following command to create a Docker image and tag it with the name book-recipes (host network must be used for building the image):
 
@@ -25,10 +53,10 @@ docker build -t cookbook-recipes --network host .
 Or from the `deploy` folder run the following command:
 
 ```Bash
-01_Container_Build.bat
+03_Container_Build.bat
 ```
 
-## Release
+## Release container
 
 Run the following command to start a new Docker container using the book-catalog image:
 
@@ -39,7 +67,7 @@ docker run -it --rm -p 8010:8010 --name cookbook-recipes-container cookbook-reci
 Or from the `deploy` folder run the following command:
 
 ```Bash
-02_Container_Release.bat
+04_Container_Release.bat
 ```
 
 The CookBook Recipes service will be hosted on http://localhost:8010

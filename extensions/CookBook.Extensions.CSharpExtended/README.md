@@ -8,7 +8,7 @@ CookBook Extensions AspNetCore is a NuGet package which adds extensions for deve
 
 Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your computer.
 
-Ensure a [Cookbook Nuget Repository](../../CookBook.NugetRepository/README.md/) container is running.
+Ensure a [Nuget Repository](../../CookBook.NugetRepository/README.md/) container is running.
 
 ## Pack
 

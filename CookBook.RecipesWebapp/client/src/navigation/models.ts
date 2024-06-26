@@ -22,9 +22,12 @@ export enum Page {
   Error = 'Error',
   NotFound = 'NotFound',
   Explore = 'Explore',
+  LogIn = 'LogIn',
+  Register = 'Register',
   Saved = 'Saved',
 }
 
 export type IPages = {
   [key in Page]: IPage;
 };
+
