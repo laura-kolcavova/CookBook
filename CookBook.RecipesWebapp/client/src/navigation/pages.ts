@@ -5,6 +5,7 @@ import { NotFound } from 'src/pages/NotFound';
 import { Explore } from 'src/pages/Explore';
 import { Saved } from 'src/pages/Saved';
 import { LogIn } from 'src/pages/LogIn';
+import { Register } from 'src/pages/Register';
 
 export const Pages: IPages = {
   [Page.Home]: {
@@ -30,6 +31,11 @@ export const Pages: IPages = {
   [Page.LogIn]: {
     paths: ['/login'],
     component: LogIn,
+    public: true,
+  },
+  [Page.Register]: {
+    paths: ['/register'],
+    component: Register,
     public: true,
   },
   [Page.Saved]: {

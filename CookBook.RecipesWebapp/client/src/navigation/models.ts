@@ -23,6 +23,7 @@ export enum Page {
   NotFound = 'NotFound',
   Explore = 'Explore',
   LogIn = 'LogIn',
+  Register = 'Register',
   Saved = 'Saved',
 }
 
