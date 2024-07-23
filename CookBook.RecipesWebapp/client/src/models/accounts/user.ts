@@ -15,3 +15,4 @@ export const EMPTY_USER: User = {
   emailClaimType: '',
   claims: [],
 };
+

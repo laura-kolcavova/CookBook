@@ -5,15 +5,15 @@ import { UserIdentityContext } from 'src/contexts/UserIdentityContext';
 import { IPage } from 'src/navigation/models';
 import { Pages } from 'src/navigation/pages';
 
-export type ProtectedRouteProps = {
+export type PublicRouteProps = {
   page: IPage;
 };
 
-export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ page }) => {
+export const PublicRoute: React.FC<PublicRouteProps> = ({ page }) => {
   const { user } = useContext(UserIdentityContext);
 
-  if (!user.isAuthenticated) {
-    return <Navigate to={Pages.LogIn.paths[0]} />;
+  if (user.isAuthenticated && page === Pages.LogIn) {
+    return <Navigate to={Pages.Home.paths[0]} />;
   }
 
   return <page.component />;

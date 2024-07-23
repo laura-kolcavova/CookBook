@@ -1,15 +1,14 @@
 import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
-import { Pages } from '../../navigation/pages';
 import { IPage } from 'src/navigation/models';
+import { Pages } from 'src/navigation/pages';
 import { ProtectedRoute } from 'src/sharedComponents/ProtectedRoute';
+import { PublicRoute } from 'src/sharedComponents/PublicRoute';
 
 export const RoutesPage: React.FC = () => {
   const getRouteElement = (page: IPage) => {
-    const element = <page.component />;
-
-    return page.public ? element : <ProtectedRoute>{element}</ProtectedRoute>;
+    return page.public ? <PublicRoute page={page} /> : <ProtectedRoute page={page} />;
   };
 
   return (
@@ -22,4 +21,3 @@ export const RoutesPage: React.FC = () => {
     </Routes>
   );
 };
-

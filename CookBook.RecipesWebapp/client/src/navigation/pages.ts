@@ -6,6 +6,7 @@ import { Explore } from 'src/pages/Explore';
 import { Saved } from 'src/pages/Saved';
 import { LogIn } from 'src/pages/LogIn';
 import { Register } from 'src/pages/Register';
+import { MyProfile } from 'src/pages/MyProfile';
 
 export const Pages: IPages = {
   [Page.Home]: {
@@ -43,5 +44,9 @@ export const Pages: IPages = {
     component: Saved,
     public: false,
   },
+  [Page.MyProfile]: {
+    paths: ['/my-profile'],
+    component: MyProfile,
+    public: false,
+  },
 };
-

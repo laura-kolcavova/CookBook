@@ -4,6 +4,7 @@ import { EMPTY_USER, User } from 'src/models/accounts/user';
 interface IUserIdentityContext {
   user: User;
   login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
 }
 
 export const UserIdentityContext = React.createContext<IUserIdentityContext>(
@@ -25,11 +26,16 @@ export const UserIdentityContextProvider = ({ children }: PropsWithChildren) => 
     return Promise.resolve();
   };
 
+  const logout = () => {
+    setUser(EMPTY_USER);
+  };
+
   return (
     <UserIdentityContext.Provider
       value={{
         user,
         login,
+        logout,
       }}>
       {children}
     </UserIdentityContext.Provider>

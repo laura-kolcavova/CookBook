@@ -2,21 +2,22 @@ import React, { useContext, useState } from 'react';
 import { FormWrapper } from './styled';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Pages } from 'src/navigation/pages';
-import { UserIdentityContext } from 'src/contexts/UserIdentityContext';
-import { useGo } from 'src/navigation/hooks/useGo';
+
 import { EMPTY_LOGIN_DATA, LoginData } from './models';
+import { useRouter } from '../../navigation/hooks/useRouter';
+import { UserIdentityContext } from '../../contexts/UserIdentityContext';
+import { Pages } from '../../navigation/pages';
 
 export const LogIn: React.FC = () => {
   const { login } = useContext(UserIdentityContext);
 
-  const { go } = useGo();
+  const { goToPage } = useRouter();
 
   const [data, setData] = useState<LoginData>(EMPTY_LOGIN_DATA);
 
   const handleSubmit = async () => {
     await login(data.email, data.password);
-    go.page(Pages.Home);
+    goToPage(Pages.Home);
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
