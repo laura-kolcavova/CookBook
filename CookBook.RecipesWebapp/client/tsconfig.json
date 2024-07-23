@@ -9,7 +9,7 @@
       "es2017.object",
       "esnext.asynciterable",
       "es7",
-      "es2019",
+      "es2019"
     ],
     "noEmit": true,
     "allowJs": false,
@@ -27,7 +27,7 @@
     "jsx": "react",
     "rootDirs": ["src"],
     "baseUrl": ".",
-    "noImplicitAny": true,
+    "noImplicitAny": true
   },
   "include": ["./src/**/*"],
   "exclude": [
@@ -36,7 +36,7 @@
     "./lib",
     "./**/__tests__/**",
     "./**/*.test.*",
-    "./**/*.spec.*",
+    "./**/*.spec.*"
   ],
-  "files": ["./src/images.d.ts"],
+  "files": ["./src/images.d.ts"]
 }

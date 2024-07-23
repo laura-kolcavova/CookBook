@@ -1,33 +1,67 @@
 import React, { useContext } from 'react';
 import { Nav, NavItem, Navbar, NavbarBrand } from 'reactstrap';
-import { UserIdentityContext } from 'src/contexts/UserIdentityContext';
-import { Pages } from 'src/navigation/pages';
+import { UserIdentityContext } from '../../../contexts/UserIdentityContext';
+
 import { FaBookmark, FaHouse, FaMagnifyingGlass, FaRegCircleUser } from 'react-icons/fa6';
 import { NavIconLink } from './NavIconLink';
+import { Pages } from '../../../navigation/pages';
+import { UserMenuItem } from './UserMenuItem';
+import { useRouter } from 'src/navigation/hooks/useRouter';
 
 export const Header: React.FC = () => {
   const { user } = useContext(UserIdentityContext);
+  const { goToPage } = useRouter();
 
   return (
     <Navbar container={true} sticky="top">
-      <NavbarBrand href={Pages.Home.paths[0]}>Cook Book Recipes</NavbarBrand>
+      <NavbarBrand
+        onClick={() => {
+          goToPage(Pages.Home);
+        }}>
+        Cook Book Recipes
+      </NavbarBrand>
       <Nav className="ms-auto">
         <NavItem>
-          <NavIconLink href={Pages.Home.paths[0]} text="Home" icon={<FaHouse />} />
+          <NavIconLink
+            onClick={() => {
+              goToPage(Pages.Home);
+            }}
+            text="Home"
+            icon={<FaHouse />}
+          />
         </NavItem>
         <NavItem>
-          <NavIconLink href={Pages.Explore.paths[0]} text="Explore" icon={<FaMagnifyingGlass />} />
+          <NavIconLink
+            onClick={() => {
+              goToPage(Pages.Explore);
+            }}
+            text="Explore"
+            icon={<FaMagnifyingGlass />}
+          />
         </NavItem>
         {user.isAuthenticated && (
           <NavItem>
-            <NavIconLink href={Pages.Saved.paths[0]} text="Saved" icon={<FaBookmark />} />
+            <NavIconLink
+              onClick={() => {
+                goToPage(Pages.Saved);
+              }}
+              text="Saved"
+              icon={<FaBookmark />}
+            />
           </NavItem>
         )}
         {!user.isAuthenticated && (
           <NavItem>
-            <NavIconLink href={Pages.LogIn.paths[0]} text="Log In" icon={<FaRegCircleUser />} />
+            <NavIconLink
+              onClick={() => {
+                goToPage(Pages.LogIn);
+              }}
+              text="Log In"
+              icon={<FaRegCircleUser />}
+            />
           </NavItem>
         )}
+        {user.isAuthenticated && <UserMenuItem />}
       </Nav>
     </Navbar>
   );

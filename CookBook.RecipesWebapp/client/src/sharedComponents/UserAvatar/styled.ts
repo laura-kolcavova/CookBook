@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 
-import { NavLink } from 'reactstrap';
-
-export const StyledNavLink = styled(NavLink)`
+export const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 `;
 
 export const IconWrapper = styled.span`

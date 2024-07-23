@@ -25,9 +25,9 @@ export enum Page {
   LogIn = 'LogIn',
   Register = 'Register',
   Saved = 'Saved',
+  MyProfile = 'MyProfile',
 }
 
 export type IPages = {
   [key in Page]: IPage;
 };
-
