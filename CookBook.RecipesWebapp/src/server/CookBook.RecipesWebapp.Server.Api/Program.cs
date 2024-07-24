@@ -1,3 +1,5 @@
+using CookBook.RecipesWebapp.Server.Api;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host
@@ -11,6 +13,9 @@ builder.Host
 var services = builder.Services;
 var configuration = builder.Configuration;
 var isDevelopment = builder.Environment.IsDevelopment();
+
+services
+    .InstallApiServices(builder.Environment.ApplicationName);
 
 var app = builder.Build();
 
