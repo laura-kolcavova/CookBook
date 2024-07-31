@@ -1,4 +1,8 @@
 using CookBook.RecipesWebapp.Server.Api;
+using CookBook.RecipesWebapp.Server.Api.Shared.Configuration;
+using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.FileProviders.Physical;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,22 @@ builder.Host
 var services = builder.Services;
 var configuration = builder.Configuration;
 var isDevelopment = builder.Environment.IsDevelopment();
+
+var clientOptions = configuration
+    .GetRequiredSection(nameof(ClientOptions))
+    .Get<ClientOptions>()!;
+
+// In production, the React files will be served from this directory
+services.AddSpaStaticFiles(c =>
+{
+    c.RootPath = clientOptions.StaticFilesRootPath;
+});
+
+//services.AddAntiforgery(options =>
+//{
+//    options.HeaderName = ConfigurationConstants.XXSFRHeaderName;
+//    options.Cookie.Name = ConfigurationConstants.XXSFRCookieName;
+//});
 
 services
     .InstallApiServices(builder.Environment.ApplicationName);
@@ -47,6 +67,42 @@ if (isDevelopment)
         options.ConfigObject.Filter = string.Empty;
         options.ConfigObject.TryItOutEnabled = true;
     });
+}
+
+if (clientOptions.IsSpaEnabled)
+{
+    app.MapWhen(ctx =>
+        !ctx.Request.IsApiRequest() &&
+        !ctx.Request.IsSwaggerRenderingRequest(),
+        spaAppBuilder =>
+        {
+            spaAppBuilder.UseWhen(
+                ctx => ctx.Request.IsRenderingRequest(),
+                appBuilder =>
+                {
+                    //appBuilder.UseAntiforgeryMiddleware();
+                });
+
+            var useStaticFiles = !clientOptions.UseDevelopmentProxyServer;
+
+            if (useStaticFiles)
+            {
+                app.UseStaticFiles(new StaticFileOptions()
+                {
+                    FileProvider = new PhysicalFileProvider(
+                        Path.Combine(Directory.GetCurrentDirectory(), clientOptions.StaticFilesRootPath),
+                        ExclusionFilters.None)
+                });
+            }
+
+            spaAppBuilder.UseSpa(spa =>
+            {
+                if (clientOptions.UseDevelopmentProxyServer)
+                {
+                    spa.UseProxyToSpaDevelopmentServer(clientOptions.DevelopmentProxyServerBaseUri);
+                }
+            });
+        });
 }
 
 app.Run();

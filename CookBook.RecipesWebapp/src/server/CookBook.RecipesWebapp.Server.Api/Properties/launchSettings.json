@@ -28,7 +28,7 @@
     "CookBook.RecipesWebapp.Server.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": ".less-known/api-docs/ui/index.html",
+      "launchUrl": "http://localhost:5015",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

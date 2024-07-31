@@ -30,6 +30,9 @@ services
         options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
+
+// services.Configure<JsonOptions>(options => options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
 services
     .InstallDbServices(cookBookRecipesConnectionString)
     .InstallApiServices(builder.Environment.ApplicationName)
