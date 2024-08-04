@@ -1,1 +1,1 @@
-docker run --rm --name cookbook-nuget-repository -p 8005:80 --env-file "../src/CookBook.NugetRepository.Server/baget.env" -v "./baget-data:/var/baget" loicsharma/baget:latest
+docker run --rm --name cookbook-nuget-repository -p 8005:80 --env-file "../src/CookBook.NugetRepository.Server/baget.env" -v "./baget-data:/var/baget" -d loicsharma/baget:latest

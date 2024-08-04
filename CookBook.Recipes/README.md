@@ -61,7 +61,7 @@ Or from the `deploy` folder run the following command:
 Run the following command to start a new Docker container using the book-catalog image:
 
 ```Bash
-docker run -it --rm -p 8010:8010 --name cookbook-recipes-container cookbook-recipes
+docker run -it --rm -p 8010:8010 --name cookbook-recipes-container -d cookbook-recipes
 ```
 
 Or from the `deploy` folder run the following command:
