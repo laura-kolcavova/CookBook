@@ -22,11 +22,8 @@ var clientOptions = configuration
     .GetRequiredSection(nameof(ClientOptions))
     .Get<ClientOptions>()!;
 
-// In production, the React files will be served from this directory
-services.AddSpaStaticFiles(c =>
-{
-    c.RootPath = clientOptions.StaticFilesRootPath;
-});
+var reverseProxyOptions = configuration
+    .GetRequiredSection("ReverseProxyOptions");
 
 //services.AddAntiforgery(options =>
 //{
@@ -35,7 +32,8 @@ services.AddSpaStaticFiles(c =>
 //});
 
 services
-    .InstallApiServices(builder.Environment.ApplicationName);
+    .InstallClientServices(clientOptions)
+    .InstallApiServices(builder.Environment.ApplicationName, reverseProxyOptions);
 
 var app = builder.Build();
 

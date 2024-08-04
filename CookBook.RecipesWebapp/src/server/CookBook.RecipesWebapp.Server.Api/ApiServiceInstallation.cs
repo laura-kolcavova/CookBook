@@ -1,11 +1,28 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using CookBook.RecipesWebapp.Server.Api.Shared.Configuration;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace CookBook.RecipesWebapp.Server.Api;
 
 internal static class ApiServiceInstallation
 {
-    public static IServiceCollection InstallApiServices(this IServiceCollection services, string applicationName)
+    public static IServiceCollection InstallClientServices(
+        this IServiceCollection services,
+        ClientOptions clientOptions)
+    {
+        // In production, the React files will be served from this directory
+        services.AddSpaStaticFiles(c =>
+        {
+            c.RootPath = clientOptions.StaticFilesRootPath;
+        });
+
+        return services;
+    }
+
+    public static IServiceCollection InstallApiServices(
+        this IServiceCollection services,
+        string applicationName,
+        IConfigurationSection reverseProxyOptions)
     {
         services
             .AddEndpointsApiExplorer()
@@ -30,27 +47,9 @@ internal static class ApiServiceInstallation
                 xmlFiles.ForEach(xmlFile => options.IncludeXmlComments(xmlFile));
             });
 
-        //services
-        //    .AddAuthentication(options =>
-        //    {
-        //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        //    })
-        //    .AddJwtBearer(options => builder.Configuration.GetSection(nameof(JwtBearerOptions)).Bind(options));
-
-        //services.AddAuthorizationBuilder()
-        //    .AddPolicy("", policy =>
-        //    {
-        //        policy.RequireClaim("scope", "");
-        //    })
-        //    .AddClientsRightAsPolicy();
-
-        //services
-        //    .AddControllers()
-        //    .AddJsonOptions(options =>
-        //    {
-        //        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        //    });
+        services
+            .AddReverseProxy()
+            .LoadFromConfig(reverseProxyOptions);
 
         services
             .AddProblemDetails();
