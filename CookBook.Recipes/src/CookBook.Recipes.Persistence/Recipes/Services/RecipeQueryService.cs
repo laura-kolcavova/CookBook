@@ -4,6 +4,7 @@ using CookBook.Recipes.Application.Recipes.Services;
 using CookBook.Recipes.Domain.Recipes.ReadModels;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
 using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
+using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CookBook.Recipes.Persistence.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -52,8 +53,10 @@ internal sealed class RecipeQueryService : IRecipeQueryService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An unexpected error occurred while searching for recipes");
-            throw;
+            throw RecipesPersistenceException.LogAndCreate(
+                _logger,
+                ex,
+                "An unexpected error occurred while searching for recipes");
         }
     }
 
@@ -99,8 +102,10 @@ internal sealed class RecipeQueryService : IRecipeQueryService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An unexpected error occurred while getting recipe detail");
-            throw;
+            throw RecipesPersistenceException.LogAndCreate(
+                _logger,
+                ex,
+                "An unexpected error occurred while getting recipe detail");
         }
     }
 }

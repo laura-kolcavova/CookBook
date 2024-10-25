@@ -28,7 +28,7 @@ internal static class GetCategoriesEndpoint
             request.ParentCategoryId ?? CategoryAggregate.RootCategoryId,
             cancellationToken);
 
-        return Results.Ok(new GetCategoriesResponseDto
+        return TypedResults.Ok(new GetCategoriesResponseDto
         {
             Categories = categories
         });

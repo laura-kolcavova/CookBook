@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using CookBook.Extensions.AspNetCore.Extensions;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
 namespace CookBook.Extensions.AspNetCore.EndpointFilters;
@@ -37,7 +38,7 @@ public class FluentValidationEndpointFilter : IEndpointFilter
             if (!validationResult.IsValid)
             {
                 return Results.ValidationProblem(
-                    validationResult.ToDictionary(),
+                    validationResult.Errors.ToDictionary(),
                     //detail: "Please refer to the errors property for additional details",
                     instance: context.HttpContext.Request.Path,
                     title: "One or more validation errors occurred.",

@@ -1,11 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <Version>1.0.1</Version>
+  </PropertyGroup>
+
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CookBook.Extensions.CSharpExtended" Version="1.0.0" />
+    <PackageReference Include="CookBook.Extensions.CSharpExtended" Version="1.0.3" />
     <PackageReference Include="FluentValidation" Version="11.9.1" />
   </ItemGroup>
 

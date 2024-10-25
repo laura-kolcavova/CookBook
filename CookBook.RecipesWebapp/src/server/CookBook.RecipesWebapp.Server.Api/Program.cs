@@ -6,17 +6,16 @@ using Microsoft.Extensions.FileProviders.Physical;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var services = builder.Services;
+var configuration = builder.Configuration;
+var isDevelopment = builder.Environment.IsDevelopment();
+
 builder.Host
     .UseDefaultServiceProvider((context, options) =>
     {
         options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
         options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
     });
-
-// Add services to the container.
-var services = builder.Services;
-var configuration = builder.Configuration;
-var isDevelopment = builder.Environment.IsDevelopment();
 
 var clientOptions = configuration
     .GetRequiredSection(nameof(ClientOptions))
@@ -32,39 +31,25 @@ var reverseProxyOptions = configuration
 //});
 
 services
-    .InstallClientServices(clientOptions)
-    .InstallApiServices(builder.Environment.ApplicationName, reverseProxyOptions);
+    .AddClientServices(clientOptions)
+    .AddApiServices(builder.Environment.ApplicationName, reverseProxyOptions);
 
 var app = builder.Build();
 
-app.MapReverseProxy();
-
-app.UseRouting();
-
-if (!isDevelopment)
+if (isDevelopment)
+{
+    app.UseDeveloperExceptionPage();
+}
+else
 {
     app.UseExceptionHandler();
 }
 
+app.UseRouting();
+
 //app.UseCors();
 //app.UseAuthentication();
 //app.UseAuthorization();
-
-app.UseSwagger(options =>
-{
-    options.RouteTemplate = ".less-known/api-docs/{documentName}.json";
-    options.PreSerializeFilters.Add((swagger, _) =>
-        // Clear servers -element in swagger.json because it got the wrong port when hosted behind reverse proxy
-        swagger.Servers.Clear());
-});
-
-app.UseSwaggerUI(options =>
-{
-    options.SwaggerEndpoint("/.less-known/api-docs/v1.json", "v1");
-    options.RoutePrefix = ".less-known/api-docs/ui";
-    options.ConfigObject.Filter = string.Empty;
-    options.ConfigObject.TryItOutEnabled = true;
-});
 
 if (clientOptions.IsSpaEnabled)
 {
@@ -101,5 +86,23 @@ if (clientOptions.IsSpaEnabled)
             });
         });
 }
+
+app.UseSwagger(options =>
+{
+    options.RouteTemplate = ".less-known/api-docs/{documentName}.json";
+    options.PreSerializeFilters.Add((swagger, _) =>
+        // Clear servers -element in swagger.json because it got the wrong port when hosted behind reverse proxy
+        swagger.Servers.Clear());
+});
+
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/.less-known/api-docs/v1.json", "v1");
+    options.RoutePrefix = ".less-known/api-docs/ui";
+    options.ConfigObject.Filter = string.Empty;
+    options.ConfigObject.TryItOutEnabled = true;
+});
+
+app.MapReverseProxy();
 
 app.Run();

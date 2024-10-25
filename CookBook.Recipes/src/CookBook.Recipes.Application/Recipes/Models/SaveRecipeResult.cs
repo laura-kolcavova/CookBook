@@ -2,5 +2,5 @@
 
 public record SaveRecipeResult
 {
-    public long RecipeId { get; init; }
+    public required long RecipeId { get; init; }
 }

@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Utilities;
+﻿using CookBook.Extensions.AspNetCore.Extensions;
 using CookBook.Recipes.Api.Features.Recipes.SaveRecipe;
 using CookBook.Recipes.Application.Recipes.Services;
 using FluentValidation;
@@ -18,7 +18,7 @@ internal static class SaveRecipeEndpoint
             .WithDescription("This endpoint returns a DTO containing an id of created or edited recipe.")
             .Produces<SaveRecipeResponseDto>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesValidationProblem();
     }
 
@@ -34,10 +34,11 @@ internal static class SaveRecipeEndpoint
 
         if (saveRecipeResult.IsFailure)
         {
-            return EndpointResults.Problem(saveRecipeResult.Error, httpContext);
+            return TypedResults.Problem(
+                saveRecipeResult.Error.AsProblemDetails(httpContext));
         }
 
-        return Results.Ok(
+        return TypedResults.Ok(
             SaveRecipeMapper.ToResponse(saveRecipeResult.Value));
     }
 }

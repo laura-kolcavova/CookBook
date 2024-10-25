@@ -7,6 +7,7 @@ import { Saved } from 'src/pages/Saved';
 import { LogIn } from 'src/pages/LogIn';
 import { Register } from 'src/pages/Register';
 import { MyProfile } from 'src/pages/MyProfile';
+import { RecipeEditor } from 'src/pages/RecipeEditor';
 
 export const Pages: IPages = {
   [Page.Home]: {
@@ -47,6 +48,11 @@ export const Pages: IPages = {
   [Page.MyProfile]: {
     paths: ['/my-profile'],
     component: MyProfile,
+    public: false,
+  },
+  [Page.AddRecipe]: {
+    paths: ['/add-recipe'],
+    component: RecipeEditor,
     public: false,
   },
 };

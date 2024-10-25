@@ -6,7 +6,10 @@ namespace CookBook.Extensions.AspNetCore.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddInternalOrPublicValidators(this IServiceCollection services, Assembly assembly, ServiceLifetime serviceLifetime)
+    public static IServiceCollection AddInternalOrPublicValidators(
+        this IServiceCollection services,
+        Assembly assembly,
+        ServiceLifetime serviceLifetime)
     {
         var types = assembly.GetTypes();
 

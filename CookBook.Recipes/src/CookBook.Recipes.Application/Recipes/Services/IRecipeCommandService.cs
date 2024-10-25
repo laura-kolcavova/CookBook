@@ -6,10 +6,11 @@ namespace CookBook.Recipes.Application.Recipes.Services;
 
 public interface IRecipeCommandService
 {
-    public Task<UnitResult<ExpectedError>> RemoveRecipeAsync(
+    public Task<UnitResult<Error>> RemoveRecipeAsync(
         long recipeId,
         CancellationToken cancellationToken);
 
-    public Task<Result<SaveRecipeResult, ExpectedError>> SaveRecipeAsync(
-        SaveRecipeRequest request, CancellationToken cancellationToken);
+    public Task<Result<SaveRecipeResult, Error>> SaveRecipeAsync(
+        SaveRecipeRequest request,
+        CancellationToken cancellationToken);
 }

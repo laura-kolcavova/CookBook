@@ -4,9 +4,12 @@ using CookBook.Recipes.Api;
 using CookBook.Recipes.Api.Shared.Configuration;
 using CookBook.Recipes.Application;
 using CookBook.Recipes.Persistence;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var services = builder.Services;
+var configuration = builder.Configuration;
+var isDevelopment = builder.Environment.IsDevelopment();
 
 builder.Host
     .UseDefaultServiceProvider((context, options) =>
@@ -15,11 +18,6 @@ builder.Host
         options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
     });
 
-// Add services to the container.
-var services = builder.Services;
-var configuration = builder.Configuration;
-var isDevelopment = builder.Environment.IsDevelopment();
-
 var cookBookRecipesConnectionString = configuration
     .GetSqlConnectionString(ConfigurationConstants.CookBookRecipesConnectionStringSectionName);
 
@@ -27,28 +25,23 @@ services
     .AddOptions();
 
 services
-    .ConfigureHttpJsonOptions(options =>
-    {
-        options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    });
-
-
-// services.Configure<JsonOptions>(options => options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-
-services
-    .InstallDbServices(cookBookRecipesConnectionString)
-    .InstallApiServices(builder.Environment.ApplicationName)
-    .InstallPersistenceServices(cookBookRecipesConnectionString, isDevelopment)
-    .InstallApplicationServices();
+    .AddDbServices(cookBookRecipesConnectionString)
+    .AddApiServices(builder.Environment.ApplicationName)
+    .AddPersistenceServices(cookBookRecipesConnectionString, isDevelopment)
+    .AddApplicationServices();
 
 var app = builder.Build();
 
-app.UseRouting();
-
-if (!isDevelopment)
+if (isDevelopment)
+{
+    app.UseDeveloperExceptionPage();
+}
+else
 {
     app.UseExceptionHandler();
 }
+
+app.UseRouting();
 
 //app.UseCors();
 //app.UseAuthentication();
@@ -71,7 +64,7 @@ app.UseSwaggerUI(options =>
 });
 
 app
-    .AddEndpoints()
+    .UseEndpoints()
     .AddEndpointFilter<OperationCanceledExceptionFilter>()
     .AddEndpointFilter<FluentValidationEndpointFilter>()
     .WithOpenApi();

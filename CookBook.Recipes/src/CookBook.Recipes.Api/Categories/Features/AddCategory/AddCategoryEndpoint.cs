@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Utilities;
+﻿using CookBook.Extensions.AspNetCore.Extensions;
 using CookBook.Recipes.Application.Categories.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +15,7 @@ internal static class AddCategoryEndpoint
             .WithDescription("Adds category and returns DTO containing a category id")
             .Produces<AddCategoryResponseDto>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesValidationProblem();
     }
 
@@ -30,10 +30,11 @@ internal static class AddCategoryEndpoint
 
         if (addCategoryResult.IsFailure)
         {
-            return EndpointResults.Problem(addCategoryResult.Error, httpContext);
+            return TypedResults.Problem(
+                addCategoryResult.Error.AsProblemDetails(httpContext));
         }
 
-        return Results.Ok(new AddCategoryResponseDto
+        return TypedResults.Ok(new AddCategoryResponseDto
         {
             CategoryId = addCategoryResult.Value.CategoryId,
         });

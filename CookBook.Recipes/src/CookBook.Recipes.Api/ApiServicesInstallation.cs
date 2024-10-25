@@ -1,13 +1,23 @@
 ﻿using CookBook.Extensions.AspNetCore.Extensions;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using System.Text.Json.Serialization;
 
 namespace CookBook.Recipes.Api;
 
 internal static class ApiServicesInstallation
 {
-    public static IServiceCollection InstallApiServices(this IServiceCollection services, string applicationName)
+    public static IServiceCollection AddApiServices(this IServiceCollection services, string applicationName)
     {
+        services
+            .ConfigureHttpJsonOptions(options =>
+            {
+                options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+
+        // services.Configure<JsonOptions>(options => options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
+
         services
             .AddEndpointsApiExplorer()
             .AddSwaggerExamplesFromAssemblyOf<Program>()
@@ -60,7 +70,7 @@ internal static class ApiServicesInstallation
         return services;
     }
 
-    public static IServiceCollection InstallDbServices(this IServiceCollection services, string cookBookRecipesConnectionString)
+    public static IServiceCollection AddDbServices(this IServiceCollection services, string cookBookRecipesConnectionString)
     {
         services
             .AddHealthChecks()
