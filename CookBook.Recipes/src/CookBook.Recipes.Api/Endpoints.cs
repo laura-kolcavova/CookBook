@@ -5,7 +5,7 @@ namespace CookBook.Recipes.Api;
 
 internal static class Endpoints
 {
-    public static RouteGroupBuilder AddEndpoints(this WebApplication app)
+    public static RouteGroupBuilder UseEndpoints(this WebApplication app)
     {
         return app.MapGroup("/api/")
             .AddCategoriesEndpoints()

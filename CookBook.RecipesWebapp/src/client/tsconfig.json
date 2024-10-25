@@ -27,16 +27,13 @@
     "jsx": "react",
     "rootDirs": ["src"],
     "baseUrl": ".",
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "paths": {
+      "~": ["./src"],
+      "~/*": ["./src/*"]
+    }
   },
-  "include": ["./src/**/*"],
-  "exclude": [
-    "./node_modules",
-    "./build",
-    "./lib",
-    "./**/__tests__/**",
-    "./**/*.test.*",
-    "./**/*.spec.*"
-  ],
+  "include": ["./src/**/*", "prettier.config.cjs"],
+  "exclude": ["./build", "./lib", "./**/__tests__/**", "./**/*.test.*", "./**/*.spec.*"],
   "files": ["./src/images.d.ts"]
 }

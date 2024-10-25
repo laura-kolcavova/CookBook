@@ -2,11 +2,12 @@
 
 namespace CookBook.Extensions.AspNetCore.Extensions;
 
-public static class ValidationResultExtensions
+public static class ValidationFailureExtensions
 {
-    public static IDictionary<string, string[]> ToDictionary(this ValidationResult validationResult)
+    public static IDictionary<string, string[]> ToDictionary(this
+        IEnumerable<ValidationFailure> validationFailures)
     {
-        return validationResult.Errors
+        return validationFailures
           .GroupBy(x => x.PropertyName)
           .ToDictionary(
             g => g.Key,

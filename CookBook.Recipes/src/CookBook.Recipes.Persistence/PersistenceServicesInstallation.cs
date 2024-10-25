@@ -10,7 +10,7 @@ namespace CookBook.Recipes.Persistence;
 
 public static class PersistenceServicesInstallation
 {
-    public static IServiceCollection InstallPersistenceServices(
+    public static IServiceCollection AddPersistenceServices(
         this IServiceCollection services,
         string connectionString,
         bool isDevelopment)

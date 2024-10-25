@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Utilities;
+﻿using CookBook.Extensions.AspNetCore.Extensions;
 using CookBook.Recipes.Application.Categories.Services;
 
 namespace CookBook.Recipes.Api.Categories.Features.RemoveCategory;
@@ -13,7 +13,7 @@ internal static class RemoveCategoryEndpoint
             .WithSummary("Removes a category")
             .WithDescription("Returns Status 200 OK response if category was successfully removed.")
             .Produces(StatusCodes.Status200OK)
-            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
             .ProducesValidationProblem();
     }
@@ -27,14 +27,15 @@ internal static class RemoveCategoryEndpoint
     {
         var removeCategoryResult = await categoryService
             .RemoveCategoryAsync(
-            request.CategoryId,
-            cancellationToken);
+                request.CategoryId,
+                cancellationToken);
 
         if (removeCategoryResult.IsFailure)
         {
-            return EndpointResults.Problem(removeCategoryResult.Error, httpContext);
+            return TypedResults.Problem(
+                removeCategoryResult.Error.AsProblemDetails(httpContext));
         }
 
-        return Results.Ok();
+        return TypedResults.Ok();
     }
 }

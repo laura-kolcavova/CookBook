@@ -52,7 +52,7 @@ internal static class SearchRecipesEndpoint
             offsetFilter,
             cancellationToken);
 
-        return Results.Ok(new SearchRecipesEndpointResponseDto
+        return TypedResults.Ok(new SearchRecipesEndpointResponseDto
         {
             Recipes = recipes
         });

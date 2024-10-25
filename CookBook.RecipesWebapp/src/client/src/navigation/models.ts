@@ -26,6 +26,7 @@ export enum Page {
   Register = 'Register',
   Saved = 'Saved',
   MyProfile = 'MyProfile',
+  AddRecipe = 'AddRecipe',
 }
 
 export type IPages = {

@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Utilities;
+﻿using CookBook.Extensions.AspNetCore.Extensions;
 using CookBook.Recipes.Application.Categories.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +14,7 @@ internal static class MoveCategoryEndpoint
             .WithSummary("Moves a category to a different parent category")
             .WithDescription("Returns Status 200 OK response if category was successfully moved to a different parent category.")
             .Produces(StatusCodes.Status200OK)
-            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
             .ProducesValidationProblem();
     }
@@ -28,15 +28,16 @@ internal static class MoveCategoryEndpoint
     {
         var moveCategoryResult = await categoryService
             .MoveCategoryAsync(
-            request.CategoryId,
-            request.NewParentCategoryId,
-            cancellationToken);
+                request.CategoryId,
+                request.NewParentCategoryId,
+                cancellationToken);
 
         if (moveCategoryResult.IsFailure)
         {
-            return EndpointResults.Problem(moveCategoryResult.Error, httpContext);
+            return TypedResults.Problem(
+                moveCategoryResult.Error.AsProblemDetails(httpContext));
         }
 
-        return Results.Ok();
+        return TypedResults.Ok();
     }
 }

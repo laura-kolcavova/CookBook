@@ -5,6 +5,7 @@ using CookBook.Recipes.Domain.Categories;
 using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
 using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
+using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -25,7 +26,7 @@ internal sealed class RecipeCommandService : IRecipeCommandService
         _logger = logger;
     }
 
-    public async Task<UnitResult<ExpectedError>> RemoveRecipeAsync(
+    public async Task<UnitResult<Error>> RemoveRecipeAsync(
         long recipeId,
         CancellationToken cancellationToken)
     {
@@ -48,16 +49,18 @@ internal sealed class RecipeCommandService : IRecipeCommandService
 
             await _recipesContext.SaveChangesAsync(cancellationToken);
 
-            return UnitResult.Success<ExpectedError>();
+            return UnitResult.Success<Error>();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An unexpected error occurred while removing a recipe");
-            throw;
+            throw RecipesPersistenceException.LogAndCreate(
+                _logger,
+                ex,
+                "An unexpected error occurred while removing a recipe");
         }
     }
 
-    public async Task<Result<SaveRecipeResult, ExpectedError>> SaveRecipeAsync(
+    public async Task<Result<SaveRecipeResult, Error>> SaveRecipeAsync(
         SaveRecipeRequest request,
         CancellationToken cancellationToken)
     {
@@ -97,8 +100,10 @@ internal sealed class RecipeCommandService : IRecipeCommandService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An unexpected error occurred while saving a recipe");
-            throw;
+            throw RecipesPersistenceException.LogAndCreate(
+                _logger,
+                ex,
+                "An unexpected error occurred while saving a recipe");
         }
     }
 

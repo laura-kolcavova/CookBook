@@ -16,7 +16,7 @@ Run fololowing commands to build and create a nuget package file:
 
 ```Bash
 dotnet build ".\src\CookBook.Extensions.Configuration.csproj" --configuration Release
-dotnet pack ".\src\CookBook.Extensions.Configuration.csproj" -c Release
+dotnet pack ".\src\CookBook.Extensions.Configuration.csproj" --version-suffix Version -c Release
 ```
 
 Or from the `deploy` folder run the following command:

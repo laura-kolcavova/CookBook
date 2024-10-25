@@ -6,8 +6,8 @@ public static partial class Errors
 {
     public static class Recipe
     {
-        public static ExpectedError NotFound(long recipeId) =>
-          ExpectedError.Failure(
+        public static Error NotFound(long recipeId) =>
+          Error.Failure(
               $"{nameof(Recipe)}.{nameof(NotFound)}",
               $"Recipe with id {recipeId} was not found.");
     }

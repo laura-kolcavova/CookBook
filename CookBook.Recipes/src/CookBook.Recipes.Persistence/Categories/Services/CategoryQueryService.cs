@@ -3,6 +3,7 @@ using CookBook.Recipes.Domain.Categories;
 using CookBook.Recipes.Domain.Categories.ReadModels;
 using CookBook.Recipes.Persistence.Categories.Extensions;
 using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
+using CookBook.Recipes.Persistence.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -55,8 +56,10 @@ internal sealed class CategoryQueryService : ICategoryQueryService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An unexpected error occurred while getting a main category detail");
-                throw;
+                throw RecipesPersistenceException.LogAndCreate(
+                    _logger,
+                    ex,
+                    "An unexpected error occurred while getting a main category detail");
             }
         }
     }
@@ -83,8 +86,10 @@ internal sealed class CategoryQueryService : ICategoryQueryService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An unexpected error occurred while searching for categories");
-                throw;
+                throw RecipesPersistenceException.LogAndCreate(
+                    _logger,
+                    ex,
+                    "An unexpected error occurred while searching for categories");
             }
         }
     }

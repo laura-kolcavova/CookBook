@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Utilities;
+﻿using CookBook.Extensions.AspNetCore.Extensions;
 using CookBook.Recipes.Application.Recipes.Services;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
@@ -15,7 +15,7 @@ internal static class RemoveRecipeEndpoint
             .WithDescription("This endpoint returns Status 200 OK response if recipe was successfully removed.")
             .Produces(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesValidationProblem();
     }
 
@@ -31,9 +31,10 @@ internal static class RemoveRecipeEndpoint
 
         if (removeRecipeResult.IsFailure)
         {
-            return EndpointResults.Problem(removeRecipeResult.Error, httpContext);
+            return TypedResults.Problem(
+                removeRecipeResult.Error.AsProblemDetails(httpContext));
         }
 
-        return Results.Ok();
+        return TypedResults.Ok();
     }
 }

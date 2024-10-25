@@ -4,7 +4,7 @@ namespace CookBook.Recipes.Application;
 
 public static class ApplicationServicesInstallation
 {
-    public static IServiceCollection InstallApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         return services;
     }

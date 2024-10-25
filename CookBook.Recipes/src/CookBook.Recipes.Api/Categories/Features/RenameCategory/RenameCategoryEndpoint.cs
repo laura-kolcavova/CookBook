@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Utilities;
+﻿using CookBook.Extensions.AspNetCore.Extensions;
 using CookBook.Recipes.Application.Categories.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +15,7 @@ internal static class RenameCategoryEndpoint
             .WithDescription("Returns Status 200 OK response if category was successfully renamed.")
             .Produces(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesValidationProblem();
     }
 
@@ -28,15 +28,16 @@ internal static class RenameCategoryEndpoint
     {
         var renameCategoryResult = await categoryService
             .RenameCategoryAsync(
-            request.CategoryId,
-            request.Name,
-            cancellationToken);
+                request.CategoryId,
+                request.Name,
+                cancellationToken);
 
         if (renameCategoryResult.IsFailure)
         {
-            return EndpointResults.Problem(renameCategoryResult.Error, httpContext);
+            return TypedResults.Problem(
+                renameCategoryResult.Error.AsProblemDetails(httpContext));
         }
 
-        return Results.Ok();
+        return TypedResults.Ok();
     }
 }

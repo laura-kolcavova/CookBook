@@ -31,7 +31,7 @@ internal static class GetRecipeDetailEndpoint
             return TypedResults.NoContent();
         }
 
-        return Results.Ok(new GetRecipeDetailResponseDto
+        return TypedResults.Ok(new GetRecipeDetailResponseDto
         {
             RecipeDetail = recipeDetail
         });

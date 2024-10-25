@@ -3,6 +3,7 @@ using CookBook.Recipes.Application.Categories.Models;
 using CookBook.Recipes.Application.Categories.Services;
 using CookBook.Recipes.Domain.Categories;
 using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
+using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -22,7 +23,7 @@ internal sealed class CategoryCommandService : ICategoryCommandService
         _logger = logger;
     }
 
-    public async Task<Result<AddCategoryResult, ExpectedError>> AddCategoryAsync(
+    public async Task<Result<AddCategoryResult, Error>> AddCategoryAsync(
         string name,
         int parentCategoryId,
         CancellationToken cancellationToken)
@@ -40,8 +41,7 @@ internal sealed class CategoryCommandService : ICategoryCommandService
 
                 if (parentCategory is null)
                 {
-                    return Result.Failure<AddCategoryResult, ExpectedError>(
-                        Errors.Category.NotFound(parentCategoryId));
+                    return Errors.Category.NotFound(parentCategoryId);
                 }
 
                 var nameExists = await _recipesContext.Categories
@@ -52,8 +52,7 @@ internal sealed class CategoryCommandService : ICategoryCommandService
 
                 if (nameExists)
                 {
-                    return Result.Failure<AddCategoryResult, ExpectedError>(
-                        Errors.Category.AnotherCategoryWithNameAlreadyExists(name));
+                    return Errors.Category.AnotherCategoryWithNameAlreadyExists(name);
                 }
 
                 var newSubCategory = parentCategory is null
@@ -71,13 +70,15 @@ internal sealed class CategoryCommandService : ICategoryCommandService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An unexpected error has occurred while adding a new sub category");
-                throw;
+                throw RecipesPersistenceException.LogAndCreate(
+                    _logger,
+                    ex,
+                    "An unexpected error has occurred while adding a new sub category");
             }
         }
     }
 
-    public Task<Result<AddCategoryResult, ExpectedError>> AddCategoryAsync(
+    public Task<Result<AddCategoryResult, Error>> AddCategoryAsync(
         string name,
         CancellationToken cancellationToken)
     {
@@ -87,7 +88,7 @@ internal sealed class CategoryCommandService : ICategoryCommandService
             cancellationToken);
     }
 
-    public async Task<UnitResult<ExpectedError>> MoveCategoryAsync(
+    public async Task<UnitResult<Error>> MoveCategoryAsync(
         int id,
         int newParentCategoryId,
         CancellationToken cancellationToken)
@@ -102,8 +103,7 @@ internal sealed class CategoryCommandService : ICategoryCommandService
             {
                 if (id == CategoryAggregate.RootCategoryId)
                 {
-                    return UnitResult.Failure<ExpectedError>(
-                        Errors.Category.RootCategoryModificationNotAllowed());
+                    return Errors.Category.RootCategoryModificationNotAllowed();
                 }
 
                 var category = await _recipesContext.Categories
@@ -111,8 +111,7 @@ internal sealed class CategoryCommandService : ICategoryCommandService
 
                 if (category is null)
                 {
-                    return UnitResult.Failure<ExpectedError>(
-                        Errors.Category.NotFound(id));
+                    return Errors.Category.NotFound(id);
                 }
 
                 var parentCategory = await _recipesContext.Categories
@@ -120,14 +119,14 @@ internal sealed class CategoryCommandService : ICategoryCommandService
 
                 if (parentCategory is null)
                 {
-                    return UnitResult.Failure<ExpectedError>(
-                        Errors.Category.NotFound(newParentCategoryId));
+                    return Errors.Category.NotFound(newParentCategoryId);
                 }
 
                 if (category.Id == parentCategory.Id)
                 {
-                    return UnitResult.Failure<ExpectedError>(
-                       Errors.Category.ParentCategoryIsNotValid(parentCategory.Name, category.Name));
+                    return Errors.Category.ParentCategoryIsNotValid(
+                        parentCategory.Name,
+                        category.Name);
                 }
 
                 category.ChangeParentCategory(parentCategory);
@@ -136,17 +135,19 @@ internal sealed class CategoryCommandService : ICategoryCommandService
 
                 await _recipesContext.SaveChangesAsync(cancellationToken);
 
-                return UnitResult.Success<ExpectedError>();
+                return UnitResult.Success<Error>();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An unexpected error has occurred while moving a sub category to another parent category");
-                throw;
+                throw RecipesPersistenceException.LogAndCreate(
+                    _logger,
+                    ex,
+                    "An unexpected error has occurred while moving a sub category to another parent category");
             }
         }
     }
 
-    public async Task<UnitResult<ExpectedError>> RemoveCategoryAsync(
+    public async Task<UnitResult<Error>> RemoveCategoryAsync(
         int id,
         CancellationToken cancellationToken)
     {
@@ -159,8 +160,7 @@ internal sealed class CategoryCommandService : ICategoryCommandService
             {
                 if (id == CategoryAggregate.RootCategoryId)
                 {
-                    return UnitResult.Failure<ExpectedError>(
-                        Errors.Category.RootCategoryModificationNotAllowed());
+                    return Errors.Category.RootCategoryModificationNotAllowed();
                 }
 
                 var category = await _recipesContext.Categories
@@ -168,8 +168,7 @@ internal sealed class CategoryCommandService : ICategoryCommandService
 
                 if (category is null)
                 {
-                    return UnitResult.Failure<ExpectedError>(
-                        Errors.Category.NotFound(id));
+                    return Errors.Category.NotFound(id);
                 }
 
                 await _recipesContext.Categories
@@ -180,17 +179,19 @@ internal sealed class CategoryCommandService : ICategoryCommandService
 
                 await _recipesContext.SaveChangesAsync(cancellationToken);
 
-                return UnitResult.Success<ExpectedError>();
+                return UnitResult.Success<Error>();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An unexpected error has occurred while removing a category");
-                throw;
+                throw RecipesPersistenceException.LogAndCreate(
+                    _logger,
+                    ex,
+                    "An unexpected error has occurred while removing a category");
             }
         }
     }
 
-    public async Task<UnitResult<ExpectedError>> RenameCategoryAsync(
+    public async Task<UnitResult<Error>> RenameCategoryAsync(
         int id,
         string newName,
         CancellationToken cancellationToken)
@@ -205,8 +206,7 @@ internal sealed class CategoryCommandService : ICategoryCommandService
             {
                 if (id == CategoryAggregate.RootCategoryId)
                 {
-                    return UnitResult.Failure<ExpectedError>(
-                        Errors.Category.RootCategoryModificationNotAllowed());
+                    return Errors.Category.RootCategoryModificationNotAllowed();
                 }
 
                 var category = await _recipesContext.Categories
@@ -214,8 +214,7 @@ internal sealed class CategoryCommandService : ICategoryCommandService
 
                 if (category is null)
                 {
-                    return UnitResult.Failure<ExpectedError>(
-                        Errors.Category.NotFound(id));
+                    return Errors.Category.NotFound(id);
                 }
 
                 category.Rename(newName);
@@ -224,12 +223,14 @@ internal sealed class CategoryCommandService : ICategoryCommandService
 
                 await _recipesContext.SaveChangesAsync(cancellationToken);
 
-                return UnitResult.Success<ExpectedError>();
+                return UnitResult.Success<Error>();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An unexpected error has occurred while renaming a category");
-                throw;
+                throw RecipesPersistenceException.LogAndCreate(
+                    _logger,
+                    ex,
+                    "An unexpected error has occurred while renaming a category");
             }
         }
     }

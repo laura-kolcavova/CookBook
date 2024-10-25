@@ -6,7 +6,7 @@ namespace CookBook.RecipesWebapp.Server.Api;
 
 internal static class ApiServiceInstallation
 {
-    public static IServiceCollection InstallClientServices(
+    public static IServiceCollection AddClientServices(
         this IServiceCollection services,
         ClientOptions clientOptions)
     {
@@ -19,7 +19,7 @@ internal static class ApiServiceInstallation
         return services;
     }
 
-    public static IServiceCollection InstallApiServices(
+    public static IServiceCollection AddApiServices(
         this IServiceCollection services,
         string applicationName,
         IConfigurationSection reverseProxyOptions)

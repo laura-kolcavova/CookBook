@@ -32,7 +32,7 @@ internal static class GetCategoryDetailEndpoint
             return TypedResults.NoContent();
 
         }
-        return Results.Ok(new GetCategoryDetailResponseDto
+        return TypedResults.Ok(new GetCategoryDetailResponseDto
         {
             Category = categoryDetail
         });
