@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace CookBook.Recipes.Persistence.Categories.Services;
 
 internal sealed class RenameCategoryService(
-    RecipesContext recipesContext,
+    CategoriesContext categoriesContext,
     ILogger<RenameCategoryService> logger) :
     IRenameCategoryService
 {
@@ -31,7 +31,7 @@ internal sealed class RenameCategoryService(
                     return Errors.Category.RootCategoryModificationNotAllowed();
                 }
 
-                var category = await recipesContext
+                var category = await categoriesContext
                     .Categories
                     .FindAsync(id, cancellationToken);
 
@@ -42,11 +42,11 @@ internal sealed class RenameCategoryService(
 
                 category.Rename(newName);
 
-                recipesContext
+                categoriesContext
                     .Categories
                     .Update(category);
 
-                await recipesContext.SaveChangesAsync(cancellationToken);
+                await categoriesContext.SaveChangesAsync(cancellationToken);
 
                 return UnitResult.Success<Error>();
             }

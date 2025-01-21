@@ -34,7 +34,17 @@ public static class PersistenceServicesInstallation
                     updateTrackingFieldsInterceptor: updateTrackingFieldsInterceptor);
             });
 
+        services
+            .AddScoped(serviceProvider =>
+            {
+                var updateTrackingFieldsInterceptor = serviceProvider
+                    .GetRequiredService<UpdateTrackingFieldsInterceptor>();
 
+                return new CategoriesContext(
+                    connectionString: connectionString,
+                    useDevelopmentLogging: isDevelopment,
+                    updateTrackingFieldsInterceptor: updateTrackingFieldsInterceptor);
+            });
 
         return services;
     }

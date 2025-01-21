@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace CookBook.Recipes.Persistence.Categories.Services;
 
 internal sealed class GetCategoryDetailService(
-    RecipesContext recipesContext,
+    CategoriesContext categoriesContext,
     ILogger<GetCategoryDetailService> logger) :
     IGetCategoryDetailService
 {
@@ -24,7 +24,7 @@ internal sealed class GetCategoryDetailService(
         {
             try
             {
-                var categoryDetail = await recipesContext
+                var categoryDetail = await categoriesContext
                     .Categories
                     .AsNoTracking()
                     .Where(category => category.Id == categoryId)
@@ -36,7 +36,7 @@ internal sealed class GetCategoryDetailService(
                     return null;
                 }
 
-                var subCategories = await recipesContext
+                var subCategories = await categoriesContext
                     .Categories
                     .AsNoTracking()
                     .Where(category => category.ParentCategoryId == categoryId)

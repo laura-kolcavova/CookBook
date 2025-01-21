@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace CookBook.Recipes.Persistence.Categories.Services;
 
 internal sealed class GetCategoriesService(
-    RecipesContext recipesContext,
+    CategoriesContext categoriesContext,
     ILogger<GetCategoriesService> logger) :
     IGetCategoriesService
 {
@@ -25,7 +25,7 @@ internal sealed class GetCategoriesService(
         {
             try
             {
-                var queryable = recipesContext
+                var queryable = categoriesContext
                     .Categories
                     .AsNoTracking()
                     .Where(category => category.ParentCategoryId == parentCategoryId)

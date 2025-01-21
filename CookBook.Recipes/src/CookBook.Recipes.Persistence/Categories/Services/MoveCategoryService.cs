@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace CookBook.Recipes.Persistence.Categories.Services;
 
 internal sealed class MoveCategoryService(
-    RecipesContext recipesContext,
+    CategoriesContext categoriesContext,
     ILogger<MoveCategoryService> logger) :
     IMoveCategoryService
 {
@@ -31,7 +31,7 @@ internal sealed class MoveCategoryService(
                     return Errors.Category.RootCategoryModificationNotAllowed();
                 }
 
-                var category = await recipesContext
+                var category = await categoriesContext
                     .Categories
                     .FindAsync(id, cancellationToken);
 
@@ -40,7 +40,7 @@ internal sealed class MoveCategoryService(
                     return Errors.Category.NotFound(id);
                 }
 
-                var parentCategory = await recipesContext
+                var parentCategory = await categoriesContext
                     .Categories
                     .FindAsync(newParentCategoryId, cancellationToken);
 
@@ -58,11 +58,11 @@ internal sealed class MoveCategoryService(
 
                 category.ChangeParentCategory(parentCategory);
 
-                recipesContext
+                categoriesContext
                     .Categories
                     .Update(category);
 
-                await recipesContext.SaveChangesAsync(cancellationToken);
+                await categoriesContext.SaveChangesAsync(cancellationToken);
 
                 return UnitResult.Success<Error>();
             }

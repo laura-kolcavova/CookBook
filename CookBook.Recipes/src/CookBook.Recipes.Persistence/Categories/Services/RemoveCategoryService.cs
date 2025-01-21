@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace CookBook.Recipes.Persistence.Categories.Services;
 
 internal sealed class RemoveCategoryService(
-    RecipesContext recipesContext,
+    CategoriesContext categoriesContext,
     ILogger<RemoveCategoryService> logger) :
     IRemoveCategoryService
 {
@@ -30,7 +30,7 @@ internal sealed class RemoveCategoryService(
                     return Errors.Category.RootCategoryModificationNotAllowed();
                 }
 
-                var category = await recipesContext
+                var category = await categoriesContext
                     .Categories
                     .FindAsync(id, cancellationToken);
 
@@ -38,16 +38,16 @@ internal sealed class RemoveCategoryService(
                 {
                     return Errors.Category.NotFound(id);
                 }
-                await recipesContext
+                await categoriesContext
                     .Categories
                     .Where(category => category.ParentCategoryId == id)
                     .ExecuteDeleteAsync(cancellationToken);
 
-                recipesContext
+                categoriesContext
                     .Categories
                     .Remove(category);
 
-                await recipesContext.SaveChangesAsync(cancellationToken);
+                await categoriesContext.SaveChangesAsync(cancellationToken);
 
                 return UnitResult.Success<Error>();
             }

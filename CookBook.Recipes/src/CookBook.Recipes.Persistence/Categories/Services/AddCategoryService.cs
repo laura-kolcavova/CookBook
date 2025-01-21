@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace CookBook.Recipes.Persistence.Categories.Services;
 
 internal sealed class AddCategoryService(
-    RecipesContext recipesContext,
+    CategoriesContext categoriesContext,
     ILogger<AddCategoryService> logger) :
     IAddCategoryService
 {
@@ -28,7 +28,7 @@ internal sealed class AddCategoryService(
         {
             try
             {
-                var parentCategory = await recipesContext
+                var parentCategory = await categoriesContext
                     .Categories
                     .FindAsync(parentCategoryId, cancellationToken);
 
@@ -37,7 +37,7 @@ internal sealed class AddCategoryService(
                     return Errors.Category.NotFound(parentCategoryId);
                 }
 
-                var nameExists = await recipesContext
+                var nameExists = await categoriesContext
                     .Categories
                     .AnyAsync(category =>
                         category.Name == name &&
@@ -53,9 +53,9 @@ internal sealed class AddCategoryService(
                     ? new CategoryAggregate(name)
                     : new CategoryAggregate(name, parentCategory);
 
-                await recipesContext.AddAsync(newSubCategory, cancellationToken);
+                await categoriesContext.AddAsync(newSubCategory, cancellationToken);
 
-                await recipesContext.SaveChangesAsync(cancellationToken);
+                await categoriesContext.SaveChangesAsync(cancellationToken);
 
                 return new AddCategoryResult
                 {
