@@ -16,6 +16,10 @@ public static class PersistenceServicesInstallation
         bool isDevelopment)
     {
         services
+            .AddRecipes()
+            .AddCategories();
+
+        services
             .AddSingleton<UpdateTrackingFieldsInterceptor>();
 
         services
@@ -30,13 +34,33 @@ public static class PersistenceServicesInstallation
                     updateTrackingFieldsInterceptor: updateTrackingFieldsInterceptor);
             });
 
-        services
-            .AddScoped<ICategoryCommandService, CategoryCommandService>()
-            .AddScoped<ICategoryQueryService, CategoryQueryService>();
 
+
+        return services;
+    }
+
+    public static IServiceCollection AddRecipes(
+        this IServiceCollection services)
+    {
         services
-            .AddScoped<IRecipeCommandService, RecipeCommandService>()
-            .AddScoped<IRecipeQueryService, RecipeQueryService>();
+            .AddScoped<ISaveRecipeService, SaveRecipeService>()
+            .AddScoped<IRemoveRecipeService, RemoveRecipeService>()
+            .AddScoped<ISearchRecipesService, SearchRecipesService>()
+            .AddScoped<IGetRecipeDetailService, GetRecipesDetailService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddCategories(
+        this IServiceCollection services)
+    {
+        services
+            .AddScoped<IAddCategoryService, AddCategoryService>()
+            .AddScoped<IMoveCategoryService, MoveCategoryService>()
+            .AddScoped<IRemoveCategoryService, RemoveCategoryService>()
+            .AddScoped<IRenameCategoryService, RenameCategoryService>()
+            .AddScoped<IGetCategoriesService, GetCategoriesService>()
+            .AddScoped<IGetCategoryDetailService, GetCategoryDetailService>();
 
         return services;
     }

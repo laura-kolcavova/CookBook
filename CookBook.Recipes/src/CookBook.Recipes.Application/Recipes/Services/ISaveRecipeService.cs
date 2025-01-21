@@ -4,13 +4,9 @@ using CSharpFunctionalExtensions;
 
 namespace CookBook.Recipes.Application.Recipes.Services;
 
-public interface IRecipeCommandService
+public interface ISaveRecipeService
 {
-    public Task<UnitResult<Error>> RemoveRecipeAsync(
-        long recipeId,
-        CancellationToken cancellationToken);
-
-    public Task<Result<SaveRecipeResult, Error>> SaveRecipeAsync(
+    public Task<Result<SaveRecipeResult, Error>> SaveRecipe(
         SaveRecipeRequest request,
         CancellationToken cancellationToken);
 }

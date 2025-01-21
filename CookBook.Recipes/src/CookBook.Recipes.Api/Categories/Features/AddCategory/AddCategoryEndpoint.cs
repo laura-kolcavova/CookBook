@@ -21,12 +21,14 @@ internal static class AddCategoryEndpoint
 
     private static async Task<IResult> HandleAsync(
         [FromBody] AddCategoryRequestDto request,
-        ICategoryCommandService categoryService,
+        IAddCategoryService addCategoryService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var addCategoryResult = await categoryService
-            .AddCategoryAsync(request.Name, request.ParentCategoryId, cancellationToken);
+        var addCategoryResult = await addCategoryService.AddCategory(
+            request.Name,
+            request.ParentCategoryId,
+            cancellationToken);
 
         if (addCategoryResult.IsFailure)
         {

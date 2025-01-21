@@ -21,11 +21,11 @@ internal static class RemoveRecipeEndpoint
 
     private static async Task<IResult> HandleAsync(
         [AsParameters] RemoveRecipeRequestDto request,
-        IRecipeCommandService recipeService,
+        IRemoveRecipeService removeRecipeService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var removeRecipeResult = await recipeService.RemoveRecipeAsync(
+        var removeRecipeResult = await removeRecipeService.RemoveRecipe(
             request.RecipeId,
             cancellationToken);
 
