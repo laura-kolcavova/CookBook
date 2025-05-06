@@ -4,8 +4,4 @@
     <PackageReference Include="CookBook.Extensions.CSharpExtended" Version="1.0.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CookBook.Recipes.Constants\CookBook.Recipes.Constants.csproj" />
-  </ItemGroup>
-
 </Project>

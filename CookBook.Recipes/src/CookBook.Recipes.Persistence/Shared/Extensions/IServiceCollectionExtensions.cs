@@ -6,9 +6,9 @@ using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 using CookBook.Recipes.Persistence.Shared.Interceptors;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CookBook.Recipes.Persistence;
+namespace CookBook.Recipes.Persistence.Shared.Extensions;
 
-public static class PersistenceServicesInstallation
+public static class IServiceCollectionExtensions
 {
     public static IServiceCollection AddPersistenceServices(
         this IServiceCollection services,
