@@ -1,4 +1,5 @@
 ﻿using CookBook.Recipes.Domain.Recipes.Entities;
+using CookBook.Recipes.Persistence.Shared.Constants;
 using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -11,7 +12,7 @@ internal class RecipeCategoryEntityConfiguration
     public void Configure(EntityTypeBuilder<RecipeCategoryEntity> builder)
     {
         builder
-            .ToTable(nameof(RecipesContext.RecipeCategories), RecipesContext.Schema);
+            .ToTable(nameof(RecipesContext.RecipeCategories), Schemas.Main);
 
         builder
             .HasKey(e => new

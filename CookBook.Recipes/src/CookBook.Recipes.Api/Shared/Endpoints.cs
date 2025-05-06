@@ -1,7 +1,7 @@
 ﻿using CookBook.Recipes.Api.Categories;
 using CookBook.Recipes.Api.Recipes;
 
-namespace CookBook.Recipes.Api;
+namespace CookBook.Recipes.Api.Shared;
 
 internal static class Endpoints
 {

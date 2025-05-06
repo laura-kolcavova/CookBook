@@ -21,14 +21,13 @@ internal static class RemoveCategoryEndpoint
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         RemoveCategoryRequestDto request,
-        ICategoryCommandService categoryService,
+        IRemoveCategoryService removeCategoryService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var removeCategoryResult = await categoryService
-            .RemoveCategoryAsync(
-                request.CategoryId,
-                cancellationToken);
+        var removeCategoryResult = await removeCategoryService.RemoveCategory(
+            request.CategoryId,
+            cancellationToken);
 
         if (removeCategoryResult.IsFailure)
         {

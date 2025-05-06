@@ -24,11 +24,11 @@ internal static class SaveRecipeEndpoint
 
     private static async Task<IResult> HandleAsync(
         [FromBody] SaveRecipeRequestDto saveRecipeRequest,
-        IRecipeCommandService recipeService,
+        ISaveRecipeService saveRecipeService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var saveRecipeResult = await recipeService.SaveRecipeAsync(
+        var saveRecipeResult = await saveRecipeService.SaveRecipe(
             SaveRecipeMapper.ToSaveRecipeRequest(saveRecipeRequest),
             cancellationToken);
 

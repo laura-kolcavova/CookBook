@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace CookBook.Recipes.Application;
+namespace CookBook.Recipes.Application.Shared.Extensions;
 
-public static class ApplicationServicesInstallation
+public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {

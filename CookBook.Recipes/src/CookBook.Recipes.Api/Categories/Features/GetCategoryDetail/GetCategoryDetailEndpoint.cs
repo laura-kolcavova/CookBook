@@ -20,12 +20,13 @@ internal static class GetCategoryDetailEndpoint
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         GetCategoryDetailRequestDto request,
-        ICategoryQueryService categoryDetailReadModelService,
+        IGetCategoryDetailService getCategoryDetailService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var categoryDetail = await categoryDetailReadModelService
-            .GetCategoryDetailAsync(request.CategoryId, cancellationToken);
+        var categoryDetail = await getCategoryDetailService.GetCategoryDetail(
+            request.CategoryId,
+            cancellationToken);
 
         if (categoryDetail is null)
         {

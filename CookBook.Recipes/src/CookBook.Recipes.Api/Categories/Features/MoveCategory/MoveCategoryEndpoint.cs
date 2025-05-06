@@ -22,15 +22,14 @@ internal static class MoveCategoryEndpoint
     private static async Task<IResult> HandleAsync(
         [FromBody]
         MoveCategoryRequestDto request,
-        ICategoryCommandService categoryService,
+        IMoveCategoryService moveCategoryService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var moveCategoryResult = await categoryService
-            .MoveCategoryAsync(
-                request.CategoryId,
-                request.NewParentCategoryId,
-                cancellationToken);
+        var moveCategoryResult = await moveCategoryService.MoveCategory(
+            request.CategoryId,
+            request.NewParentCategoryId,
+            cancellationToken);
 
         if (moveCategoryResult.IsFailure)
         {

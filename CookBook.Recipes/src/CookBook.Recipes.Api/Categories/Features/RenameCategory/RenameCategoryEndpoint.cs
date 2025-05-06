@@ -22,15 +22,14 @@ internal static class RenameCategoryEndpoint
     private static async Task<IResult> HandleAsync(
         [FromBody]
         RenameCategoryRequestDto request,
-        ICategoryCommandService categoryService,
+        IRenameCategoryService renameCategoryService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var renameCategoryResult = await categoryService
-            .RenameCategoryAsync(
-                request.CategoryId,
-                request.Name,
-                cancellationToken);
+        var renameCategoryResult = await renameCategoryService.RenameCategory(
+            request.CategoryId,
+            request.Name,
+            cancellationToken);
 
         if (renameCategoryResult.IsFailure)
         {

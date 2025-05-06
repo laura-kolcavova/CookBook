@@ -1,4 +1,5 @@
 ﻿using CookBook.Recipes.Domain.Recipes;
+using CookBook.Recipes.Persistence.Shared.Constants;
 using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 using CookBook.Recipes.Persistence.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ internal sealed class RecipeAggregateRootConfiguration : IEntityTypeConfiguratio
     public void Configure(EntityTypeBuilder<RecipeAggregate> builder)
     {
         builder
-            .ToTable(nameof(RecipesContext.Recipes), RecipesContext.Schema);
+            .ToTable(nameof(RecipesContext.Recipes), Schemas.Main);
 
         builder
             .HasKey(e => e.Id);

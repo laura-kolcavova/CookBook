@@ -1,13 +1,12 @@
-﻿using CookBook.Recipes.Domain.Recipes;
-using CookBook.Recipes.Domain.Recipes.Entities;
-using CookBook.Recipes.Persistence.Recipes.EntityTypeConfigurations;
+﻿using CookBook.Recipes.Domain.Categories;
+using CookBook.Recipes.Persistence.Categories.EntityTypeConfigurations;
 using CookBook.Recipes.Persistence.Shared.Interceptors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 
-internal sealed class RecipesContext : DbContext
+internal sealed class CategoriesContext : DbContext
 {
     private readonly string _connectionString;
 
@@ -17,23 +16,11 @@ internal sealed class RecipesContext : DbContext
 
     #region AggregateRoots
 
-    public DbSet<RecipeAggregate> Recipes => Set<RecipeAggregate>();
+    public DbSet<CategoryAggregate> Categories => Set<CategoryAggregate>();
 
     #endregion AggregateRoots
 
-    #region Entities
-
-    public DbSet<RecipeIngredientEntity> RecipeIngredients => Set<RecipeIngredientEntity>();
-
-    public DbSet<RecipeInstructionEntity> RecipeInstructions => Set<RecipeInstructionEntity>();
-
-    public DbSet<RecipeCategoryEntity> RecipeCategories => Set<RecipeCategoryEntity>();
-
-    public DbSet<RecipeTagEntity> RecipeTags => Set<RecipeTagEntity>();
-
-    #endregion Entities
-
-    public RecipesContext(
+    public CategoriesContext(
         string connectionString,
         bool useDevelopmentLogging,
         UpdateTrackingFieldsInterceptor updateTrackingFieldsInterceptor)
@@ -60,11 +47,7 @@ internal sealed class RecipesContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new RecipeAggregateRootConfiguration());
-        modelBuilder.ApplyConfiguration(new RecipeIngredientEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new RecipeInstructionEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new RecipeCategoryEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new RecipeTagEntityConfiguration());
+        modelBuilder.ApplyConfiguration(new CategoryAggregateRootConfiguration());
     }
 
     private static ILoggerFactory CreateLoggerFactory()

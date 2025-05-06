@@ -1,9 +1,10 @@
 using CookBook.Extensions.AspNetCore.EndpointFilters;
 using CookBook.Extensions.Configuration.SqlServer;
-using CookBook.Recipes.Api;
+using CookBook.Recipes.Api.Shared;
 using CookBook.Recipes.Api.Shared.Configuration;
-using CookBook.Recipes.Application;
-using CookBook.Recipes.Persistence;
+using CookBook.Recipes.Api.Shared.Extensions;
+using CookBook.Recipes.Application.Shared.Extensions;
+using CookBook.Recipes.Persistence.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

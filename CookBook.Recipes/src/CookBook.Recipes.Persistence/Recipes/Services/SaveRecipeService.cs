@@ -9,62 +9,19 @@ using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Errors = CookBook.Recipes.Domain.Recipes.Errors;
 
 namespace CookBook.Recipes.Persistence.Recipes.Services;
 
-internal sealed class RecipeCommandService : IRecipeCommandService
+internal sealed class SaveRecipeService(
+    RecipesContext recipesContext,
+    ILogger<SaveRecipeService> logger) :
+    ISaveRecipeService
 {
-    private readonly RecipesContext _recipesContext;
-    private readonly ILogger<RecipeCommandService> _logger;
-
-    public RecipeCommandService(
-        RecipesContext recipesContext,
-        ILogger<RecipeCommandService> logger)
-    {
-        _recipesContext = recipesContext;
-        _logger = logger;
-    }
-
-    public async Task<UnitResult<Error>> RemoveRecipeAsync(
-        long recipeId,
-        CancellationToken cancellationToken)
-    {
-        using var loggerScope = _logger.BeginScope(new Dictionary<string, object?>
-        {
-            ["RecipeId"] = recipeId
-        });
-
-        try
-        {
-            var recipe = await _recipesContext.Recipes
-                .FindAsync(recipeId, cancellationToken);
-
-            if (recipe is null)
-            {
-                return Errors.Recipe.NotFound(recipeId);
-            }
-
-            _recipesContext.Recipes.Remove(recipe);
-
-            await _recipesContext.SaveChangesAsync(cancellationToken);
-
-            return UnitResult.Success<Error>();
-        }
-        catch (Exception ex)
-        {
-            throw RecipesPersistenceException.LogAndCreate(
-                _logger,
-                ex,
-                "An unexpected error occurred while removing a recipe");
-        }
-    }
-
-    public async Task<Result<SaveRecipeResult, Error>> SaveRecipeAsync(
+    public async Task<Result<SaveRecipeResult, Error>> SaveRecipe(
         SaveRecipeRequest request,
         CancellationToken cancellationToken)
     {
-        using var loggerScope = _logger.BeginScope(new Dictionary<string, object?>
+        using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
             ["RecipeId"] = request.RecipeId,
             ["UserId"] = request.UserId,
@@ -75,23 +32,32 @@ internal sealed class RecipeCommandService : IRecipeCommandService
         {
             var recipe = request.RecipeId is null || request.RecipeId <= 0
                 ? null
-                : await _recipesContext.Recipes
+                : await recipesContext
+                    .Recipes
                     .FetchRecipeAsync(request.RecipeId.Value, cancellationToken);
 
             if (recipe is null)
             {
                 recipe = new RecipeAggregate(request.Title, request.UserId);
+
                 await SaveRecipeOptionalInformation(recipe, request, cancellationToken);
-                await _recipesContext.Recipes.AddAsync(recipe, cancellationToken);
+
+                await recipesContext
+                    .Recipes
+                    .AddAsync(recipe, cancellationToken);
             }
             else
             {
                 recipe.SetTitle(request.Title);
+
                 await SaveRecipeOptionalInformation(recipe, request, cancellationToken);
-                _recipesContext.Recipes.Update(recipe);
+
+                recipesContext
+                    .Recipes
+                    .Update(recipe);
             }
 
-            await _recipesContext.SaveChangesAsync(cancellationToken);
+            await recipesContext.SaveChangesAsync(cancellationToken);
 
             return new SaveRecipeResult
             {
@@ -101,7 +67,7 @@ internal sealed class RecipeCommandService : IRecipeCommandService
         catch (Exception ex)
         {
             throw RecipesPersistenceException.LogAndCreate(
-                _logger,
+                logger,
                 ex,
                 "An unexpected error occurred while saving a recipe");
         }
@@ -116,7 +82,8 @@ internal sealed class RecipeCommandService : IRecipeCommandService
 
         if (request.CategoryIds.Any())
         {
-            categories = await _recipesContext.Categories
+            categories = await recipesContext
+                .Categories
                 .Where(category => request.CategoryIds.Contains(category.Id))
                 .ToListAsync(cancellationToken);
         }

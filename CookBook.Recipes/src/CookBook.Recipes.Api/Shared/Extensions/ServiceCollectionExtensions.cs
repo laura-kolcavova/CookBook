@@ -3,9 +3,9 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
-namespace CookBook.Recipes.Api;
+namespace CookBook.Recipes.Api.Shared.Extensions;
 
-internal static class ApiServicesInstallation
+internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddApiServices(this IServiceCollection services, string applicationName)
     {
