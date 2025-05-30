@@ -1,8 +1,8 @@
 ﻿using CookBook.Recipes.Application.Recipes.Services;
 using CookBook.Recipes.Domain.Recipes.ReadModels;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
-using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 using CookBook.Recipes.Persistence.Shared.Exceptions;
+using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +13,9 @@ internal sealed class GetRecipesDetailService(
     ILogger<GetRecipesDetailService> logger) :
     IGetRecipeDetailService
 {
-    public async Task<RecipeDetailReadModel?> GetRecipeDetail(long recipeId, CancellationToken cancellationToken)
+    public async Task<Maybe<RecipeDetailReadModel>> GetRecipeDetail(
+        long recipeId,
+        CancellationToken cancellationToken)
     {
         using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
@@ -29,30 +31,6 @@ internal sealed class GetRecipesDetailService(
                 .SingleOrDefaultAsync(recipeDetail =>
                     recipeDetail.Id == recipeId,
                     cancellationToken);
-
-            if (readModel is null)
-            {
-                return null;
-            }
-
-            var categoryIds = readModel
-                .Categories
-                .Select(category => category.Id);
-
-            var categories = await recipesContext
-                .Categories
-                .Where(category => categoryIds.Contains(category.Id))
-                .Select(category => new RecipeDetailReadModel.CategoryItem
-                {
-                    Id = category.Id,
-                    Name = category.Name,
-                })
-                .ToListAsync(cancellationToken);
-
-            readModel = readModel with
-            {
-                Categories = categories
-            };
 
             return readModel;
         }

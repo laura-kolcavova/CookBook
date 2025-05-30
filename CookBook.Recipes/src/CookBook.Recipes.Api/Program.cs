@@ -19,17 +19,21 @@ builder.Host
         options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
     });
 
-var cookBookRecipesConnectionString = configuration
-    .GetSqlConnectionString(ConfigurationConstants.CookBookRecipesConnectionStringSectionName);
+var cookBookRecipesConnectionString = configuration.GetSqlConnectionString(
+    ConfigurationConstants.CookBookRecipesConnectionStringSectionName);
 
 services
     .AddOptions();
 
 services
-    .AddDbServices(cookBookRecipesConnectionString)
-    .AddApiServices(builder.Environment.ApplicationName)
-    .AddPersistenceServices(cookBookRecipesConnectionString, isDevelopment)
-    .AddApplicationServices();
+    .AddApplication()
+    .AddDataAccess(
+        cookBookRecipesConnectionString)
+    .AddPersistence(
+        cookBookRecipesConnectionString,
+        isDevelopment)
+    .AddApi(
+        builder.Environment.ApplicationName);
 
 var app = builder.Build();
 

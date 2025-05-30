@@ -1,5 +1,4 @@
 ﻿namespace CookBook.Recipes.Domain.Shared;
 
-public interface IAggregateRoot : IEntity
-{
-}
+public interface IAggregateRoot
+    : IEntity;

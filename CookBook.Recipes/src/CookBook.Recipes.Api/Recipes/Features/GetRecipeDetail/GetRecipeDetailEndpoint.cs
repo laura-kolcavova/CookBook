@@ -1,4 +1,5 @@
-﻿using CookBook.Recipes.Application.Recipes.Services;
+﻿using CookBook.Recipes.Api.Recipes.Features.GetRecipeDetail.Contracts;
+using CookBook.Recipes.Application.Recipes.Services;
 
 namespace CookBook.Recipes.Api.Recipes.Features.GetRecipeDetail;
 
@@ -27,14 +28,16 @@ internal static class GetRecipeDetailEndpoint
             request.RecipeId,
             cancellationToken);
 
-        if (recipeDetail is null)
+        if (recipeDetail.HasNoValue)
         {
             return TypedResults.NoContent();
         }
 
-        return TypedResults.Ok(new GetRecipeDetailResponseDto
+        var responseDto = new GetRecipeDetailResponseDto
         {
-            RecipeDetail = recipeDetail
-        });
+            RecipeDetail = recipeDetail.Value
+        };
+
+        return TypedResults.Ok(responseDto);
     }
 }

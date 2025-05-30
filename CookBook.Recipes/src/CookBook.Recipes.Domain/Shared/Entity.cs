@@ -1,6 +1,8 @@
 ﻿namespace CookBook.Recipes.Domain.Shared;
 
-public abstract class Entity : IEntity, IEquatable<Entity>
+public abstract class Entity :
+    IEntity,
+    IEquatable<Entity>
 {
     public abstract object GetPrimaryKey();
 

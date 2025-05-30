@@ -1,4 +1,5 @@
 ﻿using CookBook.Extensions.AspNetCore.Extensions;
+using CookBook.Recipes.Api.Recipes.Features.RemoveRecipe.Contracts;
 using CookBook.Recipes.Application.Recipes.Services;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 

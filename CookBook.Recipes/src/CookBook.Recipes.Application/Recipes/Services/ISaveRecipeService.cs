@@ -6,7 +6,7 @@ namespace CookBook.Recipes.Application.Recipes.Services;
 
 public interface ISaveRecipeService
 {
-    public Task<Result<SaveRecipeResult, Error>> SaveRecipe(
-        SaveRecipeRequest request,
+    public Task<Result<SaveRecipeResultModel, Error>> SaveRecipe(
+        SaveRecipeRequestModel request,
         CancellationToken cancellationToken);
 }

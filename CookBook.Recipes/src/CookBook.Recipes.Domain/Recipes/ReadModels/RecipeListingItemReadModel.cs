@@ -1,8 +1,6 @@
-﻿using CookBook.Recipes.Domain.Shared;
+﻿namespace CookBook.Recipes.Domain.Recipes.ReadModels;
 
-namespace CookBook.Recipes.Domain.Recipes.ReadModels;
-
-public sealed record RecipeListingItemReadModel : IReadModel
+public sealed record RecipeListingItemReadModel
 {
     public required long Id { get; init; }
 
