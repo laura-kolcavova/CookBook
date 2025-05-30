@@ -6,7 +6,10 @@ namespace CookBook.Recipes.Persistence.Shared.Interceptors;
 
 internal sealed class UpdateTrackingFieldsInterceptor : SaveChangesInterceptor
 {
-    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
+        DbContextEventData eventData,
+        InterceptionResult<int> result,
+        CancellationToken cancellationToken = default)
     {
         var dbContext = eventData.Context;
 
@@ -20,7 +23,8 @@ internal sealed class UpdateTrackingFieldsInterceptor : SaveChangesInterceptor
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
-    private void UpdateTrackingFields(DbContext dbContext)
+    private void UpdateTrackingFields(
+        DbContext dbContext)
     {
         var now = DateTimeOffset.UtcNow;
 

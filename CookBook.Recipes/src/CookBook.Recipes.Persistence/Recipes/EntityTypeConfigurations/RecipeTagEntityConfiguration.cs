@@ -1,17 +1,19 @@
 ﻿using CookBook.Recipes.Domain.Recipes.Entities;
 using CookBook.Recipes.Persistence.Shared.Constants;
-using CookBook.Recipes.Persistence.Shared.DatabaseContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CookBook.Recipes.Persistence.Recipes.EntityTypeConfigurations;
 
-internal sealed class RecipeTagEntityConfiguration : IEntityTypeConfiguration<RecipeTagEntity>
+internal sealed class RecipeTagEntityConfiguration :
+    IEntityTypeConfiguration<RecipeTagEntity>
 {
-    public void Configure(EntityTypeBuilder<RecipeTagEntity> builder)
+    public void Configure(
+        EntityTypeBuilder<RecipeTagEntity> builder)
     {
-        builder
-            .ToTable(nameof(RecipesContext.RecipeTags), Schemas.Main);
+        builder.ToTable(
+            nameof(RecipesContext.RecipeTags),
+            DboSchema.Name);
 
         builder
             .HasKey(e => new

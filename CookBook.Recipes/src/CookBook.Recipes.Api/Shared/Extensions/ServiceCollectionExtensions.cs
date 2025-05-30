@@ -7,7 +7,7 @@ namespace CookBook.Recipes.Api.Shared.Extensions;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddApiServices(this IServiceCollection services, string applicationName)
+    public static IServiceCollection AddApi(this IServiceCollection services, string applicationName)
     {
         services
             .ConfigureHttpJsonOptions(options =>
@@ -16,7 +16,6 @@ internal static class ServiceCollectionExtensions
             });
 
         // services.Configure<JsonOptions>(options => options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-
 
         services
             .AddEndpointsApiExplorer()
@@ -66,15 +65,6 @@ internal static class ServiceCollectionExtensions
         services
         .AddProblemDetails()
         .AddInternalOrPublicValidators(typeof(Program).Assembly, ServiceLifetime.Singleton);
-
-        return services;
-    }
-
-    public static IServiceCollection AddDbServices(this IServiceCollection services, string cookBookRecipesConnectionString)
-    {
-        services
-            .AddHealthChecks()
-            .AddSqlServer(cookBookRecipesConnectionString, name: "CookBookRecipes_DB", tags: new[] { "readiness" });
 
         return services;
     }

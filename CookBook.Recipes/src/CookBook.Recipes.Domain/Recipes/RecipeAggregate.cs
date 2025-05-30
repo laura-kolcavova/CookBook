@@ -1,11 +1,12 @@
-﻿using CookBook.Recipes.Domain.Categories;
-using CookBook.Recipes.Domain.Recipes.Entities;
-using CookBook.Recipes.Domain.Recipes.Parameters;
+﻿using CookBook.Recipes.Domain.Recipes.Entities;
+using CookBook.Recipes.Domain.Recipes.Models;
 using CookBook.Recipes.Domain.Shared;
 
 namespace CookBook.Recipes.Domain.Recipes;
 
-public sealed class RecipeAggregate : AggregateRoot, ITrackableEntity
+public sealed class RecipeAggregate :
+    AggregateRoot,
+    ITrackableEntity
 {
     public long Id { get; }
 
@@ -33,75 +34,84 @@ public sealed class RecipeAggregate : AggregateRoot, ITrackableEntity
 
     private readonly List<RecipeInstructionEntity> _instructions;
 
-    private readonly List<RecipeCategoryEntity> _recipeCategories;
-
     private readonly List<RecipeTagEntity> _recipeTags;
 
     public IReadOnlyCollection<RecipeIngredientEntity> Ingredients => _ingredients.AsReadOnly();
 
     public IReadOnlyCollection<RecipeInstructionEntity> Instructions => _instructions.AsReadOnly();
 
-    public IReadOnlyCollection<RecipeCategoryEntity> RecipeCategories => _recipeCategories.AsReadOnly();
-
     public IReadOnlyCollection<RecipeTagEntity> RecipeTags => _recipeTags.AsReadOnly();
 
     #endregion NavigationProperties
 
-    public RecipeAggregate(string title, int userId)
+    public RecipeAggregate(
+        string title,
+        int userId)
     {
         Title = title;
         UserId = userId;
 
-        _ingredients = new List<RecipeIngredientEntity>();
-        _instructions = new List<RecipeInstructionEntity>();
-        _recipeCategories = new List<RecipeCategoryEntity>();
-        _recipeTags = new List<RecipeTagEntity>();
+        _ingredients = [];
+        _instructions = [];
+        _recipeTags = [];
     }
 
     public override object GetPrimaryKey() => Id;
 
-    public void SetTitle(string title)
+    public void SetTitle(
+        string title)
     {
         Title = title;
     }
 
-    public void SetDescription(string? description)
+    public void SetDescription(
+        string? description)
     {
         Description = description;
     }
 
-    public void SetNotes(string? notes)
+    public void SetNotes(
+        string? notes)
     {
         Notes = notes;
     }
 
-    public void SetServings(short servings)
+    public void SetServings(
+        short servings)
     {
         Servings = servings;
     }
 
-    public void SetPreparationTime(short preparationTime)
+    public void SetPreparationTime(
+        short preparationTime)
     {
         PreparationTime = preparationTime;
     }
 
-    public void SetCookTime(short cookTime)
+    public void SetCookTime(
+        short cookTime)
     {
         CookTime = cookTime;
     }
 
-    public void SaveIngredients(SaveIngredientsParameters saveIngredientsParameters)
+    public void SaveIngredients(
+        IEnumerable<SaveIngredientItem> saveIngredientItems)
     {
         var recipeIngredients = new List<RecipeIngredientEntity>();
+
         var lastLocalId = _ingredients.LastOrDefault()?.LocalId ?? 0;
+
         short orderIndex = 10;
 
-        foreach (var ingredientParameters in saveIngredientsParameters.Ingredients)
+        foreach (var ingredientParameters in saveIngredientItems)
         {
             var ingredient = CreateOrUpdateIngredient(
-                ingredientParameters, orderIndex, ref lastLocalId);
+                ingredientParameters,
+                orderIndex,
+                ref lastLocalId);
 
             recipeIngredients.Add(ingredient);
+
             orderIndex += 10;
         }
 
@@ -109,18 +119,24 @@ public sealed class RecipeAggregate : AggregateRoot, ITrackableEntity
         _ingredients.AddRange(recipeIngredients);
     }
 
-    public void SaveInstructions(SaveInstructionsParameters saveInstructionsParameters)
+    public void SaveInstructions(
+        IEnumerable<SaveInstructionItem> saveInstructionItems)
     {
         var recipeInstructions = new List<RecipeInstructionEntity>();
+
         var lastLocalId = _instructions.LastOrDefault()?.LocalId ?? 0;
+
         short orderIndex = 10;
 
-        foreach (var instructionParameters in saveInstructionsParameters.Instructions)
+        foreach (var instructionParameters in saveInstructionItems)
         {
             var instruction = CreateOrUpdateInstruction(
-                instructionParameters, orderIndex, ref lastLocalId);
+                instructionParameters,
+                orderIndex,
+                ref lastLocalId);
 
             recipeInstructions.Add(instruction);
+
             orderIndex += 10;
         }
 
@@ -128,16 +144,8 @@ public sealed class RecipeAggregate : AggregateRoot, ITrackableEntity
         _instructions.AddRange(recipeInstructions);
     }
 
-    public void SaveCategories(IEnumerable<CategoryAggregate> categories)
-    {
-        var recipeCategories = categories
-            .Select(category => new RecipeCategoryEntity(category.Id));
-
-        _recipeCategories.Clear();
-        _recipeCategories.AddRange(recipeCategories);
-    }
-
-    public void SaveTags(IEnumerable<string> tags)
+    public void SaveTags(
+        IEnumerable<string> tags)
     {
         var recipeTags = tags
             .Select(tagName => new RecipeTagEntity(tagName));
@@ -147,22 +155,28 @@ public sealed class RecipeAggregate : AggregateRoot, ITrackableEntity
     }
 
     private RecipeIngredientEntity CreateOrUpdateIngredient(
-        SaveIngredientsParameters.IngredientParameters ingredientParameters,
+        SaveIngredientItem saveIngredientItem,
         short orderIndex,
         ref int lastLocalId)
     {
-        var ingredient = ingredientParameters.LocalId is null || ingredientParameters.LocalId <= 0
+        var ingredient =
+            saveIngredientItem.LocalId is null ||
+            saveIngredientItem.LocalId <= 0
             ? null
-            : _ingredients.FirstOrDefault(ingredient => ingredient.LocalId == ingredientParameters.LocalId);
+            : _ingredients.FirstOrDefault(
+                ingredient => ingredient.LocalId == saveIngredientItem.LocalId);
 
         if (ingredient is null)
         {
             lastLocalId++;
-            ingredient = new RecipeIngredientEntity(lastLocalId, ingredientParameters.Note);
+
+            ingredient = new RecipeIngredientEntity(
+                lastLocalId,
+                saveIngredientItem.Note);
         }
         else
         {
-            ingredient.SetNote(ingredientParameters.Note);
+            ingredient.SetNote(saveIngredientItem.Note);
         }
 
         ingredient.SetOrderIndex(orderIndex);
@@ -171,18 +185,28 @@ public sealed class RecipeAggregate : AggregateRoot, ITrackableEntity
     }
 
     private RecipeInstructionEntity CreateOrUpdateInstruction(
-         SaveInstructionsParameters.InstructionParameters instructionParameters,
+         SaveInstructionItem saveInstructionItem,
          short orderIndex,
          ref int lastLocalId)
     {
-        var instruction = instructionParameters.LocalId is null || instructionParameters.LocalId <= 0
+        var instruction =
+            saveInstructionItem.LocalId is null ||
+            saveInstructionItem.LocalId <= 0
             ? null
-            : _instructions.FirstOrDefault(instruction => instruction.LocalId == instructionParameters.LocalId);
+            : _instructions.FirstOrDefault(
+                instruction => instruction.LocalId == saveInstructionItem.LocalId);
 
         if (instruction is null)
         {
             lastLocalId++;
-            instruction = new RecipeInstructionEntity(lastLocalId, instructionParameters.Note);
+
+            instruction = new RecipeInstructionEntity(
+                lastLocalId,
+                saveInstructionItem.Note);
+        }
+        else
+        {
+            instruction.SetNote(saveInstructionItem.Note);
         }
 
         instruction.SetOrderIndex(orderIndex);

@@ -6,8 +6,9 @@ namespace CookBook.Recipes.Persistence.Shared.Extensions;
 
 internal static class EntityTypeBuilderExtensions
 {
-    public static EntityTypeBuilder<TEntity> HasTrackableProperties<TEntity>(this EntityTypeBuilder<TEntity> builder)
-       where TEntity : class, ITrackableEntity
+    public static EntityTypeBuilder<TEntity> HasTrackableProperties<TEntity>(
+        this EntityTypeBuilder<TEntity> builder)
+        where TEntity : class, ITrackableEntity
     {
         builder
             .Property(o => o.CreatedAt)

@@ -2,7 +2,8 @@
 
 namespace CookBook.Recipes.Persistence.Shared.Exceptions;
 
-public class RecipesPersistenceException : Exception
+public class RecipesPersistenceException :
+    Exception
 {
     public RecipesPersistenceException(string message)
         : base(message)

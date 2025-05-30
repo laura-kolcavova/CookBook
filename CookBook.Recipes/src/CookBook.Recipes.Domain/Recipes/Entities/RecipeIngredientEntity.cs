@@ -2,17 +2,20 @@
 
 namespace CookBook.Recipes.Domain.Recipes.Entities;
 
-public sealed class RecipeIngredientEntity : Entity
+public sealed class RecipeIngredientEntity :
+    Entity
 {
     public long RecipeId { get; }
 
     public int LocalId { get; }
 
-    public string Note { get; private set; } = string.Empty;
+    public string Note { get; private set; }
 
     public short OrderIndex { get; private set; }
 
-    public RecipeIngredientEntity(int localId, string note)
+    public RecipeIngredientEntity(
+        int localId,
+        string note)
     {
         LocalId = localId;
         Note = note;

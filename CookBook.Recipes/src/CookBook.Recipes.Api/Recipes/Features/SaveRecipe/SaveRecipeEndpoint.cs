@@ -1,5 +1,6 @@
 ﻿using CookBook.Extensions.AspNetCore.Extensions;
-using CookBook.Recipes.Api.Features.Recipes.SaveRecipe;
+using CookBook.Recipes.Api.Recipes.Features.SaveRecipe.Contracts;
+using CookBook.Recipes.Api.Recipes.Features.SaveRecipe.Mappers;
 using CookBook.Recipes.Application.Recipes.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
@@ -28,8 +29,10 @@ internal static class SaveRecipeEndpoint
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
+        var saveRecipeRequestModel = saveRecipeRequest.ToModel();
+
         var saveRecipeResult = await saveRecipeService.SaveRecipe(
-            SaveRecipeMapper.ToSaveRecipeRequest(saveRecipeRequest),
+            saveRecipeRequestModel,
             cancellationToken);
 
         if (saveRecipeResult.IsFailure)
@@ -38,7 +41,8 @@ internal static class SaveRecipeEndpoint
                 saveRecipeResult.Error.AsProblemDetails(httpContext));
         }
 
-        return TypedResults.Ok(
-            SaveRecipeMapper.ToResponse(saveRecipeResult.Value));
+        var responseDto = saveRecipeResult.Value.ToResponseDto();
+
+        return TypedResults.Ok(responseDto);
     }
 }

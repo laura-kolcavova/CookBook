@@ -2,13 +2,15 @@
 
 namespace CookBook.Recipes.Domain.Recipes.Entities;
 
-public sealed class RecipeTagEntity : Entity
+public sealed class RecipeTagEntity :
+    Entity
 {
     public long RecipeId { get; }
 
     public string Name { get; }
 
-    public RecipeTagEntity(string name)
+    public RecipeTagEntity(
+        string name)
     {
         Name = name;
     }

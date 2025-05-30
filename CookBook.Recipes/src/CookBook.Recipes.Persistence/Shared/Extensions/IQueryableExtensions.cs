@@ -6,7 +6,9 @@ namespace CookBook.Recipes.Persistence.Shared.Extensions;
 
 public static class IQueryableExtensions
 {
-    public static IQueryable<T> SortBy<T>(this IQueryable<T> queryable, IEnumerable<SortBy> sorting)
+    public static IQueryable<T> SortBy<T>(
+        this IQueryable<T> queryable,
+        IEnumerable<SortBy> sorting)
     {
         if (!sorting.Any())
         {

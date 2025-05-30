@@ -1,4 +1,5 @@
-﻿using CookBook.Recipes.Api.Shared.Dto;
+﻿using CookBook.Recipes.Api.Recipes.Features.SearchRecipes.Contracts;
+using CookBook.Recipes.Api.Shared.Dto;
 using CookBook.Recipes.Application.Common.Filtering;
 using CookBook.Recipes.Application.Common.Sorting;
 using CookBook.Recipes.Application.Recipes.Services;
@@ -16,6 +17,7 @@ internal static class SearchRecipesEndpoint
             .WithSummary("Search for existing recipes")
             .WithDescription("Returns a DTO containing a collection of recipe listing item DTOs.")
             .Produces<SearchRecipesEndpointResponseDto>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem();
     }
@@ -52,9 +54,16 @@ internal static class SearchRecipesEndpoint
             offsetFilter,
             cancellationToken);
 
-        return TypedResults.Ok(new SearchRecipesEndpointResponseDto
+        if (recipes.Count == 0)
+        {
+            return TypedResults.NoContent();
+        }
+
+        var responseDto = new SearchRecipesEndpointResponseDto
         {
             Recipes = recipes
-        });
+        };
+
+        return TypedResults.Ok(responseDto);
     }
 }

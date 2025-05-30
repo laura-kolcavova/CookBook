@@ -2,7 +2,8 @@
 
 namespace CookBook.Recipes.Domain.Recipes.Entities;
 
-public sealed class RecipeInstructionEntity : Entity
+public sealed class RecipeInstructionEntity :
+    Entity
 {
     public long RecipeId { get; }
 
@@ -12,7 +13,9 @@ public sealed class RecipeInstructionEntity : Entity
 
     public short OrderIndex { get; private set; }
 
-    public RecipeInstructionEntity(int localId, string note)
+    public RecipeInstructionEntity(
+        int localId,
+        string note)
     {
         LocalId = localId;
         Note = note;
@@ -24,12 +27,14 @@ public sealed class RecipeInstructionEntity : Entity
         LocalId = LocalId,
     };
 
-    public void SetNote(string note)
+    public void SetNote(
+        string note)
     {
         Note = note;
     }
 
-    public void SetOrderIndex(short orderIndex)
+    public void SetOrderIndex(
+        short orderIndex)
     {
         OrderIndex = orderIndex;
     }
