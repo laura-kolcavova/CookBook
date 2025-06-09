@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Extensions;
+﻿using CookBook.Extensions.AspNetCore.Shared;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
-namespace CookBook.Extensions.Configuration.SqlServer;
+namespace CookBook.Extensions.AspNetCore.SqlServer;
 
 public static class ConfigurationExtensions
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.Extensions.AspNetCore.EndpointFilters;
+namespace CookBook.Extensions.AspNetCore.Shared;
 
 public class OperationCanceledExceptionFilter : IEndpointFilter
 {

@@ -1,6 +1,7 @@
-﻿using FluentValidation.Results;
+﻿using CookBook.Extensions.AspNetCore.FluentValidation;
+using FluentValidation.Results;
 
-namespace CookBook.Extensions.AspNetCore.Extensions;
+namespace CookBook.Extensions.AspNetCore.FluentValidation;
 
 public static class ValidationFailureExtensions
 {
