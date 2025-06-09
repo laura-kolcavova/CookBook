@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace CookBook.Extensions.AspNetCore.Extensions;
+namespace CookBook.Extensions.AspNetCore.Shared;
 
 public static class ServiceCollectionExtensions
 {

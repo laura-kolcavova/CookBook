@@ -1,5 +1,6 @@
-using CookBook.Extensions.AspNetCore.EndpointFilters;
-using CookBook.Extensions.Configuration.SqlServer;
+using CookBook.Extensions.AspNetCore.FluentValidation;
+using CookBook.Extensions.AspNetCore.Shared;
+using CookBook.Extensions.AspNetCore.SqlServer;
 using CookBook.Recipes.Api.Shared;
 using CookBook.Recipes.Api.Shared.Configuration;
 using CookBook.Recipes.Api.Shared.Extensions;

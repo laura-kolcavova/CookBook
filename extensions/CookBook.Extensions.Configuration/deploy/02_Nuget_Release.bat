@@ -1,1 +1,0 @@
-dotnet nuget push "..\src\bin\Release\*.nupkg" --source CookBookPackages

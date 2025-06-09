@@ -1,4 +1,4 @@
-﻿namespace CookBook.Extensions.Configuration.SqlServer;
+﻿namespace CookBook.Extensions.AspNetCore.SqlServer;
 
 public class ConnectionStringAndPasswordSection
 {
