@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useState } from 'react';
-import { EMPTY_USER, User } from 'src/models/accounts/user';
+import { EMPTY_USER, User } from '~/models/accounts/user';
 
 interface IUserIdentityContext {
   user: User;

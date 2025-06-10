@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Button } from 'reactstrap';
-import { UserIdentityContext } from 'src/contexts/UserIdentityContext';
-import { useRouter } from 'src/navigation/hooks/useRouter';
-import { Pages } from 'src/navigation/pages';
+import { UserIdentityContext } from '~/contexts/UserIdentityContext';
+import { useRouter } from '~/navigation/hooks/useRouter';
+import { Pages } from '~/navigation/pages';
 import { ActionButtons } from './styled';
 
 export const Home: React.FC = () => {

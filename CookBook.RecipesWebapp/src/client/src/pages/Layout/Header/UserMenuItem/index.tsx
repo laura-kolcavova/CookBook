@@ -3,9 +3,9 @@ import React, { useContext, useState } from 'react';
 import { Dropdown, DropdownItem, DropdownMenu } from 'reactstrap';
 import { Pages } from '../../../../navigation/pages';
 import { DropdownWrapper, StyledDropdownToggle } from './styled';
-import { UserAvatar } from 'src/sharedComponents/UserAvatar';
-import { UserIdentityContext } from 'src/contexts/UserIdentityContext';
-import { useRouter } from 'src/navigation/hooks/useRouter';
+import { useRouter } from '~/navigation/hooks/useRouter';
+import { UserIdentityContext } from '~/contexts/UserIdentityContext';
+import { UserAvatar } from '~/sharedComponents/UserAvatar';
 
 export const UserMenuItem: React.FC = () => {
   const { user, logout } = useContext(UserIdentityContext);

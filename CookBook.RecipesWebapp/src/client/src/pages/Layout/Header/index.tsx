@@ -6,7 +6,7 @@ import { FaBookmark, FaHouse, FaMagnifyingGlass, FaRegCircleUser } from 'react-i
 import { NavIconLink } from './NavIconLink';
 import { Pages } from '../../../navigation/pages';
 import { UserMenuItem } from './UserMenuItem';
-import { useRouter } from 'src/navigation/hooks/useRouter';
+import { useRouter } from '~/navigation/hooks/useRouter';
 
 export const Header: React.FC = () => {
   const { user } = useContext(UserIdentityContext);

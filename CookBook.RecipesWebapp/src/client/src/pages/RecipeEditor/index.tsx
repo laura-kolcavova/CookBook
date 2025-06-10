@@ -1,14 +1,19 @@
 import React from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { useAtom } from 'jotai';
-import { recipeDescriptionAtom, recipeNotesAtom, recipeTitleAtom } from './atoms';
+import { recipeDescriptionAtom, recipeNotesAtom, recipeTitleAtom } from './atoms/recipeDataAtom';
+import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
 
 export const RecipeEditor: React.FC = () => {
   const [recipeTitle, setRecipeTitle] = useAtom(recipeTitleAtom);
   const [recipeDescription, setRecipeDescription] = useAtom(recipeDescriptionAtom);
   const [recipeNotes, setRecipeNotes] = useAtom(recipeNotesAtom);
 
-  const handleCreateRecipeClick = () => {};
+  const { mutateAsync: mutateSaveRecipeAsync } = useSaveRecipeMutation();
+
+  const handleCreateRecipeClick = async () => {
+    await mutateSaveRecipeAsync();
+  };
 
   return (
     <>

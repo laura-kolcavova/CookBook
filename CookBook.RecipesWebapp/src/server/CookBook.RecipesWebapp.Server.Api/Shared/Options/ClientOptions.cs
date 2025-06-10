@@ -1,4 +1,4 @@
-﻿namespace CookBook.RecipesWebapp.Server.Api.Shared.Configuration;
+﻿namespace CookBook.RecipesWebapp.Server.Api.Shared.Options;
 
 public sealed class ClientOptions
 {

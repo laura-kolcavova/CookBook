@@ -1,13 +1,13 @@
-import { Home } from 'src/pages/Home';
-import { Page, IPages } from './models';
-import { Error } from 'src/pages/Error';
-import { NotFound } from 'src/pages/NotFound';
-import { Explore } from 'src/pages/Explore';
-import { Saved } from 'src/pages/Saved';
-import { LogIn } from 'src/pages/LogIn';
-import { Register } from 'src/pages/Register';
-import { MyProfile } from 'src/pages/MyProfile';
-import { RecipeEditor } from 'src/pages/RecipeEditor';
+import { Home } from '~/pages/Home';
+import { IPages, Page } from './models';
+import { NotFound } from '~/pages/NotFound';
+import { Explore } from '~/pages/Explore';
+import { LogIn } from '~/pages/LogIn';
+import { Register } from '~/pages/Register';
+import { Saved } from '~/pages/Saved';
+import { MyProfile } from '~/pages/MyProfile';
+import { RecipeEditor } from '~/pages/RecipeEditor';
+import { Error } from '~/pages/Error';
 
 export const Pages: IPages = {
   [Page.Home]: {

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
-import { IPage } from 'src/navigation/models';
-import { Pages } from 'src/navigation/pages';
-import { ProtectedRoute } from 'src/sharedComponents/ProtectedRoute';
-import { PublicRoute } from 'src/sharedComponents/PublicRoute';
+import { IPage } from '~/navigation/models';
+import { Pages } from '~/navigation/pages';
+import { ProtectedRoute } from '~/sharedComponents/ProtectedRoute';
+import { PublicRoute } from '~/sharedComponents/PublicRoute';
 
 export const RoutesPage: React.FC = () => {
   const getRouteElement = (page: IPage) => {
