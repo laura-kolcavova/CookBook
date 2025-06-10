@@ -1,14 +1,14 @@
-﻿using CookBook.RecipesWebapp.Server.Api.Shared.Configuration;
+﻿using CookBook.RecipesWebapp.Server.Api.Shared.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace CookBook.RecipesWebapp.Server.Api;
+namespace CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 
-internal static class ApiServiceInstallation
+internal static class IServiceCollectionExtensions
 {
-    public static IServiceCollection AddClientServices(
-        this IServiceCollection services,
-        ClientOptions clientOptions)
+    public static IServiceCollection AddClient(
+       this IServiceCollection services,
+       ClientOptions clientOptions)
     {
         // In production, the React files will be served from this directory
         services.AddSpaStaticFiles(c =>
@@ -19,7 +19,7 @@ internal static class ApiServiceInstallation
         return services;
     }
 
-    public static IServiceCollection AddApiServices(
+    public static IServiceCollection AddApi(
         this IServiceCollection services,
         string applicationName,
         IConfigurationSection reverseProxyOptions)

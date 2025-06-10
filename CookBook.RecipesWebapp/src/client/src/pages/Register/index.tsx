@@ -2,7 +2,7 @@ import React from 'react';
 import { FormWrapper } from './styled';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Pages } from 'src/navigation/pages';
+import { Pages } from '~/navigation/pages';
 
 export const Register: React.FC = () => {
   return (

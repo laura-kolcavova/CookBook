@@ -1,6 +1,5 @@
-using CookBook.RecipesWebapp.Server.Api;
-using CookBook.RecipesWebapp.Server.Api.Shared.Configuration;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
+using CookBook.RecipesWebapp.Server.Api.Shared.Options;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Physical;
 
@@ -31,8 +30,10 @@ var reverseProxyOptions = configuration
 //});
 
 services
-    .AddClientServices(clientOptions)
-    .AddApiServices(builder.Environment.ApplicationName, reverseProxyOptions);
+    .AddClient(clientOptions)
+    .AddApi(
+        builder.Environment.ApplicationName,
+        reverseProxyOptions);
 
 var app = builder.Build();
 

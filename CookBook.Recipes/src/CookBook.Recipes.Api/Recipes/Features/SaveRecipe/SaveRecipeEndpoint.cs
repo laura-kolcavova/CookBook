@@ -13,7 +13,7 @@ internal static class SaveRecipeEndpoint
     public static void Configure(RouteGroupBuilder recipesGroup)
     {
         recipesGroup
-            .MapPost("save", HandleAsync)
+            .MapPost("/Save", HandleAsync)
             .WithName("SaveRecipe")
             .WithSummary("Saves a newly created recipe or saves changes of already existing recipe")
             .WithDescription("This endpoint returns a DTO containing an id of created or edited recipe.")

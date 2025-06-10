@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "esnext",
+    "types": ["vite/client"],
     "lib": [
       "es6",
       "dom",
@@ -33,7 +34,13 @@
       "~/*": ["./src/*"]
     }
   },
-  "include": ["./src/**/*", "prettier.config.cjs"],
+  "include": [
+    "./src/**/*",
+    "vite.config.ts",
+    "jest.config.ts",
+    ".eslintrc.cjs",
+    "prettier.config.cjs"
+  ],
   "exclude": ["./build", "./lib", "./**/__tests__/**", "./**/*.test.*", "./**/*.spec.*"],
   "files": ["./src/images.d.ts"]
 }

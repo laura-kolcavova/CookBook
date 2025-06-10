@@ -7,7 +7,7 @@ internal static class Endpoints
     public static RouteGroupBuilder UseEndpoints(this WebApplication app)
     {
         return app
-            .MapGroup("/api/")
+            .MapGroup("/api")
             .AddRecipesEndpoints();
     }
 }

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { UserIdentityContext } from 'src/contexts/UserIdentityContext';
-import { IPage } from 'src/navigation/models';
-import { Pages } from 'src/navigation/pages';
+import { UserIdentityContext } from '~/contexts/UserIdentityContext';
+import { IPage } from '~/navigation/models';
+import { Pages } from '~/navigation/pages';
 
 export type ProtectedRouteProps = {
   page: IPage;
