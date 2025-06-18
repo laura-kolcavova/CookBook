@@ -1,23 +1,38 @@
 import React from 'react';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Button, Form, FormGroup, Input, Label, UncontrolledAlert } from 'reactstrap';
 import { useAtom } from 'jotai';
-import { recipeDescriptionAtom, recipeNotesAtom, recipeTitleAtom } from './atoms/recipeDataAtom';
+import {
+  cookTimeAtom,
+  descriptionAtom,
+  notesAtom,
+  preparationTimeAtom,
+  servingsAtom,
+  titleAtom,
+} from './atoms/recipeDataAtom';
 import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
+import { AxiosErrorAlert } from '~/sharedComponents/AxiosErrorAlert';
 
 export const RecipeEditor: React.FC = () => {
-  const [recipeTitle, setRecipeTitle] = useAtom(recipeTitleAtom);
-  const [recipeDescription, setRecipeDescription] = useAtom(recipeDescriptionAtom);
-  const [recipeNotes, setRecipeNotes] = useAtom(recipeNotesAtom);
+  const [title, setTitle] = useAtom(titleAtom);
+  const [description, setDescription] = useAtom(descriptionAtom);
+  const [notes, setNotes] = useAtom(notesAtom);
+  const [servings, setServings] = useAtom(servingsAtom);
+  const [preparationTime, setPreparationTime] = useAtom(preparationTimeAtom);
+  const [cookTime, setCookTime] = useAtom(cookTimeAtom);
 
-  const { mutateAsync: mutateSaveRecipeAsync } = useSaveRecipeMutation();
+  const { mutateAsync: mutateSaveRecipeAsync, isError, error } = useSaveRecipeMutation();
 
   const handleCreateRecipeClick = async () => {
     await mutateSaveRecipeAsync();
   };
 
+  console.log(error);
+
   return (
     <>
       <h2>Add recipe</h2>
+
+      {isError && <AxiosErrorAlert error={error} />}
 
       <Form>
         <FormGroup>
@@ -26,8 +41,9 @@ export const RecipeEditor: React.FC = () => {
             id="title"
             type="text"
             placeholder="Give your recipe a name"
-            value={recipeTitle}
-            onChange={(value) => setRecipeTitle(value.currentTarget.value)}
+            value={title}
+            onChange={(value) => setTitle(value.currentTarget.value)}
+            autocomplete="off"
           />
         </FormGroup>
 
@@ -37,19 +53,51 @@ export const RecipeEditor: React.FC = () => {
             id="description"
             type="text"
             placeholder="Introduce your recipe"
-            value={recipeDescription}
-            onChange={(value) => setRecipeDescription(value.currentTarget.value)}
+            value={description}
+            onChange={(value) => setDescription(value.currentTarget.value)}
+            autocomplete="off"
           />
         </FormGroup>
 
         <FormGroup>
           <Label for="notes">Notes</Label>
           <Input
-            id="description"
+            id="notes"
             type="textarea"
             placeholder="Introduce your recipe"
-            value={recipeNotes}
-            onChange={(value) => setRecipeNotes(value.currentTarget.value)}
+            value={notes}
+            onChange={(value) => setNotes(value.currentTarget.value)}
+            autocomplete="off"
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <Label for="servings">Servings</Label>
+          <Input
+            id="servings"
+            type="number"
+            value={servings}
+            onChange={(e) => setServings(Number(e.currentTarget.value))}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <Label for="preparationTime">Preparation Time (minutes)</Label>
+          <Input
+            id="preparationTime"
+            type="number"
+            value={preparationTime}
+            onChange={(e) => setPreparationTime(Number(e.currentTarget.value))}
+          />
+        </FormGroup>
+
+        <FormGroup>
+          <Label for="cookTime">Cook Time (minutes)</Label>
+          <Input
+            id="cookTime"
+            type="number"
+            value={cookTime}
+            onChange={(e) => setCookTime(Number(e.currentTarget.value))}
           />
         </FormGroup>
 
