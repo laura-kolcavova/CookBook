@@ -5,13 +5,15 @@ import { useAtomValue } from 'jotai';
 import { IngredientItemDto } from '~/apiStores/recipes/models/IngredientItemDto';
 import { InstructionItemDto } from '~/apiStores/recipes/models/InstructionItemDto';
 import RecipesService from '~/apiStores/recipes/recipesService';
+import { SaveRecipeResponseDto } from '~/apiStores/recipes/models/SaveRecipeResponseDto';
+import { AxiosGenericError } from '~/models/errors/AxiosGenericError';
 
 export const useSaveRecipeMutation = () => {
   // const { user } = useContext(UserIdentityContext);
 
   const recipeData = useAtomValue(recipeDataAtom);
 
-  return useMutation({
+  return useMutation<SaveRecipeResponseDto, AxiosGenericError>({
     mutationFn: async () => {
       const { data } = await RecipesService.saveRecipe({
         recipeId: recipeData.recipeId,

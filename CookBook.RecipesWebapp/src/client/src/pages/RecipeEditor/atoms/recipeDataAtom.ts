@@ -17,10 +17,16 @@ export const EMPTY_RECIPE_DATA: RecipeData = {
 
 export const recipeDataAtom = atomWithReset<RecipeData>(EMPTY_RECIPE_DATA);
 
-export const recipeTitleAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('title'));
+export const titleAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('title'));
 
-export const recipeDescriptionAtom = focusAtom(recipeDataAtom, (optic) =>
-  optic.prop('description'),
+export const descriptionAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('description'));
+
+export const notesAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('notes'));
+
+export const servingsAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('servings'));
+
+export const preparationTimeAtom = focusAtom(recipeDataAtom, (optic) =>
+  optic.prop('preparationTime'),
 );
 
-export const recipeNotesAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('notes'));
+export const cookTimeAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('cookTime'));

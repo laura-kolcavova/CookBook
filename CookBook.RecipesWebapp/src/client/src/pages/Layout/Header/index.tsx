@@ -7,19 +7,20 @@ import { NavIconLink } from './NavIconLink';
 import { Pages } from '../../../navigation/pages';
 import { UserMenuItem } from './UserMenuItem';
 import { useRouter } from '~/navigation/hooks/useRouter';
+import { StyledNavbar, StyledNavBrand } from './styled';
 
 export const Header: React.FC = () => {
   const { user } = useContext(UserIdentityContext);
   const { goToPage } = useRouter();
 
   return (
-    <Navbar container={true} sticky="top">
-      <NavbarBrand
+    <StyledNavbar expand="md" sticky="top">
+      <StyledNavBrand
         onClick={() => {
           goToPage(Pages.Home);
         }}>
         Cook Book Recipes
-      </NavbarBrand>
+      </StyledNavBrand>
       <Nav className="ms-auto">
         <NavItem>
           <NavIconLink
@@ -63,6 +64,6 @@ export const Header: React.FC = () => {
         )}
         {user.isAuthenticated && <UserMenuItem />}
       </Nav>
-    </Navbar>
+    </StyledNavbar>
   );
 };
