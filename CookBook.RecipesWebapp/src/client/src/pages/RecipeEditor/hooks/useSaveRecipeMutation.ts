@@ -13,7 +13,7 @@ export const useSaveRecipeMutation = () => {
 
   const recipeData = useAtomValue(recipeDataAtom);
 
-  return useMutation<SaveRecipeResponseDto, AxiosGenericError>({
+  return useMutation<SaveRecipeResponseDto, Error | AxiosGenericError>({
     mutationFn: async () => {
       const { data } = await RecipesService.saveRecipe({
         recipeId: recipeData.recipeId,

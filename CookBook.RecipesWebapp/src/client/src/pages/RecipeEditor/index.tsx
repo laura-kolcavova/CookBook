@@ -10,7 +10,9 @@ import {
   titleAtom,
 } from './atoms/recipeDataAtom';
 import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
-import { AxiosErrorAlert } from '~/sharedComponents/AxiosErrorAlert';
+import { ErrorAlert } from '~/sharedComponents/ErrorAlert';
+import { useRecipeValidator } from './hooks/useRecipeValidator';
+import { FeedbackError } from '~/sharedComponents/FeedbackError';
 
 export const RecipeEditor: React.FC = () => {
   const [title, setTitle] = useAtom(titleAtom);
@@ -20,19 +22,25 @@ export const RecipeEditor: React.FC = () => {
   const [preparationTime, setPreparationTime] = useAtom(preparationTimeAtom);
   const [cookTime, setCookTime] = useAtom(cookTimeAtom);
 
-  const { mutateAsync: mutateSaveRecipeAsync, isError, error } = useSaveRecipeMutation();
+  const { mutate, isError, error } = useSaveRecipeMutation();
 
-  const handleCreateRecipeClick = async () => {
-    await mutateSaveRecipeAsync();
+  const { validate, validations, resetValidations } = useRecipeValidator();
+
+  const handleCreateRecipeClick = () => {
+    if (!validate()) {
+      return;
+    }
+
+    resetValidations();
+
+    mutate();
   };
-
-  console.log(error);
 
   return (
     <>
       <h2>Add recipe</h2>
 
-      {isError && <AxiosErrorAlert error={error} />}
+      {isError && <ErrorAlert error={error} />}
 
       <Form>
         <FormGroup>
@@ -44,7 +52,12 @@ export const RecipeEditor: React.FC = () => {
             value={title}
             onChange={(value) => setTitle(value.currentTarget.value)}
             autocomplete="off"
+            invalid={validations.title?.isValid === false}
           />
+
+          {validations.title?.invalidMessage && (
+            <FeedbackError message={validations.title.invalidMessage} />
+          )}
         </FormGroup>
 
         <FormGroup>
