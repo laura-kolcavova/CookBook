@@ -39,7 +39,7 @@
     "vite.config.ts",
     "jest.config.ts",
     "eslint.config.js",
-    "prettier.config.cjs"
+    "prettierrc.cjs"
   ],
   "exclude": ["./build", "./lib", "./**/__tests__/**", "./**/*.test.*", "./**/*.spec.*"],
   "files": ["./src/images.d.ts"]

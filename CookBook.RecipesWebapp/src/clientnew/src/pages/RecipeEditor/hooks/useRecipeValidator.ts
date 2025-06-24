@@ -23,7 +23,7 @@ export const useRecipeValidator = () => {
   const validate = useCallback(() => {
     let isValid = true;
 
-    let newValidations: FieldValidations = {
+    const newValidations: FieldValidations = {
       title: {
         isValid: true,
       },
