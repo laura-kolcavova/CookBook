@@ -4,9 +4,10 @@ import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 import { useRouter } from '../../navigation/hooks/useRouter';
-import { UserIdentityContext } from '../../contexts/UserIdentityContext';
+
 import { Pages } from '../../navigation/pages';
 import { LoginData } from './models/LoginData';
+import { UserIdentityContext } from '~/contexts/UserIdentityContext';
 
 const EMPTY_LOGIN_DATA: LoginData = {
   email: '',

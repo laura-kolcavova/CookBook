@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { Button } from 'reactstrap';
-import { UserIdentityContext } from '~/contexts/UserIdentityContext';
+
 import { useRouter } from '~/navigation/hooks/useRouter';
 import { Pages } from '~/navigation/pages';
 import { ActionButtons } from './styled';
+import { UserIdentityContext } from '~/contexts/UserIdentityContext';
 
 export const Home: React.FC = () => {
   const { user } = useContext(UserIdentityContext);
