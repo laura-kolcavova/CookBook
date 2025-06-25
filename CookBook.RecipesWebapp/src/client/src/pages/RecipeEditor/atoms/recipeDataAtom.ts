@@ -5,7 +5,7 @@ import { focusAtom } from 'jotai-optics';
 export const EMPTY_RECIPE_DATA: RecipeData = {
   recipeId: undefined,
   title: '',
-  description: null,
+  description: undefined,
   servings: 0,
   preparationTime: 0,
   cookTime: 0,

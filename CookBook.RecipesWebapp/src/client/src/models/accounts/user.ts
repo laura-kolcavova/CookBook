@@ -7,12 +7,3 @@ export type User = {
   emailClaimType: string;
   claims: Claim[];
 };
-
-export const EMPTY_USER: User = {
-  isAuthenticated: false,
-  nameClaimType: '',
-  roleClaimType: '',
-  emailClaimType: '',
-  claims: [],
-};
-

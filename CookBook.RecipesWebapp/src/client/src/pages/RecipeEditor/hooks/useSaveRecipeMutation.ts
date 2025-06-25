@@ -9,8 +9,6 @@ import { SaveRecipeResponseDto } from '~/apiStores/recipes/models/SaveRecipeResp
 import { AxiosGenericError } from '~/models/errors/AxiosGenericError';
 
 export const useSaveRecipeMutation = () => {
-  // const { user } = useContext(UserIdentityContext);
-
   const recipeData = useAtomValue(recipeDataAtom);
 
   return useMutation<SaveRecipeResponseDto, Error | AxiosGenericError>({

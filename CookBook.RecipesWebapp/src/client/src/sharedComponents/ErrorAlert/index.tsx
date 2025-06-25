@@ -10,16 +10,19 @@ interface IErrorAlertProps {
   error: Error | AxiosGenericError;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isErrorCodeProblem(data: any): data is ErrorCodeProblem {
   return data?.errorCode !== undefined;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isValidationProblem(data: any): data is ValidationProblem {
   return data?.errors !== undefined;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isProblemDetails(data: any): data is ProblemDetails {
-  return data?.title !== undefined && data?.detail !== undefined;
+  return data?.title !== undefined;
 }
 
 export const ErrorAlert: React.FC<IErrorAlertProps> = ({ error }) => {
@@ -57,11 +60,7 @@ const ValidaitonProblemAlert: React.FC<{ problem: ValidationProblem }> = ({ prob
 };
 
 const ProblemDetailsAlert: React.FC<{ problem: ProblemDetails }> = ({ problem }) => {
-  return (
-    <UncontrolledAlert color="danger">
-      {problem.title}: {problem.detail}
-    </UncontrolledAlert>
-  );
+  return <UncontrolledAlert color="danger">{problem.title}</UncontrolledAlert>;
 };
 
 const AxiosErrorAlert: React.FC<{ error: AxiosError }> = ({ error }) => {

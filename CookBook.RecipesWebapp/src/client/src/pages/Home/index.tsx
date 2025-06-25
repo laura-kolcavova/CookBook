@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Button } from 'reactstrap';
 
 import { useRouter } from '~/navigation/hooks/useRouter';
 import { Pages } from '~/navigation/pages';
 import { ActionButtons } from './styled';
-import { UserIdentityContext } from '~/contexts/UserIdentityContext';
+
+import { useAtomValue } from 'jotai';
+import { userAtom } from '~/atoms/userAtom';
 
 export const Home: React.FC = () => {
-  const { user } = useContext(UserIdentityContext);
+  const { isAuthenticated } = useAtomValue(userAtom);
+
   const { goToPage } = useRouter();
 
   const handleCreateNewRecipeButtonClick = () => {
@@ -15,7 +18,7 @@ export const Home: React.FC = () => {
   };
   return (
     <>
-      {user.isAuthenticated && (
+      {isAuthenticated && (
         <ActionButtons>
           <Button color="primary" onClick={handleCreateNewRecipeButtonClick}>
             Create new recipe
