@@ -38,7 +38,6 @@ services
 
 var app = builder.Build();
 
-
 if (isDevelopment)
 {
     app.UseDeveloperExceptionPage();
