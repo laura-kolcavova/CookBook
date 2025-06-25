@@ -7,10 +7,15 @@ import { useRouter } from '~/navigation/hooks/useRouter';
 
 import { UserAvatar } from '~/sharedComponents/UserAvatar';
 import { UserIdentityContext } from '~/contexts/UserIdentityContext';
+import { useAtomValue } from 'jotai';
+import { userAtom } from '~/atoms/userAtom';
 
 export const UserMenuItem: React.FC = () => {
-  const { user, logout } = useContext(UserIdentityContext);
+  const { logout } = useContext(UserIdentityContext);
+
   const { goToPage } = useRouter();
+
+  const { nameClaimType } = useAtomValue(userAtom);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -24,7 +29,7 @@ export const UserMenuItem: React.FC = () => {
     <DropdownWrapper>
       <Dropdown isOpen={isOpen} toggle={toggle} direction="down" inNavbar={true} nav={true}>
         <StyledDropdownToggle tag="span">
-          <UserAvatar title={user.nameClaimType} />
+          <UserAvatar title={nameClaimType} />
         </StyledDropdownToggle>
 
         <DropdownMenu>

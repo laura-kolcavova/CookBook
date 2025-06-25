@@ -63,8 +63,8 @@ internal static class ServiceCollectionExtensions
         //    });
 
         services
-        .AddProblemDetails()
-        .AddInternalOrPublicValidators(typeof(Program).Assembly, ServiceLifetime.Singleton);
+            .AddProblemDetails()
+            .AddInternalOrPublicValidators(typeof(Program).Assembly, ServiceLifetime.Singleton);
 
         return services;
     }

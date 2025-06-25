@@ -1,8 +1,9 @@
-import React, { PropsWithChildren, useState } from 'react';
-import { EMPTY_USER, User } from '~/models/accounts/user';
+import { useSetAtom } from 'jotai';
+import { useResetAtom } from 'jotai/utils';
+import React, { PropsWithChildren } from 'react';
+import { userAtom } from '~/atoms/userAtom';
 
 interface IUserIdentityContext {
-  user: User;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
 }
@@ -12,7 +13,8 @@ export const UserIdentityContext = React.createContext<IUserIdentityContext>(
 );
 
 export const UserIdentityContextProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useState<User>(EMPTY_USER);
+  const setUser = useSetAtom(userAtom);
+  const resetUser = useResetAtom(userAtom);
 
   const login = (_email: string, _pasword: string): Promise<void> => {
     setUser({
@@ -27,13 +29,12 @@ export const UserIdentityContextProvider = ({ children }: PropsWithChildren) => 
   };
 
   const logout = () => {
-    setUser(EMPTY_USER);
+    resetUser();
   };
 
   return (
     <UserIdentityContext.Provider
       value={{
-        user,
         login,
         logout,
       }}>
