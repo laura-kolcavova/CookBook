@@ -1,1 +1,1 @@
-dotnet build "../database/CookBook.Recipes.Database.sqlproj" /p:NetCoreBuild=true /p:NETCoreTargetsPath="C:\Users\laura.kolcavova\.azuredatastudio\extensions\microsoft.sql-database-projects-1.4.2\BuildDirectory" -o "../database/build_output"
+dotnet build "../database/CookBook.Recipes.Database.sqlproj" -o "../database/build_output"
