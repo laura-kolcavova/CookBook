@@ -19,7 +19,7 @@ Ensure [nuget extensions packages](../README.md#deploy) are deployed at `Nuget R
 Run the following command to build the database project:
 
 ```bash
-dotnet build "./database/CookBook.Recipes.Database.sqlproj" /p:NetCoreBuild=true /p:NETCoreTargetsPath="C:\Users\laura.kolcavova\.azuredatastudio\extensions\microsoft.sql-database-projects-1.4.2\BuildDirectory" -o "./database/build_output"
+dotnet build "./database/CookBook.Recipes.Database.sqlproj" -o "./database/build_output"
 ```
 
 Or from the `deploy` folder run the following command:
