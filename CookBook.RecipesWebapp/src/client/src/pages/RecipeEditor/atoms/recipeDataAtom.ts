@@ -30,3 +30,9 @@ export const preparationTimeAtom = focusAtom(recipeDataAtom, (optic) =>
 );
 
 export const cookTimeAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('cookTime'));
+
+export const ingredientsAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('ingredients'));
+
+export const instructionsAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('instructions'));
+
+export const tagsAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('tags'));
