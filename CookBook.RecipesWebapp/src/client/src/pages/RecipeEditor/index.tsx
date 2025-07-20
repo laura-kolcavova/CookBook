@@ -60,24 +60,6 @@ export const RecipeEditor: React.FC = () => {
     mutate();
   };
 
-  // Common time presets for cooking
-  const prepTimePresets = [
-    { label: '5 min', minutes: 5 },
-    { label: '10 min', minutes: 10 },
-    { label: '15 min', minutes: 15 },
-    { label: '30 min', minutes: 30 },
-    { label: '45 min', minutes: 45 },
-  ];
-
-  const cookTimePresets = [
-    { label: '10 min', minutes: 10 },
-    { label: '15 min', minutes: 15 },
-    { label: '30 min', minutes: 30 },
-    { label: '1 hour', minutes: 60 },
-    { label: '1.5 hours', minutes: 90 },
-    { label: '2 hours', minutes: 120 },
-  ];
-
   return (
     <>
       <h2>Add Recipe</h2>
@@ -139,22 +121,14 @@ export const RecipeEditor: React.FC = () => {
 
             <FormGroup>
               <TimeInput
-                value={preparationTime}
+                valueInMinutes={preparationTime}
                 onChange={setPreparationTime}
                 label="Preparation Time"
-                placeholder="Time needed to prepare ingredients"
-                presets={prepTimePresets}
               />
             </FormGroup>
 
             <FormGroup>
-              <TimeInput
-                value={cookTime}
-                onChange={setCookTime}
-                label="Cooking Time"
-                placeholder="Time needed to cook the recipe"
-                presets={cookTimePresets}
-              />
+              <TimeInput valueInMinutes={cookTime} onChange={setCookTime} label="Cooking Time" />
             </FormGroup>
 
             <FormGroup>
@@ -181,8 +155,6 @@ export const RecipeEditor: React.FC = () => {
             </FormGroup>
 
             <div className="d-flex justify-content-between align-items-center mt-4">
-              <div className="text-muted">Total Time: {preparationTime + cookTime} minutes</div>
-
               <Button
                 color="primary"
                 size="lg"

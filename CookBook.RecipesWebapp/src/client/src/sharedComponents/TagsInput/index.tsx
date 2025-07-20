@@ -10,28 +10,7 @@ interface TagsInputProps {
   presets?: string[];
 }
 
-export const TagsInput: React.FC<TagsInputProps> = ({
-  value,
-  onChange,
-  label,
-  presets = [
-    'Quick & Easy',
-    'Vegetarian',
-    'Vegan',
-    'Gluten-Free',
-    'Healthy',
-    'Comfort Food',
-    'Dessert',
-    'Main Course',
-    'Appetizer',
-    'Side Dish',
-    'Breakfast',
-    'Lunch',
-    'Dinner',
-    'Holiday',
-    'Kid-Friendly',
-  ],
-}) => {
+export const TagsInput: React.FC<TagsInputProps> = ({ value, onChange, label, presets }) => {
   const [inputValue, setInputValue] = useState('');
 
   const addTag = (tag: string) => {
@@ -93,25 +72,26 @@ export const TagsInput: React.FC<TagsInputProps> = ({
         </div>
       )}
 
-      <TagsPresets>
-        <small className="text-muted mb-2">Popular tags:</small>
-        <div className="d-flex flex-wrap gap-1">
-          {presets
-            .filter((preset) => !value.includes(preset))
-            .slice(0, 8)
-            .map((preset, index) => (
-              <Button
-                key={index}
-                size="sm"
-                outline
-                color="secondary"
-                onClick={() => handlePresetClick(preset)}
-                className="preset-tag">
-                {preset}
-              </Button>
-            ))}
-        </div>
-      </TagsPresets>
+      {presets && presets.length > 0 && (
+        <TagsPresets>
+          <small className="text-muted mb-2">Popular tags:</small>
+          <div className="d-flex flex-wrap gap-1">
+            {presets
+              .filter((preset) => !value.includes(preset))
+              .map((preset, index) => (
+                <Button
+                  key={index}
+                  size="sm"
+                  outline
+                  color="secondary"
+                  onClick={() => handlePresetClick(preset)}
+                  className="preset-tag">
+                  {preset}
+                </Button>
+              ))}
+          </div>
+        </TagsPresets>
+      )}
     </TagsContainer>
   );
 };

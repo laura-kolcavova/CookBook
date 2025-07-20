@@ -13,20 +13,21 @@ export const ServingsInputGroup = styled.div`
   max-width: 150px;
 
   .form-control {
-    border-radius: 0;
-    border-left: 0;
-    border-right: 0;
+    height: 2.5rem;
     text-align: center;
     font-weight: 600;
     font-size: 1.1rem;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
   }
 `;
 
 export const ServingsButton = styled(Button)`
   border-radius: 0.375rem;
   padding: 0.5rem;
-  width: 40px;
-  height: 38px;
+  width: 2.5rem;
+  height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,17 +48,5 @@ export const ServingsButton = styled(Button)`
 
   &:disabled {
     opacity: 0.5;
-  }
-`;
-
-export const PresetServingsButton = styled(Button)`
-  font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  min-width: 30px;
-
-  &.active {
-    background-color: var(--navbar-background-color);
-    border-color: var(--navbar-background-color);
-    color: var(--text-primary-color);
   }
 `;

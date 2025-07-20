@@ -1,95 +1,187 @@
-import React, { useState, useEffect } from 'react';
-import { Input, InputGroup, InputGroupText, ButtonGroup } from 'reactstrap';
-import { TimeInputContainer, TimeUnitSelector, PresetButton } from './styled';
+import React, { useMemo } from 'react';
+import { Input } from 'reactstrap';
+import {
+  TimeButton,
+  TimeInputContainer,
+  TimeInputGroup,
+  TimeInputGroupContainer,
+  TimeInputGroupText,
+} from './styled';
+import { FaMinus, FaPlus } from 'react-icons/fa6';
+import { getTimeParts, getTotalMinutes } from '~/utils/timeHelper';
 
 interface TimeInputProps {
-  value: number; // value in minutes
+  valueInMinutes: number;
   onChange: (minutes: number) => void;
   label: string;
-  placeholder?: string;
-  presets?: { label: string; minutes: number }[];
 }
 
-export const TimeInput: React.FC<TimeInputProps> = ({
-  value,
-  onChange,
-  label,
-  placeholder,
-  presets = [],
-}) => {
-  const [hours, setHours] = useState(Math.floor(value / 60));
-  const [minutes, setMinutes] = useState(value % 60);
+const MINUTES_MIN = 0;
+const MINUTES_MAX = 59;
 
-  useEffect(() => {
-    setHours(Math.floor(value / 60));
-    setMinutes(value % 60);
-  }, [value]);
+const HOURS_MIN = 0;
+const HOURS_MAX = 24;
 
-  const updateTotalTime = (newHours: number, newMinutes: number) => {
-    const totalMinutes = newHours * 60 + newMinutes;
+const DAYS_MIN = 0;
+const DAYS_MAX = 7;
+
+export const TimeInput: React.FC<TimeInputProps> = ({ valueInMinutes, onChange, label }) => {
+  const { days, hours, minutes } = useMemo(() => {
+    return getTimeParts(valueInMinutes);
+  }, [valueInMinutes]);
+
+  const updateTotalTime = (newDays: number, newHours: number, newMinutes: number) => {
+    const totalMinutes = getTotalMinutes(newDays, newHours, newMinutes);
+
     onChange(totalMinutes);
   };
 
+  const handleDaysChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newDays = parseInt(e.target.value) || DAYS_MIN;
+    const clampedValue = Math.min(DAYS_MAX, Math.max(DAYS_MIN, newDays));
+
+    updateTotalTime(clampedValue, hours, minutes);
+  };
+
+  const handleDaysIncrement = () => {
+    if (days < DAYS_MAX) {
+      updateTotalTime(days + 1, hours, minutes);
+    }
+  };
+
+  const handleDaysDecrement = () => {
+    if (days > DAYS_MIN) {
+      updateTotalTime(days - 1, hours, minutes);
+    }
+  };
+
   const handleHoursChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newHours = Math.max(0, parseInt(e.target.value) || 0);
-    setHours(newHours);
-    updateTotalTime(newHours, minutes);
+    const newHours = parseInt(e.target.value) || HOURS_MIN;
+    const clampedValue = Math.min(HOURS_MAX, Math.max(HOURS_MIN, newHours));
+
+    updateTotalTime(days, clampedValue, minutes);
+  };
+
+  const handleHoursIncrement = () => {
+    if (hours < HOURS_MAX) {
+      updateTotalTime(days, hours + 1, minutes);
+    }
+  };
+
+  const handleHoursDecrement = () => {
+    if (hours > HOURS_MIN) {
+      updateTotalTime(days, hours - 1, minutes);
+    }
   };
 
   const handleMinutesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newMinutes = Math.max(0, Math.min(59, parseInt(e.target.value) || 0));
-    setMinutes(newMinutes);
-    updateTotalTime(hours, newMinutes);
+    const newMinutes = parseInt(e.target.value) || MINUTES_MIN;
+    const clampedValue = Math.min(MINUTES_MAX, Math.max(MINUTES_MIN, newMinutes));
+
+    updateTotalTime(days, hours, clampedValue);
   };
 
-  const handlePresetClick = (presetMinutes: number) => {
-    onChange(presetMinutes);
+  const handleMinutesIncrement = () => {
+    if (minutes < MINUTES_MAX) {
+      updateTotalTime(days, hours, minutes + 1);
+    }
+  };
+
+  const handleMinutesDecrement = () => {
+    if (minutes > MINUTES_MIN) {
+      updateTotalTime(days, hours, minutes - 1);
+    }
   };
 
   return (
     <TimeInputContainer>
       <label>{label}</label>
 
-      <TimeUnitSelector>
-        <InputGroup>
+      <TimeInputGroupContainer>
+        <TimeInputGroup>
+          <TimeButton
+            type="button"
+            color="outline-secondary"
+            onClick={handleDaysDecrement}
+            disabled={days <= DAYS_MIN}>
+            <FaMinus />
+          </TimeButton>
+
           <Input
             type="number"
-            min="0"
-            max="24"
-            placeholder="0"
-            value={hours || ''}
+            min={DAYS_MIN}
+            max={DAYS_MAX}
+            value={days}
+            onChange={handleDaysChange}
+          />
+
+          <TimeInputGroupText>d</TimeInputGroupText>
+
+          <TimeButton
+            type="button"
+            color="outline-secondary"
+            onClick={handleDaysIncrement}
+            disabled={days >= DAYS_MAX}>
+            <FaPlus />
+          </TimeButton>
+        </TimeInputGroup>
+
+        <TimeInputGroup>
+          <TimeButton
+            type="button"
+            color="outline-secondary"
+            onClick={handleHoursDecrement}
+            disabled={hours <= HOURS_MIN}>
+            <FaMinus />
+          </TimeButton>
+
+          <Input
+            type="number"
+            min={HOURS_MIN}
+            max={HOURS_MAX}
+            value={hours}
             onChange={handleHoursChange}
           />
-          <InputGroupText>hours</InputGroupText>
+
+          <TimeInputGroupText>h</TimeInputGroupText>
+
+          <TimeButton
+            type="button"
+            color="outline-secondary"
+            onClick={handleHoursIncrement}
+            disabled={hours >= HOURS_MAX}>
+            <FaPlus />
+          </TimeButton>
+        </TimeInputGroup>
+
+        <TimeInputGroup>
+          <TimeButton
+            type="button"
+            color="outline-secondary"
+            onClick={handleMinutesDecrement}
+            disabled={minutes <= MINUTES_MIN}>
+            <FaMinus />
+          </TimeButton>
 
           <Input
             type="number"
-            min="0"
-            max="59"
-            placeholder="0"
-            value={minutes || ''}
+            min={MINUTES_MIN}
+            max={MINUTES_MAX}
+            value={minutes}
             onChange={handleMinutesChange}
           />
-          <InputGroupText>minutes</InputGroupText>
-        </InputGroup>
-      </TimeUnitSelector>
 
-      {presets.length > 0 && (
-        <ButtonGroup size="sm" className="mt-2">
-          {presets.map((preset, index) => (
-            <PresetButton
-              key={index}
-              outline
-              color="secondary"
-              onClick={() => handlePresetClick(preset.minutes)}
-              active={value === preset.minutes}>
-              {preset.label}
-            </PresetButton>
-          ))}
-        </ButtonGroup>
-      )}
+          <TimeInputGroupText>m</TimeInputGroupText>
 
-      {placeholder && value === 0 && <small className="text-muted mt-1">{placeholder}</small>}
+          <TimeButton
+            type="button"
+            color="outline-secondary"
+            onClick={handleMinutesIncrement}
+            disabled={minutes >= MINUTES_MAX}>
+            <FaPlus />
+          </TimeButton>
+        </TimeInputGroup>
+      </TimeInputGroupContainer>
     </TimeInputContainer>
   );
 };
