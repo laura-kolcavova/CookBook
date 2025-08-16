@@ -63,7 +63,7 @@ export const ServingsInput: React.FC<ServingsInputProps> = ({ value, onChange, l
         </ServingsButton>
       </ServingsInputGroup>
 
-      <small className="text-muted mt-1">{value === 1 ? '1 person' : `${value} people`}</small>
+      <small className="text-muted mt-1">{value === 1 ? '1 portion' : `${value} portions`}</small>
     </ServingsContainer>
   );
 };

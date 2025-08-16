@@ -20,7 +20,7 @@ const MINUTES_MIN = 0;
 const MINUTES_MAX = 59;
 
 const HOURS_MIN = 0;
-const HOURS_MAX = 24;
+const HOURS_MAX = 23;
 
 const DAYS_MIN = 0;
 const DAYS_MAX = 7;

@@ -1,9 +1,9 @@
-﻿using CookBook.Recipes.Api.Recipes.Features.RemoveRecipe.Contracts;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace CookBook.Recipes.Api.Recipes.Features.RemoveRecipe.Validators;
 
-internal sealed class RemoveRecipeRequestValidator : AbstractValidator<RemoveRecipeRequestDto>
+internal sealed class RemoveRecipeRequestValidator :
+    AbstractValidator<RemoveRecipeParams>
 {
     public RemoveRecipeRequestValidator()
     {
