@@ -8,6 +8,8 @@ import { Saved } from '~/pages/Saved';
 import { MyProfile } from '~/pages/MyProfile';
 import { RecipeEditor } from '~/pages/RecipeEditor';
 import { Error } from '~/pages/Error';
+import { MyRecipes } from '~/pages/MyRecipes';
+import { RecipeDetail } from '~/pages/RecipeDetail';
 
 export const Pages: IPages = {
   [Page.Home]: {
@@ -53,6 +55,16 @@ export const Pages: IPages = {
   [Page.AddRecipe]: {
     paths: ['/add-recipe'],
     component: RecipeEditor,
+    public: false,
+  },
+  [Page.MyRecipes]: {
+    paths: ['/my-recipes'],
+    component: MyRecipes,
+    public: false,
+  },
+  [Page.RecipeDetail]: {
+    paths: ['/recipe/:recipeId'],
+    component: RecipeDetail,
     public: false,
   },
 };

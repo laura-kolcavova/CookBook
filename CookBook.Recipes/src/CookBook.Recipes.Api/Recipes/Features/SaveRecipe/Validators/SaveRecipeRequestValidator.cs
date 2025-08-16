@@ -4,7 +4,8 @@ using FluentValidation;
 
 namespace CookBook.Recipes.Api.Recipes.Features.SaveRecipe.Validators;
 
-internal sealed class SaveRecipeRequestValidator : AbstractValidator<SaveRecipeRequestDto>
+internal sealed class SaveRecipeRequestValidator :
+    AbstractValidator<SaveRecipeRequestDto>
 {
     public SaveRecipeRequestValidator()
     {

@@ -1,38 +1,30 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { IPage, IPageOptions } from '../models';
 import { constructParams, getPageUrl } from '../../utils/navigationHelpers';
 import { combineUrls } from '../../utils/urlHelpers';
-import { Pages } from '../pages';
+import { useCallback } from 'react';
 
 export const useRouter = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const goToPage = (page: IPage, options?: IPageOptions) => {
-    const pageUrl = getPageUrl(page, options?.params);
+  const goToPage = useCallback(
+    (page: IPage, options?: IPageOptions) => {
+      const pageUrl = getPageUrl(page, options?.params);
 
-    if (options?.newTab) {
-      window.open(combineUrls('/', constructParams(pageUrl)), '_blank');
-    } else {
+      if (options?.newTab) {
+        window.open(combineUrls('/', constructParams(pageUrl)), '_blank');
+
+        return;
+      }
+
       navigate(pageUrl);
-      options?.reload && window.location.reload();
-    }
-  };
 
-  const currentPage = (): IPage | undefined => {
-    const pages = Object.values(Pages);
+      if (options?.reload) {
+        window.location.reload();
+      }
+    },
+    [navigate],
+  );
 
-    const currentPage = pages.find(
-      (page) =>
-        page.paths.length > 0 &&
-        page.paths.some(
-          (path) =>
-            location.pathname.localeCompare(path, undefined, { sensitivity: 'accent' }) === 0,
-        ),
-    );
-
-    return currentPage;
-  };
-
-  return { goToPage, currentPage };
+  return { goToPage };
 };

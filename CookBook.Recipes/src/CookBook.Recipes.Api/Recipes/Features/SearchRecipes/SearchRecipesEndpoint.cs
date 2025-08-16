@@ -1,5 +1,4 @@
 ﻿using CookBook.Recipes.Api.Recipes.Features.SearchRecipes.Contracts;
-using CookBook.Recipes.Api.Shared.Dto;
 using CookBook.Recipes.Application.Common.Filtering;
 using CookBook.Recipes.Application.Common.Sorting;
 using CookBook.Recipes.Application.Recipes.Services;
@@ -24,19 +23,19 @@ internal static class SearchRecipesEndpoint
 
     private static async Task<IResult> HandleAsync(
         [AsParameters]
-        OffsetFilterRequestDto offsetFilterRequest,
+        SearchRecipesParams request,
         ISearchRecipesService searchRecipesService,
         HttpContext httpContext,
         CancellationToken cancellationToken
         )
     {
         var offsetFilter =
-            offsetFilterRequest.Limit is not null ||
-            offsetFilterRequest.Offset is not null
+            request.Offset is not null ||
+            request.Limit is not null
             ? new OffsetFilter
             {
-                Offset = offsetFilterRequest.Offset ?? 0,
-                Limit = offsetFilterRequest.Limit ?? 100,
+                Offset = request.Offset ?? 0,
+                Limit = request.Limit ?? 100,
             }
             : null;
 

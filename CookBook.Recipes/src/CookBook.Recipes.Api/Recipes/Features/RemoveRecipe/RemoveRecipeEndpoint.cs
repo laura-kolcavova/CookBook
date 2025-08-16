@@ -1,5 +1,4 @@
 ﻿using CookBook.Extensions.AspNetCore.Errors;
-using CookBook.Recipes.Api.Recipes.Features.RemoveRecipe.Contracts;
 using CookBook.Recipes.Application.Recipes.Services;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
@@ -21,7 +20,8 @@ internal static class RemoveRecipeEndpoint
     }
 
     private static async Task<IResult> HandleAsync(
-        [AsParameters] RemoveRecipeRequestDto request,
+        [AsParameters]
+        RemoveRecipeParams request,
         IRemoveRecipeService removeRecipeService,
         HttpContext httpContext,
         CancellationToken cancellationToken)
