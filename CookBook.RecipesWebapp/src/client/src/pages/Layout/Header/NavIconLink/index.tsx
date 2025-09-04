@@ -11,7 +11,7 @@ type NavIconLinkProps = {
 
 export const NavIconLink: React.FC<NavIconLinkProps> = ({ onClick, text, icon, isActive }) => {
   return (
-    <StyledNavLink onClick={onClick} tag="button" isActive={isActive}>
+    <StyledNavLink onClick={onClick} tag="button" className={isActive && 'active'}>
       <IconWrapper>{icon}</IconWrapper>
       <TextWrapper> {text}</TextWrapper>
     </StyledNavLink>
