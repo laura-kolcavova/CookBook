@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
 
     --navlink-color: rgba(117, 117, 117, 0.8);
     --navlink-color-hover: #555;
+    --navlink-color-active: #555;
   }
 
   body {

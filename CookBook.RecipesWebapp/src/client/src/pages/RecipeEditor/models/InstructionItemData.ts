@@ -1,4 +1,4 @@
-export type IngredientItem = {
+export type InstructionItemData = {
   localId?: number;
   note: string;
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { useAtom } from 'jotai';
 import {
@@ -11,6 +11,7 @@ import {
   ingredientsAtom,
   instructionsAtom,
   tagsAtom,
+  recipeDataAtom,
 } from './atoms/recipeDataAtom';
 import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
 import { ErrorAlert } from '~/sharedComponents/ErrorAlert';
@@ -20,11 +21,14 @@ import { LoadingSpinner } from '~/sharedComponents/LoadingSpinner';
 import { LoadingSpinnerWrapper } from './styled';
 import { useRouter } from '~/navigation/hooks/useRouter';
 import { Pages } from '~/navigation/pages';
-import { TimeInput } from '~/sharedComponents/TimeInput';
-import { ServingsInput } from '~/sharedComponents/ServingsInput';
-import { IngredientsInput } from '~/sharedComponents/IngredientsInput';
-import { InstructionsInput } from '~/sharedComponents/InstructionsInput';
+import { TimeInput } from '~/pages/RecipeEditor/TimeInput';
+import { ServingsInput } from '~/pages/RecipeEditor/ServingsInput';
+import { IngredientsInput } from '~/pages/RecipeEditor/IngredientsInput';
+import { InstructionsInput } from '~/pages/RecipeEditor/InstructionsInput';
 import { TagsInput } from '~/sharedComponents/TagsInput';
+import { useResetAtom } from 'jotai/utils';
+import { FieldValidations } from '~/models/forms/FieldValidations';
+import { areValid } from '~/utils/forms/fieldValidationUtils';
 
 export const RecipeEditor: React.FC = () => {
   const { goToPage } = useRouter();
@@ -39,24 +43,34 @@ export const RecipeEditor: React.FC = () => {
   const [instructions, setInstructions] = useAtom(instructionsAtom);
   const [tags, setTags] = useAtom(tagsAtom);
 
+  const resetRecipeData = useResetAtom(recipeDataAtom);
+
   const { mutate, isPending, isError, isSuccess, error, data } = useSaveRecipeMutation();
 
-  const { validate, validations, resetValidations } = useRecipeValidator();
+  const { validate } = useRecipeValidator();
+
+  const [validations, setValidations] = useState<FieldValidations>({});
 
   useEffect(() => {
     if (isSuccess && data) {
+      resetRecipeData();
+
       goToPage(Pages.RecipeDetail, {
         params: { recipeId: data.recipeId.toString() },
       });
     }
-  }, [isSuccess, data, goToPage]);
+  }, [isSuccess, data, goToPage, resetRecipeData]);
 
   const handleCreateRecipeClick = () => {
-    if (!validate()) {
+    const validationResults = validate();
+
+    if (!areValid(validationResults)) {
+      setValidations(validationResults);
+
       return;
     }
 
-    resetValidations();
+    setValidations({});
     mutate();
   };
 
@@ -75,6 +89,7 @@ export const RecipeEditor: React.FC = () => {
           <Form>
             <FormGroup>
               <Label for="title">Recipe Title *</Label>
+
               <Input
                 id="title"
                 type="text"
@@ -85,13 +100,15 @@ export const RecipeEditor: React.FC = () => {
                 invalid={validations.title?.isValid === false}
                 required
               />
-              {validations.title?.invalidMessage && (
-                <FeedbackError message={validations.title.invalidMessage} />
+
+              {validations.title?.errorMessage && (
+                <FeedbackError message={validations.title.errorMessage} />
               )}
             </FormGroup>
 
             <FormGroup>
               <Label for="description">Description</Label>
+
               <Input
                 id="description"
                 type="text"
@@ -100,10 +117,15 @@ export const RecipeEditor: React.FC = () => {
                 onChange={(e) => setDescription(e.target.value || undefined)}
                 autoComplete="off"
               />
+
+              {validations.description?.errorMessage && (
+                <FeedbackError message={validations.description.errorMessage} />
+              )}
             </FormGroup>
 
             <FormGroup>
               <Label for="notes">Notes</Label>
+
               <Input
                 id="notes"
                 type="textarea"
@@ -113,10 +135,18 @@ export const RecipeEditor: React.FC = () => {
                 onChange={(e) => setNotes(e.target.value || undefined)}
                 autoComplete="off"
               />
+
+              {validations.notes?.errorMessage && (
+                <FeedbackError message={validations.notes.errorMessage} />
+              )}
             </FormGroup>
 
             <FormGroup>
               <ServingsInput value={servings} onChange={setServings} label="Number of Servings" />
+
+              {validations.servings?.errorMessage && (
+                <FeedbackError message={validations.servings.errorMessage} />
+              )}
             </FormGroup>
 
             <FormGroup>
@@ -125,28 +155,41 @@ export const RecipeEditor: React.FC = () => {
                 onChange={setPreparationTime}
                 label="Preparation Time"
               />
+
+              {validations.preparationTime?.errorMessage && (
+                <FeedbackError message={validations.preparationTime.errorMessage} />
+              )}
             </FormGroup>
 
             <FormGroup>
               <TimeInput valueInMinutes={cookTime} onChange={setCookTime} label="Cooking Time" />
+
+              {validations.cookTime?.errorMessage && (
+                <FeedbackError message={validations.cookTime.errorMessage} />
+              )}
             </FormGroup>
 
             <FormGroup>
-              <IngredientsInput value={ingredients} onChange={setIngredients} label="Ingredients" />
+              <IngredientsInput
+                ingredients={ingredients}
+                onChange={setIngredients}
+                label="Ingredients"
+              />
 
-              {validations.ingredients?.invalidMessage && (
-                <FeedbackError message={validations.ingredients.invalidMessage} />
+              {validations.ingredients?.errorMessage && (
+                <FeedbackError message={validations.ingredients.errorMessage} />
               )}
             </FormGroup>
 
             <FormGroup>
               <InstructionsInput
-                value={instructions}
+                instructions={instructions}
                 onChange={setInstructions}
                 label="Instructions"
               />
-              {validations.instructions?.invalidMessage && (
-                <FeedbackError message={validations.instructions.invalidMessage} />
+
+              {validations.instructions?.errorMessage && (
+                <FeedbackError message={validations.instructions.errorMessage} />
               )}
             </FormGroup>
 

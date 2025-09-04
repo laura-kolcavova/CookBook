@@ -1,10 +1,8 @@
 import styled from 'styled-components';
-
 import { NavLink } from 'reactstrap';
 
 export const StyledNavLink = styled(NavLink)`
   color: var(--navlink-color);
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,6 +11,14 @@ export const StyledNavLink = styled(NavLink)`
 
   &:hover {
     color: var(--navlink-color-hover);
+  }
+
+  &:focus {
+    color: var(--navlink-color);
+  }
+
+  &.active {
+    color: var(--navlink-color-active);
   }
 `;
 

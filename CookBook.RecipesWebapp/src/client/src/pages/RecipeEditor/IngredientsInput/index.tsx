@@ -1,58 +1,62 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Input, InputGroup, InputGroupText } from 'reactstrap';
 import { IngredientsContainer, IngredientItem, AddButton, RemoveButton } from './styled';
 import { FaPlus, FaTrash } from 'react-icons/fa6';
-
-export interface Ingredient {
-  localId?: number;
-  note: string;
-}
+import { IngredientItemData } from '~/pages/RecipeEditor/models/IngredientItemData';
 
 interface IngredientsInputProps {
-  value: Ingredient[];
-  onChange: (ingredients: Ingredient[]) => void;
+  ingredients: IngredientItemData[];
+  onChange: (newIngredients: IngredientItemData[]) => void;
   label: string;
 }
 
-export const IngredientsInput: React.FC<IngredientsInputProps> = ({ value, onChange, label }) => {
-  const [nextId, setNextId] = useState(Math.max(0, ...value.map((ing) => ing.localId || 0)) + 1);
-
+export const IngredientsInput: React.FC<IngredientsInputProps> = ({
+  ingredients,
+  onChange,
+  label,
+}) => {
   const addIngredient = () => {
-    const newIngredient: Ingredient = {
-      localId: nextId,
+    const newIngredient: IngredientItemData = {
       note: '',
     };
-    onChange([...value, newIngredient]);
-    setNextId(nextId + 1);
+
+    const newIngredients = [...ingredients, newIngredient];
+
+    onChange(newIngredients);
   };
 
-  const removeIngredient = (localId: number) => {
-    onChange(value.filter((ing) => ing.localId !== localId));
+  const removeIngredient = (indexToRemove: number) => {
+    const newIngredients = ingredients.filter((_, index) => index !== indexToRemove);
+
+    onChange(newIngredients);
   };
 
-  const updateIngredient = (localId: number, note: string) => {
-    onChange(value.map((ing) => (ing.localId === localId ? { ...ing, note } : ing)));
+  const updateIngredient = (indexToUpdate: number, note: string) => {
+    const newIngredients = ingredients.map((ingredient, index) =>
+      index === indexToUpdate ? { ...ingredient, note } : ingredient,
+    );
+
+    onChange(newIngredients);
   };
 
   return (
     <IngredientsContainer>
       <label>{label}</label>
 
-      {value.map((ingredient, index) => (
-        <IngredientItem key={ingredient.localId}>
+      {ingredients.map((ingredient, index) => (
+        <IngredientItem key={index}>
           <InputGroup>
             <InputGroupText>{index + 1}.</InputGroupText>
             <Input
               type="text"
               placeholder="e.g., 2 cups flour, 1 tsp salt..."
               value={ingredient.note}
-              onChange={(e) => updateIngredient(ingredient.localId!, e.target.value)}
+              onChange={(e) => updateIngredient(index, e.target.value)}
             />
             <RemoveButton
               type="button"
               color="outline-danger"
-              onClick={() => removeIngredient(ingredient.localId!)}
-              disabled={value.length === 1}>
+              onClick={() => removeIngredient(index)}>
               <FaTrash />
             </RemoveButton>
           </InputGroup>
