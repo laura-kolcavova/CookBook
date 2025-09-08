@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-import { Button } from 'reactstrap';
+import { Button } from '~/sharedComponents/forms/Button';
+import { Input } from '~/sharedComponents/forms/Input';
+import { InputGroupText } from '~/sharedComponents/forms/InputGroupText';
 
 export const InstructionsContainer = styled.div`
   display: flex;
@@ -36,13 +38,21 @@ export const AddButton = styled(Button)`
   }
 `;
 
+export const StyledInputGroupText = styled(InputGroupText)`
+  align-items: center !important;
+`;
+
+export const StyledTextArea = styled(Input)`
+  resize: none;
+`;
+
 export const RemoveButton = styled(Button)`
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   padding: 0.5rem;
   width: 45px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   padding-top: 0.75rem;
 

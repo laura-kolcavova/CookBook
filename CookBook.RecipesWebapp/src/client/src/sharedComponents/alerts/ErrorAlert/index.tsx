@@ -1,10 +1,11 @@
 import React from 'react';
 import axios, { AxiosError } from 'axios';
-import { UncontrolledAlert } from 'reactstrap';
-import { ErrorCodeProblem } from '~/models/errors/ErrorCodeProblem';
-import { ProblemDetails } from '~/models/errors/ProblemDetails';
-import { ValidationProblem } from '~/models/errors/ValidationProblem';
-import { AxiosGenericError } from '~/models/errors/AxiosGenericError';
+
+import { Alert } from '../Alert';
+import type { AxiosGenericError } from '~/models/errors/AxiosGenericError';
+import type { ErrorCodeProblem } from '~/models/errors/ErrorCodeProblem';
+import type { ValidationProblem } from '~/models/errors/ValidationProblem';
+import type { ProblemDetails } from '~/models/errors/ProblemDetails';
 
 interface IErrorAlertProps {
   error: Error | AxiosGenericError;
@@ -27,7 +28,7 @@ function isProblemDetails(data: any): data is ProblemDetails {
 
 export const ErrorAlert: React.FC<IErrorAlertProps> = ({ error }) => {
   if (!axios.isAxiosError(error)) {
-    return <UncontrolledAlert color="danger">Something went wrong</UncontrolledAlert>;
+    return <Alert color="danger">Something went wrong</Alert>;
   }
 
   const data = error.response?.data;
@@ -49,20 +50,20 @@ export const ErrorAlert: React.FC<IErrorAlertProps> = ({ error }) => {
 
 const ErrorCodeProblemAlert: React.FC<{ problem: ErrorCodeProblem }> = ({ problem }) => {
   return (
-    <UncontrolledAlert color="danger">
+    <Alert color="danger">
       {problem.title}: {problem.detail}: {problem.errorCode}
-    </UncontrolledAlert>
+    </Alert>
   );
 };
 
 const ValidaitonProblemAlert: React.FC<{ problem: ValidationProblem }> = ({ problem }) => {
-  return <UncontrolledAlert color="danger">{problem.title}</UncontrolledAlert>;
+  return <Alert color="danger">{problem.title}</Alert>;
 };
 
 const ProblemDetailsAlert: React.FC<{ problem: ProblemDetails }> = ({ problem }) => {
-  return <UncontrolledAlert color="danger">{problem.title}</UncontrolledAlert>;
+  return <Alert color="danger">{problem.title}</Alert>;
 };
 
 const AxiosErrorAlert: React.FC<{ error: AxiosError }> = ({ error }) => {
-  return <UncontrolledAlert color="danger">{error.message}</UncontrolledAlert>;
+  return <Alert color="danger">{error.message}</Alert>;
 };

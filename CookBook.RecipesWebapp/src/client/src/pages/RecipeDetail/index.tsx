@@ -25,11 +25,15 @@ import {
   NotesText,
 } from './styled';
 import { LoadingSpinner } from '~/sharedComponents/LoadingSpinner';
-import { ErrorAlert } from '~/sharedComponents/ErrorAlert';
-import { Alert } from 'reactstrap';
+import { ErrorAlert } from '~/sharedComponents/alerts/ErrorAlert';
+import { Alert } from '~/sharedComponents/alerts/Alert';
 
 export const RecipeDetail: React.FC = () => {
   const { recipeId: recipeIdParam } = useParams();
+
+  if (recipeIdParam === undefined) {
+    throw new Error('Recipe ID is missing in the URL.');
+  }
 
   const recipeId = useMemo(() => Number.parseInt(recipeIdParam, 10), [recipeIdParam]);
 

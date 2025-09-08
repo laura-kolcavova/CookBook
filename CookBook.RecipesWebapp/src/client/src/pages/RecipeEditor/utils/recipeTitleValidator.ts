@@ -1,4 +1,4 @@
-import { ValidationResult } from '~/models/forms/ValidationResult';
+import type { ValidationResult } from '~/models/forms/ValidationResult';
 
 export const validateRecipeTitle = (recipeTitle: string): ValidationResult => {
   if (recipeTitle.length < 3 || recipeTitle.length > 256) {

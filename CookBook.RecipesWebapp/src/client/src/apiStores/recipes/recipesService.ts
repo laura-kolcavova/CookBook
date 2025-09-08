@@ -1,14 +1,15 @@
-import { AxiosPromise, GenericAbortSignal } from 'axios';
-import { httpClient } from '~/services/httpClient';
-import { SaveRecipeResponseDto } from './models/SaveRecipeResponseDto';
-import { SaveRecipeRequestDto } from './models/SaveRecipeRequestDto';
-import { GetRecipeDetailResponseDto } from './models/GetRecipeDetailResponseDto';
+import type { AxiosPromise, GenericAbortSignal } from 'axios';
+
+import type { GetRecipeDetailResponseDto } from './models/GetRecipeDetailResponseDto';
+import type { SaveRecipeRequestDto } from './models/SaveRecipeRequestDto';
+import type { SaveRecipeResponseDto } from './models/SaveRecipeResponseDto';
+import { callAxios } from '~/utils/axios';
 
 const saveRecipe = (
   saveRecipeRequest: SaveRecipeRequestDto,
   signal?: GenericAbortSignal,
 ): AxiosPromise<SaveRecipeResponseDto> => {
-  return httpClient({
+  return callAxios({
     url: '/api/Recipes/Save',
     method: 'POST',
     data: saveRecipeRequest,
@@ -20,7 +21,7 @@ const getRecipeDetail = (
   recipeId: number,
   signal?: GenericAbortSignal,
 ): AxiosPromise<GetRecipeDetailResponseDto> => {
-  return httpClient({
+  return callAxios({
     url: `/api/Recipes/${recipeId}/Detail`,
     method: 'GET',
     signal: signal,

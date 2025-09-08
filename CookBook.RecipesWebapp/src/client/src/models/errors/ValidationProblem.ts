@@ -1,4 +1,4 @@
-import { ValidationFailure } from './ValidationFailure';
+import type { ValidationFailure } from './ValidationFailure';
 
 export type ValidationProblem = {
   type: string;

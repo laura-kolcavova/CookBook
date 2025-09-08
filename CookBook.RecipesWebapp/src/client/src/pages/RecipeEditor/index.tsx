@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { useAtom } from 'jotai';
 import {
   cookTimeAtom,
@@ -14,9 +13,9 @@ import {
   recipeDataAtom,
 } from './atoms/recipeDataAtom';
 import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
-import { ErrorAlert } from '~/sharedComponents/ErrorAlert';
+import { ErrorAlert } from '~/sharedComponents/alerts/ErrorAlert';
 import { useRecipeValidator } from './hooks/useRecipeValidator';
-import { FeedbackError } from '~/sharedComponents/FeedbackError';
+import { FeedbackError } from '~/sharedComponents/forms/FeedbackError';
 import { LoadingSpinner } from '~/sharedComponents/LoadingSpinner';
 import { LoadingSpinnerWrapper } from './styled';
 import { useRouter } from '~/navigation/hooks/useRouter';
@@ -25,10 +24,15 @@ import { TimeInput } from '~/pages/RecipeEditor/TimeInput';
 import { ServingsInput } from '~/pages/RecipeEditor/ServingsInput';
 import { IngredientsInput } from '~/pages/RecipeEditor/IngredientsInput';
 import { InstructionsInput } from '~/pages/RecipeEditor/InstructionsInput';
-import { TagsInput } from '~/sharedComponents/TagsInput';
+import { TagsInput } from '~/pages/RecipeEditor/TagsInput';
 import { useResetAtom } from 'jotai/utils';
-import { FieldValidations } from '~/models/forms/FieldValidations';
 import { areValid } from '~/utils/forms/fieldValidationUtils';
+import { FormGroup } from '~/sharedComponents/forms/FormGroup';
+import { Form } from '~/sharedComponents/forms/Form';
+import { Label } from '~/sharedComponents/forms/Label';
+import { Input } from '~/sharedComponents/forms/Input';
+import { Button } from '~/sharedComponents/forms/Button';
+import type { FieldValidations } from '~/models/forms/FieldValidations';
 
 export const RecipeEditor: React.FC = () => {
   const { goToPage } = useRouter();
@@ -87,8 +91,9 @@ export const RecipeEditor: React.FC = () => {
           {isError && <ErrorAlert error={error} />}
 
           <Form>
+            {/* form group */}
             <FormGroup>
-              <Label for="title">Recipe Title *</Label>
+              <Label htmlFor="title">Recipe Title *</Label>
 
               <Input
                 id="title"
@@ -97,7 +102,7 @@ export const RecipeEditor: React.FC = () => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 autoComplete="off"
-                invalid={validations.title?.isValid === false}
+                // invalid={validations.title?.isValid === false}
                 required
               />
 
@@ -107,7 +112,7 @@ export const RecipeEditor: React.FC = () => {
             </FormGroup>
 
             <FormGroup>
-              <Label for="description">Description</Label>
+              <Label htmlFor="description">Description</Label>
 
               <Input
                 id="description"
@@ -124,12 +129,12 @@ export const RecipeEditor: React.FC = () => {
             </FormGroup>
 
             <FormGroup>
-              <Label for="notes">Notes</Label>
+              <Label htmlFor="notes">Notes</Label>
 
               <Input
                 id="notes"
                 type="textarea"
-                rows={4}
+                // rows={4}
                 placeholder="Any special tips or notes for this recipe..."
                 value={notes || ''}
                 onChange={(e) => setNotes(e.target.value || undefined)}
@@ -200,7 +205,7 @@ export const RecipeEditor: React.FC = () => {
             <div className="d-flex justify-content-between align-items-center mt-4">
               <Button
                 color="primary"
-                size="lg"
+                // size="lg"
                 onClick={handleCreateRecipeClick}
                 disabled={isPending}>
                 Create Recipe

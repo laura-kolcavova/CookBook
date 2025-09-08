@@ -1,4 +1,4 @@
-import { ValidationResult } from './ValidationResult';
+import type { ValidationResult } from './ValidationResult';
 
 export type FieldValidations = {
   [key in string]: ValidationResult;

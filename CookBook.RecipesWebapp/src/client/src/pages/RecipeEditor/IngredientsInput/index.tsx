@@ -1,8 +1,11 @@
 import React from 'react';
-import { Input, InputGroup, InputGroupText } from 'reactstrap';
+
 import { IngredientsContainer, IngredientItem, AddButton, RemoveButton } from './styled';
 import { FaPlus, FaTrash } from 'react-icons/fa6';
-import { IngredientItemData } from '~/pages/RecipeEditor/models/IngredientItemData';
+import type { IngredientItemData } from '~/pages/RecipeEditor/models/IngredientItemData';
+import { InputGroup } from '~/sharedComponents/forms/InputGroup';
+import { InputGroupText } from '~/sharedComponents/forms/InputGroupText';
+import { Input } from '~/sharedComponents/forms/Input';
 
 interface IngredientsInputProps {
   ingredients: IngredientItemData[];

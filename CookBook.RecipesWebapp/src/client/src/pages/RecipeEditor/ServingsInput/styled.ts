@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'reactstrap';
+import { Button } from '~/sharedComponents/forms/Button';
 
 export const ServingsContainer = styled.div`
   display: flex;

@@ -1,5 +1,5 @@
-import { ValidationResult } from '~/models/forms/ValidationResult';
-import { InstructionItemData } from '../models/InstructionItemData';
+import type { ValidationResult } from '~/models/forms/ValidationResult';
+import type { InstructionItemData } from '../models/InstructionItemData';
 
 export const validateRecipeInstruction = (
   recipeInstruction: InstructionItemData,

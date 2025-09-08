@@ -1,11 +1,17 @@
-import { Navbar, NavbarBrand } from 'reactstrap';
 import styled from 'styled-components';
 
-export const StyledNavbar = styled(Navbar)`
-  background-color: var(--navbar-background-color);
+export const StyledHeader = styled.header`
+  background-color: var(--header-background-color);
+  border-bottom: 1px solid var(--header-border-color);
 `;
 
-export const StyledNavBrand = styled(NavbarBrand)`
-  color: var(--navbrand-color) !important;
-  font-weight: 600;
+export const HeaderLogo = styled.div``;
+
+export const NavBar = styled.nav``;
+
+export const NavList = styled.ul`
+  list-style: none;
+  display: flex;
 `;
+
+export const NavItem = styled.li``;

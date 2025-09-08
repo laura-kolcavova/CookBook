@@ -1,21 +1,4 @@
-import { FC } from 'react';
-
-export type IPage = {
-  paths: string[];
-  component: FC;
-  public?: boolean;
-};
-
-export interface IParams {
-  [key: string]: string;
-}
-
-export interface IPageOptions {
-  params?: IParams;
-  reload?: boolean;
-  newTab?: boolean;
-  popup?: boolean;
-}
+import type { FC } from 'react';
 
 export enum Page {
   Home = 'Home',
@@ -31,6 +14,23 @@ export enum Page {
   RecipeDetail = 'RecipeDetail',
 }
 
-export type IPages = {
-  [key in Page]: IPage;
+export type PageDefinition = {
+  paths: string[];
+  component: FC;
+  public?: boolean;
+};
+
+export type PageDefinitionParams = {
+  [key: string]: string;
+};
+
+export type PageDefinitionOptions = {
+  params?: PageDefinitionParams;
+  reload?: boolean;
+  newTab?: boolean;
+  popup?: boolean;
+};
+
+export type PageDefinitions = {
+  [key in Page]: PageDefinition;
 };

@@ -1,13 +1,18 @@
 import React, { useContext, useState } from 'react';
-import { FormWrapper } from './styled';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Content } from './styled';
 import { Link } from 'react-router-dom';
 
 import { useRouter } from '../../navigation/hooks/useRouter';
 
 import { Pages } from '../../navigation/pages';
-import { LoginData } from './models/LoginData';
+
 import { UserIdentityContext } from '~/contexts/UserIdentityContext';
+import { Form } from '~/sharedComponents/forms/Form';
+import { FormGroup } from '~/sharedComponents/forms/FormGroup';
+import { Label } from '~/sharedComponents/forms/Label';
+import { Input } from '~/sharedComponents/forms/Input';
+import { Button } from '~/sharedComponents/forms/Button';
+import type { LoginData } from './models/LoginData';
 
 const EMPTY_LOGIN_DATA: LoginData = {
   email: '',
@@ -35,38 +40,42 @@ export const LogIn: React.FC = () => {
   };
 
   return (
-    <FormWrapper>
-      <Form>
-        <FormGroup>
-          <Label for="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            value={data.email}
-            onChange={handleEmailChange}
-            autoComplete="email"
-          />
-        </FormGroup>
+    <Content className="h-full">
+      <div className="container mx-auto">
+        <div className="flex flex-col justify-center items-center">
+          <Form>
+            <FormGroup>
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                value={data.email}
+                onChange={handleEmailChange}
+                autoComplete="email"
+              />
+            </FormGroup>
 
-        <FormGroup>
-          <Label for="password">Passowrd</Label>
-          <Input
-            id="passowrd"
-            name="passowrd"
-            type="password"
-            value={data.password}
-            onChange={handlePasswordChange}
-            autoComplete="current-password"
-          />
-        </FormGroup>
+            <FormGroup>
+              <Label htmlFor="password">Passowrd</Label>
+              <Input
+                id="passowrd"
+                name="passowrd"
+                type="password"
+                value={data.password}
+                onChange={handlePasswordChange}
+                autoComplete="current-password"
+              />
+            </FormGroup>
 
-        <Button onClick={handleSubmit}>Log In</Button>
-      </Form>
+            <Button onClick={handleSubmit}>Log In</Button>
+          </Form>
 
-      <div>
-        Need an account? <Link to={Pages.Register.paths[0]}>Register</Link>
+          <div>
+            Need an account? <Link to={Pages.Register.paths[0]}>Register</Link>
+          </div>
+        </div>
       </div>
-    </FormWrapper>
+    </Content>
   );
 };

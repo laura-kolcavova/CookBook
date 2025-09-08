@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
-import { ProblemDetails } from './ProblemDetails';
-import { ValidationProblem } from './ValidationProblem';
-import { ErrorCodeProblem } from './ErrorCodeProblem';
+import type { ProblemDetails } from './ProblemDetails';
+import type { ValidationProblem } from './ValidationProblem';
+import type { ErrorCodeProblem } from './ErrorCodeProblem';
 
 export type AxiosGenericError =
   | AxiosError

@@ -1,6 +1,7 @@
 import { useSetAtom } from 'jotai';
 import { useResetAtom } from 'jotai/utils';
-import React, { PropsWithChildren } from 'react';
+import { createContext, type PropsWithChildren } from 'react';
+
 import { userAtom } from '~/atoms/userAtom';
 
 interface IUserIdentityContext {
@@ -8,9 +9,7 @@ interface IUserIdentityContext {
   logout: () => void;
 }
 
-export const UserIdentityContext = React.createContext<IUserIdentityContext>(
-  {} as IUserIdentityContext,
-);
+export const UserIdentityContext = createContext<IUserIdentityContext>({} as IUserIdentityContext);
 
 export const UserIdentityContextProvider = ({ children }: PropsWithChildren) => {
   const setUser = useSetAtom(userAtom);

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Input } from 'reactstrap';
 import { ServingsContainer, ServingsInputGroup, ServingsButton } from './styled';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
+import { Input } from '~/sharedComponents/forms/Input';
 
 const MIN: number = 0;
 const MAX: number = 255;

@@ -1,25 +1,28 @@
 import React from 'react';
 import { FormWrapper } from './styled';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Form, Link } from 'react-router-dom';
 import { Pages } from '~/navigation/pages';
+import { FormGroup } from '~/sharedComponents/forms/FormGroup';
+import { Label } from '~/sharedComponents/forms/Label';
+import { Button } from '~/sharedComponents/forms/Button';
+import { Input } from '~/sharedComponents/forms/Input';
 
 export const Register: React.FC = () => {
   return (
     <FormWrapper>
       <Form>
         <FormGroup>
-          <Label for="email">Email</Label>
+          <Label htmlFor="email">Email</Label>
           <Input id="email" name="email" type="email" />
         </FormGroup>
 
         <FormGroup>
-          <Label for="display-name">Display name</Label>
+          <Label htmlFor="display-name">Display name</Label>
           <Input id="display-name" name="display-name" type="text" />
         </FormGroup>
 
         <FormGroup>
-          <Label for="password">Passowrd</Label>
+          <Label htmlFor="password">Passowrd</Label>
           <Input id="passowrd" name="passowrd" type="password" />
         </FormGroup>
 

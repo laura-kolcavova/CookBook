@@ -3,11 +3,11 @@ import { useAtomValue } from 'jotai';
 import { Navigate } from 'react-router-dom';
 import { userAtom } from '~/atoms/userAtom';
 
-import { IPage } from '~/navigation/models';
 import { Pages } from '~/navigation/pages';
+import type { PageDefinition } from '~/navigation/models';
 
 export type ProtectedRouteProps = {
-  page: IPage;
+  page: PageDefinition;
 };
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ page }) => {

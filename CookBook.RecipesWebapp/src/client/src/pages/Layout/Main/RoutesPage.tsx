@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
-import { IPage } from '~/navigation/models';
+import type { PageDefinition } from '~/navigation/models';
+
 import { Pages } from '~/navigation/pages';
 import { ProtectedRoute } from '~/sharedComponents/ProtectedRoute';
 import { PublicRoute } from '~/sharedComponents/PublicRoute';
 
 export const RoutesPage: React.FC = () => {
-  const getRouteElement = (page: IPage) => {
+  const getRouteElement = (page: PageDefinition) => {
     return page.public ? <PublicRoute page={page} /> : <ProtectedRoute page={page} />;
   };
 

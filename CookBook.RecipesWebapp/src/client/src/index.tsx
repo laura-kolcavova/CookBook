@@ -1,26 +1,15 @@
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import ReactDOM from 'react-dom/client';
 
-import ReactDOM from "react-dom/client";
+import './index.css';
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { App } from './App';
 
-import GlobalStyle from "./globalStyles";
-import { Layout } from "./pages/Layout";
+const container = document.getElementById('root');
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import { UserIdentityContextProvider } from "./contexts/UserIdentityContext";
+if (!container) {
+  throw new Error('Root container not found');
+}
 
-const queryClient = new QueryClient();
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(container);
 
-root.render(
-  <QueryClientProvider client={queryClient}>
-    <GlobalStyle />
-    <UserIdentityContextProvider>
-      <BrowserRouter>
-        <Layout />
-      </BrowserRouter>
-    </UserIdentityContextProvider>
-  </QueryClientProvider>
-);
+root.render(<App />);

@@ -1,97 +1,81 @@
 import React from 'react';
-import { Nav, NavItem } from 'reactstrap';
 
-import { FaBookmark, FaHouse, FaMagnifyingGlass, FaPlus, FaRegCircleUser } from 'react-icons/fa6';
+import { FaHouse, FaMagnifyingGlass, FaPlus, FaRegCircleUser } from 'react-icons/fa6';
 import { NavIconLink } from './NavIconLink';
 import { Pages } from '../../../navigation/pages';
-import { UserMenuItem } from './UserMenuItem';
 import { useRouter } from '~/navigation/hooks/useRouter';
-import { StyledNavbar, StyledNavBrand } from './styled';
+import { HeaderLogo, NavBar, NavItem, NavList, StyledHeader } from './styled';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '~/atoms/userAtom';
+import { Link } from 'react-router-dom';
+import { UserIconButton } from './UserIconButton';
 
 export const Header: React.FC = () => {
   const { isAuthenticated } = useAtomValue(userAtom);
 
-  const { goToPage, getActivePage } = useRouter();
+  const { getActivePage } = useRouter();
 
   const activePage = getActivePage();
 
   return (
-    <header>
-      <StyledNavbar sticky="top" container="lg">
-        <StyledNavBrand
-          onClick={() => {
-            goToPage(Pages.Home);
-          }}>
-          Cook Book Recipes
-        </StyledNavBrand>
+    <StyledHeader>
+      <div className="container mx-auto flex items-center justify-between min-h-32">
+        <HeaderLogo>
+          <Link to={Pages.Home.paths[0]}>
+            <img src="/logo.png" alt="CookBook" className="h-32" />
+          </Link>
+        </HeaderLogo>
 
-        <Nav className="ms-auto">
-          <NavItem>
-            <NavIconLink
-              text="Home"
-              icon={<FaHouse />}
-              onClick={() => {
-                goToPage(Pages.Home);
-              }}
-              isActive={activePage === Pages.Home}
-            />
-          </NavItem>
-
-          <NavItem>
-            <NavIconLink
-              text="Explore"
-              icon={<FaMagnifyingGlass />}
-              onClick={() => {
-                goToPage(Pages.Explore);
-              }}
-              isActive={activePage === Pages.Explore}
-            />
-          </NavItem>
-
-          {isAuthenticated && (
+        <NavBar>
+          <NavList>
             <NavItem>
               <NavIconLink
-                text="Add a recipe"
-                icon={<FaPlus />}
-                onClick={() => {
-                  goToPage(Pages.AddRecipe);
-                }}
-                isActive={activePage === Pages.AddRecipe}
+                text="Home"
+                icon={<FaHouse />}
+                to={Pages.Home.paths[0]}
+                isActive={activePage === Pages.Home}
               />
             </NavItem>
-          )}
 
-          {isAuthenticated && (
             <NavItem>
               <NavIconLink
-                text="Saved"
-                icon={<FaBookmark />}
-                onClick={() => {
-                  goToPage(Pages.Saved);
-                }}
-                isActive={activePage === Pages.Saved}
+                text="Explore"
+                icon={<FaMagnifyingGlass />}
+                to={Pages.Explore.paths[0]}
+                isActive={activePage === Pages.Explore}
               />
             </NavItem>
-          )}
 
-          {!isAuthenticated && (
-            <NavItem>
-              <NavIconLink
-                text="Log In"
-                icon={<FaRegCircleUser />}
-                onClick={() => {
-                  goToPage(Pages.LogIn);
-                }}
-                isActive={activePage === Pages.LogIn}
-              />
-            </NavItem>
-          )}
+            {isAuthenticated && (
+              <NavItem>
+                <NavIconLink
+                  text="Add a recipe"
+                  icon={<FaPlus />}
+                  to={Pages.AddRecipe.paths[0]}
+                  isActive={activePage === Pages.AddRecipe}
+                />
+              </NavItem>
+            )}
 
-          {isAuthenticated && <UserMenuItem />}
-        </Nav>
-      </StyledNavbar>
-    </header>
+            {!isAuthenticated && (
+              <NavItem>
+                <NavIconLink
+                  text="Log In"
+                  icon={<FaRegCircleUser />}
+                  to={Pages.LogIn.paths[0]}
+                  isActive={activePage === Pages.LogIn}
+                />
+              </NavItem>
+            )}
+
+            {isAuthenticated && (
+              <NavItem>
+                <UserIconButton />
+              </NavItem>
+            )}
+          </NavList>
+        </NavBar>
+      </div>
+    </StyledHeader>
   );
 };

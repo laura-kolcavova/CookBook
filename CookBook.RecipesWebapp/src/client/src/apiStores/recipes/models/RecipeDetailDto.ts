@@ -1,5 +1,5 @@
-import { RecipeDetailIngredientDto } from './RecipeDetailIngredientDto';
-import { RecipeDetailInstructionDto } from './RecipeDetailInstructionDto';
+import type { RecipeDetailIngredientDto } from './RecipeDetailIngredientDto';
+import type { RecipeDetailInstructionDto } from './RecipeDetailInstructionDto';
 
 export type RecipeDetailDto = {
   id: number;

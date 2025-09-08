@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { Input } from 'reactstrap';
 import {
   TimeButton,
   TimeInputContainer,
@@ -9,6 +8,8 @@ import {
 } from './styled';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { getTimeParts, getTotalMinutes } from '~/utils/timeHelper';
+import { Input } from '~/sharedComponents/forms/Input';
+import { Label } from '~/sharedComponents/forms/Label';
 
 interface TimeInputProps {
   valueInMinutes: number;
@@ -73,7 +74,7 @@ export const TimeInput: React.FC<TimeInputProps> = ({ valueInMinutes, onChange, 
 
   return (
     <TimeInputContainer>
-      <label>{label}</label>
+      <Label>{label}</Label>
 
       <TimeInputGroupContainer>
         <TimeInputGroup>

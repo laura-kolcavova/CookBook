@@ -1,5 +1,6 @@
-import { Button, InputGroupText } from 'reactstrap';
 import styled from 'styled-components';
+import { Button } from '~/sharedComponents/forms/Button';
+import { InputGroupText } from '~/sharedComponents/forms/InputGroupText';
 
 export const TimeInputContainer = styled.div`
   display: flex;

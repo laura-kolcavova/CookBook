@@ -1,9 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IPage, IPageOptions } from '../models';
+
 import { constructParams, getPageUrl } from '../../utils/navigationHelpers';
 import { combineUrls } from '../../utils/urlHelpers';
 import { useCallback } from 'react';
 import { Pages } from '../pages';
+import type { PageDefinition, PageDefinitionOptions } from '../models';
 
 export const useRouter = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export const useRouter = () => {
   const { pathname } = useLocation();
 
   const goToPage = useCallback(
-    (page: IPage, options?: IPageOptions) => {
+    (page: PageDefinition, options?: PageDefinitionOptions) => {
       const pageUrl = getPageUrl(page, options?.params);
 
       if (options?.newTab) {

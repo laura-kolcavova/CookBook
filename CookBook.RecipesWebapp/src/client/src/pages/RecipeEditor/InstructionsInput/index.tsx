@@ -1,8 +1,15 @@
 import React from 'react';
-import { Input, InputGroup, InputGroupText } from 'reactstrap';
-import { InstructionsContainer, InstructionItem, AddButton, RemoveButton } from './styled';
+import {
+  InstructionsContainer,
+  InstructionItem,
+  AddButton,
+  RemoveButton,
+  StyledInputGroupText,
+  StyledTextArea,
+} from './styled';
 import { FaPlus, FaTrash } from 'react-icons/fa6';
-import { InstructionItemData } from '~/pages/RecipeEditor/models/InstructionItemData';
+import type { InstructionItemData } from '~/pages/RecipeEditor/models/InstructionItemData';
+import { InputGroup } from '~/sharedComponents/forms/InputGroup';
 
 interface InstructionsInputProps {
   instructions: InstructionItemData[];
@@ -46,14 +53,16 @@ export const InstructionsInput: React.FC<InstructionsInputProps> = ({
       {instructions.map((instruction, index) => (
         <InstructionItem key={index}>
           <InputGroup>
-            <InputGroupText>{index + 1}</InputGroupText>
-            <Input
+            <StyledInputGroupText>{index + 1}.</StyledInputGroupText>
+
+            <StyledTextArea
               type="textarea"
-              rows={2}
+              // rows={2}
               placeholder="Describe this step in detail..."
               value={instruction.note}
               onChange={(e) => updateInstruction(index, e.target.value)}
             />
+
             <RemoveButton
               type="button"
               color="outline-danger"

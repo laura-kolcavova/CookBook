@@ -1,4 +1,4 @@
-import { Claim } from './claim';
+import type { Claim } from './claim';
 
 export type User = {
   isAuthenticated: boolean;

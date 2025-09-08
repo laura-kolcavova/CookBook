@@ -1,9 +1,9 @@
-import { IPage, IParams } from '../navigation/models';
+import type { PageDefinition, PageDefinitionParams } from '~/navigation/models';
 
-export const constructParams = (path: string, params?: IParams) =>
+export const constructParams = (path: string, params?: PageDefinitionParams) =>
   params ? `${path}?${new URLSearchParams(params).toString()}` : path;
 
-export const replaceParams = (path: string, params?: IParams) => {
+export const replaceParams = (path: string, params?: PageDefinitionParams) => {
   let pathToGo = path;
 
   if (params) {
@@ -15,4 +15,5 @@ export const replaceParams = (path: string, params?: IParams) => {
   return pathToGo;
 };
 
-export const getPageUrl = (page: IPage, params?: IParams) => replaceParams(page.paths[0], params);
+export const getPageUrl = (page: PageDefinition, params?: PageDefinitionParams) =>
+  replaceParams(page.paths[0], params);

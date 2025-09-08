@@ -1,46 +1,7 @@
 {
-  "compilerOptions": {
-    "target": "es2016",
-    "module": "esnext",
-    "types": ["vite/client"],
-    "lib": [
-      "es6",
-      "dom",
-      "es2016.array.include",
-      "es2017.object",
-      "esnext.asynciterable",
-      "es7",
-      "es2019"
-    ],
-    "noEmit": true,
-    "allowJs": false,
-    "checkJs": false,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "strictFunctionTypes": false,
-    "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
-    "strict": true,
-    "strictNullChecks": false,
-    "moduleResolution": "node",
-    "jsx": "react",
-    "rootDirs": ["src"],
-    "baseUrl": ".",
-    "noImplicitAny": true,
-    "paths": {
-      "~": ["./src"],
-      "~/*": ["./src/*"]
-    }
-  },
-  "include": [
-    "./src/**/*",
-    "vite.config.ts",
-    "jest.config.ts",
-    "eslint.config.js",
-    "prettierrc.cjs"
-  ],
-  "exclude": ["./build", "./lib", "./**/__tests__/**", "./**/*.test.*", "./**/*.spec.*"],
-  "files": ["./src/images.d.ts"]
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }

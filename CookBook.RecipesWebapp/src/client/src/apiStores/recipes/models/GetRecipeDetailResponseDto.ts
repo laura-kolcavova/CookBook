@@ -1,4 +1,4 @@
-import { RecipeDetailDto } from './RecipeDetailDto';
+import type { RecipeDetailDto } from './RecipeDetailDto';
 
 export type GetRecipeDetailResponseDto = {
   recipeDetail: RecipeDetailDto;
