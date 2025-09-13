@@ -28,10 +28,6 @@ export const TextWrapper = styled.span`
   text-align: center;
 `;
 
-export const Dropdown = styled.div`
-  position: relative;
-`;
-
 type DropdownMenuProps = {
   isOpen: boolean;
 };

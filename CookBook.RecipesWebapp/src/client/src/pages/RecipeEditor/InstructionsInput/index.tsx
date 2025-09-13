@@ -9,7 +9,6 @@ import {
 } from './styled';
 import { FaPlus, FaTrash } from 'react-icons/fa6';
 import type { InstructionItemData } from '~/pages/RecipeEditor/models/InstructionItemData';
-import { InputGroup } from '~/sharedComponents/forms/InputGroup';
 
 interface InstructionsInputProps {
   instructions: InstructionItemData[];
@@ -52,7 +51,7 @@ export const InstructionsInput: React.FC<InstructionsInputProps> = ({
 
       {instructions.map((instruction, index) => (
         <InstructionItem key={index}>
-          <InputGroup>
+          <div>
             <StyledInputGroupText>{index + 1}.</StyledInputGroupText>
 
             <StyledTextArea
@@ -69,7 +68,7 @@ export const InstructionsInput: React.FC<InstructionsInputProps> = ({
               onClick={() => removeInstruction(index)}>
               <FaTrash />
             </RemoveButton>
-          </InputGroup>
+          </div>
         </InstructionItem>
       ))}
 

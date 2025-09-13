@@ -27,12 +27,10 @@ import { InstructionsInput } from '~/pages/RecipeEditor/InstructionsInput';
 import { TagsInput } from '~/pages/RecipeEditor/TagsInput';
 import { useResetAtom } from 'jotai/utils';
 import { areValid } from '~/utils/forms/fieldValidationUtils';
-import { FormGroup } from '~/sharedComponents/forms/FormGroup';
-import { Form } from '~/sharedComponents/forms/Form';
-import { Label } from '~/sharedComponents/forms/Label';
-import { Input } from '~/sharedComponents/forms/Input';
-import { Button } from '~/sharedComponents/forms/Button';
+import { Button } from '~/sharedComponents/Button';
 import type { FieldValidations } from '~/models/forms/FieldValidations';
+import { FormLabel } from '~/sharedComponents/forms/FormLabel';
+import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
 
 export const RecipeEditor: React.FC = () => {
   const { goToPage } = useRouter();
@@ -90,12 +88,11 @@ export const RecipeEditor: React.FC = () => {
         <>
           {isError && <ErrorAlert error={error} />}
 
-          <Form>
-            {/* form group */}
-            <FormGroup>
-              <Label htmlFor="title">Recipe Title *</Label>
+          <form>
+            <div>
+              <FormLabel htmlFor="title">Recipe Title *</FormLabel>
 
-              <Input
+              <FormTextInput
                 id="title"
                 type="text"
                 placeholder="Give your recipe a name"
@@ -109,12 +106,12 @@ export const RecipeEditor: React.FC = () => {
               {validations.title?.errorMessage && (
                 <FeedbackError message={validations.title.errorMessage} />
               )}
-            </FormGroup>
+            </div>
 
-            <FormGroup>
-              <Label htmlFor="description">Description</Label>
+            <div>
+              <FormLabel htmlFor="description">Description</FormLabel>
 
-              <Input
+              <FormTextInput
                 id="description"
                 type="text"
                 placeholder="Introduce your recipe"
@@ -126,12 +123,12 @@ export const RecipeEditor: React.FC = () => {
               {validations.description?.errorMessage && (
                 <FeedbackError message={validations.description.errorMessage} />
               )}
-            </FormGroup>
+            </div>
 
-            <FormGroup>
-              <Label htmlFor="notes">Notes</Label>
+            <div>
+              <FormLabel htmlFor="notes">Notes</FormLabel>
 
-              <Input
+              <FormTextInput
                 id="notes"
                 type="textarea"
                 // rows={4}
@@ -144,17 +141,17 @@ export const RecipeEditor: React.FC = () => {
               {validations.notes?.errorMessage && (
                 <FeedbackError message={validations.notes.errorMessage} />
               )}
-            </FormGroup>
+            </div>
 
-            <FormGroup>
+            <div>
               <ServingsInput value={servings} onChange={setServings} label="Number of Servings" />
 
               {validations.servings?.errorMessage && (
                 <FeedbackError message={validations.servings.errorMessage} />
               )}
-            </FormGroup>
+            </div>
 
-            <FormGroup>
+            <div>
               <TimeInput
                 valueInMinutes={preparationTime}
                 onChange={setPreparationTime}
@@ -164,17 +161,17 @@ export const RecipeEditor: React.FC = () => {
               {validations.preparationTime?.errorMessage && (
                 <FeedbackError message={validations.preparationTime.errorMessage} />
               )}
-            </FormGroup>
+            </div>
 
-            <FormGroup>
+            <div>
               <TimeInput valueInMinutes={cookTime} onChange={setCookTime} label="Cooking Time" />
 
               {validations.cookTime?.errorMessage && (
                 <FeedbackError message={validations.cookTime.errorMessage} />
               )}
-            </FormGroup>
+            </div>
 
-            <FormGroup>
+            <div>
               <IngredientsInput
                 ingredients={ingredients}
                 onChange={setIngredients}
@@ -184,9 +181,9 @@ export const RecipeEditor: React.FC = () => {
               {validations.ingredients?.errorMessage && (
                 <FeedbackError message={validations.ingredients.errorMessage} />
               )}
-            </FormGroup>
+            </div>
 
-            <FormGroup>
+            <div>
               <InstructionsInput
                 instructions={instructions}
                 onChange={setInstructions}
@@ -196,11 +193,11 @@ export const RecipeEditor: React.FC = () => {
               {validations.instructions?.errorMessage && (
                 <FeedbackError message={validations.instructions.errorMessage} />
               )}
-            </FormGroup>
+            </div>
 
-            <FormGroup>
+            <div>
               <TagsInput value={tags} onChange={setTags} label="Tags" />
-            </FormGroup>
+            </div>
 
             <div className="d-flex justify-content-between align-items-center mt-4">
               <Button
@@ -211,7 +208,7 @@ export const RecipeEditor: React.FC = () => {
                 Create Recipe
               </Button>
             </div>
-          </Form>
+          </form>
         </>
       )}
     </>

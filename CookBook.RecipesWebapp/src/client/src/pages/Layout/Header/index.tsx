@@ -4,7 +4,6 @@ import { FaHouse, FaMagnifyingGlass, FaPlus, FaRegCircleUser } from 'react-icons
 import { NavIconLink } from './NavIconLink';
 import { Pages } from '../../../navigation/pages';
 import { useRouter } from '~/navigation/hooks/useRouter';
-import { HeaderLogo, NavBar, NavItem, NavList, StyledHeader } from './styled';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '~/atoms/userAtom';
 import { Link } from 'react-router-dom';
@@ -18,64 +17,64 @@ export const Header: React.FC = () => {
   const activePage = getActivePage();
 
   return (
-    <StyledHeader>
+    <header className="header-background-color border-b border-solid header-border-color">
       <div className="container mx-auto flex items-center justify-between min-h-32">
-        <HeaderLogo>
+        <div>
           <Link to={Pages.Home.paths[0]}>
             <img src="/logo.png" alt="CookBook" className="h-32" />
           </Link>
-        </HeaderLogo>
+        </div>
 
-        <NavBar>
-          <NavList>
-            <NavItem>
+        <nav>
+          <ul className="flex list-none">
+            <li>
               <NavIconLink
                 text="Home"
                 icon={<FaHouse />}
                 to={Pages.Home.paths[0]}
                 isActive={activePage === Pages.Home}
               />
-            </NavItem>
+            </li>
 
-            <NavItem>
+            <li>
               <NavIconLink
                 text="Explore"
                 icon={<FaMagnifyingGlass />}
                 to={Pages.Explore.paths[0]}
                 isActive={activePage === Pages.Explore}
               />
-            </NavItem>
+            </li>
 
             {isAuthenticated && (
-              <NavItem>
+              <li>
                 <NavIconLink
                   text="Add a recipe"
                   icon={<FaPlus />}
                   to={Pages.AddRecipe.paths[0]}
                   isActive={activePage === Pages.AddRecipe}
                 />
-              </NavItem>
+              </li>
             )}
 
             {!isAuthenticated && (
-              <NavItem>
+              <li>
                 <NavIconLink
                   text="Log In"
                   icon={<FaRegCircleUser />}
                   to={Pages.LogIn.paths[0]}
                   isActive={activePage === Pages.LogIn}
                 />
-              </NavItem>
+              </li>
             )}
 
             {isAuthenticated && (
-              <NavItem>
+              <li>
                 <UserIconButton />
-              </NavItem>
+              </li>
             )}
-          </NavList>
-        </NavBar>
+          </ul>
+        </nav>
       </div>
-    </StyledHeader>
+    </header>
   );
 };

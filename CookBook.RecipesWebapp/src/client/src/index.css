@@ -1,13 +1,19 @@
 @import 'tailwindcss';
 
 :root {
-  --background-color: #fff;
+  --page-background-color: #fff;
 
-  --content-background-color-primary: #f7fafc;
-  --content-background-color-secondary: #fff;
-  --content-background-color-tertiary: #f4ebe6;
+  --text-color-primary: #323d47;
 
-  --text-primary-color: #323d47;
+  --button-background-color-primary: #2b3b35;
+  --button-background-color-primary-hover: #ad775c;
+  --button-color-primary: #fff;
+
+  --link-color: #ad775c;
+
+  --navlink-color: #757575;
+  --navlink-color-hover: #555;
+  --navlink-color-active: #555;
 
   --header-background-color: #fff;
   --header-border-color: #f4ebe6;
@@ -16,11 +22,14 @@
   --footer-border-color: #1f1f20;
   --footer-text-color: #f7f9f8;
 
-  --navlink-color: #757575;
-  --navlink-color-hover: #555;
-  --navlink-color-active: #555;
+  --content-background-color-primary: #f7fafc;
+  --content-background-color-secondary: #f4ebe6;
+  --content-background-color-tertiary: #fff;
 
   --form-label-color: #757575;
+
+  --form-text-input-background-color: #fff;
+  --form-text-input-color: #23223a;
 }
 
 body {
@@ -43,4 +52,80 @@ body,
 #root {
   display: flex;
   flex-direction: column;
+}
+
+/* page */
+
+.page-background-color {
+  background-color: var(--page-background-color);
+}
+
+/* button */
+
+.button-background-color-primary {
+  background-color: var(--button-background-color-primary);
+}
+
+.button-background-color-primary-hover:hover {
+  background-color: var(--button-background-color-primary-hover);
+}
+
+.button-color-primary {
+  color: var(--button-color-primary);
+}
+
+/* link */
+
+.link-color {
+  color: var(--link-color);
+}
+
+/* header */
+
+.header-background-color {
+  background-color: var(--header-background-color);
+}
+
+.header-border-color {
+  border-color: var(--header-border-color);
+}
+
+/* navlink */
+.navlink-color {
+  color: var(--navlink-color);
+}
+
+.navlink-color-active {
+  color: var(--navlink-color-active);
+}
+
+.navlink-color-hover:hover {
+  color: var(--navlink-color-hover);
+}
+
+/* content */
+.content-background-color-primary {
+  background-color: var(--content-background-color-primary);
+}
+
+.content-background-color-secondary {
+  background-color: var(--content-background-color-secondary);
+}
+
+.content-background-color-tertiary {
+  background-color: var(--content-background-color-tertiary);
+}
+
+/* form-label */
+.form-label-color {
+  color: var(--form-label-color);
+}
+
+/* form-text-input */
+.form-text-input-background-color {
+  background-color: var(--form-text-input-background-color);
+}
+
+.form-text-input-color {
+  color: var(--form-text-input-color);
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ServingsContainer, ServingsInputGroup, ServingsButton } from './styled';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
-import { Input } from '~/sharedComponents/forms/Input';
+import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
 
 const MIN: number = 0;
 const MAX: number = 255;
@@ -45,7 +45,7 @@ export const ServingsInput: React.FC<ServingsInputProps> = ({ value, onChange, l
           <FaMinus />
         </ServingsButton>
 
-        <Input
+        <FormTextInput
           type="number"
           min={MIN}
           max={MAX}

@@ -1,6 +1,5 @@
 import React, { type JSX } from 'react';
-
-import { IconWrapper, NavLink, TextWrapper } from './styled';
+import { Link } from 'react-router-dom';
 
 type NavIconLinkProps = {
   text: string;
@@ -11,10 +10,17 @@ type NavIconLinkProps = {
 };
 
 export const NavIconLink: React.FC<NavIconLinkProps> = ({ text, icon, to, onClick, isActive }) => {
+  const color = isActive ? 'navlink-color-active' : 'navlink-color';
+
   return (
-    <NavLink to={to} onClick={onClick} isActive={isActive ?? false}>
-      <IconWrapper>{icon}</IconWrapper>
-      <TextWrapper>{text}</TextWrapper>
-    </NavLink>
+    <Link
+      to={to}
+      onClick={onClick}
+      className={`py-1 px-6 flex flex-col justify-center items-center transition-colors duration-150
+        ${color}
+        navlink-color-hover`}>
+      <span className="mb-1">{icon}</span>
+      <span className="text-center">{text}</span>
+    </Link>
   );
 };

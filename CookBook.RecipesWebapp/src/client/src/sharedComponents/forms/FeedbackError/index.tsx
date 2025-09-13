@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyledDiv } from './styled';
 
-interface IFeedbackErrorProps {
+type FeedbackErrorProps = {
   message: string;
-}
+};
 
-export const FeedbackError: React.FC<IFeedbackErrorProps> = ({ message }) => {
-  return <StyledDiv>{message}</StyledDiv>;
+export const FeedbackError: React.FC<FeedbackErrorProps> = ({ message }) => {
+  return <div className="w-full mt-1 text-sm text-red-600">{message}</div>;
 };

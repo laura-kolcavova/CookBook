@@ -1,37 +1,42 @@
 import React from 'react';
-import { FormWrapper } from './styled';
-import { Form, Link } from 'react-router-dom';
 import { Pages } from '~/navigation/pages';
-import { FormGroup } from '~/sharedComponents/forms/FormGroup';
-import { Label } from '~/sharedComponents/forms/Label';
-import { Button } from '~/sharedComponents/forms/Button';
-import { Input } from '~/sharedComponents/forms/Input';
+import { FormLabel } from '~/sharedComponents/forms/FormLabel';
+import { Button } from '~/sharedComponents/Button';
+import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
+import { StyledLink } from '~/sharedComponents/StyledLink';
 
 export const Register: React.FC = () => {
   return (
-    <FormWrapper>
-      <Form>
-        <FormGroup>
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" name="email" type="email" />
-        </FormGroup>
+    <div className="content-background-color-primary">
+      <div className="container mx-auto flex flex-col justify-center items-center py-20">
+        <form className="mb-12">
+          <div className="mb-6">
+            <FormLabel htmlFor="email">Email</FormLabel>
 
-        <FormGroup>
-          <Label htmlFor="display-name">Display name</Label>
-          <Input id="display-name" name="display-name" type="text" />
-        </FormGroup>
+            <FormTextInput id="email" name="email" type="email" />
+          </div>
 
-        <FormGroup>
-          <Label htmlFor="password">Passowrd</Label>
-          <Input id="passowrd" name="passowrd" type="password" />
-        </FormGroup>
+          <div className="mb-6">
+            <FormLabel htmlFor="display-name">Display name</FormLabel>
 
-        <Button onClick={() => {}}>Register</Button>
-      </Form>
+            <FormTextInput id="display-name" name="display-name" type="text" />
+          </div>
 
-      <div>
-        Already have an account? <Link to={Pages.LogIn.paths[0]}>Log In</Link>
+          <div className="mb-6">
+            <FormLabel htmlFor="password">Passowrd</FormLabel>
+
+            <FormTextInput id="passowrd" name="passowrd" type="password" />
+          </div>
+
+          <Button className="w-full" onClick={() => {}}>
+            Register
+          </Button>
+        </form>
+
+        <div>
+          Already have an account? <StyledLink to={Pages.LogIn.paths[0]}>Log In</StyledLink>
+        </div>
       </div>
-    </FormWrapper>
+    </div>
   );
 };

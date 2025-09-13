@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import { TagsContainer, TagsInputGroup, Tag, TagsPresets } from './styled';
 import { FaXmark, FaPlus } from 'react-icons/fa6';
-import { Input } from '~/sharedComponents/forms/Input';
-import { Button } from '~/sharedComponents/forms/Button';
+import { Button } from '~/sharedComponents/Button';
+import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
 
 interface TagsInputProps {
   value: string[];
@@ -45,7 +45,7 @@ export const TagsInput: React.FC<TagsInputProps> = ({ value, onChange, label, pr
       <label>{label}</label>
 
       <TagsInputGroup>
-        <Input
+        <FormTextInput
           type="text"
           placeholder="Type a tag and press Enter..."
           value={inputValue}

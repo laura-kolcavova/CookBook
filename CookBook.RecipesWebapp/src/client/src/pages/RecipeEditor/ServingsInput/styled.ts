@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from '~/sharedComponents/forms/Button';
+import { Button } from '~/sharedComponents/Button';
 
 export const ServingsContainer = styled.div`
   display: flex;

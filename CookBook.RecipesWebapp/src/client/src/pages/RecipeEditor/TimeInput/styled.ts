@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { Button } from '~/sharedComponents/forms/Button';
-import { InputGroupText } from '~/sharedComponents/forms/InputGroupText';
+import { Button } from '~/sharedComponents/Button';
 
 export const TimeInputContainer = styled.div`
   display: flex;
@@ -30,7 +29,7 @@ export const TimeInputGroup = styled.div`
   }
 `;
 
-export const TimeInputGroupText = styled(InputGroupText)`
+export const TimeInputGroupText = styled.div`
   height: 2.5rem;
   background-color: #f8f9fa;
   border-color: #dee2e6;

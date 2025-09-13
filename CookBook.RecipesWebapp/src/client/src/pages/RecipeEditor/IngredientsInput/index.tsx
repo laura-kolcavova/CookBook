@@ -3,9 +3,7 @@ import React from 'react';
 import { IngredientsContainer, IngredientItem, AddButton, RemoveButton } from './styled';
 import { FaPlus, FaTrash } from 'react-icons/fa6';
 import type { IngredientItemData } from '~/pages/RecipeEditor/models/IngredientItemData';
-import { InputGroup } from '~/sharedComponents/forms/InputGroup';
-import { InputGroupText } from '~/sharedComponents/forms/InputGroupText';
-import { Input } from '~/sharedComponents/forms/Input';
+import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
 
 interface IngredientsInputProps {
   ingredients: IngredientItemData[];
@@ -48,9 +46,9 @@ export const IngredientsInput: React.FC<IngredientsInputProps> = ({
 
       {ingredients.map((ingredient, index) => (
         <IngredientItem key={index}>
-          <InputGroup>
-            <InputGroupText>{index + 1}.</InputGroupText>
-            <Input
+          <div>
+            <div>{index + 1}.</div>
+            <FormTextInput
               type="text"
               placeholder="e.g., 2 cups flour, 1 tsp salt..."
               value={ingredient.note}
@@ -62,7 +60,7 @@ export const IngredientsInput: React.FC<IngredientsInputProps> = ({
               onClick={() => removeIngredient(index)}>
               <FaTrash />
             </RemoveButton>
-          </InputGroup>
+          </div>
         </IngredientItem>
       ))}
 

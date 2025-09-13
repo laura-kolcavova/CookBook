@@ -8,8 +8,8 @@ import {
 } from './styled';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { getTimeParts, getTotalMinutes } from '~/utils/timeHelper';
-import { Input } from '~/sharedComponents/forms/Input';
-import { Label } from '~/sharedComponents/forms/Label';
+import { FormLabel } from '~/sharedComponents/forms/FormLabel';
+import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
 
 interface TimeInputProps {
   valueInMinutes: number;
@@ -74,7 +74,7 @@ export const TimeInput: React.FC<TimeInputProps> = ({ valueInMinutes, onChange, 
 
   return (
     <TimeInputContainer>
-      <Label>{label}</Label>
+      <FormLabel>{label}</FormLabel>
 
       <TimeInputGroupContainer>
         <TimeInputGroup>
@@ -86,7 +86,7 @@ export const TimeInput: React.FC<TimeInputProps> = ({ valueInMinutes, onChange, 
             <FaMinus />
           </TimeButton>
 
-          <Input
+          <FormTextInput
             type="number"
             min={HOURS_MIN}
             max={HOURS_MAX}
@@ -114,7 +114,7 @@ export const TimeInput: React.FC<TimeInputProps> = ({ valueInMinutes, onChange, 
             <FaMinus />
           </TimeButton>
 
-          <Input
+          <FormTextInput
             type="number"
             min={MINUTES_MIN}
             max={MINUTES_MAX}

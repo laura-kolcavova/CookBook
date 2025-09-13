@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { Button } from '~/sharedComponents/forms/Button';
-import { Input } from '~/sharedComponents/forms/Input';
-import { InputGroupText } from '~/sharedComponents/forms/InputGroupText';
+import { Button } from '~/sharedComponents/Button';
+import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
 
 export const InstructionsContainer = styled.div`
   display: flex;
@@ -38,11 +37,11 @@ export const AddButton = styled(Button)`
   }
 `;
 
-export const StyledInputGroupText = styled(InputGroupText)`
+export const StyledInputGroupText = styled.div`
   align-items: center !important;
 `;
 
-export const StyledTextArea = styled(Input)`
+export const StyledTextArea = styled(FormTextInput)`
   resize: none;
 `;
 

@@ -1,18 +1,16 @@
 import React, { useContext, useState } from 'react';
-import { Content } from './styled';
-import { Link } from 'react-router-dom';
 
 import { useRouter } from '../../navigation/hooks/useRouter';
 
 import { Pages } from '../../navigation/pages';
 
 import { UserIdentityContext } from '~/contexts/UserIdentityContext';
-import { Form } from '~/sharedComponents/forms/Form';
-import { FormGroup } from '~/sharedComponents/forms/FormGroup';
-import { Label } from '~/sharedComponents/forms/Label';
-import { Input } from '~/sharedComponents/forms/Input';
-import { Button } from '~/sharedComponents/forms/Button';
+
+import { Button } from '~/sharedComponents/Button';
 import type { LoginData } from './models/LoginData';
+import { FormLabel } from '~/sharedComponents/forms/FormLabel';
+import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
+import { StyledLink } from '~/sharedComponents/StyledLink';
 
 const EMPTY_LOGIN_DATA: LoginData = {
   email: '',
@@ -40,42 +38,46 @@ export const LogIn: React.FC = () => {
   };
 
   return (
-    <Content className="h-full">
-      <div className="container mx-auto">
-        <div className="flex flex-col justify-center items-center">
-          <Form>
-            <FormGroup>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                value={data.email}
-                onChange={handleEmailChange}
-                autoComplete="email"
-              />
-            </FormGroup>
+    <div className="content-background-color-primary">
+      <div className="container mx-auto flex flex-col justify-center items-center py-20">
+        <form className="mb-12">
+          <div className="mb-6">
+            <FormLabel htmlFor="email">Email</FormLabel>
 
-            <FormGroup>
-              <Label htmlFor="password">Passowrd</Label>
-              <Input
-                id="passowrd"
-                name="passowrd"
-                type="password"
-                value={data.password}
-                onChange={handlePasswordChange}
-                autoComplete="current-password"
-              />
-            </FormGroup>
+            <FormTextInput
+              id="email"
+              name="email"
+              type="email"
+              value={data.email}
+              onChange={handleEmailChange}
+              autoComplete="email"
+            />
+          </div>
 
-            <Button onClick={handleSubmit}>Log In</Button>
-          </Form>
+          <div className="mb-6">
+            <FormLabel htmlFor="password">Passowrd</FormLabel>
+
+            <FormTextInput
+              id="passowrd"
+              name="passowrd"
+              type="password"
+              value={data.password}
+              onChange={handlePasswordChange}
+              autoComplete="current-password"
+            />
+          </div>
 
           <div>
-            Need an account? <Link to={Pages.Register.paths[0]}>Register</Link>
+            <Button className="w-full" onClick={handleSubmit}>
+              Log In
+            </Button>
           </div>
+        </form>
+
+        <div>
+          Need an account? <StyledLink to={Pages.Register.paths[0]}>Register</StyledLink>
         </div>
       </div>
-    </Content>
+    </div>
   );
 };
