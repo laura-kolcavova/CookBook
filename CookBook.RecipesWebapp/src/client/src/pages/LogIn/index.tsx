@@ -39,8 +39,8 @@ export const LogIn: React.FC = () => {
 
   return (
     <div className="content-background-color-primary">
-      <div className="container mx-auto flex flex-col justify-center items-center py-20">
-        <form className="mb-12">
+      <div className="container mx-auto flex flex-col justify-center items-center py-10">
+        <form className="w-full max-w-xs mb-12">
           <div className="mb-6">
             <FormLabel htmlFor="email">Email</FormLabel>
 
