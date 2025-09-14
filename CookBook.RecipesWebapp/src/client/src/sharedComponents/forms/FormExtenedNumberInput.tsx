@@ -1,18 +1,6 @@
 import React from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 
-export const TimeInputGroupText: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
-  children,
-  className = '',
-  ...props
-}) => (
-  <div
-    className={`h-10 bg-[#f8f9fa] border border-[#dee2e6] text-[#6c757d] text-sm flex justify-center items-center rounded-none ${className}`}
-    {...props}>
-    {children}
-  </div>
-);
-
 export type FormExtendedNumberInputProps = {
   value: number;
   min: number;

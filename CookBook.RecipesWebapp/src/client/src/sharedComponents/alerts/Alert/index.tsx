@@ -40,7 +40,7 @@ export const Alert: React.FC<AlertProps> = ({ color, children, isDismissible = t
   }
 
   return (
-    <div className={`p-4 border-l-4 rounded relative ${alertStyles}`}>
+    <div className={`p-4 border-l-4 rounded relative mb-4 ${alertStyles}`}>
       {children}
       {isDismissible && (
         <button

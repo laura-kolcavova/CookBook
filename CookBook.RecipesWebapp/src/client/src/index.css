@@ -11,6 +11,11 @@
   --button-background-color-primary-hover: #ad775c;
   --button-color-primary: #fff;
 
+  --button-background-color-secondary: #ad775c;
+  --button-background-color-secondary-disabled: #e2d6cf;
+  --button-background-color-secondary-hover: #c88a6b;
+  --button-color-secondary: #fff;
+
   --link-color: #ad775c;
 
   --navlink-color: #757575;
@@ -83,6 +88,22 @@ body,
 
 .button-color-primary {
   color: var(--button-color-primary);
+}
+
+.button-background-color-secondary {
+  background-color: var(--button-background-color-secondary);
+}
+
+.button-background-color-secondary-hover:hover {
+  background-color: var(--button-background-color-secondary-hover);
+}
+
+.button-background-color-secondary-disabled:disabled {
+  background-color: var(--button-background-color-secondary-disabled);
+}
+
+.button-color-secondary {
+  color: var(--button-color-secondary);
 }
 
 /* link */

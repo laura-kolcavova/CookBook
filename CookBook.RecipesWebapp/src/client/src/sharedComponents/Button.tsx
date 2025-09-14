@@ -11,7 +11,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const variantStyles =
     variant === 'primary'
-      ? 'button-background-color-primary button-background-color-primary-hover button-color-primary'
+      ? 'button-background-color-primary button-background-color-primary-hover button-color-primary button-background-color-primary-disabled'
       : '';
 
   return (

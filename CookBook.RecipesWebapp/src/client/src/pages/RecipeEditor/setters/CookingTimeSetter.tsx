@@ -4,7 +4,7 @@ import { getTimeParts, getTotalMinutes } from '~/utils/timeHelper';
 import { FormLabel } from '~/sharedComponents/forms/FormLabel';
 import { useAtom } from 'jotai';
 import { FormExtendedNumberInput } from '~/sharedComponents/forms/FormExtenedNumberInput';
-import { cookTimeAtom } from './atoms/recipeDataAtom';
+import { cookTimeAtom } from '../atoms/recipeDataAtom';
 
 const MINUTES_MIN = 0;
 const MINUTES_MAX = 59;

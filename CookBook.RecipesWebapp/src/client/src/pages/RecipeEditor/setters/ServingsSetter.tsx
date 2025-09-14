@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import React from 'react';
 import { FormLabel } from '~/sharedComponents/forms/FormLabel';
 import { FormExtendedNumberInput } from '~/sharedComponents/forms/FormExtenedNumberInput';
-import { servingsAtom } from './atoms/recipeDataAtom';
+import { servingsAtom } from '../atoms/recipeDataAtom';
 
 const MIN: number = 0;
 const MAX: number = 255;
@@ -26,9 +26,7 @@ export const ServingsSetter: React.FC = () => {
       />
 
       <div className="mt-1">
-        <small className="text-muted">
-          {servings === 1 ? '1 portion' : `${servings} portions`}
-        </small>
+        <small>{servings === 1 ? '1 portion' : `${servings} portions`}</small>
       </div>
     </>
   );
