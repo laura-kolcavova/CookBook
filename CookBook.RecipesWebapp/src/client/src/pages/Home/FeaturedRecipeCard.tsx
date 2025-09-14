@@ -12,8 +12,8 @@ export const FeaturedRecipeCard: React.FC<FeaturedRecipeProps> = ({ recipe }) =>
 
   return (
     <div key={recipe.id} className="border rounded-lg hover:shadow-lg transition-shadow">
-      <Link to={`/recipes/${recipe.id}`} className="p-4 flex flex-col items-start">
-        <div className="w-full h-50 flex items-center justify-center mb-3 bg-gray-100 rounded overflow-hidden">
+      <Link to={`/recipes/${recipe.id}`} className="block">
+        <div className=" w-full h-50 rounded-tl-lg rounded-tr-lg flex items-center justify-center bg-gray-100 rounded overflow-hidden">
           {imgError ? (
             <span className="flex flex-col items-center justify-center w-full h-full text-gray-400">
               <FaRegCircleXmark size="2.5rem" />
@@ -31,8 +31,10 @@ export const FeaturedRecipeCard: React.FC<FeaturedRecipeProps> = ({ recipe }) =>
           )}
         </div>
 
-        <h3 className="text-lg font-bold mb-2">{recipe.title}</h3>
-        <p className="text-gray-600 mb-4">{recipe.description}</p>
+        <div className="p-4">
+          <h3 className="text-lg font-bold mb-2">{recipe.title}</h3>
+          <p className="text-color-secondary">{recipe.description}</p>
+        </div>
       </Link>
     </div>
   );

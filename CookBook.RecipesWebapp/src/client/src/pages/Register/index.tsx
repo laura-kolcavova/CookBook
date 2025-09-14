@@ -8,7 +8,7 @@ import { StyledLink } from '~/sharedComponents/StyledLink';
 export const Register: React.FC = () => {
   return (
     <div className="content-background-color-primary">
-      <div className="container mx-auto flex flex-col justify-center items-center py-10">
+      <div className="container mx-auto py-10 flex flex-col items-center justify-center">
         <form className="w-full max-w-xs mb-12">
           <div className="mb-6">
             <FormLabel htmlFor="email">Email</FormLabel>
@@ -22,7 +22,7 @@ export const Register: React.FC = () => {
             <FormTextInput id="display-name" name="display-name" type="text" />
           </div>
 
-          <div className="mb-6">
+          <div className="mb-12">
             <FormLabel htmlFor="password">Passowrd</FormLabel>
 
             <FormTextInput id="passowrd" name="passowrd" type="password" />
