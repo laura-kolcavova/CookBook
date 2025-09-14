@@ -16,6 +16,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      type="button"
       className={`px-3 py-2 rounded-md text-base font-normal transition-colors duration-150 cursor-pointer ${variantStyles} ${className}`}
       {...props}
     />

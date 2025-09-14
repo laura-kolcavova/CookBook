@@ -41,19 +41,20 @@ export const IngredientsSetter: React.FC = () => {
 
       <div className="mb-4">
         {ingredients.map((ingredient, index) => (
-          <div key={index} className="flex flex-row item-center gap-2 mb-4">
-            <div className="flex flex-col justify-center">
+          <div key={index} className="flex flex-row items-center gap-2 mb-4">
+            <div className="flex flex-col justify-center h-10">
               <span className="text-base">{index + 1}.</span>
             </div>
 
             <FormTextInput
               type="text"
+              className="h-10"
               placeholder="e.g., 2 cups flour, 1 tsp salt..."
               value={ingredient.note}
               onChange={(e) => updateIngredient(index, e.target.value)}
             />
 
-            <Button onClick={() => removeIngredient(index)}>
+            <Button className="h-10" onClick={() => removeIngredient(index)}>
               <FaTrash size="0.875rem" />
             </Button>
           </div>

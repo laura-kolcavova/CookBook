@@ -35,12 +35,12 @@ export const FormExtendedNumberInput: React.FC<FormExtendedNumberInputProps> = (
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex flex-row items-center">
       <button
         onClick={handleDecrement}
         disabled={value <= min}
         className="h-10 px-3 rounded-tl-md rounded-bl-md text-base font-normal transition-colors duration-150 cursor-pointer button-background-color-primary button-background-color-primary-hover button-color-primary">
-        <FaMinus size="0.75rem" />
+        <FaMinus size="0.875rem" />
       </button>
 
       <div className="flex flex-row items-center outline-1 outline-gray-300 mx-[1px] ">
@@ -64,7 +64,7 @@ export const FormExtendedNumberInput: React.FC<FormExtendedNumberInputProps> = (
         onClick={handleIncrement}
         disabled={value >= max}
         className="h-10 px-3 rounded-tr-md rounded-br-md text-base font-normal transition-colors duration-150 cursor-pointer button-background-color-primary button-background-color-primary-hover button-color-primary">
-        <FaPlus size="0.75rem" />
+        <FaPlus size="0.875rem" />
       </button>
     </div>
   );

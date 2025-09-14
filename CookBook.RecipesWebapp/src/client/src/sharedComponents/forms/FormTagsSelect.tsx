@@ -48,7 +48,7 @@ export const FormTagsSelect: React.FC<FormTagsSelectProps> = ({ tags, onChange }
         />
 
         <Button onClick={() => addTag(inputValue)} disabled={!inputValue.trim()}>
-          <FaPlus />
+          <FaPlus size="0.875rem" />
         </Button>
       </div>
 

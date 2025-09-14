@@ -138,7 +138,11 @@ export const RecipeEditor: React.FC = () => {
               </div>
 
               <div>
-                <Button color="primary" onClick={handleCreateRecipeClick} disabled={isPending}>
+                <Button
+                  type="submit"
+                  color="primary"
+                  onClick={handleCreateRecipeClick}
+                  disabled={isPending}>
                   Create Recipe
                 </Button>
               </div>
