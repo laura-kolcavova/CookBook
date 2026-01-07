@@ -1,5 +1,5 @@
-import { IngredientItemData } from './IngredientItemData';
-import { InstructionItemData } from './InstructionItemData';
+import type { IngredientItemData } from './IngredientItemData';
+import type { InstructionItemData } from './InstructionItemData';
 
 export type RecipeData = {
   recipeId?: number;

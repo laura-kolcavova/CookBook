@@ -1,6 +1,6 @@
 import { atomWithStorage, createJSONStorage } from 'jotai/utils';
+import type { User } from '~/authentication/accounts/user';
 import { LOCAL_STORAGE_USER } from '~/constants';
-import { User } from '~/models/accounts/user';
 
 const storage = createJSONStorage<User>(() => localStorage);
 

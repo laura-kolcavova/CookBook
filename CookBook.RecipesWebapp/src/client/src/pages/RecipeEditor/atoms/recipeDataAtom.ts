@@ -1,5 +1,5 @@
 import { atomWithReset } from 'jotai/utils';
-import { RecipeData } from '../models/RecipeData';
+import type { RecipeData } from '../models/RecipeData';
 import { focusAtom } from 'jotai-optics';
 
 export const EMPTY_RECIPE_DATA: RecipeData = {

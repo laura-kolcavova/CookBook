@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
-import { FormWrapper } from './styled';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
-import { Link } from 'react-router-dom';
-
-import { useRouter } from '../../navigation/hooks/useRouter';
+import React, { useState } from 'react';
 
 import { Pages } from '../../navigation/pages';
+import { useUserIdentity } from '~/authentication/UserIdentityProvider';
 import { LoginData } from './models/LoginData';
-import { UserIdentityContext } from '~/contexts/UserIdentityContext';
+import { useNavigate } from 'react-router-dom';
+import { FormTextInput } from '../shared/forms/FormTextInput';
+import { FormLabel } from '../shared/forms/FormLabel';
+import { Button } from '../shared/Button';
+import { StyledLink } from '../shared/StyledLink';
 
 const EMPTY_LOGIN_DATA: LoginData = {
   email: '',
@@ -15,15 +15,16 @@ const EMPTY_LOGIN_DATA: LoginData = {
 };
 
 export const LogIn: React.FC = () => {
-  const { login } = useContext(UserIdentityContext);
+  const { login } = useUserIdentity();
 
-  const { goToPage } = useRouter();
+  const navigate = useNavigate();
 
   const [data, setData] = useState<LoginData>(EMPTY_LOGIN_DATA);
 
   const handleSubmit = async () => {
     await login(data.email, data.password);
-    goToPage(Pages.Home);
+
+    navigate(Pages.Home.paths[0]);
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,38 +36,46 @@ export const LogIn: React.FC = () => {
   };
 
   return (
-    <FormWrapper>
-      <Form>
-        <FormGroup>
-          <Label for="email">Email</Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            value={data.email}
-            onChange={handleEmailChange}
-            autoComplete="email"
-          />
-        </FormGroup>
+    <div className="content-background-color-primary">
+      <div className="container mx-auto py-10 flex flex-col items-center justify-center">
+        <form className="w-full max-w-xs mb-12">
+          <div className="mb-6">
+            <FormLabel htmlFor="email">Email</FormLabel>
 
-        <FormGroup>
-          <Label for="password">Passowrd</Label>
-          <Input
-            id="passowrd"
-            name="passowrd"
-            type="password"
-            value={data.password}
-            onChange={handlePasswordChange}
-            autoComplete="current-password"
-          />
-        </FormGroup>
+            <FormTextInput
+              id="email"
+              name="email"
+              type="email"
+              value={data.email}
+              onChange={handleEmailChange}
+              autoComplete="email"
+            />
+          </div>
 
-        <Button onClick={handleSubmit}>Log In</Button>
-      </Form>
+          <div className="mb-12">
+            <FormLabel htmlFor="password">Passowrd</FormLabel>
 
-      <div>
-        Need an account? <Link to={Pages.Register.paths[0]}>Register</Link>
+            <FormTextInput
+              id="passowrd"
+              name="passowrd"
+              type="password"
+              value={data.password}
+              onChange={handlePasswordChange}
+              autoComplete="current-password"
+            />
+          </div>
+
+          <div>
+            <Button className="w-full" onClick={handleSubmit}>
+              Log In
+            </Button>
+          </div>
+        </form>
+
+        <div>
+          Need an account? <StyledLink to={Pages.Register.paths[0]}>Register</StyledLink>
+        </div>
       </div>
-    </FormWrapper>
+    </div>
   );
 };

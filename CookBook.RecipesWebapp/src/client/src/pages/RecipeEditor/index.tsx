@@ -1,47 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
-import { useAtom } from 'jotai';
-import {
-  cookTimeAtom,
-  descriptionAtom,
-  notesAtom,
-  preparationTimeAtom,
-  servingsAtom,
-  titleAtom,
-  ingredientsAtom,
-  instructionsAtom,
-  tagsAtom,
-  recipeDataAtom,
-} from './atoms/recipeDataAtom';
+import { recipeDataAtom } from './atoms/recipeDataAtom';
 import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
-import { ErrorAlert } from '~/sharedComponents/ErrorAlert';
 import { useRecipeValidator } from './hooks/useRecipeValidator';
-import { FeedbackError } from '~/sharedComponents/FeedbackError';
-import { LoadingSpinner } from '~/sharedComponents/LoadingSpinner';
-import { LoadingSpinnerWrapper } from './styled';
-import { useRouter } from '~/navigation/hooks/useRouter';
 import { Pages } from '~/navigation/pages';
-import { TimeInput } from '~/pages/RecipeEditor/TimeInput';
-import { ServingsInput } from '~/pages/RecipeEditor/ServingsInput';
-import { IngredientsInput } from '~/pages/RecipeEditor/IngredientsInput';
-import { InstructionsInput } from '~/pages/RecipeEditor/InstructionsInput';
-import { TagsInput } from '~/sharedComponents/TagsInput';
+import { PreparationTimeSetter } from '~/pages/RecipeEditor/setters/PreparationTimeSetter';
+import { InstructionsSetter } from '~/pages/RecipeEditor/setters/InstructionsSetter';
 import { useResetAtom } from 'jotai/utils';
-import { FieldValidations } from '~/models/forms/FieldValidations';
 import { areValid } from '~/utils/forms/fieldValidationUtils';
+import { ServingsSetter } from './setters/ServingsSetter';
+import { CookTimeSetter } from './setters/CookingTimeSetter';
+import { TagsSetter } from './setters/TagsSetters';
+import { TitleSetter } from './setters/TitleSetter';
+import { DescriptionSetter } from './setters/DescriptionSetter';
+import { NotesSetter } from './setters/NotesSetter';
+import { IngredientsSetter } from './setters/IngredientsSetter';
+import { useNavigate } from 'react-router-dom';
+import { FieldValidations } from '~/forms/FieldValidations';
+import { LoadingSpinner } from '../shared/LoadingSpinner';
+import { ErrorAlert } from '../shared/alerts/ErrorAlert';
+import { FeedbackError } from '../shared/forms/FeedbackError';
+import { Button } from '../shared/Button';
 
 export const RecipeEditor: React.FC = () => {
-  const { goToPage } = useRouter();
-
-  const [title, setTitle] = useAtom(titleAtom);
-  const [description, setDescription] = useAtom(descriptionAtom);
-  const [notes, setNotes] = useAtom(notesAtom);
-  const [servings, setServings] = useAtom(servingsAtom);
-  const [preparationTime, setPreparationTime] = useAtom(preparationTimeAtom);
-  const [cookTime, setCookTime] = useAtom(cookTimeAtom);
-  const [ingredients, setIngredients] = useAtom(ingredientsAtom);
-  const [instructions, setInstructions] = useAtom(instructionsAtom);
-  const [tags, setTags] = useAtom(tagsAtom);
+  const navigate = useNavigate();
 
   const resetRecipeData = useResetAtom(recipeDataAtom);
 
@@ -55,11 +36,14 @@ export const RecipeEditor: React.FC = () => {
     if (isSuccess && data) {
       resetRecipeData();
 
-      goToPage(Pages.RecipeDetail, {
-        params: { recipeId: data.recipeId.toString() },
-      });
+      const recipeDetailPath = Pages.RecipeDetail.paths[0].replace(
+        ':recipeId',
+        data.recipeId.toString(),
+      );
+
+      navigate(recipeDetailPath);
     }
-  }, [isSuccess, data, goToPage, resetRecipeData]);
+  }, [isSuccess, data, resetRecipeData, navigate]);
 
   const handleCreateRecipeClick = () => {
     const validationResults = validate();
@@ -75,140 +59,100 @@ export const RecipeEditor: React.FC = () => {
   };
 
   return (
-    <>
-      <h2>Add Recipe</h2>
+    <div className="content-background-color-primary">
+      <div className="container mx-auto py-10 ">
+        <h2 className="text-2xl font-semibold mb-6">Add Recipe</h2>
 
-      {isPending ? (
-        <LoadingSpinnerWrapper>
-          <LoadingSpinner />
-        </LoadingSpinnerWrapper>
-      ) : (
-        <>
-          {isError && <ErrorAlert error={error} />}
+        {isPending ? (
+          <div className="flex items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <>
+            {isError && <ErrorAlert error={error} />}
 
-          <Form>
-            <FormGroup>
-              <Label for="title">Recipe Title *</Label>
+            <form className="w-full max-w-3xl">
+              <div className="mb-6">
+                <TitleSetter />
 
-              <Input
-                id="title"
-                type="text"
-                placeholder="Give your recipe a name"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                autoComplete="off"
-                invalid={validations.title?.isValid === false}
-                required
-              />
+                {validations.title?.errorMessage && (
+                  <FeedbackError message={validations.title.errorMessage} />
+                )}
+              </div>
 
-              {validations.title?.errorMessage && (
-                <FeedbackError message={validations.title.errorMessage} />
-              )}
-            </FormGroup>
+              <div className="mb-6">
+                <DescriptionSetter />
 
-            <FormGroup>
-              <Label for="description">Description</Label>
+                {validations.description?.errorMessage && (
+                  <FeedbackError message={validations.description.errorMessage} />
+                )}
+              </div>
 
-              <Input
-                id="description"
-                type="text"
-                placeholder="Introduce your recipe"
-                value={description || ''}
-                onChange={(e) => setDescription(e.target.value || undefined)}
-                autoComplete="off"
-              />
+              <div className="mb-6">
+                <NotesSetter />
 
-              {validations.description?.errorMessage && (
-                <FeedbackError message={validations.description.errorMessage} />
-              )}
-            </FormGroup>
+                {validations.notes?.errorMessage && (
+                  <FeedbackError message={validations.notes.errorMessage} />
+                )}
+              </div>
 
-            <FormGroup>
-              <Label for="notes">Notes</Label>
+              <div className="mb-6">
+                <ServingsSetter />
 
-              <Input
-                id="notes"
-                type="textarea"
-                rows={4}
-                placeholder="Any special tips or notes for this recipe..."
-                value={notes || ''}
-                onChange={(e) => setNotes(e.target.value || undefined)}
-                autoComplete="off"
-              />
+                {validations.servings?.errorMessage && (
+                  <FeedbackError message={validations.servings.errorMessage} />
+                )}
+              </div>
 
-              {validations.notes?.errorMessage && (
-                <FeedbackError message={validations.notes.errorMessage} />
-              )}
-            </FormGroup>
+              <div className="mb-6">
+                <PreparationTimeSetter />
 
-            <FormGroup>
-              <ServingsInput value={servings} onChange={setServings} label="Number of Servings" />
+                {validations.preparationTime?.errorMessage && (
+                  <FeedbackError message={validations.preparationTime.errorMessage} />
+                )}
+              </div>
 
-              {validations.servings?.errorMessage && (
-                <FeedbackError message={validations.servings.errorMessage} />
-              )}
-            </FormGroup>
+              <div className="mb-6">
+                <CookTimeSetter />
 
-            <FormGroup>
-              <TimeInput
-                valueInMinutes={preparationTime}
-                onChange={setPreparationTime}
-                label="Preparation Time"
-              />
+                {validations.cookTime?.errorMessage && (
+                  <FeedbackError message={validations.cookTime.errorMessage} />
+                )}
+              </div>
 
-              {validations.preparationTime?.errorMessage && (
-                <FeedbackError message={validations.preparationTime.errorMessage} />
-              )}
-            </FormGroup>
+              <div className="mb-6">
+                <IngredientsSetter />
 
-            <FormGroup>
-              <TimeInput valueInMinutes={cookTime} onChange={setCookTime} label="Cooking Time" />
+                {validations.ingredients?.errorMessage && (
+                  <FeedbackError message={validations.ingredients.errorMessage} />
+                )}
+              </div>
 
-              {validations.cookTime?.errorMessage && (
-                <FeedbackError message={validations.cookTime.errorMessage} />
-              )}
-            </FormGroup>
+              <div className="mb-6">
+                <InstructionsSetter />
 
-            <FormGroup>
-              <IngredientsInput
-                ingredients={ingredients}
-                onChange={setIngredients}
-                label="Ingredients"
-              />
+                {validations.instructions?.errorMessage && (
+                  <FeedbackError message={validations.instructions.errorMessage} />
+                )}
+              </div>
 
-              {validations.ingredients?.errorMessage && (
-                <FeedbackError message={validations.ingredients.errorMessage} />
-              )}
-            </FormGroup>
+              <div className="mb-12">
+                <TagsSetter />
+              </div>
 
-            <FormGroup>
-              <InstructionsInput
-                instructions={instructions}
-                onChange={setInstructions}
-                label="Instructions"
-              />
-
-              {validations.instructions?.errorMessage && (
-                <FeedbackError message={validations.instructions.errorMessage} />
-              )}
-            </FormGroup>
-
-            <FormGroup>
-              <TagsInput value={tags} onChange={setTags} label="Tags" />
-            </FormGroup>
-
-            <div className="d-flex justify-content-between align-items-center mt-4">
-              <Button
-                color="primary"
-                size="lg"
-                onClick={handleCreateRecipeClick}
-                disabled={isPending}>
-                Create Recipe
-              </Button>
-            </div>
-          </Form>
-        </>
-      )}
-    </>
+              <div>
+                <Button
+                  type="submit"
+                  color="primary"
+                  onClick={handleCreateRecipeClick}
+                  disabled={isPending}>
+                  Create Recipe
+                </Button>
+              </div>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
   );
 };

@@ -95,7 +95,7 @@ public sealed class RecipeAggregate :
     }
 
     public void SaveIngredients(
-        IEnumerable<SaveIngredientItem> saveIngredientItems)
+        IEnumerable<SaveIngredientItemParams> saveIngredientItems)
     {
         var recipeIngredients = new List<RecipeIngredientEntity>();
 
@@ -120,7 +120,7 @@ public sealed class RecipeAggregate :
     }
 
     public void SaveInstructions(
-        IEnumerable<SaveInstructionItem> saveInstructionItems)
+        IEnumerable<SaveInstructionItemParams> saveInstructionItems)
     {
         var recipeInstructions = new List<RecipeInstructionEntity>();
 
@@ -155,7 +155,7 @@ public sealed class RecipeAggregate :
     }
 
     private RecipeIngredientEntity CreateOrUpdateIngredient(
-        SaveIngredientItem saveIngredientItem,
+        SaveIngredientItemParams saveIngredientItem,
         short orderIndex,
         ref int lastLocalId)
     {
@@ -185,7 +185,7 @@ public sealed class RecipeAggregate :
     }
 
     private RecipeInstructionEntity CreateOrUpdateInstruction(
-         SaveInstructionItem saveInstructionItem,
+         SaveInstructionItemParams saveInstructionItem,
          short orderIndex,
          ref int lastLocalId)
     {

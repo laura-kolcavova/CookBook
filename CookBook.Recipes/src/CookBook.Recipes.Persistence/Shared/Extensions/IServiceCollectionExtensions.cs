@@ -1,4 +1,4 @@
-﻿using CookBook.Recipes.Application.Recipes.Services;
+﻿using CookBook.Recipes.Domain.Recipes.Services;
 using CookBook.Recipes.Persistence.Recipes;
 using CookBook.Recipes.Persistence.Recipes.Services;
 using CookBook.Recipes.Persistence.Shared.Interceptors;
@@ -8,32 +8,24 @@ namespace CookBook.Recipes.Persistence.Shared.Extensions;
 
 public static class IServiceCollectionExtensions
 {
-    public static IServiceCollection AddDataAccess(
-        this IServiceCollection services,
-        string cookBookRecipesConnectionString)
-    {
-        services
-            .AddHealthChecks()
-            .AddSqlServer(
-                cookBookRecipesConnectionString,
-                name: "CookBookRecipes_DB",
-                tags: new[]
-                {
-                    "readiness"
-                });
-
-        return services;
-    }
-
     public static IServiceCollection AddPersistence(
         this IServiceCollection services,
-        string connectionString,
+        string cookBookRecipesConnectionString,
         bool isDevelopment)
     {
+        services
+           .AddHealthChecks()
+           .AddSqlServer(
+               cookBookRecipesConnectionString,
+               name: "CookBookRecipes_DB",
+               tags: new[]
+               {
+                    "readiness"
+               });
 
         services
             .AddRecipes(
-                connectionString,
+                cookBookRecipesConnectionString,
                 isDevelopment);
 
         services

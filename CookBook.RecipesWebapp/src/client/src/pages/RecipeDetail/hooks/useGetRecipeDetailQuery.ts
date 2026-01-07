@@ -1,8 +1,7 @@
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
-
-import { GetRecipeDetailResponseDto } from '~/apiStores/recipes/models/GetRecipeDetailResponseDto';
-import { AxiosGenericError } from '~/models/errors/AxiosGenericError';
+import { useQuery, type UseQueryResult } from '@tanstack/react-query';
+import type { GetRecipeDetailResponseDto } from '~/apiStores/recipes/models/GetRecipeDetailResponseDto';
 import RecipesService from '~/apiStores/recipes/recipesService';
+import type { AxiosGenericError } from '~/models/errors/AxiosGenericError';
 
 export const useRecipeDetailQuery = (
   recipeId: number,

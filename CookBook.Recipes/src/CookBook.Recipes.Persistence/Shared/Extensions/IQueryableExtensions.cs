@@ -1,4 +1,4 @@
-﻿using CookBook.Recipes.Application.Common.Sorting;
+﻿using CookBook.Recipes.Domain.Shared.Sorting;
 using System.Linq.Dynamic.Core;
 using System.Text;
 

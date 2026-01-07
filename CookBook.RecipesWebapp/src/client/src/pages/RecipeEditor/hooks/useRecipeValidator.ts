@@ -11,7 +11,6 @@ import {
   instructionsAtom,
 } from '../atoms/recipeDataAtom';
 
-import { FieldValidations } from '~/models/forms/FieldValidations';
 import { validateRecipeTitle } from '../utils/recipeTitleValidator';
 import { validateRecipeDescription } from '../utils/recipeDescriptionValidator';
 import { validateRecipeServings } from '../utils/recipeServingsValidator';
@@ -20,6 +19,7 @@ import { validateRecipeCookTime } from '../utils/recipeCookTimeValidator';
 import { validateRecipeNotes } from '../utils/recipeNotesValidator';
 import { validateRecipeIngredients } from '../utils/recipeIngredientValidator';
 import { validateRecipeInstructions } from '../utils/recipeInstructionValidator';
+import type { FieldValidations } from '~/models/forms/FieldValidations';
 
 export const useRecipeValidator = () => {
   const title = useAtomValue(titleAtom);

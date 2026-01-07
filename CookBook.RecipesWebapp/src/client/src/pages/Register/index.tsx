@@ -1,34 +1,42 @@
 import React from 'react';
-import { FormWrapper } from './styled';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import { Pages } from '~/navigation/pages';
+import { FormLabel } from '../shared/forms/FormLabel';
+import { FormTextInput } from '../shared/forms/FormTextInput';
+import { Button } from '../shared/Button';
+import { StyledLink } from '../shared/StyledLink';
 
 export const Register: React.FC = () => {
   return (
-    <FormWrapper>
-      <Form>
-        <FormGroup>
-          <Label for="email">Email</Label>
-          <Input id="email" name="email" type="email" />
-        </FormGroup>
+    <div className="content-background-color-primary">
+      <div className="container mx-auto py-10 flex flex-col items-center justify-center">
+        <form className="w-full max-w-xs mb-12">
+          <div className="mb-6">
+            <FormLabel htmlFor="email">Email</FormLabel>
 
-        <FormGroup>
-          <Label for="display-name">Display name</Label>
-          <Input id="display-name" name="display-name" type="text" />
-        </FormGroup>
+            <FormTextInput id="email" name="email" type="email" />
+          </div>
 
-        <FormGroup>
-          <Label for="password">Passowrd</Label>
-          <Input id="passowrd" name="passowrd" type="password" />
-        </FormGroup>
+          <div className="mb-6">
+            <FormLabel htmlFor="display-name">Display name</FormLabel>
 
-        <Button onClick={() => {}}>Register</Button>
-      </Form>
+            <FormTextInput id="display-name" name="display-name" type="text" />
+          </div>
 
-      <div>
-        Already have an account? <Link to={Pages.LogIn.paths[0]}>Log In</Link>
+          <div className="mb-12">
+            <FormLabel htmlFor="password">Passowrd</FormLabel>
+
+            <FormTextInput id="passowrd" name="passowrd" type="password" />
+          </div>
+
+          <Button className="w-full" onClick={() => {}}>
+            Register
+          </Button>
+        </form>
+
+        <div>
+          Already have an account? <StyledLink to={Pages.LogIn.paths[0]}>Log In</StyledLink>
+        </div>
       </div>
-    </FormWrapper>
+    </div>
   );
 };
