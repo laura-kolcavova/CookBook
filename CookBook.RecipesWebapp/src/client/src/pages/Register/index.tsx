@@ -1,9 +1,9 @@
 import React from 'react';
 import { Pages } from '~/navigation/pages';
-import { FormLabel } from '~/sharedComponents/forms/FormLabel';
-import { Button } from '~/sharedComponents/Button';
-import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
-import { StyledLink } from '~/sharedComponents/StyledLink';
+import { FormLabel } from '../shared/forms/FormLabel';
+import { FormTextInput } from '../shared/forms/FormTextInput';
+import { Button } from '../shared/Button';
+import { StyledLink } from '../shared/StyledLink';
 
 export const Register: React.FC = () => {
   return (

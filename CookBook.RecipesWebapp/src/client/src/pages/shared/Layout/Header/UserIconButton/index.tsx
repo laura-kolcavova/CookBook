@@ -1,14 +1,16 @@
-import React, { useContext, useState, useRef, useEffect } from 'react';
-import { Pages } from '../../../../navigation/pages';
-import { UserIdentityContext } from '~/authentication/UserIdentityProvider';
+import React, { useState, useRef, useEffect } from 'react';
+import { useUserIdentity } from '~/authentication/UserIdentityProvider';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '~/atoms/userAtom';
 import { FaRegCircleUser } from 'react-icons/fa6';
-import { useRouter } from '~/navigation/hooks/useRouter';
+import { useNavigate } from 'react-router-dom';
+import { Pages } from '~/navigation/pages';
 
 export const UserIconButton: React.FC = () => {
-  const { logout } = useContext(UserIdentityContext);
-  const { goToPage } = useRouter();
+  const { logout } = useUserIdentity();
+
+  const navigate = useNavigate();
+
   const { nameClaimType } = useAtomValue(userAtom);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -53,7 +55,7 @@ export const UserIconButton: React.FC = () => {
         <button
           className="w-full text-left py-2 px-4 leading-6 cursor-pointer navlink-color navlink-color-hover"
           onClick={() => {
-            goToPage(Pages.MyProfile);
+            navigate(Pages.MyProfile.paths[0]);
             setIsOpen(false);
           }}>
           My profile

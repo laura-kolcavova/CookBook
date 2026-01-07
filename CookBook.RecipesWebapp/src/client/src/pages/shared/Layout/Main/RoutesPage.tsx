@@ -4,8 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import type { PageDefinition } from '~/navigation/models';
 
 import { Pages } from '~/navigation/pages';
-import { ProtectedRoute } from '~/sharedComponents/ProtectedRoute';
-import { PublicRoute } from '~/sharedComponents/PublicRoute';
+import { PublicRoute } from '../../PublicRoute';
+import { ProtectedRoute } from '../../ProtectedRoute';
 
 export const RoutesPage: React.FC = () => {
   const getRouteElement = (page: PageDefinition) => {

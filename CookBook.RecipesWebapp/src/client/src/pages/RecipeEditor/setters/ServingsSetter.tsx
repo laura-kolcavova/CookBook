@@ -1,8 +1,8 @@
 import { useAtom } from 'jotai';
 import React from 'react';
-import { FormLabel } from '~/sharedComponents/forms/FormLabel';
-import { FormExtendedNumberInput } from '~/sharedComponents/forms/FormExtenedNumberInput';
 import { servingsAtom } from '../atoms/recipeDataAtom';
+import { FormExtendedNumberInput } from '~/pages/shared/forms/FormExtenedNumberInput';
+import { FormLabel } from '~/pages/shared/forms/FormLabel';
 
 const MIN: number = 0;
 const MAX: number = 255;

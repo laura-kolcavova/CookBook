@@ -1,16 +1,13 @@
-import React, { useContext, useState } from 'react';
-
-import { useRouter } from '../../navigation/hooks/useRouter';
+import React, { useState } from 'react';
 
 import { Pages } from '../../navigation/pages';
-
-import { UserIdentityContext } from '~/authentication/UserIdentityProvider';
-
-import { Button } from '~/sharedComponents/Button';
-import type { LoginData } from './models/LoginData';
-import { FormLabel } from '~/sharedComponents/forms/FormLabel';
-import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
-import { StyledLink } from '~/sharedComponents/StyledLink';
+import { useUserIdentity } from '~/authentication/UserIdentityProvider';
+import { LoginData } from './models/LoginData';
+import { useNavigate } from 'react-router-dom';
+import { FormTextInput } from '../shared/forms/FormTextInput';
+import { FormLabel } from '../shared/forms/FormLabel';
+import { Button } from '../shared/Button';
+import { StyledLink } from '../shared/StyledLink';
 
 const EMPTY_LOGIN_DATA: LoginData = {
   email: '',
@@ -18,15 +15,16 @@ const EMPTY_LOGIN_DATA: LoginData = {
 };
 
 export const LogIn: React.FC = () => {
-  const { login } = useContext(UserIdentityContext);
+  const { login } = useUserIdentity();
 
-  const { goToPage } = useRouter();
+  const navigate = useNavigate();
 
   const [data, setData] = useState<LoginData>(EMPTY_LOGIN_DATA);
 
   const handleSubmit = async () => {
     await login(data.email, data.password);
-    goToPage(Pages.Home);
+
+    navigate(Pages.Home.paths[0]);
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {

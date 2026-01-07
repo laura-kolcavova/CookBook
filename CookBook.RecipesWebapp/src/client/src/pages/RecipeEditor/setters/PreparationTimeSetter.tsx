@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 
 import { getTimeParts, getTotalMinutes } from '~/utils/timeHelper';
-import { FormLabel } from '~/sharedComponents/forms/FormLabel';
 import { preparationTimeAtom } from '../atoms/recipeDataAtom';
 import { useAtom } from 'jotai';
-import { FormExtendedNumberInput } from '~/sharedComponents/forms/FormExtenedNumberInput';
+import { FormExtendedNumberInput } from '~/pages/shared/forms/FormExtenedNumberInput';
+import { FormLabel } from '~/pages/shared/forms/FormLabel';
 
 const MINUTES_MIN = 0;
 const MINUTES_MAX = 59;

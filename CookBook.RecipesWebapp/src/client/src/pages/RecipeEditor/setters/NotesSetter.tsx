@@ -1,8 +1,9 @@
 import React from 'react';
-import { FormLabel } from '~/sharedComponents/forms/FormLabel';
-import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
+
 import { notesAtom } from '../atoms/recipeDataAtom';
 import { useAtom } from 'jotai';
+import { FormLabel } from '~/pages/shared/forms/FormLabel';
+import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
 
 export const NotesSetter: React.FC = () => {
   const [notes, setNotes] = useAtom(notesAtom);

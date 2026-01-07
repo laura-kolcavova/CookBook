@@ -2,11 +2,12 @@ import React from 'react';
 
 import { FaPlus, FaTrash } from 'react-icons/fa6';
 import type { IngredientItemData } from '~/pages/RecipeEditor/models/IngredientItemData';
-import { FormTextInput } from '~/sharedComponents/forms/FormTextInput';
-import { FormLabel } from '~/sharedComponents/forms/FormLabel';
+
 import { ingredientsAtom } from '../atoms/recipeDataAtom';
 import { useAtom } from 'jotai';
-import { Button } from '~/sharedComponents/Button';
+import { FormLabel } from '~/pages/shared/forms/FormLabel';
+import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
+import { Button } from '~/pages/shared/Button';
 
 export const IngredientsSetter: React.FC = () => {
   const [ingredients, setIngredients] = useAtom(ingredientsAtom);

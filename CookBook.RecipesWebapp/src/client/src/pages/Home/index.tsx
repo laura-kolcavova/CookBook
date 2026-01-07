@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Pages } from '~/navigation/pages';
-import { LinkAsButton } from '~/sharedComponents/LinkAsButton';
 import { FeaturedRecipeCard } from './FeaturedRecipeCard';
 import type { FeaturedRecipe } from './models/FeaturedRecipe';
+import { LinkAsButton } from '../shared/LinkAsButton';
 
 // Dummy featured recipes data for demonstration
 const featuredRecipes: FeaturedRecipe[] = [

@@ -2,12 +2,12 @@ import React from 'react';
 
 import { FaHouse, FaMagnifyingGlass, FaPlus, FaRegCircleUser } from 'react-icons/fa6';
 import { NavIconLink } from './NavIconLink';
-import { Pages } from '../../../navigation/pages';
 import { useRouter } from '~/navigation/hooks/useRouter';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '~/atoms/userAtom';
 import { Link } from 'react-router-dom';
 import { UserIconButton } from './UserIconButton';
+import { Pages } from '~/navigation/pages';
 
 export const Header: React.FC = () => {
   const { isAuthenticated } = useAtomValue(userAtom);

@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { recipeDataAtom } from './atoms/recipeDataAtom';
 import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
-import { ErrorAlert } from '~/sharedComponents/alerts/ErrorAlert';
 import { useRecipeValidator } from './hooks/useRecipeValidator';
-import { FeedbackError } from '~/sharedComponents/forms/FeedbackError';
-import { LoadingSpinner } from '~/sharedComponents/LoadingSpinner';
 import { Pages } from '~/navigation/pages';
 import { PreparationTimeSetter } from '~/pages/RecipeEditor/setters/PreparationTimeSetter';
 import { InstructionsSetter } from '~/pages/RecipeEditor/setters/InstructionsSetter';
 import { useResetAtom } from 'jotai/utils';
 import { areValid } from '~/utils/forms/fieldValidationUtils';
-import { Button } from '~/sharedComponents/Button';
-import type { FieldValidations } from '~/models/forms/FieldValidations';
 import { ServingsSetter } from './setters/ServingsSetter';
 import { CookTimeSetter } from './setters/CookingTimeSetter';
 import { TagsSetter } from './setters/TagsSetters';
@@ -20,6 +15,11 @@ import { DescriptionSetter } from './setters/DescriptionSetter';
 import { NotesSetter } from './setters/NotesSetter';
 import { IngredientsSetter } from './setters/IngredientsSetter';
 import { useNavigate } from 'react-router-dom';
+import { FieldValidations } from '~/forms/FieldValidations';
+import { LoadingSpinner } from '../shared/LoadingSpinner';
+import { ErrorAlert } from '../shared/alerts/ErrorAlert';
+import { FeedbackError } from '../shared/forms/FeedbackError';
+import { Button } from '../shared/Button';
 
 export const RecipeEditor: React.FC = () => {
   const navigate = useNavigate();
