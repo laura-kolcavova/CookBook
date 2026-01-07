@@ -1,7 +1,7 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Contracts;
-using CookBook.Recipes.Application.Common.Filtering;
 using CookBook.Recipes.Domain.Recipes.ReadModels;
 using CookBook.Recipes.Domain.Recipes.Services;
+using CookBook.Recipes.Domain.Shared.Filtering;
 using CookBook.Recipes.Domain.Shared.Sorting;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes;
