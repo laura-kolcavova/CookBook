@@ -19,7 +19,7 @@ import { validateRecipeCookTime } from '../utils/recipeCookTimeValidator';
 import { validateRecipeNotes } from '../utils/recipeNotesValidator';
 import { validateRecipeIngredients } from '../utils/recipeIngredientValidator';
 import { validateRecipeInstructions } from '../utils/recipeInstructionValidator';
-import type { FieldValidations } from '~/models/forms/FieldValidations';
+import { FieldValidations } from '~/forms/FieldValidations';
 
 export const useRecipeValidator = () => {
   const title = useAtomValue(titleAtom);

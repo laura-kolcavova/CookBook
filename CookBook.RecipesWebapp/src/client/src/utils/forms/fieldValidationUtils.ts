@@ -1,4 +1,4 @@
-import type { FieldValidations } from '~/models/forms/FieldValidations';
+import { FieldValidations } from '~/forms/FieldValidations';
 
 export const areValid = (validations: FieldValidations): boolean => {
   const validationResults = Object.values(validations);

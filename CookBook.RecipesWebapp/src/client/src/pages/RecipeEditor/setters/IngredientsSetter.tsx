@@ -62,9 +62,9 @@ export const IngredientsSetter: React.FC = () => {
         ))}
       </div>
 
-      <Button onClick={addIngredient}>
-        <FaPlus className="inline-block align-middle mr-1" />
-        <span className="align-middle">Add Ingredient</span>
+      <Button onClick={addIngredient} className="flex justify-center items-center">
+        <FaPlus className="mr-1" />
+        <span>Add Ingredient</span>
       </Button>
 
       <div className="mt-2">
