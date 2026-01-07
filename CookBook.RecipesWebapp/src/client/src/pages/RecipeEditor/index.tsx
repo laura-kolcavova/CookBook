@@ -45,15 +45,14 @@ export const RecipeEditor: React.FC = () => {
     }
   }, [isSuccess, data, resetRecipeData, navigate]);
 
-  const handleCreateRecipeClick = () => {
-    const validationResults = validate();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
+    const validationResults = validate();
     if (!areValid(validationResults)) {
       setValidations(validationResults);
-
       return;
     }
-
     setValidations({});
     mutate();
   };
@@ -71,7 +70,7 @@ export const RecipeEditor: React.FC = () => {
           <>
             {isError && <ErrorAlert error={error} />}
 
-            <form className="w-full max-w-3xl">
+            <form className="w-full max-w-3xl" onSubmit={handleSubmit}>
               <div className="mb-6">
                 <TitleSetter />
 
@@ -85,14 +84,6 @@ export const RecipeEditor: React.FC = () => {
 
                 {validations.description?.errorMessage && (
                   <FeedbackError message={validations.description.errorMessage} />
-                )}
-              </div>
-
-              <div className="mb-6">
-                <NotesSetter />
-
-                {validations.notes?.errorMessage && (
-                  <FeedbackError message={validations.notes.errorMessage} />
                 )}
               </div>
 
@@ -136,16 +127,20 @@ export const RecipeEditor: React.FC = () => {
                 )}
               </div>
 
+              <div className="mb-6">
+                <NotesSetter />
+
+                {validations.notes?.errorMessage && (
+                  <FeedbackError message={validations.notes.errorMessage} />
+                )}
+              </div>
+
               <div className="mb-12">
                 <TagsSetter />
               </div>
 
               <div>
-                <Button
-                  type="submit"
-                  color="primary"
-                  onClick={handleCreateRecipeClick}
-                  disabled={isPending}>
+                <Button type="submit" color="primary" disabled={isPending}>
                   Create Recipe
                 </Button>
               </div>

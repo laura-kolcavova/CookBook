@@ -60,9 +60,9 @@ export const InstructionsSetter: React.FC = () => {
         ))}
       </div>
 
-      <Button onClick={addInstruction}>
-        <FaPlus className="inline-block align-middle mr-1" />
-        <span className="align-middle">Add step</span>
+      <Button onClick={addInstruction} className="flex justify-center items-center">
+        <FaPlus className="mr-1" />
+        <span>Add step</span>
       </Button>
 
       <div className="mt-2">
