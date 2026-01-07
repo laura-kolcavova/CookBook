@@ -1,6 +1,6 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
 import { Pages } from '../../../../navigation/pages';
-import { UserIdentityContext } from '~/contexts/UserIdentityContext';
+import { UserIdentityContext } from '~/authentication/UserIdentityProvider';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '~/atoms/userAtom';
 import { FaRegCircleUser } from 'react-icons/fa6';

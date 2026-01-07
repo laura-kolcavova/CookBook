@@ -2,21 +2,15 @@
   "name": "recipes-webapp",
   "private": true,
   "version": "0.0.0",
+  "description": "",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "vite --mode development",
+    "build:dev": "tsc -b && vite build --mode development",
+    "build:prod": "tsc -b && vite build --mode production"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+  "license": "MIT",
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.13",
     "@tanstack/react-query": "^5.81.2",
     "axios": "^1.10.0",
     "jotai": "^2.12.5",
@@ -24,21 +18,19 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
-    "react-router-dom": "^7.6.2",
-    "tailwindcss": "^4.1.13"
+    "react-router-dom": "^7.6.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.33.0",
+    "@tailwindcss/vite": "^4.1.13",
+    "tailwindcss": "^4.1.13",
+    "@types/node": "^24.4.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
-    "globals": "^16.3.0",
-    "prettier": "^3.6.0",
     "typescript": "~5.8.3",
-    "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2"
   }
 }

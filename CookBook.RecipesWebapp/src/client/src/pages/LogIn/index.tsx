@@ -4,7 +4,7 @@ import { useRouter } from '../../navigation/hooks/useRouter';
 
 import { Pages } from '../../navigation/pages';
 
-import { UserIdentityContext } from '~/contexts/UserIdentityContext';
+import { UserIdentityContext } from '~/authentication/UserIdentityProvider';
 
 import { Button } from '~/sharedComponents/Button';
 import type { LoginData } from './models/LoginData';

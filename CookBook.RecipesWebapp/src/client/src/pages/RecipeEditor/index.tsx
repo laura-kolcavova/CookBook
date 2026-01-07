@@ -5,7 +5,6 @@ import { ErrorAlert } from '~/sharedComponents/alerts/ErrorAlert';
 import { useRecipeValidator } from './hooks/useRecipeValidator';
 import { FeedbackError } from '~/sharedComponents/forms/FeedbackError';
 import { LoadingSpinner } from '~/sharedComponents/LoadingSpinner';
-import { useRouter } from '~/navigation/hooks/useRouter';
 import { Pages } from '~/navigation/pages';
 import { PreparationTimeSetter } from '~/pages/RecipeEditor/setters/PreparationTimeSetter';
 import { InstructionsSetter } from '~/pages/RecipeEditor/setters/InstructionsSetter';
@@ -20,9 +19,10 @@ import { TitleSetter } from './setters/TitleSetter';
 import { DescriptionSetter } from './setters/DescriptionSetter';
 import { NotesSetter } from './setters/NotesSetter';
 import { IngredientsSetter } from './setters/IngredientsSetter';
+import { useNavigate } from 'react-router-dom';
 
 export const RecipeEditor: React.FC = () => {
-  const { goToPage } = useRouter();
+  const navigate = useNavigate();
 
   const resetRecipeData = useResetAtom(recipeDataAtom);
 
@@ -36,11 +36,14 @@ export const RecipeEditor: React.FC = () => {
     if (isSuccess && data) {
       resetRecipeData();
 
-      goToPage(Pages.RecipeDetail, {
-        params: { recipeId: data.recipeId.toString() },
-      });
+      const recipeDetailPath = Pages.RecipeDetail.paths[0].replace(
+        ':recipeId',
+        data.recipeId.toString(),
+      );
+
+      navigate(recipeDetailPath);
     }
-  }, [isSuccess, data, goToPage, resetRecipeData]);
+  }, [isSuccess, data, resetRecipeData, navigate]);
 
   const handleCreateRecipeClick = () => {
     const validationResults = validate();

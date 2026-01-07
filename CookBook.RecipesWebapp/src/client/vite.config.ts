@@ -8,6 +8,11 @@ export default defineConfig({
   server: {
     port: 3015,
   },
+  build: {
+    target: 'esnext',
+    outDir: 'build',
+    sourcemap: true,
+  },
   resolve: {
     alias: {
       '~': path.resolve(__dirname, 'src'),

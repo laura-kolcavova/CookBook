@@ -1,18 +1,18 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { UserIdentityContextProvider } from './contexts/UserIdentityContext';
+import { UserIdentityProvider } from './authentication/UserIdentityProvider';
 import { BrowserRouter } from 'react-router-dom';
-import { Layout } from './pages/Layout';
+import { Layout } from './pages/shared/Layout';
 
 const queryClient = new QueryClient();
 
 export const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <UserIdentityContextProvider>
+      <UserIdentityProvider>
         <BrowserRouter>
           <Layout />
         </BrowserRouter>
-      </UserIdentityContextProvider>
+      </UserIdentityProvider>
     </QueryClientProvider>
   );
 };

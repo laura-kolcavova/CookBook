@@ -41,10 +41,6 @@ internal static class IServiceCollectionExtensions
                 options.CustomSchemaIds(x => x.FullName?
                     .Replace("Dto", string.Empty)
                     .Replace("+", "."));
-
-                // Set the comments path for the Swagger JSON and UI.
-                var xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "CookBook.Recipes.*.xml", SearchOption.TopDirectoryOnly).ToList();
-                xmlFiles.ForEach(xmlFile => options.IncludeXmlComments(xmlFile));
             });
 
         services

@@ -28,8 +28,6 @@ services
 
 services
     .AddApplication()
-    .AddDataAccess(
-        cookBookRecipesConnectionString)
     .AddPersistence(
         cookBookRecipesConnectionString,
         isDevelopment)

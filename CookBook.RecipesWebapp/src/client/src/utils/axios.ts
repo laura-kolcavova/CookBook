@@ -1,5 +1,5 @@
 import axios, { type AxiosRequestConfig } from 'axios';
-import { appConfig } from '~/configuration/appConfig';
+import { appConfig } from '~/config/appConfig';
 import { REQUEST_TIMEOUT } from '~/constants';
 
 const defaultAxiosConfig: AxiosRequestConfig = {

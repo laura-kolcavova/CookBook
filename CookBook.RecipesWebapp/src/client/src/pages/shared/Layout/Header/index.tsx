@@ -12,9 +12,7 @@ import { UserIconButton } from './UserIconButton';
 export const Header: React.FC = () => {
   const { isAuthenticated } = useAtomValue(userAtom);
 
-  const { getActivePage } = useRouter();
-
-  const activePage = getActivePage();
+  const { isPageActive } = useRouter();
 
   return (
     <header className="header-background-color border-b border-solid header-border-color">
@@ -32,7 +30,7 @@ export const Header: React.FC = () => {
                 text="Home"
                 icon={<FaHouse />}
                 to={Pages.Home.paths[0]}
-                isActive={activePage === Pages.Home}
+                isActive={isPageActive(Pages.Home)}
               />
             </li>
 
@@ -41,7 +39,7 @@ export const Header: React.FC = () => {
                 text="Explore"
                 icon={<FaMagnifyingGlass />}
                 to={Pages.Explore.paths[0]}
-                isActive={activePage === Pages.Explore}
+                isActive={isPageActive(Pages.Explore)}
               />
             </li>
 
@@ -51,7 +49,7 @@ export const Header: React.FC = () => {
                   text="Add a recipe"
                   icon={<FaPlus />}
                   to={Pages.AddRecipe.paths[0]}
-                  isActive={activePage === Pages.AddRecipe}
+                  isActive={isPageActive(Pages.AddRecipe)}
                 />
               </li>
             )}
@@ -62,7 +60,7 @@ export const Header: React.FC = () => {
                   text="Log In"
                   icon={<FaRegCircleUser />}
                   to={Pages.LogIn.paths[0]}
-                  isActive={activePage === Pages.LogIn}
+                  isActive={isPageActive(Pages.LogIn)}
                 />
               </li>
             )}

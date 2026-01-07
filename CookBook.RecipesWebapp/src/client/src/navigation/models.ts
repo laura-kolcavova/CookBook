@@ -24,13 +24,6 @@ export type PageDefinitionParams = {
   [key: string]: string;
 };
 
-export type PageDefinitionOptions = {
-  params?: PageDefinitionParams;
-  reload?: boolean;
-  newTab?: boolean;
-  popup?: boolean;
-};
-
 export type PageDefinitions = {
   [key in Page]: PageDefinition;
 };
