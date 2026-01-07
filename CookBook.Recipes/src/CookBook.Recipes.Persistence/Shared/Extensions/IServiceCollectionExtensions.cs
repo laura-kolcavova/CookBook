@@ -1,4 +1,4 @@
-﻿using CookBook.Recipes.Application.Recipes.Services;
+﻿using CookBook.Recipes.Domain.Recipes.Services;
 using CookBook.Recipes.Persistence.Recipes;
 using CookBook.Recipes.Persistence.Recipes.Services;
 using CookBook.Recipes.Persistence.Shared.Interceptors;

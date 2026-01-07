@@ -1,7 +1,7 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
-using CookBook.Recipes.Application.Recipes.Models;
-using CookBook.Recipes.Application.Recipes.Services;
 using CookBook.Recipes.Domain.Recipes;
+using CookBook.Recipes.Domain.Recipes.Models;
+using CookBook.Recipes.Domain.Recipes.Services;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
 using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CSharpFunctionalExtensions;
@@ -14,38 +14,38 @@ internal sealed class SaveRecipeService(
     ILogger<SaveRecipeService> logger) :
     ISaveRecipeService
 {
-    public async Task<Result<SaveRecipeResultModel, Error>> SaveRecipe(
-        SaveRecipeRequestModel request,
+    public async Task<Result<SaveRecipeResult, Error>> SaveRecipe(
+        SaveRecipeParams saveRecipeParams,
         CancellationToken cancellationToken)
     {
         using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
-            ["RecipeId"] = request.RecipeId,
-            ["UserId"] = request.UserId,
-            ["Title"] = request.Title,
+            ["RecipeId"] = saveRecipeParams.RecipeId,
+            ["UserId"] = saveRecipeParams.UserId,
+            ["Title"] = saveRecipeParams.Title,
         });
 
         try
         {
             var recipe =
-                request.RecipeId is null ||
-                request.RecipeId <= 0
+                saveRecipeParams.RecipeId is null ||
+                saveRecipeParams.RecipeId <= 0
                 ? null
                 : await recipesContext
                     .Recipes
                     .FetchRecipeAsync(
-                        request.RecipeId.Value,
+                        saveRecipeParams.RecipeId.Value,
                         cancellationToken);
 
             if (recipe is null)
             {
                 recipe = new RecipeAggregate(
-                    request.Title,
-                    request.UserId);
+                    saveRecipeParams.Title,
+                    saveRecipeParams.UserId);
 
                 SaveRecipeOptionalInformation(
                     recipe,
-                    request,
+                    saveRecipeParams,
                     cancellationToken);
 
                 await recipesContext
@@ -55,11 +55,11 @@ internal sealed class SaveRecipeService(
             else
             {
                 recipe.SetTitle(
-                    request.Title);
+                    saveRecipeParams.Title);
 
                 SaveRecipeOptionalInformation(
                     recipe,
-                    request,
+                    saveRecipeParams,
                     cancellationToken);
 
                 recipesContext
@@ -70,7 +70,7 @@ internal sealed class SaveRecipeService(
             await recipesContext.SaveChangesAsync(
                 cancellationToken);
 
-            return new SaveRecipeResultModel
+            return new SaveRecipeResult
             {
                 RecipeId = recipe.Id
             };
@@ -86,16 +86,16 @@ internal sealed class SaveRecipeService(
 
     private void SaveRecipeOptionalInformation(
         RecipeAggregate recipe,
-        SaveRecipeRequestModel request,
+        SaveRecipeParams saveRecipeParams,
         CancellationToken cancellationToken)
     {
-        recipe.SetDescription(request.Description);
-        recipe.SetServings(request.Servings);
-        recipe.SetPreparationTime(request.PreparationTime);
-        recipe.SetCookTime(request.CookTime);
-        recipe.SetNotes(request.Notes);
-        recipe.SaveIngredients(request.Ingredients);
-        recipe.SaveInstructions(request.Instructions);
-        recipe.SaveTags(request.Tags);
+        recipe.SetDescription(saveRecipeParams.Description);
+        recipe.SetServings(saveRecipeParams.Servings);
+        recipe.SetPreparationTime(saveRecipeParams.PreparationTime);
+        recipe.SetCookTime(saveRecipeParams.CookTime);
+        recipe.SetNotes(saveRecipeParams.Notes);
+        recipe.SaveIngredients(saveRecipeParams.Ingredients);
+        recipe.SaveInstructions(saveRecipeParams.Instructions);
+        recipe.SaveTags(saveRecipeParams.Tags);
     }
 }

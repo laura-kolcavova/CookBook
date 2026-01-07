@@ -1,5 +1,5 @@
-﻿using CookBook.Recipes.Application.Recipes.Services;
-using CookBook.Recipes.Domain.Recipes.ReadModels;
+﻿using CookBook.Recipes.Domain.Recipes.ReadModels;
+using CookBook.Recipes.Domain.Recipes.Services;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
 using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CSharpFunctionalExtensions;

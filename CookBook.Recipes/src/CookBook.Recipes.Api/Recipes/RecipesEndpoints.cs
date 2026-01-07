@@ -1,7 +1,7 @@
-﻿using CookBook.Recipes.Api.Recipes.Features.GetRecipeDetail;
-using CookBook.Recipes.Api.Recipes.Features.RemoveRecipe;
-using CookBook.Recipes.Api.Recipes.Features.SaveRecipe;
-using CookBook.Recipes.Api.Recipes.Features.SearchRecipes;
+﻿using CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail;
+using CookBook.Recipes.Api.Recipes.Endpoints.RemoveRecipe;
+using CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe;
+using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes;
 
 namespace CookBook.Recipes.Api.Recipes;
 
