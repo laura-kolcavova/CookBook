@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { getTimeParts, getTotalMinutes } from '~/utils/timeHelper';
 import { useAtom } from 'jotai';
@@ -12,7 +12,7 @@ const MINUTES_MAX = 59;
 const HOURS_MIN = 0;
 const HOURS_MAX = 168;
 
-export const CookTimeSetter: React.FC = () => {
+export const CookTimeSetter = () => {
   const [cookTime, setCookTime] = useAtom(cookTimeAtom);
 
   const { hours, minutes } = useMemo(() => {

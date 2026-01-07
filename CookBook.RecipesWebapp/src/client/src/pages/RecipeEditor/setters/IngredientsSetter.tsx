@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { FaPlus, FaTrash } from 'react-icons/fa6';
 import type { IngredientItemData } from '~/pages/RecipeEditor/models/IngredientItemData';
 
@@ -9,7 +7,7 @@ import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
 import { Button } from '~/pages/shared/Button';
 
-export const IngredientsSetter: React.FC = () => {
+export const IngredientsSetter = () => {
   const [ingredients, setIngredients] = useAtom(ingredientsAtom);
 
   const addIngredient = () => {

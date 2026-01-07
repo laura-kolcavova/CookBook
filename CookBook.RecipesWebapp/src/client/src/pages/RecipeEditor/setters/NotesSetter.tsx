@@ -1,11 +1,9 @@
-import React from 'react';
-
 import { notesAtom } from '../atoms/recipeDataAtom';
 import { useAtom } from 'jotai';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
 
-export const NotesSetter: React.FC = () => {
+export const NotesSetter = () => {
   const [notes, setNotes] = useAtom(notesAtom);
 
   return (

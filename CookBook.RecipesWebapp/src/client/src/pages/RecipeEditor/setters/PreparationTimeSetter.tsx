@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { getTimeParts, getTotalMinutes } from '~/utils/timeHelper';
 import { preparationTimeAtom } from '../atoms/recipeDataAtom';
@@ -12,7 +12,7 @@ const MINUTES_MAX = 59;
 const HOURS_MIN = 0;
 const HOURS_MAX = 168;
 
-export const PreparationTimeSetter: React.FC = () => {
+export const PreparationTimeSetter = () => {
   const [preparationTime, setPreparationTime] = useAtom(preparationTimeAtom);
 
   const { hours, minutes } = useMemo(() => {

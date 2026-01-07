@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { FaPlus, FaTrash } from 'react-icons/fa6';
 import type { InstructionItemData } from '~/pages/RecipeEditor/models/InstructionItemData';
 import { instructionsAtom } from '../atoms/recipeDataAtom';
@@ -8,7 +6,7 @@ import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { Button } from '~/pages/shared/Button';
 import { FormTextArea } from '~/pages/shared/forms/FormTextArea';
 
-export const InstructionsSetter: React.FC = () => {
+export const InstructionsSetter = () => {
   const [instructions, setInstructions] = useAtom(instructionsAtom);
 
   const addInstruction = () => {

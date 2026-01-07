@@ -1,5 +1,4 @@
 import { useAtom } from 'jotai';
-import React from 'react';
 import { servingsAtom } from '../atoms/recipeDataAtom';
 import { FormExtendedNumberInput } from '~/pages/shared/forms/FormExtenedNumberInput';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
@@ -7,7 +6,7 @@ import { FormLabel } from '~/pages/shared/forms/FormLabel';
 const MIN: number = 0;
 const MAX: number = 255;
 
-export const ServingsSetter: React.FC = () => {
+export const ServingsSetter = () => {
   const [servings, setServings] = useAtom(servingsAtom);
 
   const handleServingsChange = (newServings: number) => {

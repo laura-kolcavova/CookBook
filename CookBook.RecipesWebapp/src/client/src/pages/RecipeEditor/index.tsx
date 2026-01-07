@@ -21,7 +21,7 @@ import { ErrorAlert } from '../shared/alerts/ErrorAlert';
 import { FeedbackError } from '../shared/forms/FeedbackError';
 import { Button } from '../shared/Button';
 
-export const RecipeEditor: React.FC = () => {
+export const RecipeEditor = () => {
   const navigate = useNavigate();
 
   const resetRecipeData = useResetAtom(recipeDataAtom);

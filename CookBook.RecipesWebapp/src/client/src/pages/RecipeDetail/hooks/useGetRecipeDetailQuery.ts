@@ -1,7 +1,7 @@
 import { useQuery, type UseQueryResult } from '@tanstack/react-query';
-import type { GetRecipeDetailResponseDto } from '~/apiStores/recipes/models/GetRecipeDetailResponseDto';
-import RecipesService from '~/apiStores/recipes/recipesService';
-import type { AxiosGenericError } from '~/models/errors/AxiosGenericError';
+import { GetRecipeDetailResponseDto } from '~/api/recipes/models/GetRecipeDetailResponseDto';
+import RecipesService from '~/api/recipes/recipesService';
+import { AxiosGenericError } from '~/errors/AxiosGenericError';
 
 export const useRecipeDetailQuery = (
   recipeId: number,
@@ -18,6 +18,7 @@ export const useRecipeDetailQuery = (
       return data;
     },
     retry: 0,
+    gcTime: 0,
     refetchOnWindowFocus: false,
   });
 };

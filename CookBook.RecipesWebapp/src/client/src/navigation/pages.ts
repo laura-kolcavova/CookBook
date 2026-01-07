@@ -9,7 +9,7 @@ import { MyProfile } from '~/pages/MyProfile';
 import { RecipeEditor } from '~/pages/RecipeEditor';
 import { Error } from '~/pages/Error';
 import { MyRecipes } from '~/pages/MyRecipes';
-// import { RecipeDetail } from '~/pages/RecipeDetail';
+import { RecipeDetail } from '~/pages/RecipeDetail';
 import { Page, type PageDefinitions } from './models';
 
 export const Pages: PageDefinitions = {
@@ -65,7 +65,7 @@ export const Pages: PageDefinitions = {
   },
   [Page.RecipeDetail]: {
     paths: ['/recipe/:recipeId'],
-    component: MyRecipes,
+    component: RecipeDetail,
     public: false,
   },
 };

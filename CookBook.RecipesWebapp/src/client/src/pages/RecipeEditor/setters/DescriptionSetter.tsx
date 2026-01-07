@@ -1,10 +1,9 @@
-import React from 'react';
 import { descriptionAtom } from '../atoms/recipeDataAtom';
 import { useAtom } from 'jotai';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
 
-export const DescriptionSetter: React.FC = () => {
+export const DescriptionSetter = () => {
   const [description, setDescription] = useAtom(descriptionAtom);
 
   return (
