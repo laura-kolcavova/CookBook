@@ -77,15 +77,13 @@ export const RecipeDetail = () => {
             </div>
 
             <div className="mb-8">
-              <h2 className="text-gray-900 mb-4 text-3xl font-semibold border-l-4 border-[var(--navbar-background-color)] pl-4">
-                Ingredients
-              </h2>
+              <h2 className="text-2xl font-semibold text-color-primary mb-4">Ingredients</h2>
 
-              <ul className="list-none p-0">
+              <ul className="list-none p-0 ml-4">
                 {data.recipeDetail.ingredients.map((ingredient) => (
                   <li
                     key={ingredient.localId}
-                    className="bg-gray-100 mb-2 p-4 rounded-lg border-l-4 border-[var(--navbar-background-color)] text-base leading-6">
+                    className="bg-gray-100 mb-2 p-4 rounded-md border-l-4 border-[var(--text-color-primary)] text-base text-color-primary leading-6">
                     {ingredient.note}
                   </li>
                 ))}
@@ -93,15 +91,13 @@ export const RecipeDetail = () => {
             </div>
 
             <div className="mb-8">
-              <h2 className="text-gray-900 mb-4 text-3xl font-semibold border-l-4 border-[var(--navbar-background-color)] pl-4">
-                Instructions
-              </h2>
+              <h2 className="text-2xl font-semibold text-color-primary mb-4">Instructions</h2>
 
-              <ol className="p-0 [counter-reset:instruction-counter]">
+              <ol className="p-0 [counter-reset:instruction-counter] ml-r">
                 {data.recipeDetail.instructions.map((instruction) => (
                   <li
                     key={instruction.localId}
-                    className="bg-gray-100 mb-4 p-6 rounded-lg border-l-4 border-[var(--navbar-background-color)] text-base leading-relaxed list-none [counter-increment:instruction-counter] relative before:content-[counter(instruction-counter)] before:absolute before:-left-2 before:top-2 before:bg-[var(--navbar-background-color)] before:text-[var(--text-primary-color)] before:w-8 before:h-8 before:rounded-full before:flex before:items-center before:justify-center before:font-bold before:text-sm">
+                    className="bg-gray-100 mb-4 p-6 rounded-md text-base leading-relaxed list-none [counter-increment:instruction-counter] relative before:content-[counter(instruction-counter)] before:absolute before:left-2 before:top-2 before:bg-[var(--navbar-background-color)] before:text-[var(--text-primary-color)] before:w-8 before:h-8 before:rounded-full before:flex before:items-center before:justify-center before:font-bold before:text-sm">
                     {instruction.note}
                   </li>
                 ))}
