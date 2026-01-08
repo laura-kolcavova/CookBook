@@ -29,11 +29,11 @@ export const RecipeDetail = () => {
   };
 
   return (
-    <div className="content-background-color-primary">
-      <div className="container mx-auto py-10 ">
+    <div className="content-background-color-primary h-full">
+      <div className="container mx-auto py-10">
         {isLoading ? (
-          <div className="flex items-center justify-center">
-            <LoadingSpinner />
+          <div className="flex items-center justify-center py-20">
+            <LoadingSpinner text="Loading..." />
           </div>
         ) : isError ? (
           <ErrorAlert error={error} />

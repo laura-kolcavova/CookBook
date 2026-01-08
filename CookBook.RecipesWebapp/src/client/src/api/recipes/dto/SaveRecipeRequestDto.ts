@@ -5,7 +5,7 @@ export type SaveRecipeRequestDto = {
   recipeId?: number;
   userId: number;
   title: string;
-  descripiton?: string;
+  description?: string;
   servings: number;
   cookTime: number;
   notes?: string;

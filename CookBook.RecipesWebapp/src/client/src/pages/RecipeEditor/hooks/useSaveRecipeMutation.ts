@@ -17,9 +17,8 @@ export const useSaveRecipeMutation = () => {
         recipeId: recipeData.recipeId,
         userId: 1,
         title: recipeData.title,
-        descripiton: recipeData.description,
+        description: recipeData.description,
         servings: recipeData.servings,
-        preparationTime: recipeData.preparationTime,
         cookTime: recipeData.cookTime,
         notes: recipeData.notes,
         ingredients: recipeData.ingredients.map<IngredientItemDto>((ingredient) => ({
