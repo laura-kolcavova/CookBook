@@ -29,7 +29,7 @@ export const FormTagsSelect: React.FC<FormTagsSelectProps> = ({ tags, onChange }
     onChange(newTags);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       addTag(inputValue);
@@ -44,7 +44,7 @@ export const FormTagsSelect: React.FC<FormTagsSelectProps> = ({ tags, onChange }
           placeholder="Type a tag and press Enter..."
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyDown}
         />
 
         <Button onClick={() => addTag(inputValue)} disabled={!inputValue.trim()}>

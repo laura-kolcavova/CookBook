@@ -3,7 +3,6 @@ import { recipeDataAtom } from './atoms/recipeDataAtom';
 import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
 import { useRecipeValidator } from './hooks/useRecipeValidator';
 import { Pages } from '~/navigation/pages';
-import { PreparationTimeSetter } from '~/pages/RecipeEditor/setters/PreparationTimeSetter';
 import { InstructionsSetter } from '~/pages/RecipeEditor/setters/InstructionsSetter';
 import { useResetAtom } from 'jotai/utils';
 import { areValid } from '~/utils/forms/fieldValidationUtils';
@@ -92,14 +91,6 @@ export const RecipeEditor = () => {
 
                 {validations.servings?.errorMessage && (
                   <FeedbackError message={validations.servings.errorMessage} />
-                )}
-              </div>
-
-              <div className="mb-6">
-                <PreparationTimeSetter />
-
-                {validations.preparationTime?.errorMessage && (
-                  <FeedbackError message={validations.preparationTime.errorMessage} />
                 )}
               </div>
 

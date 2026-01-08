@@ -7,7 +7,6 @@ export const EMPTY_RECIPE_DATA: RecipeData = {
   title: '',
   description: undefined,
   servings: 0,
-  preparationTime: 0,
   cookTime: 0,
   notes: undefined,
   ingredients: [],
@@ -24,10 +23,6 @@ export const descriptionAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('
 export const notesAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('notes'));
 
 export const servingsAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('servings'));
-
-export const preparationTimeAtom = focusAtom(recipeDataAtom, (optic) =>
-  optic.prop('preparationTime'),
-);
 
 export const cookTimeAtom = focusAtom(recipeDataAtom, (optic) => optic.prop('cookTime'));
 

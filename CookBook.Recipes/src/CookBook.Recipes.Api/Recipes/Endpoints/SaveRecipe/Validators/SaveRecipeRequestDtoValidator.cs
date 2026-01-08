@@ -26,9 +26,6 @@ internal sealed class SaveRecipeRequestDtoValidator :
         RuleFor(request => request.Servings)
             .RecipeServings();
 
-        RuleFor(request => request.PreparationTime)
-            .RecipePreparationTime();
-
         RuleFor(request => request.CookTime)
             .RecipeCookTime();
 

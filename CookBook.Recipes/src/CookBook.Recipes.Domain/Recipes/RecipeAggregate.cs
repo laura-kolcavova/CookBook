@@ -20,8 +20,6 @@ public sealed class RecipeAggregate :
 
     public short Servings { get; private set; }
 
-    public short PreparationTime { get; private set; }
-
     public short CookTime { get; private set; }
 
     public DateTimeOffset? CreatedAt { get; }
@@ -80,12 +78,6 @@ public sealed class RecipeAggregate :
         short servings)
     {
         Servings = servings;
-    }
-
-    public void SetPreparationTime(
-        short preparationTime)
-    {
-        PreparationTime = preparationTime;
     }
 
     public void SetCookTime(

@@ -49,6 +49,12 @@ export const InstructionsSetter = () => {
               placeholder="Describe this step in detail..."
               value={instruction.note}
               onChange={(e) => updateInstruction(index, e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  addInstruction();
+                }
+              }}
             />
 
             <Button className="h-10" onClick={() => removeInstruction(index)}>

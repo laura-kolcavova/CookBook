@@ -1,8 +1,8 @@
 import type { AxiosPromise, GenericAbortSignal } from 'axios';
 
-import type { GetRecipeDetailResponseDto } from './models/GetRecipeDetailResponseDto';
-import type { SaveRecipeRequestDto } from './models/SaveRecipeRequestDto';
-import type { SaveRecipeResponseDto } from './models/SaveRecipeResponseDto';
+import type { GetRecipeDetailResponseDto } from './dto/GetRecipeDetailResponseDto';
+import type { SaveRecipeRequestDto } from './dto/SaveRecipeRequestDto';
+import type { SaveRecipeResponseDto } from './dto/SaveRecipeResponseDto';
 import { callAxios } from '~/utils/axios';
 
 const saveRecipe = (

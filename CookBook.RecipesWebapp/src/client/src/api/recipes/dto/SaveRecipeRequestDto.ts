@@ -7,7 +7,6 @@ export type SaveRecipeRequestDto = {
   title: string;
   descripiton?: string;
   servings: number;
-  preparationTime: number;
   cookTime: number;
   notes?: string;
   ingredients: IngredientItemDto[];

@@ -12,8 +12,6 @@ internal sealed record SaveRecipeRequestDto
 
     public required short Servings { get; init; }
 
-    public required short PreparationTime { get; init; }
-
     public required short CookTime { get; init; }
 
     public string? Notes { get; init; }

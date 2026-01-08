@@ -12,8 +12,6 @@ public sealed record RecipeDetailReadModel
 
     public required short Servings { get; init; }
 
-    public required short PreparationTime { get; init; }
-
     public required short CookTime { get; init; }
 
     public required string? Notes { get; init; }

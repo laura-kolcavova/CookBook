@@ -51,6 +51,12 @@ export const IngredientsSetter = () => {
               placeholder="e.g., 2 cups flour, 1 tsp salt..."
               value={ingredient.note}
               onChange={(e) => updateIngredient(index, e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  addIngredient();
+                }
+              }}
             />
 
             <Button className="h-10" onClick={() => removeIngredient(index)}>

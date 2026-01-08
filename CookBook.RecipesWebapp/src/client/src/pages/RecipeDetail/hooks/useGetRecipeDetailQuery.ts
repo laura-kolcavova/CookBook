@@ -1,5 +1,5 @@
 import { useQuery, type UseQueryResult } from '@tanstack/react-query';
-import { GetRecipeDetailResponseDto } from '~/api/recipes/models/GetRecipeDetailResponseDto';
+import { GetRecipeDetailResponseDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
 import RecipesService from '~/api/recipes/recipesService';
 import { AxiosGenericError } from '~/errors/AxiosGenericError';
 
