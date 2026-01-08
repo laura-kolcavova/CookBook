@@ -64,7 +64,7 @@ export const Pages: PageDefinitions = {
     public: false,
   },
   [Page.RecipeDetail]: {
-    paths: ['/recipe/:recipeId'],
+    paths: ['/recipes/:recipeId'],
     component: RecipeDetail,
     public: false,
   },

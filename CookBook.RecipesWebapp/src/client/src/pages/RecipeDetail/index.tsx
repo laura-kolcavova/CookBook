@@ -42,14 +42,14 @@ export const RecipeDetail = () => {
             <span>No recipe found.</span>
           </Alert>
         ) : (
-          <div className="p-8">
+          <>
             <div className="mb-8 border-b-2 border-gray-200 pb-6">
-              <h2 className="text-2xl text-center font-semibold mb-6">{data.recipeDetail.title}</h2>
+              <h2 className="text-2xl text-center text-color-primary font-semibold mb-6">
+                {data.recipeDetail.title}
+              </h2>
 
               {data.recipeDetail.description && (
-                <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                  {data.recipeDetail.description}
-                </p>
+                <p className="text-lg text-color-secondary mb-4">{data.recipeDetail.description}</p>
               )}
 
               <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4 mb-6">
@@ -117,7 +117,7 @@ export const RecipeDetail = () => {
                 <p className="text-yellow-800 m-0 leading-relaxed">{data.recipeDetail.notes}</p>
               </div>
             )}
-          </div>
+          </>
         )}
       </div>
     </div>
