@@ -8,6 +8,8 @@ import { MetaItem } from './shared/MetaItem';
 import { MetaLabel } from './shared/MetaLabel';
 import { MetaValue } from './shared/MetaValue';
 import { Tag } from '../shared/Tag';
+import { useFormatCookTime } from './hooks/useFormatCookTime';
+import { useFormatServings } from './hooks/useFormatServings';
 
 export const RecipeDetail = () => {
   const { recipeId: recipeIdParam } = useParams();
@@ -20,14 +22,8 @@ export const RecipeDetail = () => {
 
   const { isLoading, isError, data, error } = useRecipeDetailQuery(recipeId);
 
-  const formatTime = (minutes: number): string => {
-    if (minutes < 60) {
-      return `${minutes} min`;
-    }
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return remainingMinutes > 0 ? `${hours}h ${remainingMinutes}min` : `${hours}h`;
-  };
+  const formatServings = useFormatServings();
+  const formatCookTime = useFormatCookTime();
 
   return (
     <div className="content-background-color-primary h-full">
@@ -56,17 +52,17 @@ export const RecipeDetail = () => {
               <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4 mb-6">
                 <MetaItem>
                   <MetaLabel>Servings</MetaLabel>
-                  <MetaValue>{data.recipeDetail.servings}</MetaValue>
+                  <MetaValue>{formatServings(data.recipeDetail.servings)}</MetaValue>
                 </MetaItem>
 
                 <MetaItem>
                   <MetaLabel>Cook Time</MetaLabel>
-                  <MetaValue>{formatTime(data.recipeDetail.cookTime)}</MetaValue>
+                  <MetaValue>{formatCookTime(data.recipeDetail.cookTime)}</MetaValue>
                 </MetaItem>
               </div>
 
               {data.recipeDetail.tags.length > 0 && (
-                <div className="mb-8">
+                <div className="mb-6">
                   <div className="flex flex-wrap gap-2">
                     {data.recipeDetail.tags.map((tag, index) => (
                       <Tag key={index} tag={tag} />
@@ -93,12 +89,16 @@ export const RecipeDetail = () => {
             <div className="mb-8">
               <h2 className="text-2xl font-semibold text-color-primary mb-4">Instructions</h2>
 
-              <ol className="p-0 [counter-reset:instruction-counter] ml-r">
-                {data.recipeDetail.instructions.map((instruction) => (
+              <ol className="p-0 ml-4">
+                {data.recipeDetail.instructions.map((instruction, index) => (
                   <li
                     key={instruction.localId}
-                    className="bg-gray-100 mb-4 p-6 rounded-md text-base leading-relaxed list-none [counter-increment:instruction-counter] relative before:content-[counter(instruction-counter)] before:absolute before:left-2 before:top-2 before:bg-[var(--navbar-background-color)] before:text-[var(--text-primary-color)] before:w-8 before:h-8 before:rounded-full before:flex before:items-center before:justify-center before:font-bold before:text-sm">
-                    {instruction.note}
+                    className="bg-gray-100 mb-4 p-6 rounded-md relative">
+                    <div className="absolute w-6 h-6 -left-1 -top-1 rounded-full flex items-center justify-center text-sm leading-normal font-bold bg-button-background-color-primary text-button-color-primary">
+                      {index + 1}
+                    </div>
+
+                    <span className="text-base leading-relaxed">{instruction.note}</span>
                   </li>
                 ))}
               </ol>
