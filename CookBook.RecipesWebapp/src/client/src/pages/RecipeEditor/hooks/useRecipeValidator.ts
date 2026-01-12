@@ -4,7 +4,6 @@ import {
   titleAtom,
   descriptionAtom,
   servingsAtom,
-  preparationTimeAtom,
   cookTimeAtom,
   notesAtom,
   ingredientsAtom,
@@ -14,7 +13,6 @@ import {
 import { validateRecipeTitle } from '../utils/recipeTitleValidator';
 import { validateRecipeDescription } from '../utils/recipeDescriptionValidator';
 import { validateRecipeServings } from '../utils/recipeServingsValidator';
-import { validateRecipePreparationTime } from '../utils/recipePreaparationTimeValidator';
 import { validateRecipeCookTime } from '../utils/recipeCookTimeValidator';
 import { validateRecipeNotes } from '../utils/recipeNotesValidator';
 import { validateRecipeIngredients } from '../utils/recipeIngredientValidator';
@@ -25,7 +23,6 @@ export const useRecipeValidator = () => {
   const title = useAtomValue(titleAtom);
   const description = useAtomValue(descriptionAtom);
   const servings = useAtomValue(servingsAtom);
-  const preparationTime = useAtomValue(preparationTimeAtom);
   const cookTime = useAtomValue(cookTimeAtom);
   const notes = useAtomValue(notesAtom);
   const ingredients = useAtomValue(ingredientsAtom);
@@ -36,7 +33,6 @@ export const useRecipeValidator = () => {
       title: validateRecipeTitle(title),
       description: validateRecipeDescription(description),
       servings: validateRecipeServings(servings),
-      preparationTime: validateRecipePreparationTime(preparationTime),
       cookTime: validateRecipeCookTime(cookTime),
       notes: validateRecipeNotes(notes),
       ingredients: validateRecipeIngredients(ingredients),
@@ -44,7 +40,7 @@ export const useRecipeValidator = () => {
     };
 
     return validations;
-  }, [cookTime, description, ingredients, instructions, notes, preparationTime, servings, title]);
+  }, [cookTime, description, ingredients, instructions, notes, servings, title]);
 
   return {
     validate,

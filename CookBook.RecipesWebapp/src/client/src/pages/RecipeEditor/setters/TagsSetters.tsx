@@ -1,10 +1,9 @@
-import React from 'react';
 import { useAtom } from 'jotai';
 import { tagsAtom } from '../atoms/recipeDataAtom';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { FormTagsSelect } from '~/pages/shared/forms/FormTagsSelect';
 
-export const TagsSetter: React.FC = () => {
+export const TagsSetter = () => {
   const [tags, setTags] = useAtom(tagsAtom);
 
   const handleTagsChange = (newTags: string[]) => {

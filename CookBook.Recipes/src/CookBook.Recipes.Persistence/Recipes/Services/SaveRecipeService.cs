@@ -91,7 +91,6 @@ internal sealed class SaveRecipeService(
     {
         recipe.SetDescription(saveRecipeParams.Description);
         recipe.SetServings(saveRecipeParams.Servings);
-        recipe.SetPreparationTime(saveRecipeParams.PreparationTime);
         recipe.SetCookTime(saveRecipeParams.CookTime);
         recipe.SetNotes(saveRecipeParams.Notes);
         recipe.SaveIngredients(saveRecipeParams.Ingredients);

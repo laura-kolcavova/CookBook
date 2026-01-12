@@ -2,11 +2,11 @@ import { useMutation } from '@tanstack/react-query';
 
 import { recipeDataAtom } from '../atoms/recipeDataAtom';
 import { useAtomValue } from 'jotai';
-import { SaveRecipeResponseDto } from '~/api/recipes/models/SaveRecipeResponseDto';
+import { SaveRecipeResponseDto } from '~/api/recipes/dto/SaveRecipeResponseDto';
 import { AxiosGenericError } from '~/errors/AxiosGenericError';
 import RecipesService from '~/api/recipes/recipesService';
-import { IngredientItemDto } from '~/api/recipes/models/IngredientItemDto';
-import { InstructionItemDto } from '~/api/recipes/models/InstructionItemDto';
+import { IngredientItemDto } from '~/api/recipes/dto/IngredientItemDto';
+import { InstructionItemDto } from '~/api/recipes/dto/InstructionItemDto';
 
 export const useSaveRecipeMutation = () => {
   const recipeData = useAtomValue(recipeDataAtom);
@@ -17,9 +17,8 @@ export const useSaveRecipeMutation = () => {
         recipeId: recipeData.recipeId,
         userId: 1,
         title: recipeData.title,
-        descripiton: recipeData.description,
+        description: recipeData.description,
         servings: recipeData.servings,
-        preparationTime: recipeData.preparationTime,
         cookTime: recipeData.cookTime,
         notes: recipeData.notes,
         ingredients: recipeData.ingredients.map<IngredientItemDto>((ingredient) => ({

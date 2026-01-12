@@ -41,11 +41,6 @@ internal sealed class RecipeAggregateRootConfiguration :
             .IsRequired();
 
         builder
-            .Property(e => e.PreparationTime)
-            .HasDefaultValue(0)
-            .IsRequired();
-
-        builder
             .Property(e => e.CookTime)
             .HasDefaultValue(0)
             .IsRequired();

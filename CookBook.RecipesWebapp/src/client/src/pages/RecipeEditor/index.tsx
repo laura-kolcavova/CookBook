@@ -3,7 +3,6 @@ import { recipeDataAtom } from './atoms/recipeDataAtom';
 import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
 import { useRecipeValidator } from './hooks/useRecipeValidator';
 import { Pages } from '~/navigation/pages';
-import { PreparationTimeSetter } from '~/pages/RecipeEditor/setters/PreparationTimeSetter';
 import { InstructionsSetter } from '~/pages/RecipeEditor/setters/InstructionsSetter';
 import { useResetAtom } from 'jotai/utils';
 import { areValid } from '~/utils/forms/fieldValidationUtils';
@@ -21,7 +20,7 @@ import { ErrorAlert } from '../shared/alerts/ErrorAlert';
 import { FeedbackError } from '../shared/forms/FeedbackError';
 import { Button } from '../shared/Button';
 
-export const RecipeEditor: React.FC = () => {
+export const RecipeEditor = () => {
   const navigate = useNavigate();
 
   const resetRecipeData = useResetAtom(recipeDataAtom);
@@ -58,13 +57,13 @@ export const RecipeEditor: React.FC = () => {
   };
 
   return (
-    <div className="content-background-color-primary">
-      <div className="container mx-auto py-10 ">
-        <h2 className="text-2xl font-semibold mb-6">Add Recipe</h2>
+    <div className="content-background-color-primary h-full">
+      <div className="container mx-auto py-10">
+        <h2 className="text-2xl font-semibold text-color-primary mb-6">Add Recipe</h2>
 
         {isPending ? (
-          <div className="flex items-center justify-center">
-            <LoadingSpinner />
+          <div className="flex items-center justify-center py-20">
+            <LoadingSpinner text="Saving..." />
           </div>
         ) : (
           <>
@@ -92,14 +91,6 @@ export const RecipeEditor: React.FC = () => {
 
                 {validations.servings?.errorMessage && (
                   <FeedbackError message={validations.servings.errorMessage} />
-                )}
-              </div>
-
-              <div className="mb-6">
-                <PreparationTimeSetter />
-
-                {validations.preparationTime?.errorMessage && (
-                  <FeedbackError message={validations.preparationTime.errorMessage} />
                 )}
               </div>
 

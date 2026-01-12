@@ -7,7 +7,6 @@ export type RecipeDetailDto = {
   title: string;
   description?: string;
   servings: number;
-  preparationTime: number;
   cookTime: number;
   notes?: string;
   tags: string[];

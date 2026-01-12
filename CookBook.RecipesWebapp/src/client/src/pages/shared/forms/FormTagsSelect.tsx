@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { FormTextInput } from './FormTextInput';
-import { FaPlus, FaXmark } from 'react-icons/fa6';
+import { FaPlus } from 'react-icons/fa6';
 import { Button } from '../Button';
+import { Tag } from '../Tag';
 
 export type FormTagsSelectProps = {
   tags: string[];
@@ -29,7 +30,7 @@ export const FormTagsSelect: React.FC<FormTagsSelectProps> = ({ tags, onChange }
     onChange(newTags);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       addTag(inputValue);
@@ -44,7 +45,7 @@ export const FormTagsSelect: React.FC<FormTagsSelectProps> = ({ tags, onChange }
           placeholder="Type a tag and press Enter..."
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyDown}
         />
 
         <Button onClick={() => addTag(inputValue)} disabled={!inputValue.trim()}>
@@ -60,24 +61,5 @@ export const FormTagsSelect: React.FC<FormTagsSelectProps> = ({ tags, onChange }
         </div>
       )}
     </>
-  );
-};
-
-type TagProps = {
-  tag: string;
-  removeTag: (tag: string) => void;
-};
-
-const Tag: React.FC<TagProps> = ({ tag, removeTag }) => {
-  return (
-    <div className="py-2 px-2.5 rounded-lg flex flex-row items-center button-background-color-secondary button-background-color-secondary-hover button-color-secondary transition-colors duration-150">
-      <span className="text-sm font-normal align-middle mr-2">{tag}</span>
-
-      <button
-        className="inline-block align-middle cursor-pointer p-2 -m-2"
-        onClick={() => removeTag(tag)}>
-        <FaXmark size="0.875rem" />
-      </button>
-    </div>
   );
 };

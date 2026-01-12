@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { FaPlus, FaTrash } from 'react-icons/fa6';
 import type { IngredientItemData } from '~/pages/RecipeEditor/models/IngredientItemData';
 
@@ -9,7 +7,7 @@ import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
 import { Button } from '~/pages/shared/Button';
 
-export const IngredientsSetter: React.FC = () => {
+export const IngredientsSetter = () => {
   const [ingredients, setIngredients] = useAtom(ingredientsAtom);
 
   const addIngredient = () => {
@@ -53,6 +51,12 @@ export const IngredientsSetter: React.FC = () => {
               placeholder="e.g., 2 cups flour, 1 tsp salt..."
               value={ingredient.note}
               onChange={(e) => updateIngredient(index, e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  addIngredient();
+                }
+              }}
             />
 
             <Button className="h-10" onClick={() => removeIngredient(index)}>

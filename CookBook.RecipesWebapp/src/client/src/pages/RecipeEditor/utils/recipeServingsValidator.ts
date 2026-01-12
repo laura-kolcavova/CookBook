@@ -1,4 +1,4 @@
-import type { ValidationResult } from '~/models/forms/ValidationResult';
+import { ValidationResult } from '~/forms/ValidationResult';
 
 export const validateRecipeServings = (recipeServings: number): ValidationResult => {
   if (recipeServings < 0) {

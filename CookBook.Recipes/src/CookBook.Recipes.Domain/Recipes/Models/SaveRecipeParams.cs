@@ -12,8 +12,6 @@ public sealed record SaveRecipeParams
 
     public required short Servings { get; init; }
 
-    public required short PreparationTime { get; init; }
-
     public required short CookTime { get; init; }
 
     public required IReadOnlyCollection<SaveIngredientItemParams> Ingredients { get; init; }

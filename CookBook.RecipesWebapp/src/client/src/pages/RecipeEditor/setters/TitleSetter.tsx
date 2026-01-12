@@ -1,11 +1,9 @@
-import React from 'react';
-
 import { titleAtom } from '../atoms/recipeDataAtom';
 import { useAtom } from 'jotai';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
 
-export const TitleSetter: React.FC = () => {
+export const TitleSetter = () => {
   const [title, setTitle] = useAtom(titleAtom);
 
   return (

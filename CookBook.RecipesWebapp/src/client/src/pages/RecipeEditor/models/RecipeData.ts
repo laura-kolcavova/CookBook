@@ -6,7 +6,6 @@ export type RecipeData = {
   title: string;
   description?: string;
   servings: number;
-  preparationTime: number;
   cookTime: number;
   notes?: string;
   ingredients: IngredientItemData[];

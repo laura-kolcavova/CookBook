@@ -1,4 +1,4 @@
-import type { ValidationResult } from '~/models/forms/ValidationResult';
+import { ValidationResult } from '~/forms/ValidationResult';
 import type { IngredientItemData } from '../models/IngredientItemData';
 
 export const validateRecipeIngredient = (
