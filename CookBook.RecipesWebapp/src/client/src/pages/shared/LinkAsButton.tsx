@@ -12,7 +12,7 @@ export const LinkAsButton: React.FC<LinkAsButtonProps & { className?: string }> 
 }) => {
   const variantStyles =
     variant === 'primary'
-      ? 'button-background-color-primary button-background-color-primary-hover button-color-primary'
+      ? 'bg-button-background-color-primary hover:bg-button-background-color-primary-hover text-button-color-primary'
       : '';
 
   return (
