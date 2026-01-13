@@ -1,5 +1,5 @@
 ﻿using CookBook.Recipes.Domain.Recipes.ReadModels;
-using CookBook.Recipes.Domain.Recipes.Services;
+using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Domain.Shared.Filtering;
 using CookBook.Recipes.Domain.Shared.Sorting;
 using CookBook.Recipes.Persistence.Recipes.Extensions;

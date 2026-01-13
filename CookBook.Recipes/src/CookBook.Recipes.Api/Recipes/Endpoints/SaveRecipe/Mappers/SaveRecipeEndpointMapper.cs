@@ -12,6 +12,6 @@ internal static partial class SaveRecipeEndpointMapper
     public static partial SaveRecipeParams ToSaveRecipeParams(
         this SaveRecipeRequestDto source);
 
-    public static partial SaveRecipeResponseDto ToResponseDto(
+    public static partial SaveRecipeResponseDto ToDto(
         this SaveRecipeResult source);
 }

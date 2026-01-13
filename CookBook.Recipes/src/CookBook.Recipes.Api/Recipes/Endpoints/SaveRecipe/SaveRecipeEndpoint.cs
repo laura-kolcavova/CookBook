@@ -1,7 +1,7 @@
 ﻿using CookBook.Extensions.AspNetCore.Errors;
 using CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe.Contracts;
 using CookBook.Recipes.Api.Recipes.Features.SaveRecipe.Mappers;
-using CookBook.Recipes.Domain.Recipes.Services;
+using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using FluentValidation;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
@@ -43,7 +43,7 @@ internal static class SaveRecipeEndpoint
                 saveRecipeResult.Error.AsProblemDetails(httpContext));
         }
 
-        var responseDto = saveRecipeResult.Value.ToResponseDto();
+        var responseDto = saveRecipeResult.Value.ToDto();
 
         return TypedResults.Ok(responseDto);
     }

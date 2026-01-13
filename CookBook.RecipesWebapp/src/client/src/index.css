@@ -3,6 +3,8 @@
 /* :root { } */
 
 @theme {
+  --font-handwritten: 'Brush Script MT', cursive;
+
   --color-page-background-color: #fff;
 
   --color-text-color-primary: #323d47;

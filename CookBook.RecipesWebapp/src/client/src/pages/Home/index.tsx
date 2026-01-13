@@ -48,7 +48,7 @@ export const Home: React.FC = () => {
 
       <div className="bg-content-background-color-tertiary">
         <div className="container mx-auto py-10">
-          <h2 className="text-2xl font-semibold mb-6">Featured Recipes</h2>
+          <h2 className="text-3xl mb-6 text-center font-handwritten">Featured Recipes</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {featuredRecipes.map((recipe) => (
