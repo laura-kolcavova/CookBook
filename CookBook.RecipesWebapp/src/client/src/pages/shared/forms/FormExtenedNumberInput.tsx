@@ -40,7 +40,7 @@ export const FormExtendedNumberInput: React.FC<FormExtendedNumberInputProps> = (
         type="button"
         onClick={handleDecrement}
         disabled={value <= min}
-        className="h-10 px-3 rounded-tl-md rounded-bl-md text-base font-normal transition-colors duration-150 cursor-pointer button-background-color-primary button-background-color-primary-hover button-color-primary">
+        className="h-10 px-3 rounded-tl-md rounded-bl-md text-base font-normal transition-colors duration-150 cursor-pointer bg-button-background-color-primary hover:bg-button-background-color-primary-hover text-button-color-primary">
         <FaMinus size="0.875rem" />
       </button>
 
@@ -51,11 +51,11 @@ export const FormExtendedNumberInput: React.FC<FormExtendedNumberInputProps> = (
           max={max}
           value={value}
           onChange={handleInputChange}
-          className="w-full h-[calc(2.5rem-2px)] block px-3 py-1.5 text-center text-sm/6 font-normal form-text-input-background-color form-text-input-color"
+          className="w-full h-[calc(2.5rem-2px)] block px-3 py-1.5 text-center text-sm/6 font-normal bg-form-text-input-background-color text-form-text-input-color"
         />
 
         {append && (
-          <div className="h-[calc(2.5rem-2px)] px-3 text-sm/6 font-normal form-text-input-background-color form-text-input-color flex flex-col justify-center">
+          <div className="h-[calc(2.5rem-2px)] px-3 text-sm/6 font-normal bg-form-text-input-background-color text-form-text-input-color flex flex-col justify-center">
             <span>{append}</span>
           </div>
         )}
@@ -65,7 +65,7 @@ export const FormExtendedNumberInput: React.FC<FormExtendedNumberInputProps> = (
         type="button"
         onClick={handleIncrement}
         disabled={value >= max}
-        className="h-10 px-3 rounded-tr-md rounded-br-md text-base font-normal transition-colors duration-150 cursor-pointer button-background-color-primary button-background-color-primary-hover button-color-primary">
+        className="h-10 px-3 rounded-tr-md rounded-br-md text-base font-normal transition-colors duration-150 cursor-pointer bg-button-background-color-primary hover:bg-button-background-color-primary-hover text-button-color-primary">
         <FaPlus size="0.875rem" />
       </button>
     </div>

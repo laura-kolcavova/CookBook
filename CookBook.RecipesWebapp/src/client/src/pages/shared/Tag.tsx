@@ -7,7 +7,7 @@ type TagProps = {
 
 export const Tag = ({ tag, removeTag }: TagProps) => {
   return (
-    <div className="py-2 px-2.5 rounded-lg flex flex-row items-center button-background-color-secondary button-background-color-secondary-hover button-color-secondary transition-colors duration-150">
+    <div className="py-2 px-2.5 rounded-lg flex flex-row items-center bg-button-background-color-secondary hover:bg-button-background-color-secondary-hover text-button-color-secondary transition-colors duration-150">
       <span className="text-sm font-normal align-middle break-all">{tag}</span>
 
       {removeTag && (

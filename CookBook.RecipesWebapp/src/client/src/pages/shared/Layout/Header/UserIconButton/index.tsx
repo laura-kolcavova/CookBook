@@ -33,7 +33,7 @@ export const UserIconButton: React.FC = () => {
     };
   }, [isOpen]);
 
-  const isOpenDropdownButtonStyles = isOpen ? 'navlink-color-active' : 'navlink-color';
+  const isOpenDropdownButtonStyles = isOpen ? 'text-navlink-color-active' : 'text-navlink-color';
   const isOpenDropdownListStyled = isOpen ? 'visible' : 'invisible';
 
   return (
@@ -41,7 +41,7 @@ export const UserIconButton: React.FC = () => {
       <button
         onClick={toggle}
         className={`py-1 px-6 flex flex-col justify-center items-center cursor-pointer transition-colors duration-150
-          ${isOpenDropdownButtonStyles} navlink-color-hover`}
+          ${isOpenDropdownButtonStyles} hover:text-navlink-color-hover`}
         type="button">
         <span className="mb-1">
           <FaRegCircleUser />
@@ -53,7 +53,7 @@ export const UserIconButton: React.FC = () => {
         className={`absolute z-10 bottom-[-0.5rem] right-0 translate-y-full bg-white min-w-[10rem] p-2 border border-black rounded-md shadow-lg transition-all duration-150
           ${isOpenDropdownListStyled}`}>
         <button
-          className="w-full text-left py-2 px-4 leading-6 cursor-pointer navlink-color navlink-color-hover"
+          className="w-full text-left py-2 px-4 leading-6 cursor-pointer text-navlink-color hover:text-navlink-color-hover"
           onClick={() => {
             navigate(Pages.MyProfile.paths[0]);
             setIsOpen(false);
@@ -62,7 +62,7 @@ export const UserIconButton: React.FC = () => {
         </button>
 
         <button
-          className="w-full text-left py-2 px-4 leading-6 cursor-pointer navlink-color navlink-color-hover"
+          className="w-full text-left py-2 px-4 leading-6 cursor-pointer text-navlink-color hover:text-navlink-color-hover"
           onClick={() => {
             logout();
             setIsOpen(false);

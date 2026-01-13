@@ -15,7 +15,7 @@ export const Header: React.FC = () => {
   const { isPageActive } = useRouter();
 
   return (
-    <header className="header-background-color border-b border-solid header-border-color">
+    <header className="bg-header-background-color border-b border-solid border-header-border-color">
       <div className="container mx-auto flex items-center justify-between min-h-32">
         <div>
           <Link to={Pages.Home.paths[0]}>

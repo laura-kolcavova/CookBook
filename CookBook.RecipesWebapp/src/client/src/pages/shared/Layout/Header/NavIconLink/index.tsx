@@ -10,7 +10,7 @@ type NavIconLinkProps = {
 };
 
 export const NavIconLink: React.FC<NavIconLinkProps> = ({ text, icon, to, onClick, isActive }) => {
-  const color = isActive ? 'navlink-color-active' : 'navlink-color';
+  const color = isActive ? 'text-navlink-color-active' : 'text-navlink-color';
 
   return (
     <Link
@@ -18,7 +18,7 @@ export const NavIconLink: React.FC<NavIconLinkProps> = ({ text, icon, to, onClic
       onClick={onClick}
       className={`py-1 px-6 flex flex-col justify-center items-center transition-colors duration-150
         ${color}
-        navlink-color-hover`}>
+        hover:text-navlink-color-hover`}>
       <span className="mb-1">{icon}</span>
       <span className="text-center">{text}</span>
     </Link>
