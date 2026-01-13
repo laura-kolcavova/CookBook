@@ -30,7 +30,7 @@ const featuredRecipes: FeaturedRecipe[] = [
 export const Home: React.FC = () => {
   return (
     <>
-      <div className="content-background-color-primary mb-10">
+      <div className="bg-content-background-color-primary mb-10">
         <div className="container mx-auto py-20 flex flex-col items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-bold text-color-primary mb-4">
             Welcome to CookBook
@@ -46,7 +46,7 @@ export const Home: React.FC = () => {
         </div>
       </div>
 
-      <div className="content-background-color-tertiary">
+      <div className="bg-content-background-color-tertiary">
         <div className="container mx-auto py-10">
           <h2 className="text-2xl font-semibold mb-6">Featured Recipes</h2>
 

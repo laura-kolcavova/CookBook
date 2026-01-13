@@ -36,7 +36,7 @@ export const LogIn: React.FC = () => {
   };
 
   return (
-    <div className="content-background-color-primary">
+    <div className="bg-content-background-color-primary">
       <div className="container mx-auto py-10 flex flex-col items-center justify-center">
         <form className="w-full max-w-xs mb-12">
           <div className="mb-6">

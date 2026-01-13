@@ -57,7 +57,7 @@ export const RecipeEditor = () => {
   };
 
   return (
-    <div className="content-background-color-primary h-full">
+    <div className="bg-content-background-color-primary h-full">
       <div className="container mx-auto py-10">
         <h2 className="text-2xl font-semibold text-color-primary mb-6">Add Recipe</h2>
 

@@ -26,7 +26,7 @@ export const RecipeDetail = () => {
   const formatCookTime = useFormatCookTime();
 
   return (
-    <div className="content-background-color-primary h-full">
+    <div className="bg-content-background-color-primary h-full">
       <div className="container mx-auto py-10">
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
