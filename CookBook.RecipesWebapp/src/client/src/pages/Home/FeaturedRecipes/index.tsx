@@ -22,7 +22,7 @@ const featuredRecipes: FeaturedRecipe[] = [
 
 export const FeaturedRecipes = () => {
   return (
-    <div className="bg-content-background-color-tertiary">
+    <div className="bg-content-background-color-secondary">
       <div className="container mx-auto py-10">
         <h2 className="text-3xl mb-6 text-center font-handwritten">Featured Recipes</h2>
 
