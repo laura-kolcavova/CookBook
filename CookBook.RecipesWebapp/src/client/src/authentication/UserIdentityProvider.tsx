@@ -4,12 +4,12 @@ import { createContext, useContext, type PropsWithChildren } from 'react';
 
 import { userAtom } from '~/atoms/userAtom';
 
-interface IUserIdentityContext {
+export type UserIdentityContextValue = {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
-}
+};
 
-const UserIdentityContext = createContext<IUserIdentityContext | null>(null);
+const UserIdentityContext = createContext<UserIdentityContextValue | null>(null);
 
 export const UserIdentityProvider = ({ children }: PropsWithChildren) => {
   const setUser = useSetAtom(userAtom);

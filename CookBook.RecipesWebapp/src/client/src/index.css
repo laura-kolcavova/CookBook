@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 
-/* :root { } */
+/*
+:root {
+} */
 
 @theme {
   --font-handwritten: 'Brush Script MT', cursive;
@@ -8,6 +10,8 @@
   --color-page-background-color: #fff;
 
   --color-text-color-primary: #323d47;
+  --color-text-color-primary-highlight: #608374;
+
   --color-text-color-secondary: #5a6a7c;
 
   --color-button-background-color-primary: #2b3b35;

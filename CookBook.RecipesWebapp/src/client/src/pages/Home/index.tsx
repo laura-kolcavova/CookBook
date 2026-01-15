@@ -7,12 +7,12 @@ export const Home = () => {
   return (
     <>
       <div className="bg-content-background-color-primary mb-10">
-        <div className="container mx-auto py-20 flex flex-col items-center justify-center">
+        <div className="container mx-auto py-20 px-4 flex flex-col items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-bold text-color-primary mb-4">
             Welcome to CookBook
           </h1>
 
-          <p className="text-lg text-color-secondary mb-6">
+          <p className="text-lg text-text-color-secondary mb-6">
             Discover, create, and enjoy your favorite recipes.
           </p>
 

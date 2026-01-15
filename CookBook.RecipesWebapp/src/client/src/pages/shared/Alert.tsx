@@ -6,7 +6,7 @@ type AlertProps = PropsWithChildren & {
   isDismissible?: boolean;
 };
 
-export const Alert = ({ color, children, isDismissible = true }: AlertProps) => {
+export const Alert = ({ color, children, isDismissible = false }: AlertProps) => {
   const [visible, setVisible] = useState(true);
 
   let alertStyles: string;

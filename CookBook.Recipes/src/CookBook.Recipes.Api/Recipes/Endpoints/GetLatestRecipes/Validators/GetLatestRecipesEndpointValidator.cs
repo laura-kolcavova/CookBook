@@ -8,6 +8,7 @@ internal sealed class GetLatestRecipesEndpointValidator :
     public GetLatestRecipesEndpointValidator()
     {
         RuleFor(request => request.Count)
-             .GreaterThanOrEqualTo(0);
+             .GreaterThanOrEqualTo(0)
+             .LessThanOrEqualTo(10);
     }
 }

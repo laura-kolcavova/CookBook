@@ -61,7 +61,7 @@ export const RecipeEditor = () => {
 
   return (
     <div className="bg-content-background-color-primary h-full">
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto py-10 px-4">
         <h2 className="text-2xl font-semibold text-color-primary mb-6">Add Recipe</h2>
 
         {isPending ? (
@@ -70,7 +70,11 @@ export const RecipeEditor = () => {
           </div>
         ) : (
           <>
-            {isError && <Alert color="danger">{getErrorMessage(error)}</Alert>}
+            {isError && (
+              <Alert color="danger" isDismissible={true}>
+                {getErrorMessage(error)}
+              </Alert>
+            )}
 
             <form className="w-full max-w-3xl" onSubmit={handleSubmit}>
               <div className="mb-6">

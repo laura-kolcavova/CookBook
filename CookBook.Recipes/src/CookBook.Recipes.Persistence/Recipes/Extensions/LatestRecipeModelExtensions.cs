@@ -13,6 +13,7 @@ internal static class LatestRecipeModelExtensions
             Id = recipe.Id,
             Title = recipe.Title,
             Description = recipe.Description,
+            CreatedAt = recipe.CreatedAt!.Value,
             ImageUrl = string.Empty
         });
     }
