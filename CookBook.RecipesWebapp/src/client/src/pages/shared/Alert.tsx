@@ -1,13 +1,12 @@
-import React, { type JSX, type PropsWithChildren, useState } from 'react';
+import { type PropsWithChildren, useState } from 'react';
 import { FaXmark } from 'react-icons/fa6';
 
-export type AlertProps = PropsWithChildren & {
+type AlertProps = PropsWithChildren & {
   color: 'info' | 'success' | 'warning' | 'danger';
   isDismissible?: boolean;
-  children?: JSX.Element;
 };
 
-export const Alert: React.FC<AlertProps> = ({ color, children, isDismissible = true }) => {
+export const Alert = ({ color, children, isDismissible = false }: AlertProps) => {
   const [visible, setVisible] = useState(true);
 
   let alertStyles: string;

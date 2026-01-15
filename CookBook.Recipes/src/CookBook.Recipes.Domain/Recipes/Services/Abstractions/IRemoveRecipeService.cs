@@ -1,7 +1,7 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
 using CSharpFunctionalExtensions;
 
-namespace CookBook.Recipes.Domain.Recipes.Services;
+namespace CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 
 public interface IRemoveRecipeService
 {

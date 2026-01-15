@@ -2,18 +2,15 @@ import { useMutation } from '@tanstack/react-query';
 
 import { recipeDataAtom } from '../atoms/recipeDataAtom';
 import { useAtomValue } from 'jotai';
-import { SaveRecipeResponseDto } from '~/api/recipes/dto/SaveRecipeResponseDto';
-import { AxiosGenericError } from '~/errors/AxiosGenericError';
-import RecipesService from '~/api/recipes/recipesService';
-import { IngredientItemDto } from '~/api/recipes/dto/IngredientItemDto';
-import { InstructionItemDto } from '~/api/recipes/dto/InstructionItemDto';
+import { recipesService } from '~/api/recipes/recipesService';
+import { SaveRecipeRequestDto } from '~/api/recipes/dto/SaveRecipeRequestDto';
 
 export const useSaveRecipeMutation = () => {
   const recipeData = useAtomValue(recipeDataAtom);
 
-  return useMutation<SaveRecipeResponseDto, Error | AxiosGenericError>({
+  return useMutation({
     mutationFn: async () => {
-      const { data } = await RecipesService.saveRecipe({
+      const saveRecipeRequest: SaveRecipeRequestDto = {
         recipeId: recipeData.recipeId,
         userId: 1,
         title: recipeData.title,
@@ -21,16 +18,18 @@ export const useSaveRecipeMutation = () => {
         servings: recipeData.servings,
         cookTime: recipeData.cookTime,
         notes: recipeData.notes,
-        ingredients: recipeData.ingredients.map<IngredientItemDto>((ingredient) => ({
+        ingredients: recipeData.ingredients.map((ingredient) => ({
           localId: ingredient.localId,
           note: ingredient.note,
         })),
-        instructions: recipeData.instructions.map<InstructionItemDto>((instruction) => ({
+        instructions: recipeData.instructions.map((instruction) => ({
           localId: instruction.localId,
           note: instruction.note,
         })),
         tags: [...recipeData.tags],
-      });
+      };
+
+      const { data } = await recipesService.saveRecipe(saveRecipeRequest);
 
       return data;
     },

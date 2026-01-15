@@ -1,5 +1,5 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
-using CookBook.Recipes.Domain.Recipes.Services;
+using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;

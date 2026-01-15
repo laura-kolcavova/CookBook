@@ -2,24 +2,22 @@
 using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
 using CookBook.Recipes.Persistence.Shared.Exceptions;
-using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CookBook.Recipes.Persistence.Recipes.Services;
 
-internal sealed class GetRecipesDetailService(
+internal sealed class GetLatestRecipesService(
     RecipesContext recipesContext,
-    ILogger<GetRecipesDetailService> logger) :
-    IGetRecipeDetailService
+    ILogger<GetLatestRecipesService> logger) : IGetLatestRecipesService
 {
-    public async Task<Maybe<RecipeDetailReadModel>> GetRecipeDetail(
-        long recipeId,
+    public async Task<IReadOnlyCollection<LatestRecipeReadModel>> GetLatestRecipes(
+        int count,
         CancellationToken cancellationToken)
     {
         using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
-            ["RecipeId"] = recipeId
+            ["Count"] = count
         });
 
         try
@@ -27,10 +25,9 @@ internal sealed class GetRecipesDetailService(
             var readModel = await recipesContext
                 .Recipes
                 .AsNoTracking()
-                .ProjectToRecipeDetailReadModel()
-                .SingleOrDefaultAsync(recipeDetail =>
-                    recipeDetail.Id == recipeId,
-                    cancellationToken);
+                .ProjectToLatestRecipeReadModel()
+                .Take(count)
+                .ToListAsync(cancellationToken);
 
             return readModel;
         }
@@ -39,7 +36,7 @@ internal sealed class GetRecipesDetailService(
             throw RecipesPersistenceException.LogAndCreate(
                 logger,
                 ex,
-                "An unexpected error occurred while getting recipe detail");
+                "An unexpected error occurred while getting latest recipes");
         }
     }
 }

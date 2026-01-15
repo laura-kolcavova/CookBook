@@ -1,4 +1,5 @@
-﻿using CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail;
+﻿using CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes;
+using CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail;
 using CookBook.Recipes.Api.Recipes.Endpoints.RemoveRecipe;
 using CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe;
 using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes;
@@ -16,6 +17,7 @@ internal static class CategoriesEndpoints
         SaveRecipeEndpoint.Configure(recipesGroup);
         RemoveRecipeEndpoint.Configure(recipesGroup);
         SearchRecipesEndpoint.Configure(recipesGroup);
+        GetLatestRecipesEndpoint.Configure(recipesGroup);
         GetRecipeDetailEndpoint.Configure(recipesGroup);
 
         return group;

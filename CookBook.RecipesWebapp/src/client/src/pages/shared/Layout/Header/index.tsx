@@ -16,7 +16,7 @@ export const Header: React.FC = () => {
 
   return (
     <header className="bg-header-background-color border-b border-solid border-header-border-color">
-      <div className="container mx-auto flex items-center justify-between min-h-32">
+      <div className="container mx-auto px-4 flex items-center justify-between min-h-32">
         <div>
           <Link to={Pages.Home.paths[0]}>
             <img src="/logo.png" alt="CookBook" className="h-32" />

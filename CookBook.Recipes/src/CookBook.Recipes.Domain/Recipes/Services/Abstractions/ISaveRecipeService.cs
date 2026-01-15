@@ -2,7 +2,7 @@
 using CookBook.Recipes.Domain.Recipes.Models;
 using CSharpFunctionalExtensions;
 
-namespace CookBook.Recipes.Domain.Recipes.Services;
+namespace CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 
 public interface ISaveRecipeService
 {

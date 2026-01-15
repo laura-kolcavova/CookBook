@@ -2,8 +2,7 @@ import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecipeDetailQuery } from './hooks/useGetRecipeDetailQuery';
 import { LoadingSpinner } from '../shared/LoadingSpinner';
-import { ErrorAlert } from '../shared/alerts/ErrorAlert';
-import { Alert } from '../shared/alerts/Alert';
+import { Alert } from '../shared/Alert';
 import { MetaItem } from './shared/MetaItem';
 import { MetaLabel } from './shared/MetaLabel';
 import { MetaValue } from './shared/MetaValue';
@@ -20,20 +19,20 @@ export const RecipeDetail = () => {
 
   const recipeId = useMemo(() => Number.parseInt(recipeIdParam, 10), [recipeIdParam]);
 
-  const { isLoading, isError, data, error } = useRecipeDetailQuery(recipeId);
+  const { isLoading, isError, data } = useRecipeDetailQuery(recipeId);
 
   const formatServings = useFormatServings();
   const formatCookTime = useFormatCookTime();
 
   return (
     <div className="bg-content-background-color-primary h-full">
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto py-10 px-4">
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
             <LoadingSpinner text="Loading..." />
           </div>
         ) : isError ? (
-          <ErrorAlert error={error} />
+          <Alert color="danger">Something went wrong</Alert>
         ) : !data ? (
           <Alert color="warning">
             <span>No recipe found.</span>
@@ -46,7 +45,9 @@ export const RecipeDetail = () => {
               </h2>
 
               {data.recipeDetail.description && (
-                <p className="text-lg text-color-secondary mb-4">{data.recipeDetail.description}</p>
+                <p className="text-lg text-text-color-secondary mb-4">
+                  {data.recipeDetail.description}
+                </p>
               )}
 
               <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4 mb-6">
@@ -79,7 +80,7 @@ export const RecipeDetail = () => {
                 {data.recipeDetail.ingredients.map((ingredient) => (
                   <li
                     key={ingredient.localId}
-                    className="bg-gray-100 mb-2 p-4 rounded-md border-l-4 border-[var(--text-color-primary)] text-base text-color-primary leading-6">
+                    className="bg-gray-100 mb-2 p-4 rounded-md border-l-4 border-[var(--text-text-color-primary)] text-base text-text-color-primary leading-6">
                     {ingredient.note}
                   </li>
                 ))}

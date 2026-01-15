@@ -1,4 +1,4 @@
-﻿using CookBook.Recipes.Domain.Recipes.Services;
+﻿using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Persistence.Recipes;
 using CookBook.Recipes.Persistence.Recipes.Services;
 using CookBook.Recipes.Persistence.Shared.Interceptors;
@@ -55,6 +55,7 @@ public static class IServiceCollectionExtensions
             .AddScoped<ISaveRecipeService, SaveRecipeService>()
             .AddScoped<IRemoveRecipeService, RemoveRecipeService>()
             .AddScoped<ISearchRecipesService, SearchRecipesService>()
+            .AddScoped<IGetLatestRecipesService, GetLatestRecipesService>()
             .AddScoped<IGetRecipeDetailService, GetRecipesDetailService>();
 
         return services;
