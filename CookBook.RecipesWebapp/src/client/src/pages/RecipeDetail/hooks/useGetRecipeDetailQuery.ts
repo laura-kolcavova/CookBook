@@ -1,15 +1,11 @@
-import { useQuery, type UseQueryResult } from '@tanstack/react-query';
-import { GetRecipeDetailResponseDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
-import RecipesService from '~/api/recipes/recipesService';
-import { AxiosGenericError } from '~/errors/AxiosGenericError';
+import { useQuery } from '@tanstack/react-query';
+import { recipesService } from '~/api/recipes/recipesService';
 
-export const useRecipeDetailQuery = (
-  recipeId: number,
-): UseQueryResult<GetRecipeDetailResponseDto | null, Error | AxiosGenericError> => {
+export const useRecipeDetailQuery = (recipeId: number) => {
   return useQuery({
     queryKey: ['recipeDetail', recipeId],
     queryFn: async ({ signal }) => {
-      const { status, data } = await RecipesService.getRecipeDetail(recipeId, signal);
+      const { status, data } = await recipesService.getRecipeDetail(recipeId, signal);
 
       if (status === 204) {
         return null;

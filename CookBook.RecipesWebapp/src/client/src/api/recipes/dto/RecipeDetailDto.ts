@@ -1,6 +1,3 @@
-import type { RecipeDetailIngredientDto } from './RecipeDetailIngredientDto';
-import type { RecipeDetailInstructionDto } from './RecipeDetailInstructionDto';
-
 export type RecipeDetailDto = {
   id: number;
   userId: number;
@@ -12,4 +9,14 @@ export type RecipeDetailDto = {
   tags: string[];
   ingredients: RecipeDetailIngredientDto[];
   instructions: RecipeDetailInstructionDto[];
+};
+
+export type RecipeDetailIngredientDto = {
+  localId: number;
+  note: string;
+};
+
+export type RecipeDetailInstructionDto = {
+  localId: number;
+  note: string;
 };

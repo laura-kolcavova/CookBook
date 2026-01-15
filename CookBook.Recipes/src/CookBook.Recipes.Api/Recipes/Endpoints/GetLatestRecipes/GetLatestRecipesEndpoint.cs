@@ -9,7 +9,7 @@ internal static class GetLatestRecipesEndpoint
     public static void Configure(RouteGroupBuilder recipesGroup)
     {
         recipesGroup
-            .MapGet("/LatestRecipes", HandleAsync)
+            .MapGet("/Latest", HandleAsync)
             .WithName("GetLatestRecipes")
             .WithSummary("Gets latest recipes")
             .WithDescription("Returns a collection of latest recipes")

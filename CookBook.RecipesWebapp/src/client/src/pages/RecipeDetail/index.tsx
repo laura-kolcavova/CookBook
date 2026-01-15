@@ -2,8 +2,7 @@ import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecipeDetailQuery } from './hooks/useGetRecipeDetailQuery';
 import { LoadingSpinner } from '../shared/LoadingSpinner';
-import { ErrorAlert } from '../shared/alerts/ErrorAlert';
-import { Alert } from '../shared/alerts/Alert';
+import { Alert } from '../shared/Alert';
 import { MetaItem } from './shared/MetaItem';
 import { MetaLabel } from './shared/MetaLabel';
 import { MetaValue } from './shared/MetaValue';
@@ -20,7 +19,7 @@ export const RecipeDetail = () => {
 
   const recipeId = useMemo(() => Number.parseInt(recipeIdParam, 10), [recipeIdParam]);
 
-  const { isLoading, isError, data, error } = useRecipeDetailQuery(recipeId);
+  const { isLoading, isError, data } = useRecipeDetailQuery(recipeId);
 
   const formatServings = useFormatServings();
   const formatCookTime = useFormatCookTime();
@@ -33,7 +32,7 @@ export const RecipeDetail = () => {
             <LoadingSpinner text="Loading..." />
           </div>
         ) : isError ? (
-          <ErrorAlert error={error} />
+          <Alert color="danger">Something went wrong</Alert>
         ) : !data ? (
           <Alert color="warning">
             <span>No recipe found.</span>

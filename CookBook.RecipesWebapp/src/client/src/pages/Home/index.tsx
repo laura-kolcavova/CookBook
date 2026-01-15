@@ -1,33 +1,9 @@
-import React from 'react';
-
 import { Pages } from '~/navigation/pages';
-import { FeaturedRecipeCard } from './FeaturedRecipeCard';
-import type { FeaturedRecipe } from './models/FeaturedRecipe';
 import { LinkAsButton } from '../shared/LinkAsButton';
+import { LatestRecipes } from './LatestRecipes';
+import { FeaturedRecipes } from './FeaturedRecipes';
 
-// Dummy featured recipes data for demonstration
-const featuredRecipes: FeaturedRecipe[] = [
-  {
-    id: 1,
-    title: 'Classic Lasagna',
-    description: 'Layers of pasta, cheese, and rich meat sauce.',
-    imageUrl: '/public/lasagna.jpg',
-  },
-  {
-    id: 2,
-    title: 'Vegan Buddha Bowl',
-    description: 'A nourishing bowl packed with veggies and grains.',
-    imageUrl: '/public/buddha-bowl.jpg',
-  },
-  {
-    id: 3,
-    title: 'Chocolate Chip Cookies',
-    description: 'Crispy on the outside, chewy on the inside.',
-    imageUrl: '/public/cookies.jpg',
-  },
-];
-
-export const Home: React.FC = () => {
+export const Home = () => {
   return (
     <>
       <div className="bg-content-background-color-primary mb-10">
@@ -46,17 +22,9 @@ export const Home: React.FC = () => {
         </div>
       </div>
 
-      <div className="bg-content-background-color-tertiary">
-        <div className="container mx-auto py-10">
-          <h2 className="text-3xl mb-6 text-center font-handwritten">Featured Recipes</h2>
+      <FeaturedRecipes />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featuredRecipes.map((recipe) => (
-              <FeaturedRecipeCard recipe={recipe} key={recipe.id} />
-            ))}
-          </div>
-        </div>
-      </div>
+      <LatestRecipes />
     </>
   );
 };

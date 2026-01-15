@@ -16,20 +16,23 @@ import { IngredientsSetter } from './setters/IngredientsSetter';
 import { useNavigate } from 'react-router-dom';
 import { FieldValidations } from '~/forms/FieldValidations';
 import { LoadingSpinner } from '../shared/LoadingSpinner';
-import { ErrorAlert } from '../shared/alerts/ErrorAlert';
 import { FeedbackError } from '../shared/forms/FeedbackError';
 import { Button } from '../shared/Button';
+import { Alert } from '../shared/Alert';
+import { useSaveRecipeErrorMessage } from './hooks/useSaveRecipeErrorMessage';
 
 export const RecipeEditor = () => {
   const navigate = useNavigate();
 
   const resetRecipeData = useResetAtom(recipeDataAtom);
 
+  const [validations, setValidations] = useState<FieldValidations>({});
+
   const { mutate, isPending, isError, isSuccess, error, data } = useSaveRecipeMutation();
 
   const { validate } = useRecipeValidator();
 
-  const [validations, setValidations] = useState<FieldValidations>({});
+  const { getErrorMessage } = useSaveRecipeErrorMessage();
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -67,7 +70,7 @@ export const RecipeEditor = () => {
           </div>
         ) : (
           <>
-            {isError && <ErrorAlert error={error} />}
+            {isError && <Alert color="danger">{getErrorMessage(error)}</Alert>}
 
             <form className="w-full max-w-3xl" onSubmit={handleSubmit}>
               <div className="mb-6">

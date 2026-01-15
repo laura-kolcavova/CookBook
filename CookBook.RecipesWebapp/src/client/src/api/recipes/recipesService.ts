@@ -4,6 +4,7 @@ import type { GetRecipeDetailResponseDto } from './dto/GetRecipeDetailResponseDt
 import type { SaveRecipeRequestDto } from './dto/SaveRecipeRequestDto';
 import type { SaveRecipeResponseDto } from './dto/SaveRecipeResponseDto';
 import { callAxios } from '~/utils/axios';
+import { GetLatestRecipesResponseDto } from './dto/GetLatestRecipesResponseDto';
 
 const saveRecipe = (
   saveRecipeRequest: SaveRecipeRequestDto,
@@ -14,6 +15,20 @@ const saveRecipe = (
     method: 'POST',
     data: saveRecipeRequest,
     signal: signal,
+  });
+};
+
+const getLatestRecipes = (
+  count: number,
+  signal?: GenericAbortSignal,
+): AxiosPromise<GetLatestRecipesResponseDto> => {
+  return callAxios({
+    url: `/api/Recipes/Latest`,
+    method: 'GET',
+    signal: signal,
+    params: {
+      count,
+    },
   });
 };
 
@@ -28,9 +43,8 @@ const getRecipeDetail = (
   });
 };
 
-const RecipesService = {
+export const recipesService = {
   saveRecipe,
+  getLatestRecipes,
   getRecipeDetail,
 };
-
-export default RecipesService;
