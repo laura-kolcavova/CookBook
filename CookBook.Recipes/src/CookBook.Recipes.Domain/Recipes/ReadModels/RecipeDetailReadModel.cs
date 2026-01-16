@@ -16,6 +16,8 @@ public sealed record RecipeDetailReadModel
 
     public required string? Notes { get; init; }
 
+    public required DateTimeOffset CreatedAt { get; init; }
+
     public required IReadOnlyCollection<IngredientItem> Ingredients { get; init; }
 
     public required IReadOnlyCollection<InstructionItem> Instructions { get; init; }

@@ -6,9 +6,10 @@ export type RecipeDetailDto = {
   servings: number;
   cookTime: number;
   notes?: string;
-  tags: string[];
+  createdAt: string;
   ingredients: RecipeDetailIngredientDto[];
   instructions: RecipeDetailInstructionDto[];
+  tags: string[];
 };
 
 export type RecipeDetailIngredientDto = {
