@@ -9,6 +9,7 @@ import { MetaValue } from './shared/MetaValue';
 import { Tag } from '../shared/Tag';
 import { useFormatCookTime } from './hooks/useFormatCookTime';
 import { useFormatServings } from './hooks/useFormatServings';
+import { useFormatting } from '~/localization/useFormatting';
 
 export const RecipeDetail = () => {
   const { recipeId: recipeIdParam } = useParams();
@@ -20,6 +21,8 @@ export const RecipeDetail = () => {
   const recipeId = useMemo(() => Number.parseInt(recipeIdParam, 10), [recipeIdParam]);
 
   const { isLoading, isError, data } = useRecipeDetailQuery(recipeId);
+
+  const { formatDate } = useFormatting();
 
   const formatServings = useFormatServings();
   const formatCookTime = useFormatCookTime();
@@ -43,6 +46,12 @@ export const RecipeDetail = () => {
               <h2 className="text-2xl text-center text-color-primary font-semibold mb-6">
                 {data.recipeDetail.title}
               </h2>
+
+              <div className="text-center mb-2">
+                <span className="text-sm text-text-color-secondary">
+                  {formatDate(data.recipeDetail.createdAt)}
+                </span>
+              </div>
 
               {data.recipeDetail.description && (
                 <p className="text-lg text-text-color-secondary mb-4">

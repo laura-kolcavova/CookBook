@@ -6,6 +6,7 @@ export type FormExtendedNumberInputProps = {
   min: number;
   max: number;
   onChange: (newValue: number) => void;
+  stepValue?: number;
   append?: string;
 };
 export const FormExtendedNumberInput: React.FC<FormExtendedNumberInputProps> = ({
@@ -13,18 +14,35 @@ export const FormExtendedNumberInput: React.FC<FormExtendedNumberInputProps> = (
   min,
   max,
   onChange,
+  stepValue = 1,
   append = '',
 }) => {
   const handleIncrement = () => {
-    if (value < max) {
-      onChange(value + 1);
+    const diff = value % stepValue;
+
+    const addValue = diff === 0 ? stepValue : stepValue - diff;
+
+    let newValue = value + addValue;
+
+    if (newValue > max) {
+      newValue = max;
     }
+
+    onChange(newValue);
   };
 
   const handleDecrement = () => {
-    if (value > min) {
-      onChange(value - 1);
+    const diff = value % stepValue;
+
+    const subValue = diff === 0 ? stepValue : diff;
+
+    let newValue = value - subValue;
+
+    if (newValue < min) {
+      newValue = min;
     }
+
+    onChange(newValue);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,6 +64,7 @@ export const FormExtendedNumberInput: React.FC<FormExtendedNumberInputProps> = (
 
       <div className="flex flex-row items-center outline-1 outline-gray-300 mx-[1px] ">
         <input
+          step={stepValue}
           type="number"
           min={min}
           max={max}

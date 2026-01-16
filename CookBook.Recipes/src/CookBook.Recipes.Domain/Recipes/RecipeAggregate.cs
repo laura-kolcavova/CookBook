@@ -16,11 +16,11 @@ public sealed class RecipeAggregate :
 
     public string? Description { get; private set; }
 
-    public string? Notes { get; private set; }
-
     public short Servings { get; private set; }
 
     public short CookTime { get; private set; }
+
+    public string? Notes { get; private set; }
 
     public DateTimeOffset? CreatedAt { get; }
 

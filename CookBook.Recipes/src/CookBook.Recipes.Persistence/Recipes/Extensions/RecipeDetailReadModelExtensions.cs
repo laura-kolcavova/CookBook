@@ -16,6 +16,7 @@ internal static class RecipeDetailReadModelExtensions
             Description = recipe.Description,
             Servings = recipe.Servings,
             CookTime = recipe.CookTime,
+            CreatedAt = recipe.CreatedAt!.Value,
             Notes = recipe.Notes,
             Ingredients = recipe
                 .Ingredients

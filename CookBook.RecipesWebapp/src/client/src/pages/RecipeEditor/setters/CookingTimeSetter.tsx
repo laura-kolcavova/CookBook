@@ -7,7 +7,7 @@ import { FormExtendedNumberInput } from '~/pages/shared/forms/FormExtenedNumberI
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 
 const MINUTES_MIN = 0;
-const MINUTES_MAX = 59;
+const MINUTES_MAX = 60;
 
 const HOURS_MIN = 0;
 const HOURS_MAX = 168;
@@ -52,6 +52,7 @@ export const CookTimeSetter = () => {
           max={MINUTES_MAX}
           append="m"
           onChange={handleMinutesChange}
+          stepValue={5}
         />
       </div>
     </>
