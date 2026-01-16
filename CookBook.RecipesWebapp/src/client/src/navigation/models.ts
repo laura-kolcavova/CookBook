@@ -2,8 +2,6 @@ import type { FC } from 'react';
 
 export enum Page {
   Home = 'Home',
-  Error = 'Error',
-  NotFound = 'NotFound',
   Explore = 'Explore',
   LogIn = 'LogIn',
   Register = 'Register',

@@ -1,8 +1,9 @@
 import React from 'react';
-import type { FeaturedRecipe } from './models/FeaturedRecipe';
+
 import { Link } from 'react-router-dom';
 import { FaRegCircleXmark } from 'react-icons/fa6';
 import { Pages } from '~/navigation/pages';
+import { FeaturedRecipe } from '../models/FeaturedRecipe';
 
 export type FeaturedRecipeProps = {
   recipe: FeaturedRecipe;

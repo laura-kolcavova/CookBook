@@ -9,14 +9,15 @@ export type FormExtendedNumberInputProps = {
   stepValue?: number;
   append?: string;
 };
-export const FormExtendedNumberInput: React.FC<FormExtendedNumberInputProps> = ({
+
+export const FormExtendedNumberInput = ({
   value,
   min,
   max,
   onChange,
   stepValue = 1,
   append = '',
-}) => {
+}: FormExtendedNumberInputProps) => {
   const handleIncrement = () => {
     const diff = value % stepValue;
 
