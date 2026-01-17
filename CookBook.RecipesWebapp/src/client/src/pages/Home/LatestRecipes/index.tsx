@@ -1,7 +1,7 @@
 import { LoadingSpinner } from '~/pages/shared/LoadingSpinner';
 import { useLatestRecipesQuery } from './hooks/useGetLatestRecipesQuery';
 import { Alert } from '~/pages/shared/Alert';
-import { LatestRecipeCard } from './LatestRecipeCard';
+import { LatestRecipeCard } from './shared/LatestRecipeCard';
 
 export const LatestRecipes = () => {
   const { isLoading, isError, data } = useLatestRecipesQuery();

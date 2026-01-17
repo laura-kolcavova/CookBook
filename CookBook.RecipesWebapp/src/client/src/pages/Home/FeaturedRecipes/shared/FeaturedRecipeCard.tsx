@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 import { FaRegCircleXmark } from 'react-icons/fa6';
-import { Pages } from '~/navigation/pages';
 import { FeaturedRecipe } from '../models/FeaturedRecipe';
+import { pages } from '~/navigation/pages';
 
 export type FeaturedRecipeProps = {
   recipe: FeaturedRecipe;
@@ -12,7 +12,7 @@ export type FeaturedRecipeProps = {
 export const FeaturedRecipeCard: React.FC<FeaturedRecipeProps> = ({ recipe }) => {
   const [imgError, setImgError] = React.useState(false);
 
-  const recipeDetailPath = Pages.RecipeDetail.paths[0].replace(':recipeId', recipe.id.toString());
+  const recipeDetailPath = pages.RecipeDetail.paths[0].replace(':recipeId', recipe.id.toString());
 
   return (
     <div

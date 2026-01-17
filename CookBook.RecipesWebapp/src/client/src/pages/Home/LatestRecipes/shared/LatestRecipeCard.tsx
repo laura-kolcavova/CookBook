@@ -3,7 +3,7 @@ import { FaRegCircleXmark, FaArrowRight } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { LatestRecipeDto } from '~/api/recipes/dto/LatestRecipeDto';
 import { useFormatting } from '~/localization/useFormatting';
-import { Pages } from '~/navigation/pages';
+import { pages } from '~/navigation/pages';
 import { StyledLink } from '~/pages/shared/StyledLink';
 
 type LatestRecipeCardProps = {
@@ -15,7 +15,7 @@ export const LatestRecipeCard = ({ recipe }: LatestRecipeCardProps) => {
 
   const { formatDate } = useFormatting();
 
-  const recipeDetailPath = Pages.RecipeDetail.paths[0].replace(':recipeId', recipe.id.toString());
+  const recipeDetailPath = pages.RecipeDetail.paths[0].replace(':recipeId', recipe.id.toString());
 
   return (
     <div className="grid grid-cols-[1fr_2fr] md:grid-cols-[1fr_2.5fr] max-w-200">

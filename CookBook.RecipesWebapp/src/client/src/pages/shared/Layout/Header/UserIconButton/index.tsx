@@ -4,7 +4,7 @@ import { useAtomValue } from 'jotai';
 import { userAtom } from '~/atoms/userAtom';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-import { Pages } from '~/navigation/pages';
+import { pages } from '~/navigation/pages';
 
 export const UserIconButton: React.FC = () => {
   const { logout } = useUserIdentity();
@@ -55,7 +55,7 @@ export const UserIconButton: React.FC = () => {
         <button
           className="w-full text-left py-2 px-4 leading-6 cursor-pointer text-navlink-color hover:text-navlink-color-hover"
           onClick={() => {
-            navigate(Pages.MyProfile.paths[0]);
+            navigate(pages.MyProfile.paths[0]);
             setIsOpen(false);
           }}>
           My profile

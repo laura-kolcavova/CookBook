@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { recipeDataAtom } from './atoms/recipeDataAtom';
 import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
 import { useRecipeValidator } from './hooks/useRecipeValidator';
-import { Pages } from '~/navigation/pages';
 import { InstructionsSetter } from '~/pages/RecipeEditor/setters/InstructionsSetter';
 import { useResetAtom } from 'jotai/utils';
 import { areValid } from '~/utils/forms/fieldValidationUtils';
@@ -20,6 +19,7 @@ import { FeedbackError } from '../shared/forms/FeedbackError';
 import { Button } from '../shared/Button';
 import { Alert } from '../shared/Alert';
 import { useSaveRecipeErrorMessage } from './hooks/useSaveRecipeErrorMessage';
+import { pages } from '~/navigation/pages';
 
 export const RecipeEditor = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ export const RecipeEditor = () => {
     if (isSuccess && data) {
       resetRecipeData();
 
-      const recipeDetailPath = Pages.RecipeDetail.paths[0].replace(
+      const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
         ':recipeId',
         data.recipeId.toString(),
       );
@@ -62,7 +62,7 @@ export const RecipeEditor = () => {
   return (
     <div className="bg-content-background-color-primary h-full">
       <div className="container mx-auto py-10 px-4">
-        <h2 className="text-2xl font-semibold text-color-primary mb-6">Add Recipe</h2>
+        <h2 className="text-2xl font-semibold text-text-color-primary mb-6">Add Recipe</h2>
 
         {isPending ? (
           <div className="flex items-center justify-center py-20">

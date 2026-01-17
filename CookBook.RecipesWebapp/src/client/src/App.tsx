@@ -11,15 +11,15 @@ const queryClient = new QueryClient();
 export const App: React.FC = () => {
   return (
     <LocalizationProvider>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <QueryClientProvider client={queryClient}>
-          <UserIdentityProvider>
-            <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <UserIdentityProvider>
+          <BrowserRouter>
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
               <Layout />
-            </BrowserRouter>
-          </UserIdentityProvider>
-        </QueryClientProvider>
-      </ErrorBoundary>
+            </ErrorBoundary>
+          </BrowserRouter>
+        </UserIdentityProvider>
+      </QueryClientProvider>
     </LocalizationProvider>
   );
 };

@@ -8,9 +8,14 @@ import { MyProfile } from '~/pages/MyProfile';
 import { RecipeEditor } from '~/pages/RecipeEditor';
 import { MyRecipes } from '~/pages/MyRecipes';
 import { RecipeDetail } from '~/pages/RecipeDetail';
-import { Page, type PageDefinitions } from './models';
+import { PageDefinition } from './PageDefinition';
+import { Page } from './Page';
 
-export const Pages: PageDefinitions = {
+type PageDefinitions = {
+  [key in Page]: PageDefinition;
+};
+
+export const pages: PageDefinitions = {
   [Page.Home]: {
     paths: ['/home', '/'],
     component: Home,

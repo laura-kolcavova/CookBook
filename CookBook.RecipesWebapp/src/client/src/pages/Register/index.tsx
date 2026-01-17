@@ -1,9 +1,9 @@
 import React from 'react';
-import { Pages } from '~/navigation/pages';
 import { FormLabel } from '../shared/forms/FormLabel';
 import { FormTextInput } from '../shared/forms/FormTextInput';
 import { Button } from '../shared/Button';
 import { StyledLink } from '../shared/StyledLink';
+import { pages } from '~/navigation/pages';
 
 export const Register: React.FC = () => {
   return (
@@ -34,7 +34,7 @@ export const Register: React.FC = () => {
         </form>
 
         <div>
-          Already have an account? <StyledLink to={Pages.LogIn.paths[0]}>Log In</StyledLink>
+          Already have an account? <StyledLink to={pages.LogIn.paths[0]}>Log In</StyledLink>
         </div>
       </div>
     </div>

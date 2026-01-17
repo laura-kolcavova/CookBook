@@ -7,7 +7,7 @@ import { useAtomValue } from 'jotai';
 import { userAtom } from '~/atoms/userAtom';
 import { Link } from 'react-router-dom';
 import { UserIconButton } from './UserIconButton';
-import { Pages } from '~/navigation/pages';
+import { pages } from '~/navigation/pages';
 
 export const Header: React.FC = () => {
   const { isAuthenticated } = useAtomValue(userAtom);
@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
     <header className="bg-header-background-color border-b border-solid border-header-border-color">
       <div className="container mx-auto px-4 flex items-center justify-between min-h-32">
         <div>
-          <Link to={Pages.Home.paths[0]}>
+          <Link to={pages.Home.paths[0]}>
             <img src="/logo.png" alt="CookBook" className="h-32" />
           </Link>
         </div>
@@ -29,8 +29,8 @@ export const Header: React.FC = () => {
               <NavIconLink
                 text="Home"
                 icon={<FaHouse />}
-                to={Pages.Home.paths[0]}
-                isActive={isPageActive(Pages.Home)}
+                to={pages.Home.paths[0]}
+                isActive={isPageActive(pages.Home)}
               />
             </li>
 
@@ -38,8 +38,8 @@ export const Header: React.FC = () => {
               <NavIconLink
                 text="Explore"
                 icon={<FaMagnifyingGlass />}
-                to={Pages.Explore.paths[0]}
-                isActive={isPageActive(Pages.Explore)}
+                to={pages.Explore.paths[0]}
+                isActive={isPageActive(pages.Explore)}
               />
             </li>
 
@@ -48,8 +48,8 @@ export const Header: React.FC = () => {
                 <NavIconLink
                   text="Add a recipe"
                   icon={<FaPlus />}
-                  to={Pages.AddRecipe.paths[0]}
-                  isActive={isPageActive(Pages.AddRecipe)}
+                  to={pages.AddRecipe.paths[0]}
+                  isActive={isPageActive(pages.AddRecipe)}
                 />
               </li>
             )}
@@ -59,8 +59,8 @@ export const Header: React.FC = () => {
                 <NavIconLink
                   text="Log In"
                   icon={<FaRegCircleUser />}
-                  to={Pages.LogIn.paths[0]}
-                  isActive={isPageActive(Pages.LogIn)}
+                  to={pages.LogIn.paths[0]}
+                  isActive={isPageActive(pages.LogIn)}
                 />
               </li>
             )}
