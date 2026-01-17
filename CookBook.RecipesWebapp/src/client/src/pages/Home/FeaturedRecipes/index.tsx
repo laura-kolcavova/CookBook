@@ -1,5 +1,5 @@
-import { FeaturedRecipeCard } from './FeaturedRecipeCard';
 import { FeaturedRecipe } from './models/FeaturedRecipe';
+import { FeaturedRecipeCard } from './shared/FeaturedRecipeCard';
 
 // Dummy featured recipes data for demonstration
 const featuredRecipes: FeaturedRecipe[] = [

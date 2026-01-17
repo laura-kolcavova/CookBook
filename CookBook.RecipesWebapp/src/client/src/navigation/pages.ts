@@ -1,31 +1,24 @@
 import { Home } from '~/pages/Home';
 
-import { NotFound } from '~/pages/NotFound';
 import { Explore } from '~/pages/Explore';
 import { LogIn } from '~/pages/LogIn';
 import { Register } from '~/pages/Register';
 import { Saved } from '~/pages/Saved';
 import { MyProfile } from '~/pages/MyProfile';
 import { RecipeEditor } from '~/pages/RecipeEditor';
-import { Error } from '~/pages/Error';
 import { MyRecipes } from '~/pages/MyRecipes';
 import { RecipeDetail } from '~/pages/RecipeDetail';
-import { Page, type PageDefinitions } from './models';
+import { PageDefinition } from './PageDefinition';
+import { Page } from './Page';
 
-export const Pages: PageDefinitions = {
+type PageDefinitions = {
+  [key in Page]: PageDefinition;
+};
+
+export const pages: PageDefinitions = {
   [Page.Home]: {
     paths: ['/home', '/'],
     component: Home,
-    public: true,
-  },
-  [Page.Error]: {
-    paths: ['/error'],
-    component: Error,
-    public: true,
-  },
-  [Page.NotFound]: {
-    paths: ['*'],
-    component: NotFound,
     public: true,
   },
   [Page.Explore]: {

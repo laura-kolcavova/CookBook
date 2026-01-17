@@ -43,7 +43,7 @@ export const RecipeDetail = () => {
         ) : (
           <>
             <div className="mb-8 border-b-2 border-gray-200 pb-6">
-              <h2 className="text-2xl text-center text-color-primary font-semibold mb-6">
+              <h2 className="text-2xl text-center text-text-color-primary font-semibold mb-6">
                 {data.recipeDetail.title}
               </h2>
 
@@ -83,7 +83,7 @@ export const RecipeDetail = () => {
             </div>
 
             <div className="mb-8">
-              <h2 className="text-2xl font-semibold text-color-primary mb-4">Ingredients</h2>
+              <h2 className="text-2xl font-semibold text-text-color-primary mb-4">Ingredients</h2>
 
               <ul className="list-none p-0 ml-4">
                 {data.recipeDetail.ingredients.map((ingredient) => (
@@ -97,7 +97,7 @@ export const RecipeDetail = () => {
             </div>
 
             <div className="mb-8">
-              <h2 className="text-2xl font-semibold text-color-primary mb-4">Instructions</h2>
+              <h2 className="text-2xl font-semibold text-text-color-primary mb-4">Instructions</h2>
 
               <ol className="p-0 ml-4">
                 {data.recipeDetail.instructions.map((instruction, index) => (

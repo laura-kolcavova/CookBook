@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { Pages } from '../../navigation/pages';
 import { useUserIdentity } from '~/authentication/UserIdentityProvider';
 import { LoginData } from './models/LoginData';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +7,7 @@ import { FormTextInput } from '../shared/forms/FormTextInput';
 import { FormLabel } from '../shared/forms/FormLabel';
 import { Button } from '../shared/Button';
 import { StyledLink } from '../shared/StyledLink';
+import { pages } from '~/navigation/pages';
 
 const EMPTY_LOGIN_DATA: LoginData = {
   email: '',
@@ -24,7 +24,7 @@ export const LogIn: React.FC = () => {
   const handleSubmit = async () => {
     await login(data.email, data.password);
 
-    navigate(Pages.Home.paths[0]);
+    navigate(pages.Home.paths[0]);
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +73,7 @@ export const LogIn: React.FC = () => {
         </form>
 
         <div>
-          Need an account? <StyledLink to={Pages.Register.paths[0]}>Register</StyledLink>
+          Need an account? <StyledLink to={pages.Register.paths[0]}>Register</StyledLink>
         </div>
       </div>
     </div>
