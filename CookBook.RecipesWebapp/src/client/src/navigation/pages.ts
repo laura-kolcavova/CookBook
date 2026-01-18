@@ -10,6 +10,7 @@ import { MyRecipes } from '~/pages/MyRecipes';
 import { RecipeDetail } from '~/pages/RecipeDetail';
 import { PageDefinition } from './PageDefinition';
 import { Page } from './Page';
+import { NotFound } from '~/pages/NotFound';
 
 type PageDefinitions = {
   [key in Page]: PageDefinition;
@@ -60,5 +61,10 @@ export const pages: PageDefinitions = {
     paths: ['/recipes/:recipeId'],
     component: RecipeDetail,
     public: false,
+  },
+  [Page.NotFound]: {
+    paths: ['*'],
+    component: NotFound,
+    public: true,
   },
 };

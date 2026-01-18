@@ -8,4 +8,5 @@ export enum Page {
   AddRecipe = 'AddRecipe',
   MyRecipes = 'MyRecipes',
   RecipeDetail = 'RecipeDetail',
+  NotFound = 'NotFound',
 }
