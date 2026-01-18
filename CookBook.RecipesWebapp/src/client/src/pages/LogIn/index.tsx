@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { useUserIdentity } from '~/authentication/UserIdentityProvider';
-import { LoginData } from './models/LoginData';
+import type { LoginData } from './models/LoginData';
 import { useNavigate } from 'react-router-dom';
 import { FormTextInput } from '../shared/forms/FormTextInput';
 import { FormLabel } from '../shared/forms/FormLabel';
@@ -14,7 +14,7 @@ const EMPTY_LOGIN_DATA: LoginData = {
   password: '',
 };
 
-export const LogIn: React.FC = () => {
+export const LogIn = () => {
   const { login } = useUserIdentity();
 
   const navigate = useNavigate();

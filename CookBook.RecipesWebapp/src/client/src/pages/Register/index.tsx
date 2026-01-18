@@ -1,11 +1,10 @@
-import React from 'react';
 import { FormLabel } from '../shared/forms/FormLabel';
 import { FormTextInput } from '../shared/forms/FormTextInput';
 import { Button } from '../shared/Button';
 import { StyledLink } from '../shared/StyledLink';
 import { pages } from '~/navigation/pages';
 
-export const Register: React.FC = () => {
+export const Register = () => {
   return (
     <div className="bg-content-background-color-primary">
       <div className="container mx-auto py-10 px-4 flex flex-col items-center justify-center">

@@ -4,7 +4,7 @@ import type { GetRecipeDetailResponseDto } from './dto/GetRecipeDetailResponseDt
 import type { SaveRecipeRequestDto } from './dto/SaveRecipeRequestDto';
 import type { SaveRecipeResponseDto } from './dto/SaveRecipeResponseDto';
 import { callAxios } from '~/utils/axios';
-import { GetLatestRecipesResponseDto } from './dto/GetLatestRecipesResponseDto';
+import type { GetLatestRecipesResponseDto } from './dto/GetLatestRecipesResponseDto';
 
 const saveRecipe = (
   saveRecipeRequest: SaveRecipeRequestDto,

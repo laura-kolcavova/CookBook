@@ -1,4 +1,4 @@
-import { FeaturedRecipe } from './models/FeaturedRecipe';
+import type { FeaturedRecipe } from './models/FeaturedRecipe';
 import { FeaturedRecipeCard } from './shared/FeaturedRecipeCard';
 
 // Dummy featured recipes data for demonstration
