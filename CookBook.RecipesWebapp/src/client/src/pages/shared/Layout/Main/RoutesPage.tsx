@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { PublicRoute } from '../../PublicRoute';
 import { ProtectedRoute } from '../../ProtectedRoute';
-import { PageDefinition } from '~/navigation/PageDefinition';
+import type { PageDefinition } from '~/navigation/PageDefinition';
 import { pages } from '~/navigation/pages';
 
 export const RoutesPage: React.FC = () => {

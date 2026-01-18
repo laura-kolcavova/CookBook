@@ -1,7 +1,8 @@
 import { FaTriangleExclamation } from 'react-icons/fa6';
 import { Alert } from '../shared/Alert';
-import { ReactNode } from 'react';
-import { FallbackProps, getErrorMessage } from 'react-error-boundary';
+import type { ReactNode } from 'react';
+import type { FallbackProps} from 'react-error-boundary';
+import { getErrorMessage } from 'react-error-boundary';
 import { Button } from '../shared/Button';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '~/navigation/pages';

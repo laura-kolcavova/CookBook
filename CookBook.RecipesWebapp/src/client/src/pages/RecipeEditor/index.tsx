@@ -13,7 +13,7 @@ import { DescriptionSetter } from './setters/DescriptionSetter';
 import { NotesSetter } from './setters/NotesSetter';
 import { IngredientsSetter } from './setters/IngredientsSetter';
 import { useNavigate } from 'react-router-dom';
-import { FieldValidations } from '~/forms/FieldValidations';
+import type { FieldValidations } from '~/forms/FieldValidations';
 import { LoadingSpinner } from '../shared/LoadingSpinner';
 import { FeedbackError } from '../shared/forms/FeedbackError';
 import { Button } from '../shared/Button';
@@ -45,7 +45,7 @@ export const RecipeEditor = () => {
 
       navigate(recipeDetailPath);
     }
-  }, [isSuccess, data, resetRecipeData, navigate]);
+  }, [data, isSuccess, navigate, resetRecipeData]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

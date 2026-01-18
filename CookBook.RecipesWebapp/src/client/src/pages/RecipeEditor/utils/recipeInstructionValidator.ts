@@ -1,4 +1,4 @@
-import { ValidationResult } from '~/forms/ValidationResult';
+import type { ValidationResult } from '~/forms/ValidationResult';
 import type { InstructionItemData } from '../models/InstructionItemData';
 
 export const validateRecipeInstruction = (

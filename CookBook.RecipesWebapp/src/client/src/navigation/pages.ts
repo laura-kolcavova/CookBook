@@ -8,7 +8,7 @@ import { MyProfile } from '~/pages/MyProfile';
 import { RecipeEditor } from '~/pages/RecipeEditor';
 import { MyRecipes } from '~/pages/MyRecipes';
 import { RecipeDetail } from '~/pages/RecipeDetail';
-import { PageDefinition } from './PageDefinition';
+import type { PageDefinition } from './PageDefinition';
 import { Page } from './Page';
 import { NotFound } from '~/pages/NotFound';
 

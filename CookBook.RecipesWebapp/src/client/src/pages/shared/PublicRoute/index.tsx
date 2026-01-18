@@ -2,7 +2,7 @@ import { useAtomValue } from 'jotai';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { userAtom } from '~/atoms/userAtom';
-import { PageDefinition } from '~/navigation/PageDefinition';
+import type { PageDefinition } from '~/navigation/PageDefinition';
 
 import { pages } from '~/navigation/pages';
 

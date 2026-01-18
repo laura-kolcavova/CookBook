@@ -1,4 +1,4 @@
-import { ValidationResult } from '~/forms/ValidationResult';
+import type { ValidationResult } from '~/forms/ValidationResult';
 
 export const validateRecipeDescription = (recipeDescription?: string): ValidationResult => {
   if (recipeDescription === undefined) {

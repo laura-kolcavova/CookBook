@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { recipeDataAtom } from '../atoms/recipeDataAtom';
 import { useAtomValue } from 'jotai';
 import { recipesService } from '~/api/recipes/recipesService';
-import { SaveRecipeRequestDto } from '~/api/recipes/dto/SaveRecipeRequestDto';
+import type { SaveRecipeRequestDto } from '~/api/recipes/dto/SaveRecipeRequestDto';
 
 export const useSaveRecipeMutation = () => {
   const recipeData = useAtomValue(recipeDataAtom);

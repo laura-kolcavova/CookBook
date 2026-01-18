@@ -2,7 +2,7 @@ import React from 'react';
 import { useAtomValue } from 'jotai';
 import { Navigate } from 'react-router-dom';
 import { userAtom } from '~/atoms/userAtom';
-import { PageDefinition } from '~/navigation/PageDefinition';
+import type { PageDefinition } from '~/navigation/PageDefinition';
 import { pages } from '~/navigation/pages';
 
 export type ProtectedRouteProps = {

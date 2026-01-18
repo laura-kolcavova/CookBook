@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
 import { useCallback } from 'react';
-import { PageDefinition } from '../PageDefinition';
+import type { PageDefinition } from '../PageDefinition';
 
 export const useRouter = () => {
   const { pathname } = useLocation();
