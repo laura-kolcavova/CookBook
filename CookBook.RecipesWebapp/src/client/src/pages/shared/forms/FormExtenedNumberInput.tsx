@@ -71,7 +71,7 @@ export const FormExtendedNumberInput = ({
           max={max}
           value={value}
           onChange={handleInputChange}
-          className="w-full h-[calc(2.5rem-2px)] block px-3 py-1.5 text-center text-sm/6 font-normal bg-form-text-input-background-color text-form-text-input-color"
+          className="w-full h-[calc(2.5rem-1px)] block px-3 py-1.5 text-center text-sm/6 font-normal bg-form-text-input-background-color text-form-text-input-color"
         />
 
         {append && (
