@@ -17,11 +17,11 @@ export const LatestRecipes = () => {
           </div>
         ) : isError ? (
           <Alert color="danger">Something went wrong</Alert>
-        ) : !data || data.length === 0 ? (
+        ) : !data || data.latestRecipes.length === 0 ? (
           <p className="text-base text-text-color-secondary py-4">No recipe were created yet.</p>
         ) : (
           <div className="flex flex-col gap-6">
-            {data.map((recipe) => (
+            {data.latestRecipes.map((recipe) => (
               <LatestRecipeCard key={recipe.recipeId} recipe={recipe} />
             ))}
           </div>

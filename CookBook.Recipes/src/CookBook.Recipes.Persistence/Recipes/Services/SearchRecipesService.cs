@@ -32,7 +32,7 @@ internal sealed class SearchRecipesService(
                 .Include(recipe => recipe.RecipeTags)
                 .AsNoTracking();
 
-            if (searchTerm is not null)
+            if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 queryable = queryable
                     .Where(recipe =>

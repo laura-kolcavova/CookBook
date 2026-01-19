@@ -12,7 +12,8 @@ internal static class RecipeSearchItemReadModelExtensions
         {
             RecipeId = recipe.Id,
             Title = recipe.Title,
-            CreatedAt = recipe.CreatedAt!.Value
+            CreatedAt = recipe.CreatedAt!.Value,
+            ImageUrl = string.Empty
         });
     }
 }

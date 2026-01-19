@@ -1,14 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { recipesService } from '~/api/recipes/recipesService';
 
-export const useRecipeDetailQuery = (recipeId: number) => {
+export const useSearchRecipesQuery = (searchTerm: string) => {
   return useQuery({
-    queryKey: ['getRecipeDetail', recipeId],
+    queryKey: ['searchRecipes', searchTerm],
     queryFn: async ({ signal }) => {
-      const { status, data } = await recipesService.getRecipeDetail(recipeId, signal);
+      const { status, data } = await recipesService.searchRecipes(searchTerm, signal);
 
       if (status === 204) {
-        return null;
+        return {
+          recipes: [],
+        };
       }
 
       return data;

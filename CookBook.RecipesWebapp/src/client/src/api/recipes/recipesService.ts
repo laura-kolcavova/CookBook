@@ -45,7 +45,9 @@ const getRecipeDetail = (
 };
 
 const searchRecipes = (
-  searchTerm: string,
+  searchTerm?: string,
+  offset?: number,
+  limit?: number,
   signal?: GenericAbortSignal,
 ): AxiosPromise<SearchRecipesResponseDto> => {
   return callAxios({
@@ -54,6 +56,8 @@ const searchRecipes = (
     signal: signal,
     params: {
       searchTerm,
+      offset,
+      limit,
     },
   });
 };

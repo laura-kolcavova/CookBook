@@ -5,7 +5,7 @@ const latestRecipesFetchCount = 4;
 
 export const useLatestRecipesQuery = () => {
   return useQuery({
-    queryKey: ['latestRecipes'],
+    queryKey: ['getLatestRecipes'],
     queryFn: async ({ signal }) => {
       const { status, data } = await recipesService.getLatestRecipes(
         latestRecipesFetchCount,
@@ -13,10 +13,12 @@ export const useLatestRecipesQuery = () => {
       );
 
       if (status === 204) {
-        return [];
+        return {
+          latestRecipes: [],
+        };
       }
 
-      return data.latestRecipes;
+      return data;
     },
     retry: 0,
     gcTime: 0,

@@ -7,4 +7,6 @@ public class RecipeSearchItemDto
     public required string Title { get; init; }
 
     public required DateTimeOffset CreatedAt { get; init; }
+
+    public required string ImageUrl { get; init; }
 }
