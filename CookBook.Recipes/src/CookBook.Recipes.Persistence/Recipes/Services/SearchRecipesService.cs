@@ -34,27 +34,38 @@ internal sealed class SearchRecipesService(
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                queryable = queryable
+                var searchPattern = $"%{searchTerm.ToUpper()}%";
+
+                var titleResults = recipesContext.Recipes
+                    .AsNoTracking()
+                    .Include(recipe => recipe.RecipeTags)
                     .Where(recipe =>
                         EF.Functions.Like(
                             recipe.Title.ToUpper(),
-                            $"%{searchTerm.ToUpper()}%"));
+                            searchPattern));
 
-                //queryable = queryable
-                //    .Where(recipe => recipe.Description != null)
-                //    .Where(recipe =>
-                //        EF.Functions.Like(
-                //            recipe.Description!.ToUpper(),
-                //            $"%{searchTerm.ToUpper()}%"));
+                var descriptionResults = recipesContext.Recipes
+                    .AsNoTracking()
+                    .Include(recipe => recipe.RecipeTags)
+                    .Where(recipe => recipe.Description != null)
+                    .Where(recipe =>
+                        EF.Functions.Like(
+                            recipe.Description!.ToUpper(),
+                            searchPattern));
 
-                //queryable = queryable
-                //    .Where(recipe =>
-                //        recipe
-                //            .RecipeTags
-                //            .Any(tag =>
-                //                EF.Functions.Like(
-                //                    tag.Name.ToUpper(),
-                //                    $"%{searchTerm.ToUpper()}%")));
+                var tagResults = recipesContext.Recipes
+                    .Include(recipe => recipe.RecipeTags)
+                    .AsNoTracking()
+                    .Where(recipe =>
+                        recipe.RecipeTags
+                            .Any(tag =>
+                                EF.Functions.Like(
+                                    tag.Name.ToUpper(),
+                                    searchPattern)));
+
+                queryable = titleResults
+                    .Union(descriptionResults)
+                    .Union(tagResults);
             }
 
             if (sorting is not null)
