@@ -18,7 +18,7 @@ export const RecipesSearchGrid = ({ searchTerm }: RecipesSearchGridProps) => {
     <Alert color="danger">Something went wrong while searching for recipes</Alert>
   ) : !data || data.recipes.length === 0 ? (
     <p className="text-base text-center text-text-color-secondary py-4">
-      No recipes found matching &quot;{searchTerm}&quot;
+      {searchTerm ? `No recipes found matching "${searchTerm}"` : 'No recipes were created yet'}
     </p>
   ) : (
     <div className="flex flex-col gap-6">

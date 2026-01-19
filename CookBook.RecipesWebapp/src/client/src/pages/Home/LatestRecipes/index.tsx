@@ -18,7 +18,9 @@ export const LatestRecipes = () => {
         ) : isError ? (
           <Alert color="danger">Something went wrong</Alert>
         ) : !data || data.latestRecipes.length === 0 ? (
-          <p className="text-base text-text-color-secondary py-4">No recipe were created yet.</p>
+          <p className="text-base text-center text-text-color-secondary py-4">
+            No recipe were created yet.
+          </p>
         ) : (
           <div className="flex flex-col gap-6">
             {data.latestRecipes.map((recipe) => (
