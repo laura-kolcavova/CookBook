@@ -29,7 +29,33 @@ internal sealed class SearchRecipesService(
         try
         {
             var queryable = recipesContext.Recipes
+                .Include(recipe => recipe.RecipeTags)
                 .AsNoTracking();
+
+            if (searchTerm is not null)
+            {
+                queryable = queryable
+                    .Where(recipe =>
+                        EF.Functions.Like(
+                            recipe.Title.ToUpper(),
+                            $"%{searchTerm.ToUpper()}%"));
+
+                queryable = queryable
+                    .Where(recipe => recipe.Description != null)
+                    .Where(recipe =>
+                        EF.Functions.Like(
+                            recipe.Description!.ToUpper(),
+                            $"%{searchTerm.ToUpper()}%"));
+
+                queryable = queryable
+                    .Where(recipe =>
+                        recipe
+                            .RecipeTags
+                            .Any(tag =>
+                                EF.Functions.Like(
+                                    tag.Name.ToUpper(),
+                                    $"%{searchTerm.ToUpper()}%")));
+            }
 
             if (sorting is not null)
             {
