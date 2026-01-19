@@ -15,7 +15,10 @@ export const LatestRecipeCard = ({ recipe }: LatestRecipeCardProps) => {
 
   const { formatDate } = useFormatting();
 
-  const recipeDetailPath = pages.RecipeDetail.paths[0].replace(':recipeId', recipe.id.toString());
+  const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
+    ':recipeId',
+    recipe.recipeId.toString(),
+  );
 
   return (
     <div className="grid grid-cols-[1fr_2fr] md:grid-cols-[1fr_2.5fr] max-w-200">

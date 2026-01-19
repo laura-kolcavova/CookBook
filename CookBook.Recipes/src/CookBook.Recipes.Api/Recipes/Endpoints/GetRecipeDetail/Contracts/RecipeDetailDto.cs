@@ -2,7 +2,7 @@
 
 internal sealed record RecipeDetailDto
 {
-    public required long Id { get; init; }
+    public required long RecipeId { get; init; }
 
     public required int UserId { get; init; }
 

@@ -27,9 +27,10 @@ internal sealed class GetRecipesDetailService(
             var readModel = await recipesContext
                 .Recipes
                 .AsNoTracking()
+                .Where(
+                    recipe => recipe.Id == recipeId)
                 .ProjectToRecipeDetailReadModel()
-                .SingleOrDefaultAsync(recipeDetail =>
-                    recipeDetail.Id == recipeId,
+                .SingleOrDefaultAsync(
                     cancellationToken);
 
             return readModel;

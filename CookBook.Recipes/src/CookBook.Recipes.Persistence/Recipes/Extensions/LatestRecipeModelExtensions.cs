@@ -10,7 +10,7 @@ internal static class LatestRecipeModelExtensions
     {
         return recipes.Select(recipe => new LatestRecipeReadModel
         {
-            Id = recipe.Id,
+            RecipeId = recipe.Id,
             Title = recipe.Title,
             Description = recipe.Description,
             CreatedAt = recipe.CreatedAt!.Value,

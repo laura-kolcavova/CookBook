@@ -1,8 +1,8 @@
 ﻿namespace CookBook.Recipes.Domain.Recipes.ReadModels;
 
-public sealed record RecipeListingItemReadModel
+public sealed record RecipeSearchItemReadModel
 {
-    public required long Id { get; init; }
+    public required long RecipeId { get; init; }
 
     public required string Title { get; init; }
 

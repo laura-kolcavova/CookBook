@@ -1,8 +1,6 @@
-﻿using CookBook.Recipes.Domain.Recipes.ReadModels;
-
-namespace CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Contracts;
+﻿namespace CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Contracts;
 
 internal sealed record SearchRecipesResponseDto
 {
-    public required IReadOnlyCollection<RecipeListingItemReadModel> Recipes { get; init; }
+    public required IReadOnlyCollection<RecipeSearchItemDto> Recipes { get; init; }
 }

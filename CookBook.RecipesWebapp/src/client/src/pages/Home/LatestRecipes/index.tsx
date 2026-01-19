@@ -24,7 +24,7 @@ export const LatestRecipes = () => {
         ) : (
           <div className="flex flex-col gap-6">
             {data.map((recipe) => (
-              <LatestRecipeCard key={recipe.id} recipe={recipe} />
+              <LatestRecipeCard key={recipe.recipeId} recipe={recipe} />
             ))}
           </div>
         )}

@@ -15,11 +15,17 @@ internal sealed class SearchRecipesService(
     ILogger<SearchRecipesService> logger) :
     ISearchRecipesService
 {
-    public async Task<IReadOnlyCollection<RecipeListingItemReadModel>> SearchRecipes(
+    public async Task<IReadOnlyCollection<RecipeSearchItemReadModel>> SearchRecipes(
+        string? searchTerm,
         IReadOnlyCollection<SortBy>? sorting,
         OffsetFilter? offsetFilter,
         CancellationToken cancellationToken)
     {
+        using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
+        {
+            ["SearchTerm"] = searchTerm
+        });
+
         try
         {
             var queryable = recipesContext.Recipes
@@ -39,7 +45,7 @@ internal sealed class SearchRecipesService(
             }
 
             return await queryable
-               .ProjectToRecipeListingItemReadModel()
+               .ProjectToRecipeSearchItemReadModel()
                .ToListAsync(cancellationToken);
         }
         catch (Exception ex)

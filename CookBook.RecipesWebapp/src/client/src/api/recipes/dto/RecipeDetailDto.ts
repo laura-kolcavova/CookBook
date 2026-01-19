@@ -1,5 +1,5 @@
 export type RecipeDetailDto = {
-  id: number;
+  recipeId: number;
   userId: number;
   title: string;
   description?: string;
