@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { SearchBar } from './shared/SearchBar';
+import type { RecipesSearchGridRef } from './shared/RecipesSearchGrid/RecipesSearchGrid';
 import { RecipesSearchGrid } from './shared/RecipesSearchGrid/RecipesSearchGrid';
 
 export const Explore = () => {
+  const recipesSearchGridRef = useRef<RecipesSearchGridRef>(null);
+
   const [activeSearchTerm, setActiveSearchTerm] = useState('');
 
   const handleSearch = (searchTerm: string) => {
-    setActiveSearchTerm(searchTerm);
+    if (activeSearchTerm === searchTerm) {
+      recipesSearchGridRef.current?.refetch();
+    } else {
+      setActiveSearchTerm(searchTerm);
+    }
   };
 
   return (
@@ -25,7 +32,7 @@ export const Explore = () => {
 
       <div className="bg-content-background-color-tertiary">
         <div className="container mx-auto py-10 px-4">
-          <RecipesSearchGrid searchTerm={activeSearchTerm} />
+          <RecipesSearchGrid ref={recipesSearchGridRef} searchTerm={activeSearchTerm} />
         </div>
       </div>
     </>
