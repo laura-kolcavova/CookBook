@@ -12,11 +12,15 @@ internal sealed class RecipeAggregateRootConfiguration :
     public void Configure(EntityTypeBuilder<RecipeAggregate> builder)
     {
         builder.ToTable(
-            nameof(RecipesContext.Recipes),
+            DboSchema.RecipesTableName,
             DboSchema.Name);
 
         builder
             .HasKey(e => e.Id);
+
+        builder
+            .Property(e => e.Id)
+            .IsRequired();
 
         builder
             .Property(e => e.UserId)

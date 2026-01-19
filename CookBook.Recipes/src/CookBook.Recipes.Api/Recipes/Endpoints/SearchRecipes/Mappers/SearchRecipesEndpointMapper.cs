@@ -13,5 +13,5 @@ internal static partial class SearchRecipesEndpointMapper
         this RecipeSearchItemReadModel source);
 
     public static partial IReadOnlyCollection<RecipeSearchItemDto> ToDtoCollection(
-        this IEnumerable<RecipeSearchItemReadModel> source)
+        this IEnumerable<RecipeSearchItemReadModel> source);
 }

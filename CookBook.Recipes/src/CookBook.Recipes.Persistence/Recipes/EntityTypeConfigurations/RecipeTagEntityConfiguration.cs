@@ -12,7 +12,7 @@ internal sealed class RecipeTagEntityConfiguration :
         EntityTypeBuilder<RecipeTagEntity> builder)
     {
         builder.ToTable(
-            nameof(RecipesContext.RecipeTags),
+            DboSchema.RecipeTagsTableName,
             DboSchema.Name);
 
         builder

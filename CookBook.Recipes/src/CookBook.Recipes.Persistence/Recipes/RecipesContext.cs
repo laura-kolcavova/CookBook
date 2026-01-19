@@ -1,5 +1,4 @@
 ﻿using CookBook.Recipes.Domain.Recipes;
-using CookBook.Recipes.Domain.Recipes.Entities;
 using CookBook.Recipes.Persistence.Recipes.EntityTypeConfigurations;
 using CookBook.Recipes.Persistence.Shared.Interceptors;
 using Microsoft.EntityFrameworkCore;
@@ -15,21 +14,7 @@ internal sealed class RecipesContext : DbContext
 
     private readonly UpdateTrackingFieldsInterceptor _updateTrackingFieldsInterceptor;
 
-    #region AggregateRoots
-
     public DbSet<RecipeAggregate> Recipes => Set<RecipeAggregate>();
-
-    #endregion AggregateRoots
-
-    #region Entities
-
-    public DbSet<RecipeIngredientEntity> RecipeIngredients => Set<RecipeIngredientEntity>();
-
-    public DbSet<RecipeInstructionEntity> RecipeInstructions => Set<RecipeInstructionEntity>();
-
-    public DbSet<RecipeTagEntity> RecipeTags => Set<RecipeTagEntity>();
-
-    #endregion Entities
 
     public RecipesContext(
         string connectionString,
