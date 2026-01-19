@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaTimes } from 'react-icons/fa';
 import { useSearchRecipesQuery } from './hooks/useSearchRecipesQuery';
 import { LoadingSpinner } from '~/pages/shared/LoadingSpinner';
 import { Alert } from '~/pages/shared/Alert';
 import { LatestRecipeCard } from '../Home/LatestRecipes/shared/LatestRecipeCard';
-import { FormTextInput } from '../shared/forms/FormTextInput';
-import { Button } from '../shared/Button';
 
 export const Explore = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,11 +16,15 @@ export const Explore = () => {
     setActiveSearch(searchTerm);
   };
 
+  const handleClear = () => {
+    setSearchTerm('');
+  };
+
   return (
     <div className="bg-content-background-color-primary">
       <div className="container mx-auto py-10 px-4">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-2xl font-bold text-text-color-primary mb-8 text-center">
+          <h1 className="text-2xl font-semibold text-text-color-primary mb-8 text-center">
             Explore Recipes
           </h1>
 
@@ -38,8 +40,17 @@ export const Explore = () => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search for recipes by title, description, or tags..."
-                  className="block w-full px-3 py-1.5 outline-1 outline-offset-1 outline-gray-300 bg-form-text-input-background-color text-form-text-input-color text-sm h-[calc(2.5rem-3px)] pl-10 rounded-tl-md rounded-bl-md rounded-tr-none rounded-br-none"
+                  className="block w-full py-1.5 outline-1 outline-offset-1 outline-gray-300 bg-form-text-input-background-color text-form-text-input-color text-sm h-[calc(2.5rem-3px)] px-10 rounded-tl-md rounded-bl-md rounded-tr-none rounded-br-none"
                 />
+
+                {searchTerm && (
+                  <button
+                    type="button"
+                    onClick={handleClear}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-text-color-tertiary hover:text-text-color-secondary transition-colors cursor-pointer">
+                    <FaTimes />
+                  </button>
+                )}
               </div>
 
               <button
