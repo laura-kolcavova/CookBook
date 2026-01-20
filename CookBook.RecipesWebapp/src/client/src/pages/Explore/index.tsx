@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { SearchBar } from './shared/SearchBar';
-import type { RecipesSearchGridRef } from './shared/RecipesSearchGrid/RecipesSearchGrid';
-import { RecipesSearchGrid } from './shared/RecipesSearchGrid/RecipesSearchGrid';
+import type { RecipesSearchGridRef } from './shared/RecipesSearchGrid';
+import { RecipesSearchGrid } from './shared/RecipesSearchGrid';
 
 export const Explore = () => {
   const recipesSearchGridRef = useRef<RecipesSearchGridRef>(null);

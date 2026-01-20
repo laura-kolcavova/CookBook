@@ -2,7 +2,7 @@ import { forwardRef, useImperativeHandle } from 'react';
 import { LoadingSpinner } from '~/pages/shared/LoadingSpinner';
 import { useSearchRecipesQuery } from './hooks/useSearchRecipesQuery';
 import { Alert } from '~/pages/shared/Alert';
-import { RecipeSearchItemCard } from './RecipeSearchItemCard';
+import { RecipeSearchItemCard } from '../RecipeSearchItemCard';
 import { Button } from '~/pages/shared/Button';
 
 export type RecipesSearchGridProps = {
