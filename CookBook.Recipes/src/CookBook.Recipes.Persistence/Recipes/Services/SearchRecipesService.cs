@@ -15,15 +15,58 @@ internal sealed class SearchRecipesService(
     ILogger<SearchRecipesService> logger) :
     ISearchRecipesService
 {
-    public async Task<IReadOnlyCollection<RecipeListingItemReadModel>> SearchRecipes(
+    public async Task<IReadOnlyCollection<RecipeSearchItemReadModel>> SearchRecipes(
+        string? searchTerm,
         IReadOnlyCollection<SortBy>? sorting,
         OffsetFilter? offsetFilter,
         CancellationToken cancellationToken)
     {
+        using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
+        {
+            ["SearchTerm"] = searchTerm
+        });
+
         try
         {
             var queryable = recipesContext.Recipes
+                .Include(recipe => recipe.RecipeTags)
                 .AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                var searchPattern = $"%{searchTerm.ToUpper()}%";
+
+                var titleResults = recipesContext.Recipes
+                    .AsNoTracking()
+                    .Include(recipe => recipe.RecipeTags)
+                    .Where(recipe =>
+                        EF.Functions.Like(
+                            recipe.Title.ToUpper(),
+                            searchPattern));
+
+                var descriptionResults = recipesContext.Recipes
+                    .AsNoTracking()
+                    .Include(recipe => recipe.RecipeTags)
+                    .Where(recipe => recipe.Description != null)
+                    .Where(recipe =>
+                        EF.Functions.Like(
+                            recipe.Description!.ToUpper(),
+                            searchPattern));
+
+                var tagResults = recipesContext.Recipes
+                    .Include(recipe => recipe.RecipeTags)
+                    .AsNoTracking()
+                    .Where(recipe =>
+                        recipe.RecipeTags
+                            .Any(tag =>
+                                EF.Functions.Like(
+                                    tag.Name.ToUpper(),
+                                    searchPattern)));
+
+                queryable = titleResults
+                    .Union(descriptionResults)
+                    .Union(tagResults);
+            }
 
             if (sorting is not null)
             {
@@ -39,7 +82,7 @@ internal sealed class SearchRecipesService(
             }
 
             return await queryable
-               .ProjectToRecipeListingItemReadModel()
+               .ProjectToRecipeSearchItemReadModel()
                .ToListAsync(cancellationToken);
         }
         catch (Exception ex)

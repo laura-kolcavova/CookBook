@@ -12,7 +12,7 @@ internal sealed class RecipeIngredientEntityConfiguration :
         EntityTypeBuilder<RecipeIngredientEntity> builder)
     {
         builder.ToTable(
-            nameof(RecipesContext.RecipeIngredients),
+            DboSchema.RecipeIngredientsTableName,
             DboSchema.Name);
 
         builder
@@ -24,6 +24,10 @@ internal sealed class RecipeIngredientEntityConfiguration :
 
         builder
             .Property(e => e.RecipeId)
+            .IsRequired();
+
+        builder
+            .Property(e => e.LocalId)
             .IsRequired();
 
         builder

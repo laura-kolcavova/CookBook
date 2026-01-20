@@ -1,4 +1,5 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Contracts;
+using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Mappers;
 using CookBook.Recipes.Domain.Recipes.ReadModels;
 using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Domain.Shared.Filtering;
@@ -43,12 +44,13 @@ internal static class SearchRecipesEndpoint
         {
             new SortBy()
             {
-                PropertyName = nameof(RecipeListingItemReadModel.Title),
-                Direction = SortingDirection.Ascending
+                PropertyName = nameof(RecipeSearchItemReadModel.CreatedAt),
+                Direction = SortingDirection.Descending
             }
         };
 
         var recipes = await searchRecipesService.SearchRecipes(
+            request.SearchTerm,
             sorting,
             offsetFilter,
             cancellationToken);
@@ -60,7 +62,7 @@ internal static class SearchRecipesEndpoint
 
         var responseDto = new SearchRecipesResponseDto
         {
-            Recipes = recipes
+            Recipes = recipes.ToDtoCollection()
         };
 
         return TypedResults.Ok(responseDto);

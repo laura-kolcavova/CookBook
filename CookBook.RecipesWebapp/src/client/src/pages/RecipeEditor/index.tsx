@@ -47,7 +47,7 @@ export const RecipeEditor = () => {
     }
   }, [data, isSuccess, navigate, resetRecipeData]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const validationResults = validate();
@@ -60,7 +60,7 @@ export const RecipeEditor = () => {
   };
 
   return (
-    <div className="bg-content-background-color-primary h-full">
+    <div className="bg-content-background-color-primary">
       <div className="container mx-auto py-10 px-4">
         <h2 className="text-2xl font-semibold text-text-color-primary mb-6">Add Recipe</h2>
 

@@ -5,6 +5,7 @@ import type { SaveRecipeRequestDto } from './dto/SaveRecipeRequestDto';
 import type { SaveRecipeResponseDto } from './dto/SaveRecipeResponseDto';
 import { callAxios } from '~/utils/axios';
 import type { GetLatestRecipesResponseDto } from './dto/GetLatestRecipesResponseDto';
+import type { SearchRecipesResponseDto } from './dto/SearchRecipesResponseDto';
 
 const saveRecipe = (
   saveRecipeRequest: SaveRecipeRequestDto,
@@ -43,8 +44,27 @@ const getRecipeDetail = (
   });
 };
 
+const searchRecipes = (
+  searchTerm?: string,
+  offset?: number,
+  limit?: number,
+  signal?: GenericAbortSignal,
+): AxiosPromise<SearchRecipesResponseDto> => {
+  return callAxios({
+    url: '/api/Recipes/Search',
+    method: 'GET',
+    signal: signal,
+    params: {
+      searchTerm,
+      offset,
+      limit,
+    },
+  });
+};
+
 export const recipesService = {
   saveRecipe,
   getLatestRecipes,
   getRecipeDetail,
+  searchRecipes,
 };

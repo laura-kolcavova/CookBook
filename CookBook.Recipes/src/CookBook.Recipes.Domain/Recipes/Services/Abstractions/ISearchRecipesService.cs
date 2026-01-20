@@ -6,7 +6,8 @@ namespace CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 
 public interface ISearchRecipesService
 {
-    public Task<IReadOnlyCollection<RecipeListingItemReadModel>> SearchRecipes(
+    public Task<IReadOnlyCollection<RecipeSearchItemReadModel>> SearchRecipes(
+        string? searchTerm,
         IReadOnlyCollection<SortBy>? sorting,
         OffsetFilter? offsetFilter,
         CancellationToken cancellationToken);

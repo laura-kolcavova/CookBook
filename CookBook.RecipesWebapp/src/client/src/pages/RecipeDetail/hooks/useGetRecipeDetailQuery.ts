@@ -3,7 +3,7 @@ import { recipesService } from '~/api/recipes/recipesService';
 
 export const useRecipeDetailQuery = (recipeId: number) => {
   return useQuery({
-    queryKey: ['recipeDetail', recipeId],
+    queryKey: ['getRecipeDetail', recipeId],
     queryFn: async ({ signal }) => {
       const { status, data } = await recipesService.getRecipeDetail(recipeId, signal);
 

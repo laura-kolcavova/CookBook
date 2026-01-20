@@ -2,7 +2,7 @@
 
 public sealed record LatestRecipeReadModel
 {
-    public required long Id { get; init; }
+    public required long RecipeId { get; init; }
 
     public required string Title { get; init; }
 

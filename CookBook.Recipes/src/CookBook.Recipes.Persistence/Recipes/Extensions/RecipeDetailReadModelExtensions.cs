@@ -10,7 +10,7 @@ internal static class RecipeDetailReadModelExtensions
     {
         return recipes.Select(recipe => new RecipeDetailReadModel
         {
-            Id = recipe.Id,
+            RecipeId = recipe.Id,
             UserId = recipe.UserId,
             Title = recipe.Title,
             Description = recipe.Description,

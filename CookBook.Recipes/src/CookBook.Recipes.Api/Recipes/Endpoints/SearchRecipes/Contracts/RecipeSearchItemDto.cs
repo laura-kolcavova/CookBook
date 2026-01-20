@@ -1,12 +1,10 @@
-﻿namespace CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes.Contracts;
+﻿namespace CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Contracts;
 
-internal sealed record LatestRecipeDto
+public class RecipeSearchItemDto
 {
     public required long RecipeId { get; init; }
 
     public required string Title { get; init; }
-
-    public required string? Description { get; init; }
 
     public required DateTimeOffset CreatedAt { get; init; }
 

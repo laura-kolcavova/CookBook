@@ -3,16 +3,15 @@ using CookBook.Recipes.Domain.Recipes.ReadModels;
 
 namespace CookBook.Recipes.Persistence.Recipes.Extensions;
 
-internal static class LatestRecipeModelExtensions
+internal static class RecipeSearchItemReadModelExtensions
 {
-    public static IQueryable<LatestRecipeReadModel> ProjectToLatestRecipeReadModel(
-        this IQueryable<RecipeAggregate> recipes)
+    public static IQueryable<RecipeSearchItemReadModel> ProjectToRecipeSearchItemReadModel(
+       this IQueryable<RecipeAggregate> recipes)
     {
-        return recipes.Select(recipe => new LatestRecipeReadModel
+        return recipes.Select(recipe => new RecipeSearchItemReadModel
         {
             RecipeId = recipe.Id,
             Title = recipe.Title,
-            Description = recipe.Description,
             CreatedAt = recipe.CreatedAt!.Value,
             ImageUrl = string.Empty
         });

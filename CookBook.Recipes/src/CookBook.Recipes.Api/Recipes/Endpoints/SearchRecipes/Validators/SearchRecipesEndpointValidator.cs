@@ -8,7 +8,7 @@ internal sealed class SearchRecipesEndpointValidator :
     public SearchRecipesEndpointValidator()
     {
         RuleFor(request => request.Offset)
-             .GreaterThanOrEqualTo(0);
+            .GreaterThanOrEqualTo(0);
 
         RuleFor(request => request.Limit)
             .GreaterThanOrEqualTo(0);
