@@ -20,8 +20,8 @@ export const RecipeSearchItemCard = ({ recipe }: RecipeSearchItemCardProps) => {
   );
 
   return (
-    <div className="grid grid-cols-[1fr_2fr] md:grid-cols-[1fr_2.5fr] max-w-200">
-      <div className="rounded rounded-tl-lg rounded-tr-lgoverflow-hidden hover:shadow-lg transition-shadow">
+    <div className="flex flex-col">
+      <div className="rounded rounded-tl-lg rounded-tr-lgoverflow-hidden hover:shadow-lg transition-shadow mb-2">
         <Link to={recipeDetailPath} className="block">
           <div className="aspect-4/5 flex items-center justify-center">
             {!recipe.imageUrl || imgError ? (
@@ -43,18 +43,16 @@ export const RecipeSearchItemCard = ({ recipe }: RecipeSearchItemCardProps) => {
         </Link>
       </div>
 
-      <div className="p-8">
-        <h3 className="mb-2">
-          <Link
-            to={recipeDetailPath}
-            className="text-xl font-bold text-text-color-primary hover:text-text-color-primary-highlight transition-colors">
-            {recipe.title}
-          </Link>
-        </h3>
+      <div className="mb-1 text-center">
+        <Link
+          to={recipeDetailPath}
+          className=" text-text-color-primary hover:text-text-color-primary-highlight transition-colors">
+          <h3 className="text-lg font-bold wrap-break-word">{recipe.title}</h3>
+        </Link>
+      </div>
 
-        <div className="mb-2">
-          <span className="text-sm text-text-color-tertiary">{formatDate(recipe.createdAt)}</span>
-        </div>
+      <div className="text-center">
+        <span className="text-xs text-text-color-tertiary">{formatDate(recipe.createdAt)}</span>
       </div>
     </div>
   );

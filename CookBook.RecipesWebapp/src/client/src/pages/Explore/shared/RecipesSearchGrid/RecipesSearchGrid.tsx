@@ -31,7 +31,7 @@ export const RecipesSearchGrid = forwardRef<RecipesSearchGridRef, RecipesSearchG
         {searchTerm ? `No recipes found matching "${searchTerm}"` : 'No recipes were created yet'}
       </p>
     ) : (
-      <div className="flex flex-col gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
         {data.recipes.map((recipe) => (
           <RecipeSearchItemCard key={recipe.recipeId} recipe={recipe} />
         ))}
