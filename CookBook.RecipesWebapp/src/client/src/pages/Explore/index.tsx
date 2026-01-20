@@ -10,7 +10,7 @@ export const Explore = () => {
 
   const handleSearch = (searchTerm: string) => {
     if (activeSearchTerm === searchTerm) {
-      recipesSearchGridRef.current?.refetch();
+      recipesSearchGridRef.current?.reload();
     } else {
       setActiveSearchTerm(searchTerm);
     }

@@ -1,16 +1,22 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { recipesService } from '~/api/recipes/recipesService';
 
-const initialLimit = 20;
+const PAGE_SIZE = 20;
 
 export const useSearchRecipesQuery = (searchTerm?: string) => {
-  const [limit, setLimit] = useState(initialLimit);
+  const queryKey = ['searchRecipes', searchTerm];
 
-  const query = useQuery({
-    queryKey: ['searchRecipes', searchTerm, limit],
-    queryFn: async ({ signal }) => {
-      const { status, data } = await recipesService.searchRecipes(searchTerm, 0, limit, signal);
+  const queryClient = useQueryClient();
+
+  const query = useInfiniteQuery({
+    queryKey: queryKey,
+    queryFn: async ({ signal, pageParam }) => {
+      const { status, data } = await recipesService.searchRecipes(
+        searchTerm,
+        pageParam,
+        PAGE_SIZE,
+        signal,
+      );
 
       if (status === 204) {
         return {
@@ -20,18 +26,25 @@ export const useSearchRecipesQuery = (searchTerm?: string) => {
 
       return data;
     },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.recipes.length < PAGE_SIZE) {
+        return undefined;
+      }
+      return allPages.length * PAGE_SIZE;
+    },
     retry: 0,
     gcTime: 0,
     refetchOnWindowFocus: false,
   });
 
-  const loadMore = () => {
-    setLimit((prev) => prev + initialLimit);
+  const resetAndRefetch = async () => {
+    await queryClient.resetQueries({ queryKey: queryKey });
+    await query.refetch();
   };
 
   return {
     ...query,
-    loadMore,
-    hasMore: query.data ? query.data.recipes.length >= limit : false,
+    resetAndRefetch,
   };
 };

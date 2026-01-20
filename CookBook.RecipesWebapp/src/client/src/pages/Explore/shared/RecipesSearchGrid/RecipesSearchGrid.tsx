@@ -10,39 +10,51 @@ export type RecipesSearchGridProps = {
 };
 
 export type RecipesSearchGridRef = {
-  refetch: () => void;
+  reload: () => void;
 };
 
 export const RecipesSearchGrid = forwardRef<RecipesSearchGridRef, RecipesSearchGridProps>(
   ({ searchTerm }, ref) => {
-    const { isFetching, isError, data, refetch, loadMore, hasMore } =
+    const { isFetching, isError, data, hasNextPage, fetchNextPage, resetAndRefetch } =
       useSearchRecipesQuery(searchTerm);
 
     useImperativeHandle(ref, () => ({
-      refetch,
+      reload: resetAndRefetch,
     }));
 
-    return isFetching ? (
-      <div className="flex items-center justify-center py-20">
-        <LoadingSpinner text="Searching..." />
-      </div>
-    ) : isError ? (
-      <Alert color="danger">Something went wrong while searching for recipes</Alert>
-    ) : !data || data.recipes.length === 0 ? (
-      <p className="text-base text-center text-text-color-secondary py-4">
-        {searchTerm ? `No recipes found matching "${searchTerm}"` : 'No recipes were created yet'}
-      </p>
-    ) : (
+    if (isFetching) {
+      return (
+        <div className="flex items-center justify-center py-20">
+          <LoadingSpinner text="Searching..." />
+        </div>
+      );
+    }
+
+    if (isError) {
+      return <Alert color="danger">Something went wrong while searching for recipes</Alert>;
+    }
+
+    const allRecipes = data?.pages.flatMap((page) => page.recipes) ?? [];
+
+    if (allRecipes.length === 0) {
+      return (
+        <p className="text-base text-center text-text-color-secondary py-4">
+          {searchTerm ? `No recipes found matching "${searchTerm}"` : 'No recipes were created yet'}
+        </p>
+      );
+    }
+
+    return (
       <>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
-          {data.recipes.map((recipe) => (
+          {allRecipes.map((recipe) => (
             <RecipeSearchItemCard key={recipe.recipeId} recipe={recipe} />
           ))}
         </div>
 
-        {hasMore && (
+        {hasNextPage && (
           <div className="flex justify-center mt-8">
-            <Button onClick={loadMore} disabled={isFetching}>
+            <Button onClick={() => fetchNextPage()} disabled={isFetching}>
               Show More
             </Button>
           </div>
