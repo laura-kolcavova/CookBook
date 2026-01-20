@@ -3,6 +3,7 @@ import { LoadingSpinner } from '~/pages/shared/LoadingSpinner';
 import { useSearchRecipesQuery } from './hooks/useSearchRecipesQuery';
 import { Alert } from '~/pages/shared/Alert';
 import { RecipeSearchItemCard } from './RecipeSearchItemCard';
+import { Button } from '~/pages/shared/Button';
 
 export type RecipesSearchGridProps = {
   searchTerm: string;
@@ -14,7 +15,8 @@ export type RecipesSearchGridRef = {
 
 export const RecipesSearchGrid = forwardRef<RecipesSearchGridRef, RecipesSearchGridProps>(
   ({ searchTerm }, ref) => {
-    const { isFetching, isError, data, refetch } = useSearchRecipesQuery(searchTerm);
+    const { isFetching, isError, data, refetch, loadMore, hasMore } =
+      useSearchRecipesQuery(searchTerm);
 
     useImperativeHandle(ref, () => ({
       refetch,
@@ -31,11 +33,21 @@ export const RecipesSearchGrid = forwardRef<RecipesSearchGridRef, RecipesSearchG
         {searchTerm ? `No recipes found matching "${searchTerm}"` : 'No recipes were created yet'}
       </p>
     ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
-        {data.recipes.map((recipe) => (
-          <RecipeSearchItemCard key={recipe.recipeId} recipe={recipe} />
-        ))}
-      </div>
+      <>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
+          {data.recipes.map((recipe) => (
+            <RecipeSearchItemCard key={recipe.recipeId} recipe={recipe} />
+          ))}
+        </div>
+
+        {hasMore && (
+          <div className="flex justify-center mt-8">
+            <Button onClick={loadMore} disabled={isFetching}>
+              Show More
+            </Button>
+          </div>
+        )}
+      </>
     );
   },
 );
