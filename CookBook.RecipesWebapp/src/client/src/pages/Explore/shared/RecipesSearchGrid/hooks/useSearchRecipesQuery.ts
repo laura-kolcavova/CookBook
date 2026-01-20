@@ -1,15 +1,18 @@
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useCallback } from 'react';
 import { recipesService } from '~/api/recipes/recipesService';
 
 const PAGE_SIZE = 20;
 
-export const useSearchRecipesQuery = (searchTerm?: string) => {
-  const queryKey = ['searchRecipes', searchTerm];
+const getQueryKey = (searchTerm?: string) => {
+  return ['searchRecipes', searchTerm];
+};
 
+export const useSearchRecipesQuery = (searchTerm?: string) => {
   const queryClient = useQueryClient();
 
   const query = useInfiniteQuery({
-    queryKey: queryKey,
+    queryKey: getQueryKey(searchTerm),
     queryFn: async ({ signal, pageParam }) => {
       const { status, data } = await recipesService.searchRecipes(
         searchTerm,
@@ -38,10 +41,10 @@ export const useSearchRecipesQuery = (searchTerm?: string) => {
     refetchOnWindowFocus: false,
   });
 
-  const resetAndRefetch = async () => {
-    await queryClient.resetQueries({ queryKey: queryKey });
+  const resetAndRefetch = useCallback(async () => {
+    await queryClient.resetQueries({ queryKey: getQueryKey(searchTerm) });
     await query.refetch();
-  };
+  }, []);
 
   return {
     ...query,
