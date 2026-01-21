@@ -1,17 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useUserIdentity } from '~/authentication/LoggedUserProvider';
-import { useAtomValue } from 'jotai';
-import { userAtom } from '~/atoms/userAtom';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '~/navigation/pages';
+import { useLoggedUser } from '~/authentication/LoggedUserProvider';
 
 export const UserIconButton: React.FC = () => {
-  const { logout } = useUserIdentity();
+  const { user, logout } = useLoggedUser();
 
   const navigate = useNavigate();
 
-  const { nameClaimType } = useAtomValue(userAtom);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -28,6 +25,7 @@ export const UserIconButton: React.FC = () => {
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -46,7 +44,7 @@ export const UserIconButton: React.FC = () => {
         <span className="mb-1">
           <FaRegCircleUser />
         </span>
-        <span className="text-center">{nameClaimType}</span>
+        <span className="text-center">{user.fullName}</span>
       </button>
 
       <div

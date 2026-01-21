@@ -32,9 +32,13 @@ export type LoggedUserContextValue = {
 
 const LoggedUserContext = createContext<LoggedUserContextValue | null>(null);
 
-export const LoggedUserProvider = ({ children }: PropsWithChildren) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+export type LoggedUserProviderProps = PropsWithChildren;
+
+export const LoggedUserProvider = ({ children }: LoggedUserProviderProps) => {
   const [user, setUser] = useAtom(userAtom);
+
+  const [isAuthenticated, setIsAuthenticated] = useState(user !== EMPTY_LOGGED_USER);
+
   const resetUser = useResetAtom(userAtom);
 
   const login = (email: string, pasword: string): Promise<void> => {
@@ -55,6 +59,8 @@ export const LoggedUserProvider = ({ children }: PropsWithChildren) => {
 
   const logout = () => {
     resetUser();
+
+    setIsAuthenticated(false);
   };
 
   return (

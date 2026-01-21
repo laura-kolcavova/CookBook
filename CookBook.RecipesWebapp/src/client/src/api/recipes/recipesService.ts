@@ -68,7 +68,7 @@ const removeRecipe = (
   signal?: GenericAbortSignal,
 ): AxiosPromise<void> => {
   return callAxios({
-    url: `/api/recipes/remove/${recipeId}`,
+    url: `/api/recipes/${recipeId}/remove`,
     method: 'DELETE',
     params: {
       userId,

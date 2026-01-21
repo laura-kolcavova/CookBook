@@ -4,15 +4,18 @@ import { recipeDataAtom } from '../atoms/recipeDataAtom';
 import { useAtomValue } from 'jotai';
 import { recipesService } from '~/api/recipes/recipesService';
 import type { SaveRecipeRequestDto } from '~/api/recipes/dto/SaveRecipeRequestDto';
+import { useLoggedUser } from '~/authentication/LoggedUserProvider';
 
 export const useSaveRecipeMutation = () => {
+  const { user } = useLoggedUser();
+
   const recipeData = useAtomValue(recipeDataAtom);
 
   return useMutation({
     mutationFn: async () => {
       const saveRecipeRequest: SaveRecipeRequestDto = {
         recipeId: recipeData.recipeId,
-        userId: 1,
+        userId: user.userId,
         title: recipeData.title,
         description: recipeData.description,
         servings: recipeData.servings,

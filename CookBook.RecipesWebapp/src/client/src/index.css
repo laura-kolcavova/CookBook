@@ -15,14 +15,19 @@
   --color-text-color-secondary: #5a6a7c;
 
   --color-button-background-color-primary: #2b3b35;
-  --color-button-background-color-primary-disabled: #bfc5c2;
   --color-button-background-color-primary-hover: #ad775c;
+  --color-button-background-color-primary-disabled: #bfc5c2;
   --color-button-color-primary: #fff;
 
   --color-button-background-color-secondary: #ad775c;
-  --color-button-background-color-secondary-disabled: #e2d6cf;
   --color-button-background-color-secondary-hover: #c88a6b;
+  --color-button-background-color-secondary-disabled: #e2d6cf;
   --color-button-color-secondary: #fff;
+
+  --color-button-background-color-danger: #dc2626;
+  --color-button-background-color-danger-hover: #b91c1c;
+  --color-button-background-color-danger-disabled: #f87171;
+  --color-button-color-danger: #fff;
 
   --color-link-color: #ad775c;
 
@@ -50,8 +55,9 @@
 body {
   margin: 0;
 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 

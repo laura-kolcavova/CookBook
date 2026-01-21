@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { pages } from '~/navigation/pages';
 import { useSaveRemoveErrorMessage } from './hooks/useRemoveRecipeErrorMessage';
 import { Alert } from '~/pages/shared/Alert';
+import { SpinnerIcon } from '~/pages/shared/icons/SpinnerIcon';
 
 export type RecipeDetailContentProps = {
   recipe: RecipeDetailDto;
@@ -52,6 +53,20 @@ export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
 
   return (
     <>
+      <div className="flex items-center justify-end gap-4 mb-4">
+        {isAuthenticated && recipe.userId === user.userId && (
+          <Button
+            onClick={handleDelete}
+            className="flex items-center justify-center"
+            disabled={removeRecipeIsPending}
+            variant="danger">
+            <span>Delete</span>
+
+            {removeRecipeIsPending && <SpinnerIcon className="animate-spin size-4 ml-2" />}
+          </Button>
+        )}
+      </div>
+
       {removeRecipeIsError && (
         <Alert color="danger" isDismissible={true}>
           {getErrorMessage(removeRecipeError)}
@@ -59,19 +74,10 @@ export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
       )}
 
       <div className="mb-8 border-b-2 border-gray-200 pb-6">
-        <div className="flex justify-between items-start mb-6">
-          <h2 className="text-2xl text-center text-text-color-primary font-semibold flex-1">
+        <div className="mb-6">
+          <h2 className="text-2xl text-center text-text-color-primary font-semibold">
             {recipe.title}
           </h2>
-
-          {isAuthenticated && recipe.userId === user.userId && (
-            <Button
-              onClick={handleDelete}
-              disabled={removeRecipeIsPending}
-              className="bg-red-600 hover:bg-red-700 text-white">
-              {removeRecipeIsPending ? 'Deleting...' : 'Delete Recipe'}
-            </Button>
-          )}
         </div>
 
         <div className="text-center mb-2">

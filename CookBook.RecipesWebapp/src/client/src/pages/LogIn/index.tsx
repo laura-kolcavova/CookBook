@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { useUserIdentity } from '~/authentication/LoggedUserProvider';
 import type { LoginData } from './models/LoginData';
 import { useNavigate } from 'react-router-dom';
 import { FormTextInput } from '../shared/forms/FormTextInput';
@@ -8,6 +7,7 @@ import { FormLabel } from '../shared/forms/FormLabel';
 import { Button } from '../shared/Button';
 import { StyledLink } from '../shared/StyledLink';
 import { pages } from '~/navigation/pages';
+import { useLoggedUser } from '~/authentication/LoggedUserProvider';
 
 const EMPTY_LOGIN_DATA: LoginData = {
   email: '',
@@ -15,7 +15,7 @@ const EMPTY_LOGIN_DATA: LoginData = {
 };
 
 export const LogIn = () => {
-  const { login } = useUserIdentity();
+  const { login } = useLoggedUser();
 
   const navigate = useNavigate();
 
