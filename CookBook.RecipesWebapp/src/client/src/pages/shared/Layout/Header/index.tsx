@@ -3,14 +3,13 @@ import React from 'react';
 import { FaHouse, FaMagnifyingGlass, FaPlus, FaRegCircleUser } from 'react-icons/fa6';
 import { NavIconLink } from './NavIconLink';
 import { useRouter } from '~/navigation/hooks/useRouter';
-import { useAtomValue } from 'jotai';
-import { userAtom } from '~/atoms/userAtom';
 import { Link } from 'react-router-dom';
 import { UserIconButton } from './UserIconButton';
 import { pages } from '~/navigation/pages';
+import { useLoggedUser } from '~/authentication/LoggedUserProvider';
 
 export const Header: React.FC = () => {
-  const { isAuthenticated } = useAtomValue(userAtom);
+  const { isAuthenticated } = useLoggedUser();
 
   const { isPageActive } = useRouter();
 

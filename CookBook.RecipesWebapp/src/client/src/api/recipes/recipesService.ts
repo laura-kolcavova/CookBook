@@ -7,24 +7,12 @@ import { callAxios } from '~/utils/axios';
 import type { GetLatestRecipesResponseDto } from './dto/GetLatestRecipesResponseDto';
 import type { SearchRecipesResponseDto } from './dto/SearchRecipesResponseDto';
 
-const saveRecipe = (
-  saveRecipeRequest: SaveRecipeRequestDto,
-  signal?: GenericAbortSignal,
-): AxiosPromise<SaveRecipeResponseDto> => {
-  return callAxios({
-    url: '/api/Recipes/Save',
-    method: 'POST',
-    data: saveRecipeRequest,
-    signal: signal,
-  });
-};
-
 const getLatestRecipes = (
   count: number,
   signal?: GenericAbortSignal,
 ): AxiosPromise<GetLatestRecipesResponseDto> => {
   return callAxios({
-    url: `/api/Recipes/Latest`,
+    url: `/api/recipes/latest`,
     method: 'GET',
     signal: signal,
     params: {
@@ -38,7 +26,7 @@ const getRecipeDetail = (
   signal?: GenericAbortSignal,
 ): AxiosPromise<GetRecipeDetailResponseDto> => {
   return callAxios({
-    url: `/api/Recipes/${recipeId}/Detail`,
+    url: `/api/recipes/${recipeId}/detail`,
     method: 'GET',
     signal: signal,
   });
@@ -51,7 +39,7 @@ const searchRecipes = (
   signal?: GenericAbortSignal,
 ): AxiosPromise<SearchRecipesResponseDto> => {
   return callAxios({
-    url: '/api/Recipes/Search',
+    url: '/api/recipes/search',
     method: 'GET',
     signal: signal,
     params: {
@@ -62,9 +50,37 @@ const searchRecipes = (
   });
 };
 
+const saveRecipe = (
+  saveRecipeRequest: SaveRecipeRequestDto,
+  signal?: GenericAbortSignal,
+): AxiosPromise<SaveRecipeResponseDto> => {
+  return callAxios({
+    url: '/api/recipes/save',
+    method: 'PUT',
+    data: saveRecipeRequest,
+    signal: signal,
+  });
+};
+
+const removeRecipe = (
+  recipeId: number,
+  userId: number,
+  signal?: GenericAbortSignal,
+): AxiosPromise<void> => {
+  return callAxios({
+    url: `/api/recipes/${recipeId}/remove`,
+    method: 'DELETE',
+    params: {
+      userId,
+    },
+    signal: signal,
+  });
+};
+
 export const recipesService = {
-  saveRecipe,
   getLatestRecipes,
   getRecipeDetail,
   searchRecipes,
+  saveRecipe,
+  removeRecipe,
 };

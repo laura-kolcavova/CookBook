@@ -12,9 +12,9 @@ internal static class SaveRecipeEndpoint
     public static void Configure(RouteGroupBuilder recipesGroup)
     {
         recipesGroup
-            .MapPost("/Save", HandleAsync)
+            .MapPut("/save", HandleAsync)
             .WithName("SaveRecipe")
-            .WithSummary("Saves a newly created recipe or saves changes of already existing recipe")
+            .WithSummary("Updates a recipe or creates a new one if it does not exist")
             .WithDescription("This endpoint returns a DTO containing an id of created or edited recipe.")
             .Produces<SaveRecipeResponseDto>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status500InternalServerError)

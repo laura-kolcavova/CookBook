@@ -1,9 +1,9 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
+using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
-using RecipeErrors = CookBook.Recipes.Domain.Recipes.Errors;
 
 namespace CookBook.Recipes.Persistence.Recipes.Services;
 
@@ -14,6 +14,7 @@ internal sealed class RemoveRecipeService(
 {
     public async Task<UnitResult<Error>> RemoveRecipe(
         long recipeId,
+        int userId,
         CancellationToken cancellationToken)
     {
         using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
@@ -29,7 +30,15 @@ internal sealed class RemoveRecipeService(
 
             if (recipe is null)
             {
-                return RecipeErrors.Recipe.NotFound(recipeId);
+                return RecipeErrors.Recipe.NotFound(
+                    recipeId);
+            }
+
+            if (recipe.UserId != userId)
+            {
+                return RecipeErrors.Recipe.NotOwnedByUser(
+                    recipeId,
+                    userId);
             }
 
             recipesContext

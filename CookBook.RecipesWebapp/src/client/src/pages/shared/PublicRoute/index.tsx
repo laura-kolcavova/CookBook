@@ -1,7 +1,6 @@
-import { useAtomValue } from 'jotai';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { userAtom } from '~/atoms/userAtom';
+import { useLoggedUser } from '~/authentication/LoggedUserProvider';
 import type { PageDefinition } from '~/navigation/PageDefinition';
 
 import { pages } from '~/navigation/pages';
@@ -11,7 +10,7 @@ export type PublicRouteProps = {
 };
 
 export const PublicRoute: React.FC<PublicRouteProps> = ({ page }) => {
-  const { isAuthenticated } = useAtomValue(userAtom);
+  const { isAuthenticated } = useLoggedUser();
 
   if (isAuthenticated && page === pages.LogIn) {
     return <Navigate to={pages.Home.paths[0]} />;

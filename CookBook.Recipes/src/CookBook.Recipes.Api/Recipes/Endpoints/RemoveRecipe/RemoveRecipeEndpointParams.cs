@@ -6,4 +6,7 @@ internal sealed record RemoveRecipeEndpointParams
 {
     [FromRoute]
     public required long RecipeId { get; init; }
+
+    [FromQuery]
+    public required int UserId { get; init; }
 }

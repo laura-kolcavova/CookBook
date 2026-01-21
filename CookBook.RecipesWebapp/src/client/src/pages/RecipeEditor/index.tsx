@@ -14,12 +14,12 @@ import { NotesSetter } from './setters/NotesSetter';
 import { IngredientsSetter } from './setters/IngredientsSetter';
 import { useNavigate } from 'react-router-dom';
 import type { FieldValidations } from '~/forms/FieldValidations';
-import { LoadingSpinner } from '../shared/LoadingSpinner';
 import { FeedbackError } from '../shared/forms/FeedbackError';
 import { Button } from '../shared/Button';
 import { Alert } from '../shared/Alert';
 import { useSaveRecipeErrorMessage } from './hooks/useSaveRecipeErrorMessage';
 import { pages } from '~/navigation/pages';
+import { SpinnerIcon } from '../shared/icons/SpinnerIcon';
 
 export const RecipeEditor = () => {
   const navigate = useNavigate();
@@ -28,24 +28,31 @@ export const RecipeEditor = () => {
 
   const [validations, setValidations] = useState<FieldValidations>({});
 
-  const { mutate, isPending, isError, isSuccess, error, data } = useSaveRecipeMutation();
+  const {
+    mutate: saveRecipeMutate,
+    isPending: saveRecipeIsPending,
+    isSuccess: saveRecipeIsSuccess,
+    isError: saveRecipeIsError,
+    data: saveRecipeData,
+    error: saveRecipeError,
+  } = useSaveRecipeMutation();
 
   const { validate } = useRecipeValidator();
 
   const { getErrorMessage } = useSaveRecipeErrorMessage();
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (saveRecipeIsSuccess && saveRecipeData) {
       resetRecipeData();
 
       const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
         ':recipeId',
-        data.recipeId.toString(),
+        saveRecipeData.recipeId.toString(),
       );
 
       navigate(recipeDetailPath);
     }
-  }, [data, isSuccess, navigate, resetRecipeData]);
+  }, [saveRecipeData, saveRecipeIsSuccess, navigate, resetRecipeData]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,7 +63,7 @@ export const RecipeEditor = () => {
       return;
     }
     setValidations({});
-    mutate();
+    saveRecipeMutate();
   };
 
   return (
@@ -64,87 +71,87 @@ export const RecipeEditor = () => {
       <div className="container mx-auto py-10 px-4">
         <h2 className="text-2xl font-semibold text-text-color-primary mb-6">Add Recipe</h2>
 
-        {isPending ? (
-          <div className="flex items-center justify-center py-20">
-            <LoadingSpinner text="Saving..." />
-          </div>
-        ) : (
-          <>
-            {isError && (
-              <Alert color="danger" isDismissible={true}>
-                {getErrorMessage(error)}
-              </Alert>
-            )}
+        <>
+          {saveRecipeIsError && (
+            <Alert color="danger" isDismissible={true}>
+              {getErrorMessage(saveRecipeError)}
+            </Alert>
+          )}
 
-            <form className="w-full max-w-3xl" onSubmit={handleSubmit}>
-              <div className="mb-6">
-                <TitleSetter />
+          <form className="w-full max-w-3xl" onSubmit={handleSubmit}>
+            <div className="mb-6">
+              <TitleSetter />
 
-                {validations.title?.errorMessage && (
-                  <FeedbackError message={validations.title.errorMessage} />
-                )}
-              </div>
+              {validations.title?.errorMessage && (
+                <FeedbackError message={validations.title.errorMessage} />
+              )}
+            </div>
 
-              <div className="mb-6">
-                <DescriptionSetter />
+            <div className="mb-6">
+              <DescriptionSetter />
 
-                {validations.description?.errorMessage && (
-                  <FeedbackError message={validations.description.errorMessage} />
-                )}
-              </div>
+              {validations.description?.errorMessage && (
+                <FeedbackError message={validations.description.errorMessage} />
+              )}
+            </div>
 
-              <div className="mb-6">
-                <ServingsSetter />
+            <div className="mb-6">
+              <ServingsSetter />
 
-                {validations.servings?.errorMessage && (
-                  <FeedbackError message={validations.servings.errorMessage} />
-                )}
-              </div>
+              {validations.servings?.errorMessage && (
+                <FeedbackError message={validations.servings.errorMessage} />
+              )}
+            </div>
 
-              <div className="mb-6">
-                <CookTimeSetter />
+            <div className="mb-6">
+              <CookTimeSetter />
 
-                {validations.cookTime?.errorMessage && (
-                  <FeedbackError message={validations.cookTime.errorMessage} />
-                )}
-              </div>
+              {validations.cookTime?.errorMessage && (
+                <FeedbackError message={validations.cookTime.errorMessage} />
+              )}
+            </div>
 
-              <div className="mb-6">
-                <IngredientsSetter />
+            <div className="mb-6">
+              <IngredientsSetter />
 
-                {validations.ingredients?.errorMessage && (
-                  <FeedbackError message={validations.ingredients.errorMessage} />
-                )}
-              </div>
+              {validations.ingredients?.errorMessage && (
+                <FeedbackError message={validations.ingredients.errorMessage} />
+              )}
+            </div>
 
-              <div className="mb-6">
-                <InstructionsSetter />
+            <div className="mb-6">
+              <InstructionsSetter />
 
-                {validations.instructions?.errorMessage && (
-                  <FeedbackError message={validations.instructions.errorMessage} />
-                )}
-              </div>
+              {validations.instructions?.errorMessage && (
+                <FeedbackError message={validations.instructions.errorMessage} />
+              )}
+            </div>
 
-              <div className="mb-6">
-                <NotesSetter />
+            <div className="mb-6">
+              <NotesSetter />
 
-                {validations.notes?.errorMessage && (
-                  <FeedbackError message={validations.notes.errorMessage} />
-                )}
-              </div>
+              {validations.notes?.errorMessage && (
+                <FeedbackError message={validations.notes.errorMessage} />
+              )}
+            </div>
 
-              <div className="mb-12">
-                <TagsSetter />
-              </div>
+            <div className="mb-12">
+              <TagsSetter />
+            </div>
 
-              <div>
-                <Button type="submit" color="primary" disabled={isPending}>
-                  Create Recipe
-                </Button>
-              </div>
-            </form>
-          </>
-        )}
+            <div>
+              <Button
+                type="submit"
+                variant="primary"
+                className="w-40 flex items-center justify-center"
+                disabled={saveRecipeIsPending}>
+                <span>Create Recipe</span>
+
+                {saveRecipeIsPending && <SpinnerIcon className="animate-spin size-4 ml-2" />}
+              </Button>
+            </div>
+          </form>
+        </>
       </div>
     </div>
   );

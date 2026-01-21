@@ -9,11 +9,11 @@ internal static class RemoveRecipeEndpoint
     public static void Configure(RouteGroupBuilder recipesGroup)
     {
         recipesGroup
-            .MapDelete("/{recipeId}/Remove", HandleAsync)
+            .MapDelete("/{recipeId}/remove", HandleAsync)
             .WithName("RemoveRecipe")
             .WithSummary("Removes a recipe by its id")
-            .WithDescription("This endpoint returns Status 200 OK response if recipe was successfully removed.")
-            .Produces(StatusCodes.Status200OK)
+            .WithDescription("This endpoint returns Status 204 OK response if recipe was successfully removed.")
+            .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesValidationProblem();
@@ -28,6 +28,7 @@ internal static class RemoveRecipeEndpoint
     {
         var removeRecipeResult = await removeRecipeService.RemoveRecipe(
             request.RecipeId,
+            request.UserId,
             cancellationToken);
 
         if (removeRecipeResult.IsFailure)
@@ -36,6 +37,6 @@ internal static class RemoveRecipeEndpoint
                 removeRecipeResult.Error.AsProblemDetails(httpContext));
         }
 
-        return TypedResults.Ok();
+        return TypedResults.NoContent();
     }
 }
