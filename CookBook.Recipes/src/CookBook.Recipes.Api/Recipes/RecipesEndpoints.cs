@@ -11,14 +11,14 @@ internal static class CategoriesEndpoints
     public static RouteGroupBuilder AddRecipesEndpoints(this RouteGroupBuilder group)
     {
         var recipesGroup = group
-            .MapGroup("/Recipes")
+            .MapGroup("/recipes")
             .WithTags("Recipes");
 
-        SaveRecipeEndpoint.Configure(recipesGroup);
-        RemoveRecipeEndpoint.Configure(recipesGroup);
-        SearchRecipesEndpoint.Configure(recipesGroup);
         GetLatestRecipesEndpoint.Configure(recipesGroup);
         GetRecipeDetailEndpoint.Configure(recipesGroup);
+        SearchRecipesEndpoint.Configure(recipesGroup);
+        SaveRecipeEndpoint.Configure(recipesGroup);
+        RemoveRecipeEndpoint.Configure(recipesGroup);
 
         return group;
     }

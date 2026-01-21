@@ -12,7 +12,7 @@ internal static class SearchRecipesEndpoint
     public static void Configure(RouteGroupBuilder recipesGroup)
     {
         recipesGroup
-            .MapGet("/Search", HandleAsync)
+            .MapGet("/search", HandleAsync)
             .WithName("SearchRecipes")
             .WithSummary("Search for existing recipes")
             .WithDescription("Returns a DTO containing a collection of recipe listing item DTOs.")
