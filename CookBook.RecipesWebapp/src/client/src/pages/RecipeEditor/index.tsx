@@ -28,24 +28,31 @@ export const RecipeEditor = () => {
 
   const [validations, setValidations] = useState<FieldValidations>({});
 
-  const { mutate, isPending, isError, isSuccess, error, data } = useSaveRecipeMutation();
+  const {
+    mutate: saveRecipeMutate,
+    isPending: saveRecipeIsPending,
+    isSuccess: saveRecipeIsSuccess,
+    isError: saveRecipeIsError,
+    data: saveRecipeData,
+    error: saveRecipeError,
+  } = useSaveRecipeMutation();
 
   const { validate } = useRecipeValidator();
 
   const { getErrorMessage } = useSaveRecipeErrorMessage();
 
   useEffect(() => {
-    if (isSuccess && data) {
+    if (saveRecipeIsSuccess && saveRecipeData) {
       resetRecipeData();
 
       const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
         ':recipeId',
-        data.recipeId.toString(),
+        saveRecipeData.recipeId.toString(),
       );
 
       navigate(recipeDetailPath);
     }
-  }, [data, isSuccess, navigate, resetRecipeData]);
+  }, [saveRecipeData, saveRecipeIsSuccess, navigate, resetRecipeData]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,7 +63,7 @@ export const RecipeEditor = () => {
       return;
     }
     setValidations({});
-    mutate();
+    saveRecipeMutate();
   };
 
   return (
@@ -64,15 +71,15 @@ export const RecipeEditor = () => {
       <div className="container mx-auto py-10 px-4">
         <h2 className="text-2xl font-semibold text-text-color-primary mb-6">Add Recipe</h2>
 
-        {isPending ? (
+        {saveRecipeIsPending ? (
           <div className="flex items-center justify-center py-20">
             <LoadingSpinner text="Saving..." />
           </div>
         ) : (
           <>
-            {isError && (
+            {saveRecipeIsError && (
               <Alert color="danger" isDismissible={true}>
-                {getErrorMessage(error)}
+                {getErrorMessage(saveRecipeError)}
               </Alert>
             )}
 
@@ -138,7 +145,7 @@ export const RecipeEditor = () => {
               </div>
 
               <div>
-                <Button type="submit" color="primary" disabled={isPending}>
+                <Button type="submit" color="primary" disabled={saveRecipeIsPending}>
                   Create Recipe
                 </Button>
               </div>

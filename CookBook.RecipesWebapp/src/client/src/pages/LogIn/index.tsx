@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useUserIdentity } from '~/authentication/UserIdentityProvider';
+import { useUserIdentity } from '~/authentication/LoggedUserProvider';
 import type { LoginData } from './models/LoginData';
 import { useNavigate } from 'react-router-dom';
 import { FormTextInput } from '../shared/forms/FormTextInput';

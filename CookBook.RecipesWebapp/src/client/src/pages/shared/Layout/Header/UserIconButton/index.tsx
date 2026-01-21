@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useUserIdentity } from '~/authentication/UserIdentityProvider';
+import { useUserIdentity } from '~/authentication/LoggedUserProvider';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '~/atoms/userAtom';
 import { FaRegCircleUser } from 'react-icons/fa6';
