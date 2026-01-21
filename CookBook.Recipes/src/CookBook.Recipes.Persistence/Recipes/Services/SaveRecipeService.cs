@@ -39,33 +39,33 @@ internal sealed class SaveRecipeService(
 
             if (recipe is null)
             {
-                recipe = new RecipeAggregate(
-                    saveRecipeParams.Title,
-                    saveRecipeParams.UserId);
-
-                SaveRecipeOptionalInformation(
-                    recipe,
-                    saveRecipeParams,
-                    cancellationToken);
+                recipe = CreateRecipe(saveRecipeParams);
 
                 await recipesContext
                     .Recipes
                     .AddAsync(recipe, cancellationToken);
-            }
-            else
-            {
-                recipe.SetTitle(
-                    saveRecipeParams.Title);
 
-                SaveRecipeOptionalInformation(
-                    recipe,
-                    saveRecipeParams,
+                await recipesContext.SaveChangesAsync(
                     cancellationToken);
 
-                recipesContext
-                    .Recipes
-                    .Update(recipe);
+                return new SaveRecipeResult
+                {
+                    RecipeId = recipe.Id
+                };
             }
+
+            if (recipe.UserId != saveRecipeParams.UserId)
+            {
+                return RecipeErrors.Recipe.NotOwnedByUser(
+                    recipe.Id,
+                    saveRecipeParams.UserId);
+            }
+
+            UpdateRecipe(recipe, saveRecipeParams);
+
+            recipesContext
+                .Recipes
+                .Update(recipe);
 
             await recipesContext.SaveChangesAsync(
                 cancellationToken);
@@ -84,11 +84,29 @@ internal sealed class SaveRecipeService(
         }
     }
 
-    private void SaveRecipeOptionalInformation(
-        RecipeAggregate recipe,
-        SaveRecipeParams saveRecipeParams,
-        CancellationToken cancellationToken)
+    private static RecipeAggregate CreateRecipe(
+        SaveRecipeParams saveRecipeParams)
     {
+        var recipe = new RecipeAggregate(
+            saveRecipeParams.Title,
+            saveRecipeParams.UserId);
+
+        recipe.SetDescription(saveRecipeParams.Description);
+        recipe.SetServings(saveRecipeParams.Servings);
+        recipe.SetCookTime(saveRecipeParams.CookTime);
+        recipe.SetNotes(saveRecipeParams.Notes);
+        recipe.SaveIngredients(saveRecipeParams.Ingredients);
+        recipe.SaveInstructions(saveRecipeParams.Instructions);
+        recipe.SaveTags(saveRecipeParams.Tags);
+
+        return recipe;
+    }
+
+    private static void UpdateRecipe(
+        RecipeAggregate recipe,
+        SaveRecipeParams saveRecipeParams)
+    {
+        recipe.SetTitle(saveRecipeParams.Title);
         recipe.SetDescription(saveRecipeParams.Description);
         recipe.SetServings(saveRecipeParams.Servings);
         recipe.SetCookTime(saveRecipeParams.CookTime);

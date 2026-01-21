@@ -13,7 +13,7 @@ const saveRecipe = (
 ): AxiosPromise<SaveRecipeResponseDto> => {
   return callAxios({
     url: '/api/Recipes/Save',
-    method: 'POST',
+    method: 'PUT',
     data: saveRecipeRequest,
     signal: signal,
   });

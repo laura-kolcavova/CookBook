@@ -7,5 +7,6 @@ public interface IRemoveRecipeService
 {
     public Task<UnitResult<Error>> RemoveRecipe(
     long recipeId,
+    int userId,
     CancellationToken cancellationToken);
 }

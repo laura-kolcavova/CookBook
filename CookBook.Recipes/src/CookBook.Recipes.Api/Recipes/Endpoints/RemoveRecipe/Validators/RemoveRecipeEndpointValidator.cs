@@ -10,5 +10,9 @@ internal sealed class RemoveRecipeEndpointValidator :
         RuleFor(request => request.RecipeId)
             .NotNull()
             .GreaterThan(0);
+
+        RuleFor(request => request.UserId)
+          .NotNull()
+          .GreaterThan(0);
     }
 }
