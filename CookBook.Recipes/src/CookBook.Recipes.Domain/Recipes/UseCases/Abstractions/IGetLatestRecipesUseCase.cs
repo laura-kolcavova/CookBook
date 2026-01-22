@@ -1,8 +1,8 @@
 ﻿using CookBook.Recipes.Domain.Recipes.ReadModels;
 
-namespace CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+namespace CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 
-public interface IGetLatestRecipesService
+public interface IGetLatestRecipesUseCase
 {
     public Task<IReadOnlyCollection<LatestRecipeReadModel>> GetLatestRecipes(
         int count,

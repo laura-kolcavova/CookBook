@@ -1,6 +1,6 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes.Contracts;
 using CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes.Mappers;
-using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes;
 
@@ -22,11 +22,11 @@ internal static class GetLatestRecipesEndpoint
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         GetLatestRecipesEndpointParams request,
-        IGetLatestRecipesService getLatestRecipesService,
+        IGetLatestRecipesUseCase getLatestRecipesUseCase,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var latestRecipes = await getLatestRecipesService.GetLatestRecipes(
+        var latestRecipes = await getLatestRecipesUseCase.GetLatestRecipes(
             request.Count,
             cancellationToken);
 

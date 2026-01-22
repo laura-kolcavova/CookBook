@@ -1,16 +1,16 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
 using CookBook.Recipes.Domain.Recipes;
-using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.Recipes.Persistence.Recipes.Services;
+namespace CookBook.Recipes.Persistence.Recipes.UseCases;
 
-internal sealed class RemoveRecipeService(
+internal sealed class RemoveRecipeUseCase(
     RecipesContext recipesContext,
-    ILogger<RemoveRecipeService> logger) :
-    IRemoveRecipeService
+    ILogger<RemoveRecipeUseCase> logger) :
+    IRemoveRecipeUseCase
 {
     public async Task<UnitResult<Error>> RemoveRecipe(
         long recipeId,

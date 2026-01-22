@@ -1,18 +1,18 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
 using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Domain.Recipes.Models;
-using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
 using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.Recipes.Persistence.Recipes.Services;
+namespace CookBook.Recipes.Persistence.Recipes.UseCases;
 
-internal sealed class SaveRecipeService(
+internal sealed class SaveRecipeUseCase(
     RecipesContext recipesContext,
-    ILogger<SaveRecipeService> logger) :
-    ISaveRecipeService
+    ILogger<SaveRecipeUseCase> logger) :
+    ISaveRecipeUseCase
 {
     public async Task<Result<SaveRecipeResult, Error>> SaveRecipe(
         SaveRecipeParams saveRecipeParams,

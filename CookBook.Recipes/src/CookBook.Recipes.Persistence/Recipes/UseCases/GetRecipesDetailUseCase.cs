@@ -1,17 +1,17 @@
 ﻿using CookBook.Recipes.Domain.Recipes.ReadModels;
-using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
 using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.Recipes.Persistence.Recipes.Services;
+namespace CookBook.Recipes.Persistence.Recipes.UseCases;
 
-internal sealed class GetRecipesDetailService(
+internal sealed class GetRecipesDetailUseCase(
     RecipesContext recipesContext,
-    ILogger<GetRecipesDetailService> logger) :
-    IGetRecipeDetailService
+    ILogger<GetRecipesDetailUseCase> logger) :
+    IGetRecipeDetailUseCase
 {
     public async Task<Maybe<RecipeDetailReadModel>> GetRecipeDetail(
         long recipeId,

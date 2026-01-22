@@ -1,5 +1,5 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail.Contracts;
-using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail;
 
@@ -21,11 +21,11 @@ internal static class GetRecipeDetailEndpoint
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         GetRecipeDetailEndpointParams request,
-        IGetRecipeDetailService getRecipeDetailService,
+        IGetRecipeDetailUseCase getRecipeDetailUseCase,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var recipeDetail = await getRecipeDetailService.GetRecipeDetail(
+        var recipeDetail = await getRecipeDetailUseCase.GetRecipeDetail(
             request.RecipeId,
             cancellationToken);
 

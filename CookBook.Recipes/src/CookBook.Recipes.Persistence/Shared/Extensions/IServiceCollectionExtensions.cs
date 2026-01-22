@@ -1,6 +1,6 @@
-﻿using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+﻿using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Persistence.Recipes;
-using CookBook.Recipes.Persistence.Recipes.Services;
+using CookBook.Recipes.Persistence.Recipes.UseCases;
 using CookBook.Recipes.Persistence.Shared.Interceptors;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -52,11 +52,11 @@ public static class IServiceCollectionExtensions
            });
 
         services
-            .AddScoped<ISaveRecipeService, SaveRecipeService>()
-            .AddScoped<IRemoveRecipeService, RemoveRecipeService>()
-            .AddScoped<ISearchRecipesService, SearchRecipesService>()
-            .AddScoped<IGetLatestRecipesService, GetLatestRecipesService>()
-            .AddScoped<IGetRecipeDetailService, GetRecipesDetailService>();
+            .AddScoped<ISaveRecipeUseCase, SaveRecipeUseCase>()
+            .AddScoped<IRemoveRecipeUseCase, RemoveRecipeUseCase>()
+            .AddScoped<ISearchRecipesUseCase, SearchRecipesUseCase>()
+            .AddScoped<IGetLatestRecipesUseCase, GetLatestRecipesUseCase>()
+            .AddScoped<IGetRecipeDetailUseCase, GetRecipesDetailUseCase>();
 
         return services;
     }

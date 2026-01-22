@@ -1,5 +1,5 @@
 ﻿using CookBook.Recipes.Domain.Recipes.ReadModels;
-using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Domain.Shared.Filtering;
 using CookBook.Recipes.Domain.Shared.Sorting;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
@@ -8,12 +8,12 @@ using CookBook.Recipes.Persistence.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.Recipes.Persistence.Recipes.Services;
+namespace CookBook.Recipes.Persistence.Recipes.UseCases;
 
-internal sealed class SearchRecipesService(
+internal sealed class SearchRecipesUseCase(
     RecipesContext recipesContext,
-    ILogger<SearchRecipesService> logger) :
-    ISearchRecipesService
+    ILogger<SearchRecipesUseCase> logger) :
+    ISearchRecipesUseCase
 {
     public async Task<IReadOnlyCollection<RecipeSearchItemReadModel>> SearchRecipes(
         string? searchTerm,

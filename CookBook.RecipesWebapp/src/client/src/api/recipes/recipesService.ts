@@ -14,10 +14,10 @@ const getLatestRecipes = (
   return callAxios({
     url: `/api/recipes/latest`,
     method: 'GET',
-    signal: signal,
     params: {
       count,
     },
+    signal: signal,
   });
 };
 
@@ -41,12 +41,12 @@ const searchRecipes = (
   return callAxios({
     url: '/api/recipes/search',
     method: 'GET',
-    signal: signal,
     params: {
       searchTerm,
       offset,
       limit,
     },
+    signal: signal,
   });
 };
 

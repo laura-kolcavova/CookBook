@@ -1,7 +1,7 @@
 ﻿using CookBook.Extensions.AspNetCore.Errors;
 using CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe.Contracts;
 using CookBook.Recipes.Api.Recipes.Features.SaveRecipe.Mappers;
-using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 using FluentValidation;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
@@ -25,7 +25,7 @@ internal static class SaveRecipeEndpoint
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         SaveRecipeEndpointParams request,
-        ISaveRecipeService saveRecipeService,
+        ISaveRecipeUseCase saveRecipeUseCase,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
@@ -33,7 +33,7 @@ internal static class SaveRecipeEndpoint
             .SaveRecipeRequest
             .ToSaveRecipeParams();
 
-        var saveRecipeResult = await saveRecipeService.SaveRecipe(
+        var saveRecipeResult = await saveRecipeUseCase.SaveRecipe(
             saveRecipeParams,
             cancellationToken);
 
