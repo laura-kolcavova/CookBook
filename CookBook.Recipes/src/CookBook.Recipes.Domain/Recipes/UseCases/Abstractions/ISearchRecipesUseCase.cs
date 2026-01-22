@@ -2,9 +2,9 @@
 using CookBook.Recipes.Domain.Shared.Filtering;
 using CookBook.Recipes.Domain.Shared.Sorting;
 
-namespace CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+namespace CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 
-public interface ISearchRecipesService
+public interface ISearchRecipesUseCase
 {
     public Task<IReadOnlyCollection<RecipeSearchItemReadModel>> SearchRecipes(
         string? searchTerm,

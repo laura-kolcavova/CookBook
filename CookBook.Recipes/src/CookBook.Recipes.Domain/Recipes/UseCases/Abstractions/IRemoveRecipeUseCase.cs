@@ -1,9 +1,9 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
 using CSharpFunctionalExtensions;
 
-namespace CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+namespace CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 
-public interface IRemoveRecipeService
+public interface IRemoveRecipeUseCase
 {
     public Task<UnitResult<Error>> RemoveRecipe(
     long recipeId,

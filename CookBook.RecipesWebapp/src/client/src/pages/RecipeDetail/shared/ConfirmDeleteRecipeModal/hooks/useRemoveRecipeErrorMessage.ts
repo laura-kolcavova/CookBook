@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useCallback } from 'react';
 
-export const useSaveRemoveErrorMessage = () => {
+export const useRemoveErrorMessage = () => {
   const getErrorMessage = useCallback((error: unknown): string => {
     if (axios.isAxiosError(error) && error.response?.data.code) {
       const code = error.response.data.code;

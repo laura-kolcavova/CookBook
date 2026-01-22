@@ -1,7 +1,7 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Contracts;
 using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Mappers;
 using CookBook.Recipes.Domain.Recipes.ReadModels;
-using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Domain.Shared.Filtering;
 using CookBook.Recipes.Domain.Shared.Sorting;
 
@@ -25,7 +25,7 @@ internal static class SearchRecipesEndpoint
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         SearchRecipesEndpointParams request,
-        ISearchRecipesService searchRecipesService,
+        ISearchRecipesUseCase searchRecipesUseCase,
         HttpContext httpContext,
         CancellationToken cancellationToken
         )
@@ -49,7 +49,7 @@ internal static class SearchRecipesEndpoint
             }
         };
 
-        var recipes = await searchRecipesService.SearchRecipes(
+        var recipes = await searchRecipesUseCase.SearchRecipes(
             request.SearchTerm,
             sorting,
             offsetFilter,

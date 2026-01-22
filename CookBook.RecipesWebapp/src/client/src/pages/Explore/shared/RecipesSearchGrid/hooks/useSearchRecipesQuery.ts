@@ -44,7 +44,7 @@ export const useSearchRecipesQuery = (searchTerm?: string) => {
   const resetAndRefetch = useCallback(async () => {
     await queryClient.resetQueries({ queryKey: getQueryKey(searchTerm) });
     await query.refetch();
-  }, []);
+  }, [query, queryClient, searchTerm]);
 
   return {
     ...query,

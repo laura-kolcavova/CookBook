@@ -1,10 +1,11 @@
 import { FaPlus, FaTrash } from 'react-icons/fa6';
-import type { InstructionItemData } from '~/pages/RecipeEditor/models/InstructionItemData';
+
 import { instructionsAtom } from '../atoms/recipeDataAtom';
 import { useAtom } from 'jotai';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { Button } from '~/pages/shared/Button';
 import { FormTextArea } from '~/pages/shared/forms/FormTextArea';
+import type { InstructionItemData } from '../models/InstructionItemData';
 
 export const InstructionsSetter = () => {
   const [instructions, setInstructions] = useAtom(instructionsAtom);

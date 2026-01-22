@@ -1,15 +1,15 @@
 ﻿using CookBook.Recipes.Domain.Recipes.ReadModels;
-using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
+using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
 using CookBook.Recipes.Persistence.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.Recipes.Persistence.Recipes.Services;
+namespace CookBook.Recipes.Persistence.Recipes.UseCases;
 
-internal sealed class GetLatestRecipesService(
+internal sealed class GetLatestRecipesUseCase(
     RecipesContext recipesContext,
-    ILogger<GetLatestRecipesService> logger) : IGetLatestRecipesService
+    ILogger<GetLatestRecipesUseCase> logger) : IGetLatestRecipesUseCase
 {
     public async Task<IReadOnlyCollection<LatestRecipeReadModel>> GetLatestRecipes(
         int count,
