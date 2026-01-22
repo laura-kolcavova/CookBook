@@ -4,6 +4,7 @@ import { useRecipeDetailQuery } from './hooks/useGetRecipeDetailQuery';
 import { LoadingSpinner } from '../shared/LoadingSpinner';
 import { Alert } from '../shared/Alert';
 import { RecipeDetailContent } from './shared/RecipeDetailContent';
+import { RecipeDetailHeader } from './shared/RecipeDetailHeader';
 
 export const RecipeDetail = () => {
   const { recipeId: recipeIdParam } = useParams();
@@ -19,6 +20,8 @@ export const RecipeDetail = () => {
   return (
     <div className="bg-content-background-color-tertiary">
       <div className="container mx-auto py-10 px-4">
+        <RecipeDetailHeader recipe={data?.recipeDetail} />
+
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
             <LoadingSpinner text="Loading..." />
@@ -26,9 +29,7 @@ export const RecipeDetail = () => {
         ) : isError ? (
           <Alert color="danger">Something went wrong</Alert>
         ) : !data ? (
-          <Alert color="warning">
-            <span>No recipe found.</span>
-          </Alert>
+          <p className="text-base text-center text-text-color-secondary py-4">Recipe not found</p>
         ) : (
           <RecipeDetailContent recipe={data.recipeDetail} />
         )}

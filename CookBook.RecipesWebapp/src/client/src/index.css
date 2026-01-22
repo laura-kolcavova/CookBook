@@ -50,6 +50,9 @@
 
   --color-form-text-input-background-color: #fff;
   --color-form-text-input-color: #23223a;
+
+  --color-modal-background-color: #fff;
+  --color-modal-border-color: #323d47;
 }
 
 body {

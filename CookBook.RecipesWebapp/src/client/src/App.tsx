@@ -5,21 +5,24 @@ import { LocalizationProvider } from './localization/LocalizationProvider';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorFallback } from './pages/ErrorFallback';
 import { LoggedUserProvider } from './authentication/LoggedUserProvider';
+import { ModalProvider } from './modals/ModalProvider';
 
 const queryClient = new QueryClient();
 
 export const App: React.FC = () => {
   return (
-    <LocalizationProvider>
-      <QueryClientProvider client={queryClient}>
-        <LoggedUserProvider>
-          <BrowserRouter>
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Layout />
-            </ErrorBoundary>
-          </BrowserRouter>
-        </LoggedUserProvider>
-      </QueryClientProvider>
-    </LocalizationProvider>
+    <BrowserRouter>
+      <LocalizationProvider>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <QueryClientProvider client={queryClient}>
+            <LoggedUserProvider>
+              <ModalProvider>
+                <Layout />
+              </ModalProvider>
+            </LoggedUserProvider>
+          </QueryClientProvider>
+        </ErrorBoundary>
+      </LocalizationProvider>
+    </BrowserRouter>
   );
 };

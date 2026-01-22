@@ -6,6 +6,7 @@ export enum Page {
   Saved = 'Saved',
   MyProfile = 'MyProfile',
   AddRecipe = 'AddRecipe',
+  EditRecipe = 'EditRecipe',
   MyRecipes = 'MyRecipes',
   RecipeDetail = 'RecipeDetail',
   NotFound = 'NotFound',

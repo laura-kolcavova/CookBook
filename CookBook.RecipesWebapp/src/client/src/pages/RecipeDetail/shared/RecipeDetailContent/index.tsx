@@ -1,78 +1,23 @@
 import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
-import { useRemoveRecipeMutation } from './hooks/useRemoveRecipeMutation';
-import { useLoggedUser } from '~/authentication/LoggedUserProvider';
 import { useFormatting } from '~/localization/useFormatting';
-import { useNavigate } from 'react-router-dom';
 import { useFormatServings } from './hooks/useFormatServings';
 import { useFormatCookTime } from './hooks/useFormatCookTime';
-import { Button } from '~/pages/shared/Button';
 import { MetaItem } from './shared/MetaItem';
 import { MetaLabel } from './shared/MetaLabel';
 import { MetaValue } from './shared/MetaValue';
 import { Tag } from '~/pages/shared/Tag';
-import { useEffect } from 'react';
-import { pages } from '~/navigation/pages';
-import { useSaveRemoveErrorMessage } from './hooks/useRemoveRecipeErrorMessage';
-import { Alert } from '~/pages/shared/Alert';
-import { SpinnerIcon } from '~/pages/shared/icons/SpinnerIcon';
 
 export type RecipeDetailContentProps = {
   recipe: RecipeDetailDto;
 };
 export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
-  const navigate = useNavigate();
-
-  const { isAuthenticated, user } = useLoggedUser();
-
   const { formatDate } = useFormatting();
 
   const formatServings = useFormatServings();
   const formatCookTime = useFormatCookTime();
 
-  const {
-    mutate: removeRecipeMutate,
-    isSuccess: removeRecieIsSuccess,
-    isPending: removeRecipeIsPending,
-    isError: removeRecipeIsError,
-    error: removeRecipeError,
-  } = useRemoveRecipeMutation(recipe.recipeId);
-
-  const { getErrorMessage } = useSaveRemoveErrorMessage();
-
-  const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this recipe?')) {
-      removeRecipeMutate();
-    }
-  };
-
-  useEffect(() => {
-    if (removeRecieIsSuccess) {
-      navigate(pages.MyProfile.paths[0]);
-    }
-  }, [navigate, removeRecieIsSuccess]);
-
   return (
     <>
-      <div className="flex items-center justify-end gap-4 mb-4">
-        {isAuthenticated && recipe.userId === user.userId && (
-          <Button
-            onClick={handleDelete}
-            className="flex items-center justify-center"
-            disabled={removeRecipeIsPending}
-            variant="danger">
-            <span>Delete</span>
-
-            {removeRecipeIsPending && <SpinnerIcon className="animate-spin size-4 ml-2" />}
-          </Button>
-        )}
-      </div>
-
-      {removeRecipeIsError && (
-        <Alert color="danger" isDismissible={true}>
-          {getErrorMessage(removeRecipeError)}
-        </Alert>
-      )}
-
       <div className="mb-8 border-b-2 border-gray-200 pb-6">
         <div className="mb-6">
           <h2 className="text-2xl text-center text-text-color-primary font-semibold">

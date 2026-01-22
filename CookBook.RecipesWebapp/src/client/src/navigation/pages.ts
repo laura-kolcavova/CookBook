@@ -5,12 +5,13 @@ import { LogIn } from '~/pages/LogIn';
 import { Register } from '~/pages/Register';
 import { Saved } from '~/pages/Saved';
 import { MyProfile } from '~/pages/MyProfile';
-import { RecipeEditor } from '~/pages/RecipeEditor';
 import { MyRecipes } from '~/pages/MyRecipes';
 import { RecipeDetail } from '~/pages/RecipeDetail';
 import type { PageDefinition } from './PageDefinition';
 import { Page } from './Page';
 import { NotFound } from '~/pages/NotFound';
+import { AddRecipe } from '~/pages/AddRecipe';
+import { EditRecipe } from '~/pages/EditRecipe';
 
 type PageDefinitions = {
   [key in Page]: PageDefinition;
@@ -49,7 +50,12 @@ export const pages: PageDefinitions = {
   },
   [Page.AddRecipe]: {
     paths: ['/add-recipe'],
-    component: RecipeEditor,
+    component: AddRecipe,
+    public: false,
+  },
+  [Page.EditRecipe]: {
+    paths: ['/edit-recipe/:recipeId'],
+    component: EditRecipe,
     public: false,
   },
   [Page.MyRecipes]: {
@@ -58,7 +64,7 @@ export const pages: PageDefinitions = {
     public: false,
   },
   [Page.RecipeDetail]: {
-    paths: ['/recipes/:recipeId'],
+    paths: ['/recipe-detail/:recipeId'],
     component: RecipeDetail,
     public: false,
   },
