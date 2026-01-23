@@ -40,7 +40,7 @@ export const useRecipeData = () => {
       setRecipeData(recipeData);
       setDataInitializedFromRecipe(true);
     },
-    [dataInitializedFromRecipe, setRecipeData, setDataInitializedFromRecipe],
+    [setRecipeData, setDataInitializedFromRecipe],
   );
 
   const resetData = useCallback(() => {

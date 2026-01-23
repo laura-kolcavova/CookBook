@@ -25,6 +25,7 @@ internal sealed class GetLatestRecipesUseCase(
             var readModel = await recipesContext
                 .Recipes
                 .AsNoTracking()
+                .OrderByDescending(recipe => recipe.CreatedAt)
                 .ProjectToLatestRecipeReadModel()
                 .Take(count)
                 .ToListAsync(cancellationToken);

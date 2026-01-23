@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CookBook.Recipes.Persistence.Recipes.Extensions;
 
-public static class RecipeAggregateExtensions
+internal static class RecipeAggregateExtensions
 {
     public static async ValueTask<RecipeAggregate?> FetchRecipeAsync(
         this DbSet<RecipeAggregate> recipes,

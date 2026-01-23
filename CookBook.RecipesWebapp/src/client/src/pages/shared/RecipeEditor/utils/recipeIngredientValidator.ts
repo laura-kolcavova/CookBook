@@ -4,10 +4,6 @@ import type { RecipeIngredientData } from '../models/RecipeIngredientData';
 export const validateRecipeIngredient = (
   recipeIngredient: RecipeIngredientData,
 ): ValidationResult => {
-  if (recipeIngredient === undefined) {
-    return { isValid: true };
-  }
-
   if (recipeIngredient.note.length > 256) {
     return {
       isValid: false,

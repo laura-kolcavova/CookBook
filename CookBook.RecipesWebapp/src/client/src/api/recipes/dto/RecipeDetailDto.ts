@@ -2,10 +2,10 @@ export type RecipeDetailDto = {
   recipeId: number;
   userId: number;
   title: string;
-  description?: string;
+  description: string | null;
   servings: number;
   cookTime: number;
-  notes?: string;
+  notes: string | null;
   createdAt: string;
   ingredients: RecipeDetailIngredientDto[];
   instructions: RecipeDetailInstructionDto[];

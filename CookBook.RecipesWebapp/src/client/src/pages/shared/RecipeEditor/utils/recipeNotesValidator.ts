@@ -1,7 +1,7 @@
 import type { ValidationResult } from '~/forms/ValidationResult';
 
-export const validateRecipeNotes = (recipeNotes?: string): ValidationResult => {
-  if (recipeNotes === undefined) {
+export const validateRecipeNotes = (recipeNotes: string | null): ValidationResult => {
+  if (recipeNotes === null) {
     return { isValid: true };
   }
 

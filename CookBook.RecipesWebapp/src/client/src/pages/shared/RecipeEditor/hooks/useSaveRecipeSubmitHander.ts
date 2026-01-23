@@ -25,6 +25,8 @@ export const useSaveRecipeSubmitHandler = () => {
 
     setValidations(validationResults);
 
+    console.log(validationResults);
+
     if (!areValid(validationResults)) {
       return;
     }

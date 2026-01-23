@@ -4,10 +4,6 @@ import type { RecipeInstructionData } from '../models/RecipeInstructionData';
 export const validateRecipeInstruction = (
   recipeInstruction: RecipeInstructionData,
 ): ValidationResult => {
-  if (recipeInstruction === undefined) {
-    return { isValid: true };
-  }
-
   if (recipeInstruction.note.length > 1024) {
     return {
       isValid: false,

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CookBook.Recipes.Persistence.Shared.Extensions;
 
-public static class IQueryableExtensions
+internal static class IQueryableExtensions
 {
     public static IQueryable<T> SortBy<T>(
         this IQueryable<T> queryable,

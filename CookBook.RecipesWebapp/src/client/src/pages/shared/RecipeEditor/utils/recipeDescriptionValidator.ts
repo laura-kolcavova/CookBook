@@ -1,10 +1,11 @@
 import type { ValidationResult } from '~/forms/ValidationResult';
 
-export const validateRecipeDescription = (recipeDescription?: string): ValidationResult => {
-  if (recipeDescription === undefined) {
+export const validateRecipeDescription = (recipeDescription: string | null): ValidationResult => {
+  if (recipeDescription === null) {
     return { isValid: true };
   }
 
+  console.log(recipeDescription);
   if (recipeDescription.length > 1024) {
     return {
       isValid: false,

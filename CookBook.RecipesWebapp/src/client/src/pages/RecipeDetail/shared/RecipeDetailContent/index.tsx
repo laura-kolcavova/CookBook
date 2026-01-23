@@ -87,9 +87,10 @@ export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
       </div>
 
       {recipe.notes && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mt-8">
-          <h3 className="text-yellow-800 mb-4 text-xl font-semibold">Notes</h3>
-          <p className="text-yellow-800 m-0 leading-relaxed">{recipe.notes}</p>
+        <div>
+          <h2 className="text-2xl font-semibold text-text-color-primary mb-4">Notes</h2>
+
+          <p className="text-base text-text-color-secondary m-0 leading-relaxed">{recipe.notes}</p>
         </div>
       )}
     </>

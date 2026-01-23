@@ -2,12 +2,12 @@ import type { RecipeIngredientData } from './RecipeIngredientData';
 import type { RecipeInstructionData } from './RecipeInstructionData';
 
 export type RecipeData = {
-  recipeId?: number;
+  recipeId: number | null;
   title: string;
-  description?: string;
+  description: string | null;
   servings: number;
   cookTime: number;
-  notes?: string;
+  notes: string | null;
   ingredients: RecipeIngredientData[];
   instructions: RecipeInstructionData[];
   tags: string[];
