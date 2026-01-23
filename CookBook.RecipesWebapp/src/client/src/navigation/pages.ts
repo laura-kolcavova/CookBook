@@ -7,17 +7,12 @@ import { Saved } from '~/pages/Saved';
 import { MyProfile } from '~/pages/MyProfile';
 import { MyRecipes } from '~/pages/MyRecipes';
 import { RecipeDetail } from '~/pages/RecipeDetail';
-import type { PageDefinition } from './PageDefinition';
 import { Page } from './Page';
 import { NotFound } from '~/pages/NotFound';
 import { AddRecipe } from '~/pages/AddRecipe';
 import { EditRecipe } from '~/pages/EditRecipe';
 
-type PageDefinitions = {
-  [key in Page]: PageDefinition;
-};
-
-export const pages: PageDefinitions = {
+export const pages = {
   [Page.Home]: {
     paths: ['/home', '/'],
     component: Home,
@@ -49,12 +44,12 @@ export const pages: PageDefinitions = {
     public: false,
   },
   [Page.AddRecipe]: {
-    paths: ['/add-recipe'],
+    paths: ['/recipes/add'],
     component: AddRecipe,
     public: false,
   },
   [Page.EditRecipe]: {
-    paths: ['/edit-recipe/:recipeId'],
+    paths: ['/recipes/:recipeId/edit'],
     component: EditRecipe,
     public: false,
   },
@@ -64,7 +59,7 @@ export const pages: PageDefinitions = {
     public: false,
   },
   [Page.RecipeDetail]: {
-    paths: ['/recipe-detail/:recipeId'],
+    paths: ['/recipes/:recipeId/detail'],
     component: RecipeDetail,
     public: false,
   },

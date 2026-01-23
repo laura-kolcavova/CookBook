@@ -4,13 +4,13 @@ import { useAtom } from 'jotai';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
 import { Button } from '~/pages/shared/Button';
-import type { IngredientItemData } from '../models/IngredientItemData';
+import type { RecipeIngredientData } from '../models/RecipeIngredientData';
 
 export const IngredientsSetter = () => {
   const [ingredients, setIngredients] = useAtom(ingredientsAtom);
 
   const addIngredient = () => {
-    const newIngredient: IngredientItemData = {
+    const newIngredient: RecipeIngredientData = {
       note: '',
     };
 

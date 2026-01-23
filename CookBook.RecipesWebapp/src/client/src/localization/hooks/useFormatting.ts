@@ -1,4 +1,4 @@
-import { useLocalization } from './LocalizationProvider';
+import { useLocalization } from '../LocalizationProvider';
 import { useCallback } from 'react';
 
 export const useFormatting = () => {

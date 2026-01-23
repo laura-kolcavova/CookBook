@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaRegCircleXmark } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import type { RecipeSearchItemDto } from '~/api/recipes/dto/RecipeSearchItemDto';
-import { useFormatting } from '~/localization/useFormatting';
+import { useFormatting } from '~/localization/hooks/useFormatting';
 import { pages } from '~/navigation/pages';
 
 export type RecipeSearchItemCardProps = {

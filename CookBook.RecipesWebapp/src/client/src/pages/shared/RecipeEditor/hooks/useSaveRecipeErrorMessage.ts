@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useCallback } from 'react';
 
 export const useSaveRecipeErrorMessage = () => {
-  const getErrorMessage = useCallback((error: unknown): string => {
+  const getErrorMessage = useCallback((error: Error): string => {
     if (axios.isAxiosError(error) && error.response?.data.code) {
       const code = error.response.data.code;
 

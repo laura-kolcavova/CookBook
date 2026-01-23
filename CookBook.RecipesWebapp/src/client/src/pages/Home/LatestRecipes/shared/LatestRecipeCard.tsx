@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaRegCircleXmark, FaArrowRight } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import type { LatestRecipeDto } from '~/api/recipes/dto/LatestRecipeDto';
-import { useFormatting } from '~/localization/useFormatting';
+import { useFormatting } from '~/localization/hooks/useFormatting';
 import { pages } from '~/navigation/pages';
 import { StyledLink } from '~/pages/shared/StyledLink';
 

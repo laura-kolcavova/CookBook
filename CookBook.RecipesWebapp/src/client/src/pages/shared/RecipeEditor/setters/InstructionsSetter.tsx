@@ -5,13 +5,13 @@ import { useAtom } from 'jotai';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { Button } from '~/pages/shared/Button';
 import { FormTextArea } from '~/pages/shared/forms/FormTextArea';
-import type { InstructionItemData } from '../models/InstructionItemData';
+import type { RecipeInstructionData } from '../models/RecipeInstructionData';
 
 export const InstructionsSetter = () => {
   const [instructions, setInstructions] = useAtom(instructionsAtom);
 
   const addInstruction = () => {
-    const newInstruction: InstructionItemData = {
+    const newInstruction: RecipeInstructionData = {
       note: '',
     };
 

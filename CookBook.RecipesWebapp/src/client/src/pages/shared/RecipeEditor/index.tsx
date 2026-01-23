@@ -1,9 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { recipeDataAtom } from './atoms/recipeDataAtom';
-import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
-import { useRecipeValidator } from './hooks/useRecipeValidator';
-import { useResetAtom } from 'jotai/utils';
-import { areValid } from '~/utils/forms/fieldValidationUtils';
+import { useEffect } from 'react';
 import { ServingsSetter } from './setters/ServingsSetter';
 import { CookTimeSetter } from './setters/CookingTimeSetter';
 import { TagsSetter } from './setters/TagsSetters';
@@ -12,7 +7,6 @@ import { DescriptionSetter } from './setters/DescriptionSetter';
 import { NotesSetter } from './setters/NotesSetter';
 import { IngredientsSetter } from './setters/IngredientsSetter';
 import { useNavigate } from 'react-router-dom';
-import type { FieldValidations } from '~/forms/FieldValidations';
 import { useSaveRecipeErrorMessage } from './hooks/useSaveRecipeErrorMessage';
 import { pages } from '~/navigation/pages';
 import { Alert } from '../Alert';
@@ -20,30 +14,46 @@ import { FeedbackError } from '../forms/FeedbackError';
 import { InstructionsSetter } from './setters/InstructionsSetter';
 import { Button } from '../Button';
 import { SpinnerIcon } from '../icons/SpinnerIcon';
+import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
+import { useRecipeData } from './hooks/useRecipeData';
+import { useSaveRecipeSubmitHandler } from './hooks/useSaveRecipeSubmitHander';
 
-export const RecipeEditor = () => {
+export type RecipeEditorProps = {
+  recipe?: RecipeDetailDto;
+};
+
+export const RecipeEditor = ({ recipe }: RecipeEditorProps) => {
   const navigate = useNavigate();
 
-  const resetRecipeData = useResetAtom(recipeDataAtom);
-
-  const [validations, setValidations] = useState<FieldValidations>({});
+  const { initializeDataFromRecipe, resetData, dataInitializedFromRecipe } = useRecipeData();
 
   const {
-    mutate: saveRecipeMutate,
-    isPending: saveRecipeIsPending,
-    isSuccess: saveRecipeIsSuccess,
-    isError: saveRecipeIsError,
-    data: saveRecipeData,
-    error: saveRecipeError,
-  } = useSaveRecipeMutation();
-
-  const { validate } = useRecipeValidator();
+    validations,
+    saveRecipeIsPending,
+    saveRecipeIsSuccess,
+    saveRecipeIsError,
+    saveRecipeData,
+    saveRecipeError,
+    handleSubmit,
+  } = useSaveRecipeSubmitHandler();
 
   const { getErrorMessage } = useSaveRecipeErrorMessage();
 
   useEffect(() => {
+    if (!dataInitializedFromRecipe && recipe) {
+      initializeDataFromRecipe(recipe);
+    }
+  }, [dataInitializedFromRecipe, initializeDataFromRecipe, recipe]);
+
+  useEffect(() => {
+    return () => {
+      resetData();
+    };
+  }, [resetData]);
+
+  useEffect(() => {
     if (saveRecipeIsSuccess && saveRecipeData) {
-      resetRecipeData();
+      resetData();
 
       const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
         ':recipeId',
@@ -52,25 +62,13 @@ export const RecipeEditor = () => {
 
       navigate(recipeDetailPath);
     }
-  }, [saveRecipeData, saveRecipeIsSuccess, navigate, resetRecipeData]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const validationResults = validate();
-    if (!areValid(validationResults)) {
-      setValidations(validationResults);
-      return;
-    }
-    setValidations({});
-    saveRecipeMutate();
-  };
+  }, [navigate, resetData, saveRecipeData, saveRecipeIsSuccess]);
 
   return (
     <>
       {saveRecipeIsError && (
         <Alert color="danger" isDismissible={true}>
-          {getErrorMessage(saveRecipeError)}
+          {getErrorMessage(saveRecipeError!)}
         </Alert>
       )}
 
@@ -141,7 +139,7 @@ export const RecipeEditor = () => {
             variant="primary"
             className="w-40 flex items-center justify-center"
             disabled={saveRecipeIsPending}>
-            <span>Create Recipe</span>
+            <span>Save</span>
 
             {saveRecipeIsPending && <SpinnerIcon className="animate-spin size-4 ml-2" />}
           </Button>

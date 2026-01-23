@@ -1,5 +1,5 @@
 import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
-import { useFormatting } from '~/localization/useFormatting';
+import { useFormatting } from '~/localization/hooks/useFormatting';
 import { useFormatServings } from './hooks/useFormatServings';
 import { useFormatCookTime } from './hooks/useFormatCookTime';
 import { MetaItem } from './shared/MetaItem';

@@ -1,8 +1,8 @@
 import type { ValidationResult } from '~/forms/ValidationResult';
-import type { InstructionItemData } from '../models/InstructionItemData';
+import type { RecipeInstructionData } from '../models/RecipeInstructionData';
 
 export const validateRecipeInstruction = (
-  recipeInstruction: InstructionItemData,
+  recipeInstruction: RecipeInstructionData,
 ): ValidationResult => {
   if (recipeInstruction === undefined) {
     return { isValid: true };
@@ -19,7 +19,7 @@ export const validateRecipeInstruction = (
 };
 
 export const validateRecipeInstructions = (
-  recipeInstructions: InstructionItemData[],
+  recipeInstructions: RecipeInstructionData[],
 ): ValidationResult => {
   for (const recipeInstruction of recipeInstructions) {
     const validationResult = validateRecipeInstruction(recipeInstruction);

@@ -1,7 +1,6 @@
-import type { PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
 import { createContext, useContext, useState } from 'react';
-
-export type Locale = 'en-gb' | 'cs-cz';
+import type { Locale } from './Locale';
 
 // type RawDictionary = {
 //   [key: string]: string;
