@@ -4,11 +4,11 @@ import { recipesService } from '~/api/recipes/recipesService';
 
 const PAGE_SIZE = 20;
 
-const getQueryKey = (searchTerm?: string) => {
+const getQueryKey = (searchTerm: string | null) => {
   return ['searchRecipes', searchTerm];
 };
 
-export const useSearchRecipesQuery = (searchTerm?: string) => {
+export const useSearchRecipesQuery = (searchTerm: string | null) => {
   const queryClient = useQueryClient();
 
   const query = useInfiniteQuery({

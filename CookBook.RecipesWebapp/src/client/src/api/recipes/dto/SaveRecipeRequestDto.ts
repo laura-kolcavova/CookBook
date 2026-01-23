@@ -1,11 +1,11 @@
 export type SaveRecipeRequestDto = {
-  recipeId?: number;
+  recipeId: number | null;
   userId: number;
   title: string;
-  description?: string;
+  description: string | null;
   servings: number;
   cookTime: number;
-  notes?: string;
+  notes: string | null;
   ingredients: IngredientItemDto[];
   instructions: InstructionItemDto[];
   tags: string[];

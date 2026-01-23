@@ -3,12 +3,12 @@ import type { RecipeData } from '../models/RecipeData';
 import { focusAtom } from 'jotai-optics';
 
 export const EMPTY_RECIPE_DATA: RecipeData = {
-  recipeId: undefined,
+  recipeId: null,
   title: '',
-  description: undefined,
+  description: null,
   servings: 0,
   cookTime: 0,
-  notes: undefined,
+  notes: null,
   ingredients: [],
   instructions: [],
   tags: [],

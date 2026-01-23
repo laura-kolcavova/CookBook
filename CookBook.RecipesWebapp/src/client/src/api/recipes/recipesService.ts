@@ -33,9 +33,9 @@ const getRecipeDetail = (
 };
 
 const searchRecipes = (
-  searchTerm?: string,
-  offset?: number,
-  limit?: number,
+  searchTerm: string | null,
+  offset: number | null,
+  limit: number | null,
   signal?: GenericAbortSignal,
 ): AxiosPromise<SearchRecipesResponseDto> => {
   return callAxios({

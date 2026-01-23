@@ -1,4 +1,4 @@
 export type RecipeIngredientData = {
-  localId?: number;
+  localId: number | null;
   note: string;
 };
