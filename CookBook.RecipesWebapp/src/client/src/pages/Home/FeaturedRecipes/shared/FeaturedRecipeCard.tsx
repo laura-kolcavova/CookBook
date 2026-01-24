@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { FaRegCircleXmark } from 'react-icons/fa6';
 import type { FeaturedRecipe } from '../models/FeaturedRecipe';
 import { pages } from '~/navigation/pages';
+import { FormattedMessage } from 'react-intl';
+import { sharedMessages } from '~/pages/shared/sharedMessages';
 
 export type FeaturedRecipeProps = {
   recipe: FeaturedRecipe;
@@ -23,7 +25,7 @@ export const FeaturedRecipeCard: React.FC<FeaturedRecipeProps> = ({ recipe }) =>
           {imgError ? (
             <span className="flex flex-col items-center justify-center w-full h-full text-gray-400">
               <FaRegCircleXmark size="2.5rem" />
-              <span>Not Found</span>
+              <FormattedMessage {...sharedMessages.notFound} />
             </span>
           ) : (
             <img

@@ -1,9 +1,17 @@
 {
     "shared.somethingWentWrong": "Something went wrong",
+    "shared.notFound": "Not Found",
     "home.welcomeTitle": "Welcome to CookBook",
     "home.welcomeDescription": "Discover, create, and enjoy your favourite recipes.",
     "home.exploreRecipesButton": "Explore Recipes",
     "home.featuredRecipesTitle": "Featured Recipes",
     "home.latestRecipesTitle": "Latest Recipes",
-    "home.noRecipesCreatedYet": "No recipes were created yet."
+    "home.noRecipesCreatedYet": "No recipes were created yet.",
+    "explore.exploreRecipesTitle": "Explore Recipes",
+    "explore.searchPlaceholder": "Search for recipes by title, description, or tags...",
+    "explore.searchButton": "Search",
+    "explore.searchError": "Something went wrong whilst searching for recipes",
+    "explore.noRecipesFound": "No recipes found matching \"{searchTerm}\"",
+    "explore.noRecipesCreatedYet": "No recipes were created yet",
+    "explore.showMoreButton": "Show More"
 }

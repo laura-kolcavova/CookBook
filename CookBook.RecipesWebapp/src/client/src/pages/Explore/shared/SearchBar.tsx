@@ -1,11 +1,15 @@
 import { useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { FaSearch, FaTimes } from 'react-icons/fa';
+import { messages } from '../messages';
 
 export type SearchBarProps = {
   onSearch: (searchTerm: string) => void;
 };
 
 export const SearchBar = ({ onSearch }: SearchBarProps) => {
+  const { formatMessage } = useIntl();
+
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = (e: React.FormEvent) => {
@@ -29,7 +33,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search for recipes by title, description, or tags..."
+            placeholder={formatMessage(messages.searchPlaceholder)}
             className="block w-full py-1.5 outline-1 outline-offset-1 outline-gray-300 bg-form-text-input-background-color text-form-text-input-color text-sm h-[calc(2.5rem-3px)] px-10 rounded-tl-md rounded-bl-md rounded-tr-none rounded-br-none"
           />
 
@@ -46,7 +50,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
         <button
           type="submit"
           className="py-2 font-normal transition-colors duration-150 cursor-pointer bg-button-background-color-primary text-button-color-primary hover:bg-button-background-color-primary-hover disabled:bg-button-background-color-primary-disabled px-6 h-10 rounded-bl-none rounded-tl-none rounded-br-md rounded-tr-md">
-          Search
+          <FormattedMessage {...messages.searchButton} />
         </button>
       </div>
     </form>

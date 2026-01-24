@@ -5,4 +5,8 @@ export const sharedMessages = defineMessages({
     id: 'shared.somethingWentWrong',
     defaultMessage: 'Something went wrong',
   },
+  notFound: {
+    id: 'shared.notFound',
+    defaultMessage: 'Not Found',
+  },
 });

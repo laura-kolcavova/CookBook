@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { FaRegCircleXmark } from 'react-icons/fa6';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import type { RecipeSearchItemDto } from '~/api/recipes/dto/RecipeSearchItemDto';
 import { pages } from '~/navigation/pages';
+import { sharedMessages } from '~/pages/shared/sharedMessages';
 
 export type RecipeSearchItemCardProps = {
   recipe: RecipeSearchItemDto;
@@ -27,7 +28,7 @@ export const RecipeSearchItemCard = ({ recipe }: RecipeSearchItemCardProps) => {
             {!recipe.imageUrl || imgError ? (
               <span className="flex flex-col items-center justify-center w-full h-full bg-gray-100 text-gray-400">
                 <FaRegCircleXmark size="2.5rem" />
-                <span>Not Found</span>
+                <FormattedMessage {...sharedMessages.notFound} />
               </span>
             ) : (
               <img

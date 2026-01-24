@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { FaRegCircleXmark, FaArrowRight } from 'react-icons/fa6';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import type { LatestRecipeDto } from '~/api/recipes/dto/LatestRecipeDto';
 import { pages } from '~/navigation/pages';
+import { sharedMessages } from '~/pages/shared/sharedMessages';
 import { StyledLink } from '~/pages/shared/StyledLink';
+import { messages } from '../../messages';
 
 type LatestRecipeCardProps = {
   recipe: LatestRecipeDto;
@@ -26,7 +28,7 @@ export const LatestRecipeCard = ({ recipe }: LatestRecipeCardProps) => {
             {!recipe.imageUrl || imgError ? (
               <span className="flex flex-col items-center justify-center w-full h-full bg-gray-100 text-gray-400">
                 <FaRegCircleXmark size="2.5rem" />
-                <span>Not Found</span>
+                <FormattedMessage {...sharedMessages.notFound} />
               </span>
             ) : (
               <img
@@ -62,7 +64,8 @@ export const LatestRecipeCard = ({ recipe }: LatestRecipeCardProps) => {
         <StyledLink
           to={recipeDetailPath}
           className="inline-flex items-center gap-1 uppercase font-bold text-sm">
-          Read More <FaArrowRight />
+          <FormattedMessage {...messages.readMore} />
+          <FaArrowRight />
         </StyledLink>
       </div>
     </div>

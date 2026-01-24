@@ -25,4 +25,8 @@ export const messages = defineMessages({
     id: 'home.noRecipesCreatedYet',
     defaultMessage: 'No recipe were created yet.',
   },
+  readMore: {
+    id: 'home.readMore',
+    defaultMessage: 'Read More',
+  },
 });
