@@ -1,17 +1,17 @@
 import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
-import { useFormatting } from '~/localization/hooks/useFormatting';
 import { useFormatServings } from './hooks/useFormatServings';
 import { useFormatCookTime } from './hooks/useFormatCookTime';
 import { MetaItem } from './shared/MetaItem';
 import { MetaLabel } from './shared/MetaLabel';
 import { MetaValue } from './shared/MetaValue';
 import { Tag } from '~/pages/shared/Tag';
+import { useIntl } from 'react-intl';
 
 export type RecipeDetailContentProps = {
   recipe: RecipeDetailDto;
 };
 export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
-  const { formatDate } = useFormatting();
+  const { formatDate } = useIntl();
 
   const formatServings = useFormatServings();
   const formatCookTime = useFormatCookTime();

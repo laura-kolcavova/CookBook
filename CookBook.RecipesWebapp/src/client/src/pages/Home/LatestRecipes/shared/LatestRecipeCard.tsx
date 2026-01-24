@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { FaRegCircleXmark, FaArrowRight } from 'react-icons/fa6';
+import { FormattedDate } from 'react-intl';
 import { Link } from 'react-router-dom';
 import type { LatestRecipeDto } from '~/api/recipes/dto/LatestRecipeDto';
-import { useFormatting } from '~/localization/hooks/useFormatting';
 import { pages } from '~/navigation/pages';
 import { StyledLink } from '~/pages/shared/StyledLink';
 
@@ -12,8 +12,6 @@ type LatestRecipeCardProps = {
 
 export const LatestRecipeCard = ({ recipe }: LatestRecipeCardProps) => {
   const [imgError, setImgError] = useState(false);
-
-  const { formatDate } = useFormatting();
 
   const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
     ':recipeId',
@@ -54,7 +52,9 @@ export const LatestRecipeCard = ({ recipe }: LatestRecipeCardProps) => {
         </h3>
 
         <div className="mb-2">
-          <span className="text-sm text-text-color-tertiary">{formatDate(recipe.createdAt)}</span>
+          <span className="text-sm text-text-color-tertiary">
+            <FormattedDate value={recipe.createdAt} />
+          </span>
         </div>
 
         <p className="text-base text-text-color-secondary mb-4">{recipe.description}</p>

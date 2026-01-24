@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { FaRegCircleXmark } from 'react-icons/fa6';
+import { useIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import type { RecipeSearchItemDto } from '~/api/recipes/dto/RecipeSearchItemDto';
-import { useFormatting } from '~/localization/hooks/useFormatting';
 import { pages } from '~/navigation/pages';
 
 export type RecipeSearchItemCardProps = {
@@ -12,7 +12,7 @@ export type RecipeSearchItemCardProps = {
 export const RecipeSearchItemCard = ({ recipe }: RecipeSearchItemCardProps) => {
   const [imgError, setImgError] = useState(false);
 
-  const { formatDate } = useFormatting();
+  const { formatDate } = useIntl();
 
   const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
     ':recipeId',
