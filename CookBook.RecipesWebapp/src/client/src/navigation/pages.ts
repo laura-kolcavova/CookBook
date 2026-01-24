@@ -61,7 +61,7 @@ export const pages = {
   [Page.RecipeDetail]: {
     paths: ['/recipes/:recipeId/detail'],
     component: RecipeDetail,
-    public: false,
+    public: true,
   },
   [Page.NotFound]: {
     paths: ['*'],
