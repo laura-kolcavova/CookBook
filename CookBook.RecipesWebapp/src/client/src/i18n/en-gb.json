@@ -25,5 +25,16 @@
     "register.passwordLabel": "Password",
     "register.registerButton": "Register",
     "register.alreadyHaveAccount": "Already have an account?",
-    "register.logInLink": "Log In"
+    "register.logInLink": "Log In",
+    "recipeDetail.recipeNotFound": "Recipe not found",
+    "recipeDetail.servingsLabel": "Servings",
+    "recipeDetail.cookTimeLabel": "Cook Time",
+    "recipeDetail.ingredientsTitle": "Ingredients",
+    "recipeDetail.instructionsTitle": "Instructions",
+    "recipeDetail.notesTitle": "Notes",
+    "recipeDetail.editButton": "Edit",
+    "recipeDetail.deleteButton": "Delete",
+    "recipeDetail.confirmDeleteQuestion": "Are you sure you want to delete this recipe?",
+    "recipeDetail.actionCannotBeUndone": "This action cannot be undone",
+    "recipeDetail.cancelButton": "Cancel"
 }

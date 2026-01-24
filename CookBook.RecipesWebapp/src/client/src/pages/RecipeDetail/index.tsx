@@ -1,10 +1,13 @@
 import { useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
 import { useRecipeDetailQuery } from './hooks/useGetRecipeDetailQuery';
 import { LoadingSpinner } from '../shared/LoadingSpinner';
 import { Alert } from '../shared/Alert';
 import { RecipeDetailContent } from './shared/RecipeDetailContent';
 import { RecipeDetailHeader } from './shared/RecipeDetailHeader';
+import { messages } from './messages';
+import { sharedMessages } from '../shared/sharedMessages';
 
 export const RecipeDetail = () => {
   const { recipeId: recipeIdParam } = useParams();
@@ -27,9 +30,13 @@ export const RecipeDetail = () => {
             <LoadingSpinner text="Loading..." />
           </div>
         ) : isError ? (
-          <Alert color="danger">Something went wrong</Alert>
+          <Alert color="danger">
+            <FormattedMessage {...sharedMessages.somethingWentWrong} />
+          </Alert>
         ) : !data ? (
-          <p className="text-base text-center text-text-color-secondary py-4">Recipe not found</p>
+          <p className="text-base text-center text-text-color-secondary py-4">
+            <FormattedMessage {...messages.recipeNotFound} />
+          </p>
         ) : (
           <RecipeDetailContent recipe={data.recipeDetail} />
         )}
