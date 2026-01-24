@@ -1,7 +1,9 @@
 import { useAtom } from 'jotai';
+import { FormattedMessage } from 'react-intl';
 import { servingsAtom } from '../atoms/recipeDataAtom';
 import { FormExtendedNumberInput } from '~/pages/shared/forms/FormExtenedNumberInput';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
+import { messages } from '../messages';
 
 const MIN: number = 0;
 const MAX: number = 255;
@@ -15,7 +17,9 @@ export const ServingsSetter = () => {
 
   return (
     <>
-      <FormLabel>Number of Servings</FormLabel>
+      <FormLabel>
+        <FormattedMessage {...messages.servingsLabel} />
+      </FormLabel>
 
       <FormExtendedNumberInput
         value={servings}
@@ -25,7 +29,9 @@ export const ServingsSetter = () => {
       />
 
       <div className="mt-1">
-        <small>{servings === 1 ? '1 portion' : `${servings} portions`}</small>
+        <small>
+          <FormattedMessage {...messages.portionsCount} values={{ count: servings }} />
+        </small>
       </div>
     </>
   );

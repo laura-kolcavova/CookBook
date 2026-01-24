@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { ServingsSetter } from './setters/ServingsSetter';
 import { CookTimeSetter } from './setters/CookingTimeSetter';
 import { TagsSetter } from './setters/TagsSetters';
@@ -17,6 +18,7 @@ import { SpinnerIcon } from '../icons/SpinnerIcon';
 import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
 import { useRecipeData } from './hooks/useRecipeData';
 import { useSaveRecipeSubmitHandler } from './hooks/useSaveRecipeSubmitHander';
+import { messages } from './messages';
 
 export type RecipeEditorProps = {
   recipe?: RecipeDetailDto;
@@ -139,7 +141,9 @@ export const RecipeEditor = ({ recipe }: RecipeEditorProps) => {
             variant="primary"
             className="w-40 flex items-center justify-center"
             disabled={saveRecipeIsPending}>
-            <span>Save</span>
+            <span>
+              <FormattedMessage {...messages.saveButton} />
+            </span>
 
             {saveRecipeIsPending && <SpinnerIcon className="animate-spin size-4 ml-2" />}
           </Button>

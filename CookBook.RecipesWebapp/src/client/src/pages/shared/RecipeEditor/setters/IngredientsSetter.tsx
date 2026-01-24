@@ -1,16 +1,21 @@
 import { FaPlus, FaTrash } from 'react-icons/fa6';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { ingredientsAtom } from '../atoms/recipeDataAtom';
 import { useAtom } from 'jotai';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
 import { Button } from '~/pages/shared/Button';
 import type { RecipeIngredientData } from '../models/RecipeIngredientData';
+import { messages } from '../messages';
 
 export const IngredientsSetter = () => {
+  const { formatMessage } = useIntl();
+
   const [ingredients, setIngredients] = useAtom(ingredientsAtom);
 
   const addIngredient = () => {
     const newIngredient: RecipeIngredientData = {
+      localId: null,
       note: '',
     };
 
@@ -35,7 +40,9 @@ export const IngredientsSetter = () => {
 
   return (
     <>
-      <FormLabel>Ingredients</FormLabel>
+      <FormLabel>
+        <FormattedMessage {...messages.ingredientsLabel} />
+      </FormLabel>
 
       <div className="mb-4">
         {ingredients.map((ingredient, index) => (
@@ -47,7 +54,7 @@ export const IngredientsSetter = () => {
             <FormTextInput
               type="text"
               className="h-10"
-              placeholder="e.g., 2 cups flour, 1 tsp salt..."
+              placeholder={formatMessage(messages.ingredientPlaceholder)}
               value={ingredient.note}
               onChange={(e) => updateIngredient(index, e.target.value)}
               onKeyDown={(e) => {
@@ -67,13 +74,14 @@ export const IngredientsSetter = () => {
 
       <Button onClick={addIngredient} className="flex justify-center items-center">
         <FaPlus className="mr-1" />
-        <span>Add Ingredient</span>
+        <span>
+          <FormattedMessage {...messages.addIngredientButton} />
+        </span>
       </Button>
 
       <div className="mt-2">
         <small>
-          Include amounts and units (e.g., &quot;2 cups flour&quot;, &quot;1 tsp vanilla
-          extract&quot;)
+          <FormattedMessage {...messages.ingredientsHelpText} />
         </small>
       </div>
     </>

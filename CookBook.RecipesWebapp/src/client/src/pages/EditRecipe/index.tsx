@@ -26,7 +26,7 @@ export const EditRecipe = () => {
         ) : isError ? (
           <Alert color="danger">Something went wrong</Alert>
         ) : !data ? (
-          <p className="text-base text-center text-text-color-secondary py-4">Recipe not found</p>
+          <p className="text-base text-center text-text-color-secondary py-4">Recipe Not Found</p>
         ) : (
           <>
             <h2 className="text-2xl font-semibold text-text-color-primary mb-6">Edit Recipe</h2>

@@ -1,4 +1,5 @@
 import { FaPlus, FaTrash } from 'react-icons/fa6';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { instructionsAtom } from '../atoms/recipeDataAtom';
 import { useAtom } from 'jotai';
@@ -6,12 +7,16 @@ import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { Button } from '~/pages/shared/Button';
 import { FormTextArea } from '~/pages/shared/forms/FormTextArea';
 import type { RecipeInstructionData } from '../models/RecipeInstructionData';
+import { messages } from '../messages';
 
 export const InstructionsSetter = () => {
+  const { formatMessage } = useIntl();
+
   const [instructions, setInstructions] = useAtom(instructionsAtom);
 
   const addInstruction = () => {
     const newInstruction: RecipeInstructionData = {
+      localId: null,
       note: '',
     };
 
@@ -36,7 +41,9 @@ export const InstructionsSetter = () => {
 
   return (
     <>
-      <FormLabel>Instructions</FormLabel>
+      <FormLabel>
+        <FormattedMessage {...messages.instructionsLabel} />
+      </FormLabel>
 
       <div className="mb-4">
         {instructions.map((instruction, index) => (
@@ -47,7 +54,7 @@ export const InstructionsSetter = () => {
 
             <FormTextArea
               // rows={2}
-              placeholder="Describe this step in detail..."
+              placeholder={formatMessage(messages.instructionPlaceholder)}
               value={instruction.note}
               onChange={(e) => updateInstruction(index, e.target.value)}
               onKeyDown={(e) => {
@@ -67,11 +74,15 @@ export const InstructionsSetter = () => {
 
       <Button onClick={addInstruction} className="flex justify-center items-center">
         <FaPlus className="mr-1" />
-        <span>Add step</span>
+        <span>
+          <FormattedMessage {...messages.addStepButton} />
+        </span>
       </Button>
 
       <div className="mt-2">
-        <small>Be specific with temperatures, times, and techniques for best results</small>
+        <small>
+          <FormattedMessage {...messages.instructionsHelpText} />
+        </small>
       </div>
     </>
   );
