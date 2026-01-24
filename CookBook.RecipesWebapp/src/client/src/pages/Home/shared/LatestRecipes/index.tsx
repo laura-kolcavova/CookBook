@@ -3,8 +3,8 @@ import { LoadingSpinner } from '~/pages/shared/LoadingSpinner';
 import { useLatestRecipesQuery } from './hooks/useGetLatestRecipesQuery';
 import { Alert } from '~/pages/shared/Alert';
 import { LatestRecipeCard } from './shared/LatestRecipeCard';
-import { messages } from '../messages';
 import { sharedMessages } from '~/pages/shared/sharedMessages';
+import { messages } from '../../messages';
 
 export const LatestRecipes = () => {
   const { isLoading, isError, data } = useLatestRecipesQuery();

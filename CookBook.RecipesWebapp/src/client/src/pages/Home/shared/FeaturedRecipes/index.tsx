@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl';
 import type { FeaturedRecipe } from './models/FeaturedRecipe';
 import { FeaturedRecipeCard } from './shared/FeaturedRecipeCard';
-import { messages } from '../messages';
+import { messages } from '../../messages';
 
 // Dummy featured recipes data for demonstration
 const featuredRecipes: FeaturedRecipe[] = [

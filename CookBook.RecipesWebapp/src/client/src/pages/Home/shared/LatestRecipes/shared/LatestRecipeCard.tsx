@@ -4,9 +4,9 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import type { LatestRecipeDto } from '~/api/recipes/dto/LatestRecipeDto';
 import { pages } from '~/navigation/pages';
+import { messages } from '~/pages/Home/messages';
 import { sharedMessages } from '~/pages/shared/sharedMessages';
 import { StyledLink } from '~/pages/shared/StyledLink';
-import { messages } from '../../messages';
 
 type LatestRecipeCardProps = {
   recipe: LatestRecipeDto;

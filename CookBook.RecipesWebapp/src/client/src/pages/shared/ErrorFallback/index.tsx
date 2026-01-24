@@ -1,4 +1,5 @@
 import { FaTriangleExclamation } from 'react-icons/fa6';
+import { FormattedMessage } from 'react-intl';
 
 import type { ReactNode } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
@@ -8,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { pages } from '~/navigation/pages';
 import { Alert } from '../Alert';
 import { Button } from '../Button';
+import { messages } from './messages';
 
 export type ErrorFallbackProps = FallbackProps;
 
@@ -27,10 +29,12 @@ export const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps)
             <FaTriangleExclamation className="size-10 text-red-600" />
           </div>
 
-          <h1 className="text-2xl font-bold text-text-color-primary mb-2">Something went wrong</h1>
+          <h1 className="text-2xl font-bold text-text-color-primary mb-2">
+            <FormattedMessage {...messages.title} />
+          </h1>
 
           <p className="text-base text-text-color-secondary mb-4">
-            The application encountered an unexpected error.
+            <FormattedMessage {...messages.description} />
           </p>
         </div>
 
@@ -42,7 +46,7 @@ export const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps)
 
         <div className="flex flex-col items-center gap-6">
           <Button variant="primary" className="w-1/2" onClick={retry}>
-            Retry
+            <FormattedMessage {...messages.retryButton} />
           </Button>
         </div>
       </div>
