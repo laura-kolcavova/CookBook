@@ -27,7 +27,7 @@ export const RecipesSearchGrid = forwardRef<RecipesSearchGridRef, RecipesSearchG
     if (isFetching) {
       return (
         <div className="flex items-center justify-center py-20">
-          <LoadingSpinner text="Searching..." />
+          <LoadingSpinner text={<FormattedMessage {...messages.searching} />} />
         </div>
       );
     }

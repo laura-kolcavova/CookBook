@@ -18,7 +18,7 @@ export const LatestRecipes = () => {
 
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
-            <LoadingSpinner text="Loading..." />
+            <LoadingSpinner text={<FormattedMessage {...sharedMessages.loading} />} />
           </div>
         ) : isError ? (
           <Alert color="danger">

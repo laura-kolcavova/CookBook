@@ -17,6 +17,10 @@ export const messages = defineMessages({
     id: 'explore.searchError',
     defaultMessage: 'Something went wrong while searching for recipes',
   },
+  searching: {
+    id: 'explore.searching',
+    defaultMessage: 'Searching...',
+  },
   noRecipesFound: {
     id: 'explore.noRecipesFound',
     defaultMessage: 'No recipes found matching "{searchTerm}"',

@@ -9,4 +9,8 @@ export const sharedMessages = defineMessages({
     id: 'shared.text.notFound',
     defaultMessage: 'Not Found',
   },
+  loading: {
+    id: 'shared.text.loading',
+    defaultMessage: 'Loading...',
+  },
 });

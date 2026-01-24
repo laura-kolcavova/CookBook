@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FaRegCircleXmark } from 'react-icons/fa6';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import type { RecipeSearchItemDto } from '~/api/recipes/dto/RecipeSearchItemDto';
 import { pages } from '~/navigation/pages';
@@ -12,8 +12,6 @@ export type RecipeSearchItemCardProps = {
 
 export const RecipeSearchItemCard = ({ recipe }: RecipeSearchItemCardProps) => {
   const [imgError, setImgError] = useState(false);
-
-  const { formatDate } = useIntl();
 
   const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
     ':recipeId',
@@ -53,7 +51,9 @@ export const RecipeSearchItemCard = ({ recipe }: RecipeSearchItemCardProps) => {
       </div>
 
       <div className="text-center">
-        <span className="text-xs text-text-color-tertiary">{formatDate(recipe.createdAt)}</span>
+        <span className="text-xs text-text-color-tertiary">
+          <FormattedDate value={recipe.createdAt} />
+        </span>
       </div>
     </div>
   );
