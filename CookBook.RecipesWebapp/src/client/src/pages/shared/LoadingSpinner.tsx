@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { SpinnerIcon } from '../icons/SpinnerIcon';
+import { SpinnerIcon } from './icons/SpinnerIcon';
 
 type LoadingSpinnerProps = {
   text?: ReactNode | string;
