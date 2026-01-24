@@ -13,5 +13,17 @@
     "explore.searchError": "Something went wrong whilst searching for recipes",
     "explore.noRecipesFound": "No recipes found matching \"{searchTerm}\"",
     "explore.noRecipesCreatedYet": "No recipes were created yet",
-    "explore.showMoreButton": "Show More"
+    "explore.showMoreButton": "Show More",
+    "notFound.pageNotFound": "Page Not Found",
+    "logIn.emailLabel": "Email",
+    "logIn.passwordLabel": "Password",
+    "logIn.logInButton": "Log In",
+    "logIn.needAccount": "Need an account?",
+    "logIn.registerLink": "Register",
+    "register.emailLabel": "Email",
+    "register.displayNameLabel": "Display name",
+    "register.passwordLabel": "Password",
+    "register.registerButton": "Register",
+    "register.alreadyHaveAccount": "Already have an account?",
+    "register.logInLink": "Log In"
 }
