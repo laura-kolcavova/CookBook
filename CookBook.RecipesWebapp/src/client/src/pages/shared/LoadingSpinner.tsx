@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
-import { SpinnerIcon } from '../icons/SpinnerIcon';
+import { SpinnerIcon } from './icons/SpinnerIcon';
 
 type LoadingSpinnerProps = {
-  text?: ReactNode;
+  text?: ReactNode | string;
 };
 
 export const LoadingSpinner = ({ text }: LoadingSpinnerProps) => {
@@ -12,7 +12,7 @@ export const LoadingSpinner = ({ text }: LoadingSpinnerProps) => {
         <SpinnerIcon className="animate-spin size-8 mx-auto" />
       </div>
 
-      {text && <span>{text}</span>}
+      {text && <div>{text}</div>}
     </div>
   );
 };

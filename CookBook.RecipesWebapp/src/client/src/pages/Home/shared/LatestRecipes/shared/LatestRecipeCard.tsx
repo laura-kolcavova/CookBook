@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { FaRegCircleXmark, FaArrowRight } from 'react-icons/fa6';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import type { LatestRecipeDto } from '~/api/recipes/dto/LatestRecipeDto';
-import { useFormatting } from '~/localization/hooks/useFormatting';
 import { pages } from '~/navigation/pages';
+import { messages } from '~/pages/Home/messages';
+import { sharedMessages } from '~/pages/shared/sharedMessages';
 import { StyledLink } from '~/pages/shared/StyledLink';
 
 type LatestRecipeCardProps = {
@@ -12,8 +14,6 @@ type LatestRecipeCardProps = {
 
 export const LatestRecipeCard = ({ recipe }: LatestRecipeCardProps) => {
   const [imgError, setImgError] = useState(false);
-
-  const { formatDate } = useFormatting();
 
   const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
     ':recipeId',
@@ -28,7 +28,7 @@ export const LatestRecipeCard = ({ recipe }: LatestRecipeCardProps) => {
             {!recipe.imageUrl || imgError ? (
               <span className="flex flex-col items-center justify-center w-full h-full bg-gray-100 text-gray-400">
                 <FaRegCircleXmark size="2.5rem" />
-                <span>Not Found</span>
+                <FormattedMessage {...sharedMessages.notFound} />
               </span>
             ) : (
               <img
@@ -54,7 +54,9 @@ export const LatestRecipeCard = ({ recipe }: LatestRecipeCardProps) => {
         </h3>
 
         <div className="mb-2">
-          <span className="text-sm text-text-color-tertiary">{formatDate(recipe.createdAt)}</span>
+          <span className="text-sm text-text-color-tertiary">
+            <FormattedDate value={recipe.createdAt} />
+          </span>
         </div>
 
         <p className="text-base text-text-color-secondary mb-4">{recipe.description}</p>
@@ -62,7 +64,8 @@ export const LatestRecipeCard = ({ recipe }: LatestRecipeCardProps) => {
         <StyledLink
           to={recipeDetailPath}
           className="inline-flex items-center gap-1 uppercase font-bold text-sm">
-          Read More <FaArrowRight />
+          <FormattedMessage {...messages.readMore} />
+          <FaArrowRight />
         </StyledLink>
       </div>
     </div>

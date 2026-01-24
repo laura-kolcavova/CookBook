@@ -1,9 +1,11 @@
 import { forwardRef, useImperativeHandle } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { LoadingSpinner } from '~/pages/shared/LoadingSpinner';
 import { useSearchRecipesQuery } from './hooks/useSearchRecipesQuery';
 import { Alert } from '~/pages/shared/Alert';
-import { RecipeSearchItemCard } from '../RecipeSearchItemCard';
 import { Button } from '~/pages/shared/Button';
+import { messages } from '../../messages';
+import { RecipeSearchItemCard } from './shared/RecipeSearchItemCard';
 
 export type RecipesSearchGridProps = {
   searchTerm: string;
@@ -25,13 +27,17 @@ export const RecipesSearchGrid = forwardRef<RecipesSearchGridRef, RecipesSearchG
     if (isFetching) {
       return (
         <div className="flex items-center justify-center py-20">
-          <LoadingSpinner text="Searching..." />
+          <LoadingSpinner text={<FormattedMessage {...messages.searching} />} />
         </div>
       );
     }
 
     if (isError) {
-      return <Alert color="danger">Something went wrong while searching for recipes</Alert>;
+      return (
+        <Alert color="danger">
+          <FormattedMessage {...messages.searchError} />
+        </Alert>
+      );
     }
 
     const allRecipes = data?.pages.flatMap((page) => page.recipes) ?? [];
@@ -39,7 +45,11 @@ export const RecipesSearchGrid = forwardRef<RecipesSearchGridRef, RecipesSearchG
     if (allRecipes.length === 0) {
       return (
         <p className="text-base text-center text-text-color-secondary py-4">
-          {searchTerm ? `No recipes found matching "${searchTerm}"` : 'No recipes were created yet'}
+          {searchTerm ? (
+            <FormattedMessage {...messages.noRecipesFound} values={{ searchTerm }} />
+          ) : (
+            <FormattedMessage {...messages.noRecipesCreatedYet} />
+          )}
         </p>
       );
     }
@@ -55,7 +65,7 @@ export const RecipesSearchGrid = forwardRef<RecipesSearchGridRef, RecipesSearchG
         {hasNextPage && (
           <div className="flex justify-center mt-8">
             <Button onClick={() => fetchNextPage()} disabled={isFetching}>
-              Show More
+              <FormattedMessage {...messages.showMoreButton} />
             </Button>
           </div>
         )}

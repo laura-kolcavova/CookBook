@@ -1,4 +1,5 @@
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
+import { FormattedMessage } from 'react-intl';
 import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
 import { useRemoveErrorMessage } from './hooks/useRemoveRecipeErrorMessage';
 import { useRemoveRecipeMutation } from './hooks/useRemoveRecipeMutation';
@@ -8,6 +9,7 @@ import { SpinnerIcon } from '~/pages/shared/icons/SpinnerIcon';
 import { Button } from '~/pages/shared/Button';
 import { useModals } from '~/modals/ModalProvider';
 import { HiXMark as XMarkIcon } from 'react-icons/hi2';
+import { messages } from '../../messages';
 
 export type ConfirmDeleteRecipeModalProps = {
   recipe: RecipeDetailDto;
@@ -73,13 +75,13 @@ export const ConfirmDeleteRecipeModal = ({ recipe, onDelete }: ConfirmDeleteReci
 
               <div className="mb-3 text-center">
                 <p className="text-base font-bold text-text-color-primary">
-                  Are you sure you want to delete this recipe?
+                  <FormattedMessage {...messages.confirmDeleteQuestion} />
                 </p>
               </div>
 
               <div className="mb-3 text-center">
                 <p className="text-sm font-semibold text-text-color-secondary">
-                  This action cannot be undone
+                  <FormattedMessage {...messages.actionCannotBeUndone} />
                 </p>
               </div>
             </div>
@@ -89,7 +91,7 @@ export const ConfirmDeleteRecipeModal = ({ recipe, onDelete }: ConfirmDeleteReci
                 className="py-2 px-4 rounded font-bold focus:outline-none focus:shadow-outline cursor-pointer flex items-center justify-center bg-pallete-2 hover:bg-pallete-3 text-pallete-8"
                 onClick={hideModal}
                 variant="primary">
-                Cancel
+                <FormattedMessage {...messages.cancelButton} />
               </Button>
 
               <Button
@@ -97,7 +99,9 @@ export const ConfirmDeleteRecipeModal = ({ recipe, onDelete }: ConfirmDeleteReci
                 className="flex items-center justify-center"
                 disabled={removeRecipeIsPending}
                 variant="danger">
-                <span>Delete</span>
+                <span>
+                  <FormattedMessage {...messages.deleteButton} />
+                </span>
 
                 {removeRecipeIsPending && <SpinnerIcon className="animate-spin size-4 ml-2" />}
               </Button>

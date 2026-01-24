@@ -1,20 +1,12 @@
 import type { PropsWithChildren } from 'react';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 import type { Locale } from './Locale';
+import { IntlProvider } from 'react-intl';
 
-// type RawDictionary = {
-//   [key: string]: string;
-// };
-
-// const fetchDictionary = async (locale: Locale): Promise<RawDictionary> => {
-//   const dictionary: RawDictionary = (await import(`~/i18n/${locale}.json`)).default;
-
-//   return dictionary;
-// };
+import messages_en_gb from '~/i18n/en-gb.json';
 
 export type LocalizationContextValue = {
   locale: string;
-  // translate: (messageId: string) => string | undefined;
 };
 
 const LocalizationContext = createContext<LocalizationContextValue | null>(null);
@@ -22,18 +14,22 @@ const LocalizationContext = createContext<LocalizationContextValue | null>(null)
 type LocalizationProviderProps = PropsWithChildren;
 
 export const LocalizationProvider = ({ children }: LocalizationProviderProps) => {
-  const [locale] = useState<Locale>('cs-cz');
+  const [locale] = useState<Locale>('en-gb');
 
-  // const [data] = createResource(getLocale, fetchDictionary);
-
-  // const translate = (messageId: string): string | undefined => {
-  //   return i18n.translator(data)(messageId);
-  // };
+  const messages = useMemo(() => {
+    switch (locale) {
+      case 'en-gb':
+        return messages_en_gb;
+      default:
+        return messages_en_gb;
+    }
+  }, [locale]);
 
   return (
     <LocalizationContext.Provider value={{ locale }}>
-      {children}
-      {/* <Show when={!data.loading}>{props.children}</Show> */}
+      <IntlProvider locale={locale} messages={messages}>
+        {children}
+      </IntlProvider>
     </LocalizationContext.Provider>
   );
 };

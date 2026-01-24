@@ -1,18 +1,17 @@
 import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
-import { useFormatting } from '~/localization/hooks/useFormatting';
 import { useFormatServings } from './hooks/useFormatServings';
 import { useFormatCookTime } from './hooks/useFormatCookTime';
 import { MetaItem } from './shared/MetaItem';
 import { MetaLabel } from './shared/MetaLabel';
 import { MetaValue } from './shared/MetaValue';
 import { Tag } from '~/pages/shared/Tag';
+import { FormattedDate, FormattedMessage } from 'react-intl';
+import { messages } from '../../messages';
 
 export type RecipeDetailContentProps = {
   recipe: RecipeDetailDto;
 };
 export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
-  const { formatDate } = useFormatting();
-
   const formatServings = useFormatServings();
   const formatCookTime = useFormatCookTime();
 
@@ -26,7 +25,9 @@ export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
         </div>
 
         <div className="text-center mb-2">
-          <span className="text-sm text-text-color-secondary">{formatDate(recipe.createdAt)}</span>
+          <span className="text-sm text-text-color-secondary">
+            <FormattedDate value={recipe.createdAt} />
+          </span>
         </div>
 
         {recipe.description && (
@@ -35,12 +36,16 @@ export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4 mb-6">
           <MetaItem>
-            <MetaLabel>Servings</MetaLabel>
+            <MetaLabel>
+              <FormattedMessage {...messages.servingsLabel} />
+            </MetaLabel>
             <MetaValue>{formatServings(recipe.servings)}</MetaValue>
           </MetaItem>
 
           <MetaItem>
-            <MetaLabel>Cook Time</MetaLabel>
+            <MetaLabel>
+              <FormattedMessage {...messages.cookTimeLabel} />
+            </MetaLabel>
             <MetaValue>{formatCookTime(recipe.cookTime)}</MetaValue>
           </MetaItem>
         </div>
@@ -57,7 +62,9 @@ export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
       </div>
 
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold text-text-color-primary mb-4">Ingredients</h2>
+        <h2 className="text-2xl font-semibold text-text-color-primary mb-4">
+          <FormattedMessage {...messages.ingredientsTitle} />
+        </h2>
 
         <ul className="list-none p-0 ml-4">
           {recipe.ingredients.map((ingredient) => (
@@ -71,7 +78,9 @@ export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
       </div>
 
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold text-text-color-primary mb-4">Instructions</h2>
+        <h2 className="text-2xl font-semibold text-text-color-primary mb-4">
+          <FormattedMessage {...messages.instructionsTitle} />
+        </h2>
 
         <ol className="p-0 ml-4">
           {recipe.instructions.map((instruction, index) => (
@@ -88,7 +97,9 @@ export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
 
       {recipe.notes && (
         <div>
-          <h2 className="text-2xl font-semibold text-text-color-primary mb-4">Notes</h2>
+          <h2 className="text-2xl font-semibold text-text-color-primary mb-4">
+            <FormattedMessage {...messages.notesTitle} />
+          </h2>
 
           <p className="text-base text-text-color-secondary m-0 leading-relaxed">{recipe.notes}</p>
         </div>

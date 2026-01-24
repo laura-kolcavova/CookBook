@@ -1,7 +1,10 @@
+import { FormattedMessage } from 'react-intl';
 import { LoadingSpinner } from '~/pages/shared/LoadingSpinner';
 import { useLatestRecipesQuery } from './hooks/useGetLatestRecipesQuery';
 import { Alert } from '~/pages/shared/Alert';
 import { LatestRecipeCard } from './shared/LatestRecipeCard';
+import { sharedMessages } from '~/pages/shared/sharedMessages';
+import { messages } from '../../messages';
 
 export const LatestRecipes = () => {
   const { isLoading, isError, data } = useLatestRecipesQuery();
@@ -9,17 +12,21 @@ export const LatestRecipes = () => {
   return (
     <div className="bg-content-background-color-tertiary">
       <div className="container mx-auto py-10 px-4">
-        <h2 className="text-3xl mb-6 text-center font-handwritten">Latest Recipes</h2>
+        <h2 className="text-3xl mb-6 text-center font-handwritten">
+          <FormattedMessage {...messages.latestRecipesTitle} />
+        </h2>
 
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
-            <LoadingSpinner text="Loading..." />
+            <LoadingSpinner text={<FormattedMessage {...sharedMessages.loading} />} />
           </div>
         ) : isError ? (
-          <Alert color="danger">Something went wrong</Alert>
+          <Alert color="danger">
+            <FormattedMessage {...sharedMessages.somethingWentWrong} />
+          </Alert>
         ) : !data || data.latestRecipes.length === 0 ? (
           <p className="text-base text-center text-text-color-secondary py-4">
-            No recipe were created yet.
+            <FormattedMessage {...messages.noRecipesCreatedYet} />
           </p>
         ) : (
           <div className="flex flex-col gap-6">

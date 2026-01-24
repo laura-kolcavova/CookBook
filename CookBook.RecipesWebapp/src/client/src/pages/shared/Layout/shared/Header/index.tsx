@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage, } from 'react-intl';
 
 import { FaHouse, FaMagnifyingGlass, FaPlus, FaRegCircleUser } from 'react-icons/fa6';
 import { NavIconLink } from './NavIconLink';
@@ -7,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { UserIconButton } from './UserIconButton';
 import { pages } from '~/navigation/pages';
 import { useLoggedUser } from '~/authentication/LoggedUserProvider';
+import { messages } from './messages';
 
 export const Header: React.FC = () => {
   const { isAuthenticated } = useLoggedUser();
@@ -26,7 +28,7 @@ export const Header: React.FC = () => {
           <ul className="flex list-none">
             <li>
               <NavIconLink
-                text="Home"
+                text={<FormattedMessage {...messages.home} />}
                 icon={<FaHouse />}
                 to={pages.Home.paths[0]}
                 isActive={isPageActive(pages.Home)}
@@ -35,7 +37,7 @@ export const Header: React.FC = () => {
 
             <li>
               <NavIconLink
-                text="Explore"
+                text={<FormattedMessage {...messages.explore} />}
                 icon={<FaMagnifyingGlass />}
                 to={pages.Explore.paths[0]}
                 isActive={isPageActive(pages.Explore)}
@@ -45,7 +47,7 @@ export const Header: React.FC = () => {
             {isAuthenticated && (
               <li>
                 <NavIconLink
-                  text="Add a recipe"
+                  text={<FormattedMessage {...messages.addRecipe} />}
                   icon={<FaPlus />}
                   to={pages.AddRecipe.paths[0]}
                   isActive={isPageActive(pages.AddRecipe)}
@@ -56,7 +58,7 @@ export const Header: React.FC = () => {
             {!isAuthenticated && (
               <li>
                 <NavIconLink
-                  text="Log In"
+                  text={<FormattedMessage {...messages.logIn} />}
                   icon={<FaRegCircleUser />}
                   to={pages.LogIn.paths[0]}
                   isActive={isPageActive(pages.LogIn)}

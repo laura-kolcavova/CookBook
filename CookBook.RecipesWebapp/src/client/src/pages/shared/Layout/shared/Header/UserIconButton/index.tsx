@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '~/navigation/pages';
 import { useLoggedUser } from '~/authentication/LoggedUserProvider';
+import { messages } from '../messages';
 
 export const UserIconButton: React.FC = () => {
   const { user, logout } = useLoggedUser();
@@ -56,7 +58,7 @@ export const UserIconButton: React.FC = () => {
             navigate(pages.MyProfile.paths[0]);
             setIsOpen(false);
           }}>
-          My profile
+          <FormattedMessage {...messages.myProfile} />
         </button>
 
         <button
@@ -65,7 +67,7 @@ export const UserIconButton: React.FC = () => {
             logout();
             setIsOpen(false);
           }}>
-          Log out
+          <FormattedMessage {...messages.logOut} />
         </button>
       </div>
     </div>

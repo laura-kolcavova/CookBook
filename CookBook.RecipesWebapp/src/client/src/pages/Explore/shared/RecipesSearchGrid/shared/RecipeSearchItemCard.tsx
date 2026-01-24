@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { FaRegCircleXmark } from 'react-icons/fa6';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import type { RecipeSearchItemDto } from '~/api/recipes/dto/RecipeSearchItemDto';
-import { useFormatting } from '~/localization/hooks/useFormatting';
 import { pages } from '~/navigation/pages';
+import { sharedMessages } from '~/pages/shared/sharedMessages';
 
 export type RecipeSearchItemCardProps = {
   recipe: RecipeSearchItemDto;
@@ -11,8 +12,6 @@ export type RecipeSearchItemCardProps = {
 
 export const RecipeSearchItemCard = ({ recipe }: RecipeSearchItemCardProps) => {
   const [imgError, setImgError] = useState(false);
-
-  const { formatDate } = useFormatting();
 
   const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
     ':recipeId',
@@ -27,7 +26,7 @@ export const RecipeSearchItemCard = ({ recipe }: RecipeSearchItemCardProps) => {
             {!recipe.imageUrl || imgError ? (
               <span className="flex flex-col items-center justify-center w-full h-full bg-gray-100 text-gray-400">
                 <FaRegCircleXmark size="2.5rem" />
-                <span>Not Found</span>
+                <FormattedMessage {...sharedMessages.notFound} />
               </span>
             ) : (
               <img
@@ -52,7 +51,9 @@ export const RecipeSearchItemCard = ({ recipe }: RecipeSearchItemCardProps) => {
       </div>
 
       <div className="text-center">
-        <span className="text-xs text-text-color-tertiary">{formatDate(recipe.createdAt)}</span>
+        <span className="text-xs text-text-color-tertiary">
+          <FormattedDate value={recipe.createdAt} />
+        </span>
       </div>
     </div>
   );

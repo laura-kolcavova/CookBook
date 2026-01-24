@@ -1,9 +1,10 @@
-import React, { type JSX } from 'react';
+import type { ReactNode } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 type NavIconLinkProps = {
-  text: string;
-  icon: JSX.Element;
+  text: ReactNode | string;
+  icon: ReactNode;
   to: string;
   isActive?: boolean;
   onClick?: () => void;

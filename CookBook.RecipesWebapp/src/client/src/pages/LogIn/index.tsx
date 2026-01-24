@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import type { LoginData } from './models/LoginData';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { Button } from '../shared/Button';
 import { StyledLink } from '../shared/StyledLink';
 import { pages } from '~/navigation/pages';
 import { useLoggedUser } from '~/authentication/LoggedUserProvider';
+import { messages } from './messages';
 
 const EMPTY_LOGIN_DATA: LoginData = {
   email: '',
@@ -40,7 +42,9 @@ export const LogIn = () => {
       <div className="container mx-auto py-10 px-4 flex flex-col items-center justify-center">
         <form className="w-full max-w-xs mb-12">
           <div className="mb-6">
-            <FormLabel htmlFor="email">Email</FormLabel>
+            <FormLabel htmlFor="email">
+              <FormattedMessage {...messages.emailLabel} />
+            </FormLabel>
 
             <FormTextInput
               id="email"
@@ -53,7 +57,9 @@ export const LogIn = () => {
           </div>
 
           <div className="mb-12">
-            <FormLabel htmlFor="password">Passowrd</FormLabel>
+            <FormLabel htmlFor="password">
+              <FormattedMessage {...messages.passwordLabel} />
+            </FormLabel>
 
             <FormTextInput
               id="passowrd"
@@ -67,13 +73,16 @@ export const LogIn = () => {
 
           <div>
             <Button className="w-full" onClick={handleSubmit}>
-              Log In
+              <FormattedMessage {...messages.logInButton} />
             </Button>
           </div>
         </form>
 
         <div>
-          Need an account? <StyledLink to={pages.Register.paths[0]}>Register</StyledLink>
+          <FormattedMessage {...messages.needAccount} />{' '}
+          <StyledLink to={pages.Register.paths[0]}>
+            <FormattedMessage {...messages.registerLink} />
+          </StyledLink>
         </div>
       </div>
     </div>

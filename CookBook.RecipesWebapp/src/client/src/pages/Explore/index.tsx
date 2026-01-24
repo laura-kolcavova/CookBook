@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { SearchBar } from './shared/SearchBar';
 import type { RecipesSearchGridRef } from './shared/RecipesSearchGrid';
 import { RecipesSearchGrid } from './shared/RecipesSearchGrid';
+import { messages } from './messages';
 
 export const Explore = () => {
   const recipesSearchGridRef = useRef<RecipesSearchGridRef>(null);
@@ -22,7 +24,7 @@ export const Explore = () => {
         <div className="container mx-auto py-10 px-4">
           <div className="max-w-2xl mx-auto">
             <h1 className="text-2xl font-semibold text-text-color-primary mb-8 text-center">
-              Explore Recipes
+              <FormattedMessage {...messages.exploreRecipesTitle} />
             </h1>
 
             <SearchBar onSearch={handleSearch} />

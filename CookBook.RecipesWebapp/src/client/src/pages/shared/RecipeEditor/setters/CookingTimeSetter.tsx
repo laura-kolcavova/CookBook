@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { getTimeParts, getTotalMinutes } from '~/utils/timeHelper';
 import { useAtom } from 'jotai';
 import { cookTimeAtom } from '../atoms/recipeDataAtom';
 import { FormExtendedNumberInput } from '~/pages/shared/forms/FormExtenedNumberInput';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
+import { messages } from '../messages';
 
 const MINUTES_MIN = 0;
 const MINUTES_MAX = 60;
@@ -35,7 +37,9 @@ export const CookTimeSetter = () => {
 
   return (
     <>
-      <FormLabel>Cook Time</FormLabel>
+      <FormLabel>
+        <FormattedMessage {...messages.cookTimeLabel} />
+      </FormLabel>
 
       <div className="flex flex-row gap-4">
         <FormExtendedNumberInput

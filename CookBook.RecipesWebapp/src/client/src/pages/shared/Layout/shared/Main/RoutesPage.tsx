@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
 
-import { PublicRoute } from '../../PublicRoute';
-import { ProtectedRoute } from '../../ProtectedRoute';
 import type { PageDefinition } from '~/navigation/PageDefinition';
 import { pages } from '~/navigation/pages';
+import { ProtectedRoute } from '~/pages/shared/routes/ProtectedRoute';
+import { PublicRoute } from '~/pages/shared/routes/PublicRoute';
 
 export const RoutesPage: React.FC = () => {
   const getRouteElement = (page: PageDefinition) => {

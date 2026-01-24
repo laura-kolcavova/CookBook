@@ -3,6 +3,8 @@ import { FormTextInput } from '../shared/forms/FormTextInput';
 import { Button } from '../shared/Button';
 import { StyledLink } from '../shared/StyledLink';
 import { pages } from '~/navigation/pages';
+import { FormattedMessage } from 'react-intl';
+import { messages } from './messages';
 
 export const Register = () => {
   return (
@@ -10,30 +12,39 @@ export const Register = () => {
       <div className="container mx-auto py-10 px-4 flex flex-col items-center justify-center">
         <form className="w-full max-w-xs mb-12">
           <div className="mb-6">
-            <FormLabel htmlFor="email">Email</FormLabel>
+            <FormLabel htmlFor="email">
+              <FormattedMessage {...messages.emailLabel} />
+            </FormLabel>
 
             <FormTextInput id="email" name="email" type="email" />
           </div>
 
           <div className="mb-6">
-            <FormLabel htmlFor="display-name">Display name</FormLabel>
+            <FormLabel htmlFor="display-name">
+              <FormattedMessage {...messages.displayNameLabel} />
+            </FormLabel>
 
             <FormTextInput id="display-name" name="display-name" type="text" />
           </div>
 
           <div className="mb-12">
-            <FormLabel htmlFor="password">Passowrd</FormLabel>
+            <FormLabel htmlFor="password">
+              <FormattedMessage {...messages.passwordLabel} />
+            </FormLabel>
 
             <FormTextInput id="passowrd" name="passowrd" type="password" />
           </div>
 
           <Button className="w-full" onClick={() => {}}>
-            Register
+            <FormattedMessage {...messages.registerButton} />
           </Button>
         </form>
 
         <div>
-          Already have an account? <StyledLink to={pages.LogIn.paths[0]}>Log In</StyledLink>
+          <FormattedMessage {...messages.alreadyHaveAccount} />{' '}
+          <StyledLink to={pages.LogIn.paths[0]}>
+            <FormattedMessage {...messages.logInLink} />
+          </StyledLink>
         </div>
       </div>
     </div>
