@@ -76,6 +76,7 @@ internal sealed class SaveRecipeUseCase(
             };
         }
         catch (Exception ex)
+        when (ex is not TaskCanceledException)
         {
             throw RecipesPersistenceException.LogAndCreate(
                 logger,
