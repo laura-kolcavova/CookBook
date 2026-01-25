@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{47E00905-1F7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{0E9EDE7F-4985-4DF6-AE4F-E60BC02BBB37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.RecipesWebapp.Server.Api", "src\server\CookBook.RecipesWebapp.Server.Api\CookBook.RecipesWebapp.Server.Api.csproj", "{E0861722-0500-4BCE-B9CE-1BA57665D65A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.RecipesWebapp.Server.Api", "server\src\CookBook.RecipesWebapp.Server.Api\CookBook.RecipesWebapp.Server.Api.csproj", "{E0861722-0500-4BCE-B9CE-1BA57665D65A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
