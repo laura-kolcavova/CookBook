@@ -51,6 +51,7 @@ internal sealed class RemoveRecipeUseCase(
             return UnitResult.Success<Error>();
         }
         catch (Exception ex)
+        when (ex is not TaskCanceledException)
         {
             throw RecipesPersistenceException.LogAndCreate(
                 logger,

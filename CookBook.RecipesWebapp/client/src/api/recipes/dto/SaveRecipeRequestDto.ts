@@ -12,11 +12,11 @@ export type SaveRecipeRequestDto = {
 };
 
 export type IngredientItemDto = {
-  localId?: number;
+  localId: number | null;
   note: string;
 };
 
 export type InstructionItemDto = {
-  localId?: number;
+  localId: number | null;
   note: string;
 };

@@ -86,6 +86,7 @@ internal sealed class SearchRecipesUseCase(
                .ToListAsync(cancellationToken);
         }
         catch (Exception ex)
+        when (ex is not TaskCanceledException)
         {
             throw RecipesPersistenceException.LogAndCreate(
                 logger,

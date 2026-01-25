@@ -33,6 +33,7 @@ internal sealed class GetLatestRecipesUseCase(
             return readModel;
         }
         catch (Exception ex)
+        when (ex is not TaskCanceledException)
         {
             throw RecipesPersistenceException.LogAndCreate(
                 logger,

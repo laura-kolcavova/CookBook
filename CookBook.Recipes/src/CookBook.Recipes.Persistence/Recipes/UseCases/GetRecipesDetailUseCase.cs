@@ -36,6 +36,7 @@ internal sealed class GetRecipesDetailUseCase(
             return readModel;
         }
         catch (Exception ex)
+        when (ex is not TaskCanceledException)
         {
             throw RecipesPersistenceException.LogAndCreate(
                 logger,
