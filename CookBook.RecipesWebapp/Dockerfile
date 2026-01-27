@@ -1,5 +1,6 @@
 ### Client
 FROM node:20.13.1 AS react-client-build
+WORKDIR /app
 COPY ./client .
 RUN npm ci
 RUN npm run build
@@ -33,9 +34,10 @@ EXPOSE 8015
 ENV ASPNETCORE_URLS=http://*:8015
 
 # Required to enable read only root filesystem
-ENV COMPlus_EnableDiagnostics=0
+ENV DOTNET_EnableDiagnostics=0
 
 COPY --from=build-env /app/out .
-COPY --from=react-client-build /build /app/client/build
+# COPY --from=react-client-build /build /app/client/build
+COPY --from=react-client-build /app/build /app/client/build
 
 ENTRYPOINT ["./CookBook.RecipesWebapp.Server.Api"]
