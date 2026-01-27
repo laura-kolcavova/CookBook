@@ -30,12 +30,12 @@ EXPOSE 8010
 ENV ASPNETCORE_URLS=http://*:8010
 
 # Required to enable read only root filesystem
-ENV COMPlus_EnableDiagnostics=0
+ENV DOTNET_EnableDiagnostics=0
 
-# RUN addgroup --gid 2000 dotnetappgroup && adduser --uid 1000 dotnetappuser --gid 2000
+RUN addgroup --gid 2000 dotnetappgroup && adduser --uid 1000 dotnetappuser --gid 2000
 
-# RUN chown 1000:2000 /app
-# USER 1000:2000
+RUN chown 1000:2000 /app
+USER 1000:2000
 
 COPY --from=build-env /app/out .
 
