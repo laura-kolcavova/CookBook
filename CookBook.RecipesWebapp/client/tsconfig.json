@@ -3,6 +3,7 @@
     // General
     "jsx": "react-jsx",
     "target": "ESNext",
+    // "lib": ["ESNext", "DOM", "DOM.Iterable"],
 
     // Modules
     "allowSyntheticDefaultImports": true,
@@ -10,6 +11,8 @@
     "isolatedModules": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
     "noEmit": true,
 
     // Type Checking & Safety
@@ -24,5 +27,6 @@
       "~": ["./src"],
       "~/*": ["./src/*"]
     }
-  }
+  },
+  "include": ["src"]
 }
