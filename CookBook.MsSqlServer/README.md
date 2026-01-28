@@ -8,7 +8,9 @@ CookBook MsSql Server is a private SQL server running via [Microsoft SQL server 
 
 Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your computer.
 
-## Build
+## Deployment
+
+### Build
 
 Run the following command to pull the Microsoft SQL server Docker image:
 
@@ -22,7 +24,7 @@ Or from the `deploy` folder run the following command:
 01_Container_Build.bat
 ```
 
-## Release
+### Release
 
 Run the following command to start a new Docker container using the Microsoft SQL server Docker image:
 

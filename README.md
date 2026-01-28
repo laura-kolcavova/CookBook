@@ -1,8 +1,10 @@
 # About
 
-## CookBook servers
+## CookBook MsSQL Server
 
 [MsSql Server](CookBook.MsSqlServer/README.md)
+
+## CookBook Nuget Repository
 
 [Nuget Repository](CookBook.NugetRepository/README.md)
 
@@ -12,11 +14,11 @@
 
 [Extensions AspNetCore](extensions/CookBook.Extensions.AspNetCore/README.md)
 
-## CookBook background services
+## CookBook Backend Services
 
 [Recipes](CookBook.Recipes/README.md)
 
-## CookBook frontend services
+## CookBook Frontend Services
 
 [Recipes Webapp](CookBook.RecipesWebapp/README.md)
 
@@ -52,4 +54,12 @@ From the `deploy` folder run the following command:
 
 ```Bash
 04_Recipes_Deploy.bat
+```
+
+4. Deploy [Recipes](CookBook.RecipesWebapp/README.md) container:
+
+From the `deploy` folder run the following command:
+
+```Bash
+05_RecipesWebapp_Deploy.bat
 ```

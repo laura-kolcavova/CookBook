@@ -4,6 +4,16 @@
 
 CookBook Recipes is a service for managing recipes, its ingredients and instructions.
 
+## Architecture
+
+A RESTful API backend service for managing recipes, ingredients, and cooking instructions. The service follows clean architecture principles with domain-driven design and vertical-slice architecture.
+
+**Technologies:**
+
+- .NET Core 8
+- ASP.NET Core Minimal API
+- Entity Framework Core
+
 ## Prerequisites
 
 Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your computer.
@@ -14,7 +24,9 @@ Ensure a [Nuget Repository](../CookBook.NugetRepository/README.md/) container is
 
 Ensure [nuget extensions packages](../README.md#deploy) are deployed at `Nuget Repository`.
 
-## Build database
+## Deployment
+
+### Build database
 
 Run the following command to build the database project:
 
@@ -28,7 +40,7 @@ Or from the `deploy` folder run the following command:
 01_Database_Build.bat
 ```
 
-## Database release
+### Database release
 
 Run the following command to publish the database project to `MsSql Server`:
 
@@ -42,7 +54,7 @@ Or from the `deploy` folder run the following command:
 02_Database_Release.bat
 ```
 
-## Build container
+### Build container
 
 Run the following command to create a Docker image and tag it with the name book-recipes (host network must be used for building the image):
 
@@ -56,7 +68,7 @@ Or from the `deploy` folder run the following command:
 03_Container_Build.bat
 ```
 
-## Release container
+### Release container
 
 Run the following command to start a new Docker container using the book-catalog image:
 
