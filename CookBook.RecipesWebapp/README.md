@@ -4,6 +4,8 @@
 
 CookBook Recipes Webapp is a frontend service for managing recipes, its ingredients and instructions.
 
+## Architecture
+
 ## Prerequisites
 
 Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your computer.
@@ -16,7 +18,9 @@ Ensure [nuget extensions packages](../README.md#deploy) are deployed at `Nuget R
 
 Ensure a [Recipes](../CookBook.Recipes/README.md/) container is running.
 
-## Build container
+## Deployment
+
+### Build container
 
 Run the following command to create a Docker image and tag it with the name cookbook-recipes-webapp (host network must be used for building the image):
 
@@ -30,7 +34,7 @@ Or from the `deploy` folder run the following command:
 01_Container_Build.bat
 ```
 
-## Release container
+### Release container
 
 Run the following command to start a new Docker container using the cookbook-recipes-webapp image:
 
