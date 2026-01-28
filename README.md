@@ -1,26 +1,26 @@
-# About
+# CookBook
 
-## CookBook MsSQL Server
+An example of a recipe management system built using microservices architecture
 
-[MsSql Server](CookBook.MsSqlServer/README.md)
+## Links
 
-## CookBook Nuget Repository
+### Backend Services
 
-[Nuget Repository](CookBook.NugetRepository/README.md)
+[CookBook Recipes](CookBook.Recipes/README.md)
 
-## CookBook Nuget packages
+### Frontend Services
 
-[Extensions CSharpExtended](extensions/CookBook.Extensions.CSharpExtended/README.md)
+[CookBook Recipes Webapp](CookBook.RecipesWebapp/README.md)
 
-[Extensions AspNetCore](extensions/CookBook.Extensions.AspNetCore/README.md)
+### Other
 
-## CookBook Backend Services
+[CookBook MsSql Server](CookBook.MsSqlServer/README.md)
 
-[Recipes](CookBook.Recipes/README.md)
+[CookBook Nuget Repository](CookBook.NugetRepository/README.md)
 
-## CookBook Frontend Services
+[CookBook NuGet CSharpExtended](extensions/CookBook.Extensions.CSharpExtended/README.md)
 
-[Recipes Webapp](CookBook.RecipesWebapp/README.md)
+[CookBook NuGet AspNetCore](extensions/CookBook.Extensions.AspNetCore/README.md)
 
 # Deploy
 

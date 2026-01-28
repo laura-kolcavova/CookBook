@@ -1,7 +1,5 @@
 # CookBook Recipes
 
-## About
-
 CookBook Recipes is a service for managing recipes, its ingredients and instructions.
 
 ## Architecture

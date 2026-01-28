@@ -1,7 +1,5 @@
 # CookBook Extensions AspNetCore
 
-## About
-
 CookBook Extensions AspNetCore is a NuGet package which adds extensions for developing of ASP.NET CORE applications.
 
 ## Prerequisites

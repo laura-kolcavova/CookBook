@@ -1,7 +1,5 @@
 # CookBook Nuget Repository
 
-## About
-
 CookBook Nuget Repository is a private NuGet feed server based on [BaGet server](https://loic-sharma.github.io/BaGet/) implementation.
 
 ## Prerequisites
