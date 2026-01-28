@@ -6,6 +6,14 @@ CookBook Recipes is a service for managing recipes, its ingredients and instruct
 
 ## Architecture
 
+A RESTful API backend service for managing recipes, ingredients, and cooking instructions. The service follows clean architecture principles with domain-driven design and vertical-slice architecture.
+
+**Technologies:**
+
+- .NET Core 8
+- ASP.NET Core Minimal API
+- Entity Framework Core
+
 ## Prerequisites
 
 Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your computer.

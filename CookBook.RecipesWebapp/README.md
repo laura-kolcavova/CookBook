@@ -6,6 +6,21 @@ CookBook Recipes Webapp is a frontend service for managing recipes, its ingredie
 
 ## Architecture
 
+The application consists of two main components:
+
+- **React Client**: A frontend application providing an interactive user interface for managing recipes
+  - React 19
+  - TypeScript
+  - Tailwind CSS
+  - Vite
+  - Axios
+  - TanStack Query
+  - Jotai
+
+- **BFF (Backend for Frontend)**: A server that acts as an intermediary between the client and backend services, handling API aggregation and business logic specific to the webapp
+  - .NET Core 8
+  - YARP
+
 ## Prerequisites
 
 Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your computer.
