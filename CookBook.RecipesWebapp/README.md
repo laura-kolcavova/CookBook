@@ -6,7 +6,7 @@ CookBook Recipes Webapp is a frontend service for managing recipes, its ingredie
 
 The application consists of two main components:
 
-- **React Client**: A frontend application providing an interactive user interface for managing recipes
+- **React Client**: A frontend webapp providing an user interface for managing recipes
   - React 19
   - TypeScript
   - Tailwind CSS
