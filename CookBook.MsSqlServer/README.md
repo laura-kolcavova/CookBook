@@ -1,7 +1,5 @@
 # CookBook MsSql Server
 
-## About
-
 CookBook MsSql Server is a private SQL server running via [Microsoft SQL server - Ubuntu image](https://github.com/Microsoft/mssql-docker).
 
 ## Prerequisites

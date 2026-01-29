@@ -1,7 +1,5 @@
 # CookBook Recipes Webapp
 
-## About
-
 CookBook Recipes Webapp is a frontend service for managing recipes, its ingredients and instructions.
 
 ## Architecture
