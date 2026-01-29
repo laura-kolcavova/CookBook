@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Shared;
+﻿using FluentValidation;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
@@ -64,7 +64,10 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddProblemDetails()
-            .AddInternalOrPublicValidators(typeof(Program).Assembly, ServiceLifetime.Singleton);
+            .AddValidatorsFromAssembly(
+                typeof(Program).Assembly,
+                ServiceLifetime.Singleton,
+                includeInternalTypes: true);
 
         return services;
     }

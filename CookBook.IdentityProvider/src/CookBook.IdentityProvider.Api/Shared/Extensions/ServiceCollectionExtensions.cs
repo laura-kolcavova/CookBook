@@ -1,4 +1,5 @@
-﻿using CookBook.Extensions.AspNetCore.Shared;
+﻿using Carter;
+using FluentValidation;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
@@ -9,6 +10,9 @@ internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddApi(this IServiceCollection services, string applicationName)
     {
+        services
+            .AddCarter();
+
         services
             .ConfigureHttpJsonOptions(options =>
             {
@@ -46,7 +50,10 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddProblemDetails()
-            .AddInternalOrPublicValidators(typeof(Program).Assembly, ServiceLifetime.Singleton);
+            .AddValidatorsFromAssembly(
+                typeof(Program).Assembly,
+                ServiceLifetime.Singleton,
+                includeInternalTypes: true);
 
         return services;
     }

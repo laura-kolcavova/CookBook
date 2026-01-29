@@ -1,3 +1,4 @@
+using Carter;
 using CookBook.IdentityProvider.Api.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,5 +49,7 @@ app.UseSwaggerUI(options =>
     options.ConfigObject.Filter = string.Empty;
     options.ConfigObject.TryItOutEnabled = true;
 });
+
+app.MapCarter();
 
 app.Run();
