@@ -1,4 +1,6 @@
-﻿namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser;
+﻿using CookBook.IdentityProvider.Api.Shared.Extensions;
+
+namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser;
 
 public sealed class RegisterUserEndpointModule : UsersModule
 {
@@ -12,9 +14,8 @@ public sealed class RegisterUserEndpointModule : UsersModule
             .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .ProducesValidationProblem();
-        /*    .WithValidation()*/
-        ;
+            .ProducesValidationProblem()
+            .WithFluentValidation();
     }
 
     private static async Task<IResult> HandleAsync(

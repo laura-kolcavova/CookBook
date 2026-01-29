@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace CookBook.Extensions.AspNetCore.Shared;
+namespace CookBook.Extensions.AspNetCore.FluentValidation;
 
 public static class ServiceCollectionExtensions
 {

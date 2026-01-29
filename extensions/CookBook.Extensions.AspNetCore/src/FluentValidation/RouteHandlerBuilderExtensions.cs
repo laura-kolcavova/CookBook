@@ -1,10 +1,10 @@
-﻿using CookBook.Extensions.AspNetCore.FluentValidation;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 
-namespace CookBook.IdentityProvider.Api.Shared.Extensions;
+namespace CookBook.Extensions.AspNetCore.FluentValidation;
 
 internal static class RouteHandlerBuilderExtensions
 {
-    // TODO this is in extensions project
     public static RouteHandlerBuilder WithFluentValidation(
         this RouteHandlerBuilder builder)
     {

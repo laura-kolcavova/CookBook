@@ -12,6 +12,7 @@ internal static class CategoriesEndpoints
     {
         var recipesGroup = group
             .MapGroup("/recipes")
+            .WithGroupName("Recipes")
             .WithTags("Recipes");
 
         GetLatestRecipesEndpoint.Configure(recipesGroup);
