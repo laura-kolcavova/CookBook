@@ -1,5 +1,3 @@
-using CookBook.Extensions.AspNetCore.FluentValidation;
-using CookBook.Extensions.AspNetCore.Shared;
 using CookBook.Extensions.AspNetCore.SqlServer;
 using CookBook.Recipes.Api.Shared;
 using CookBook.Recipes.Api.Shared.Configuration;
@@ -68,9 +66,6 @@ app.UseSwaggerUI(options =>
 });
 
 app
-    .UseEndpoints()
-    .AddEndpointFilter<OperationCanceledExceptionFilter>()
-    .AddEndpointFilter<FluentValidationEndpointFilter>()
-    .WithOpenApi();
+    .MapEndpoints();
 
 app.Run();

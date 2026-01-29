@@ -6,9 +6,9 @@ using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes;
 
 namespace CookBook.Recipes.Api.Recipes;
 
-internal static class CategoriesEndpoints
+internal static class RecipesEndpoints
 {
-    public static RouteGroupBuilder AddRecipesEndpoints(this RouteGroupBuilder group)
+    public static RouteGroupBuilder MapRecipesEndpoints(this RouteGroupBuilder group)
     {
         var recipesGroup = group
             .MapGroup("/recipes")
