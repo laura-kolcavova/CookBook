@@ -7,7 +7,7 @@ public abstract class UsersModule : ApiModule
     protected UsersModule()
         : base("/users")
     {
-        WithGroupName("Users");
+        //WithGroupName("Users");
         WithTags("Users");
     }
 }
