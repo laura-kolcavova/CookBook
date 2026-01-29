@@ -1,30 +1,30 @@
-# About
+# CookBook
 
-## CookBook MsSQL Server
+An example of a recipe management system built using microservices architecture
 
-[MsSql Server](CookBook.MsSqlServer/README.md)
+## Links
 
-## CookBook Nuget Repository
+### CookBook Backend Services
 
-[Nuget Repository](CookBook.NugetRepository/README.md)
+[CookBook Recipes](CookBook.Recipes/README.md)
 
-## CookBook Nuget packages
+### CookBook Frontend Services
 
-[Extensions CSharpExtended](extensions/CookBook.Extensions.CSharpExtended/README.md)
+[CookBook Recipes Webapp](CookBook.RecipesWebapp/README.md)
 
-[Extensions AspNetCore](extensions/CookBook.Extensions.AspNetCore/README.md)
+### Other
 
-## CookBook Backend Services
+[CookBook MsSql Server](CookBook.MsSqlServer/README.md)
 
-[Recipes](CookBook.Recipes/README.md)
+[CookBook Nuget Repository](CookBook.NugetRepository/README.md)
 
-## CookBook Frontend Services
+[CookBook CSharpExtended NuGet Package](extensions/CookBook.Extensions.CSharpExtended/README.md)
 
-[Recipes Webapp](CookBook.RecipesWebapp/README.md)
+[CookBook AspNetCore NuGet Package](extensions/CookBook.Extensions.AspNetCore/README.md)
 
-# Deploy
+## Deployment
 
-1. Deploy [MsSql Server](CookBook.MsSqlServer/README.md) container:
+1. Deploy [CookBook MsSql Server](CookBook.MsSqlServer/README.md) container:
 
 From the `deploy` folder run the following command:
 
@@ -32,7 +32,7 @@ From the `deploy` folder run the following command:
 01_MsSqlServer_Deploy.bat
 ```
 
-2. Deploy [Nuget Repository](CookBook.NugetRepository/README.md) container:
+2. Deploy [CookBook Nuget Repository](CookBook.NugetRepository/README.md) container:
 
 From the `deploy` folder run the following command:
 
@@ -48,7 +48,7 @@ From the `deploy` folder run the following command:
 03_Nugets_Deploy.bat
 ```
 
-4. Deploy [Recipes](CookBook.Recipes/README.md) container:
+4. Deploy [CookBook Recipes](CookBook.Recipes/README.md) container:
 
 From the `deploy` folder run the following command:
 
@@ -56,7 +56,7 @@ From the `deploy` folder run the following command:
 04_Recipes_Deploy.bat
 ```
 
-4. Deploy [Recipes](CookBook.RecipesWebapp/README.md) container:
+4. Deploy [CookBook Recipes Webapp](CookBook.RecipesWebapp/README.md) container:
 
 From the `deploy` folder run the following command:
 
