@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36109.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{E208225D-9D00-4B13-819F-8617E777E645}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{9340257F-9AE2-41EA-93A2-37D5D10EA3B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{AFDEA55D-9169-4AF5-91E1-A3F63E442FA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{A7CD4A2F-3BD8-4B50-B559-0962AFCF26C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "database", "database", "{CFCCA175-619D-43A2-993D-AF3B502472DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.IdentityProvider.Api", "src\CookBook.IdentityProvider.Api\CookBook.IdentityProvider.Api.csproj", "{B7274A21-2DE5-4278-BCAE-ECBF51DB281E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7274A21-2DE5-4278-BCAE-ECBF51DB281E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7274A21-2DE5-4278-BCAE-ECBF51DB281E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7274A21-2DE5-4278-BCAE-ECBF51DB281E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7274A21-2DE5-4278-BCAE-ECBF51DB281E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9340257F-9AE2-41EA-93A2-37D5D10EA3B7} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{AFDEA55D-9169-4AF5-91E1-A3F63E442FA8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{A7CD4A2F-3BD8-4B50-B559-0962AFCF26C6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{B7274A21-2DE5-4278-BCAE-ECBF51DB281E} = {9340257F-9AE2-41EA-93A2-37D5D10EA3B7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1A2F425-6011-4542-9917-E2E20AA48CBB}
+	EndGlobalSection
+EndGlobal
