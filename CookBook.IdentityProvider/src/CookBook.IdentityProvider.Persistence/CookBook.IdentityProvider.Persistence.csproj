@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CookBook.IdentityProvider.Domain\CookBook.IdentityProvider.Domain.csproj" />
+    <ProjectReference Include="..\CookBook.IdentityProvider.Application\CookBook.IdentityProvider.Application.csproj" />
   </ItemGroup>
 
 </Project>

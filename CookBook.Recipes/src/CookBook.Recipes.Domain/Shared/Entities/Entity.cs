@@ -1,4 +1,4 @@
-﻿namespace CookBook.Recipes.Domain.Shared;
+﻿namespace CookBook.Recipes.Domain.Shared.Entities;
 
 public abstract class Entity :
     IEntity,
@@ -28,12 +28,12 @@ public abstract class Entity :
             return false;
         }
 
-        if (other.GetType() != this.GetType())
+        if (other.GetType() != GetType())
         {
             return false;
         }
 
-        return other.GetPrimaryKey().Equals(this.GetPrimaryKey());
+        return other.GetPrimaryKey().Equals(GetPrimaryKey());
     }
 
     public override bool Equals(object? obj)
@@ -43,17 +43,17 @@ public abstract class Entity :
             return false;
         }
 
-        if (obj.GetType() != this.GetType())
+        if (obj.GetType() != GetType())
         {
             return false;
         }
 
         return obj is Entity entity &&
-               entity.GetPrimaryKey().Equals(this.GetPrimaryKey());
+               entity.GetPrimaryKey().Equals(GetPrimaryKey());
     }
 
     public override int GetHashCode()
     {
-        return this.GetPrimaryKey().GetHashCode() * 41;
+        return GetPrimaryKey().GetHashCode() * 41;
     }
 }

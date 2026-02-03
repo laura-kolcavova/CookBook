@@ -1,4 +1,4 @@
-﻿namespace CookBook.IdentityProvider.Domain.Users.Models;
+﻿namespace CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser;
 
 public sealed record RegisterUserRequest
 {

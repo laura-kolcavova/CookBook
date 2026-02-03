@@ -1,5 +1,5 @@
 ﻿using CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Contracts;
-using CookBook.IdentityProvider.Domain.Users.Models;
+using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser;
 using Riok.Mapperly.Abstractions;
 
 namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Mappers;
@@ -9,6 +9,6 @@ namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Mappers;
     EnumMappingIgnoreCase = true)]
 internal static partial class RegisterUserEndpointMapper
 {
-    public static RegisterUserRequest ToModel(
+    public static partial RegisterUserRequest ToModel(
         this RegisterUserRequestDto source);
 }

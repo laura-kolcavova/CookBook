@@ -1,7 +1,7 @@
 ﻿using CookBook.Extensions.AspNetCore.Errors;
 using CookBook.IdentityProvider.Api.Shared.Extensions;
 using CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Mappers;
-using CookBook.IdentityProvider.Domain.Users.UseCases.Abstractions;
+using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser.Abstractions;
 
 namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser;
 
