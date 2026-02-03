@@ -1,5 +1,5 @@
 ﻿using CookBook.Recipes.Domain.Recipes.Models;
-using CookBook.Recipes.Domain.Shared;
+using CookBook.Recipes.Domain.Shared.Entities;
 
 namespace CookBook.Recipes.Domain.Recipes.Entities;
 

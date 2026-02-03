@@ -1,4 +1,7 @@
-﻿using CookBook.IdentityProvider.Api.Shared.Extensions;
+﻿using CookBook.Extensions.AspNetCore.Errors;
+using CookBook.IdentityProvider.Api.Shared.Extensions;
+using CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Mappers;
+using CookBook.IdentityProvider.Domain.Users.UseCases.Abstractions;
 
 namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser;
 
@@ -19,12 +22,26 @@ public sealed class RegisterUserEndpointModule : UsersModule
     }
 
     private static async Task<IResult> HandleAsync(
-        [AsParameters]
-        RegisterUserEndpointParams request,
+        [AsParameters] RegisterUserEndpointParams request,
+        IRegisterUserUseCase registerUserUseCase,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
+        var registerUserRequest = request
+            .RegisterUserRequest
+            .ToModel();
+
+        var registerUserResult = await registerUserUseCase.RegisterUser(
+            registerUserRequest,
+            cancellationToken);
+
+        if (registerUserResult.IsFailure)
+        {
+            return TypedResults.Problem(
+                registerUserResult
+                    .Error
+                    .AsProblemDetails(httpContext));
+        }
 
         return TypedResults.NoContent();
     }
