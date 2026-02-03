@@ -1,6 +1,6 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes.Contracts;
 using CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes.Mappers;
-using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
+using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes;
 

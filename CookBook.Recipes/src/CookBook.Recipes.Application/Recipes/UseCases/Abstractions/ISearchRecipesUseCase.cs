@@ -2,7 +2,7 @@
 using CookBook.Recipes.Domain.Shared.Filtering;
 using CookBook.Recipes.Domain.Shared.Sorting;
 
-namespace CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
+namespace CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 
 public interface ISearchRecipesUseCase
 {

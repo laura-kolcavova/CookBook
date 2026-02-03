@@ -1,7 +1,7 @@
 ﻿using CookBook.Extensions.AspNetCore.Errors;
 using CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe.Contracts;
 using CookBook.Recipes.Api.Recipes.Features.SaveRecipe.Mappers;
-using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
+using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 using FluentValidation;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 

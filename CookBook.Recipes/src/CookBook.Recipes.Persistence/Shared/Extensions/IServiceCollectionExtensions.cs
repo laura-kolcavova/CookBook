@@ -1,4 +1,4 @@
-﻿using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
+﻿using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Persistence.Recipes;
 using CookBook.Recipes.Persistence.Recipes.UseCases;
 using CookBook.Recipes.Persistence.Shared.Interceptors;

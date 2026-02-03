@@ -1,5 +1,5 @@
 ﻿using CookBook.Extensions.AspNetCore.Errors;
-using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
+using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.RemoveRecipe;

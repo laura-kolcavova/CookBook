@@ -1,5 +1,6 @@
 using Carter;
 using CookBook.IdentityProvider.Api.Shared.Extensions;
+using CookBook.IdentityProvider.Domain.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ services
     .AddOptions();
 
 services
+    .AddDomain()
     .AddApi(
         builder.Environment.ApplicationName);
 

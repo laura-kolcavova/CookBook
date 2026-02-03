@@ -1,7 +1,7 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
 using CSharpFunctionalExtensions;
 
-namespace CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
+namespace CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 
 public interface IRemoveRecipeUseCase
 {
