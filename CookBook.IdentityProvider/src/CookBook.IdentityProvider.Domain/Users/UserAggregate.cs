@@ -1,27 +1,35 @@
-﻿using CookBook.IdentityProvider.Domain.Users.ValueObjects;
+﻿using CookBook.IdentityProvider.Domain.Shared.Entities;
 
 namespace CookBook.IdentityProvider.Domain.Users;
 
-public sealed class UserAggregate
+public sealed class UserAggregate :
+    AggregateRoot,
+    ITrackableEntity
 {
+    public int Id { get; }
+
     public Guid UserNumber { get; }
 
     public string DisplayName { get; }
 
-    public LoginCredentialsValueObject LoginCredentials { get; private set; }
+    public int IdentityUserId { get; }
+
+    public DateTimeOffset? CreatedAt { get; }
+
+    public DateTimeOffset? UpdatedAt { get; }
 
     public UserAggregate(
         Guid userNumber,
-        string displayName)
+        string displayName,
+        int identityUserId)
     {
         UserNumber = userNumber;
         DisplayName = displayName;
-        LoginCredentials = LoginCredentialsValueObject.Empty;
+        IdentityUserId = identityUserId;
     }
 
-    public void SetLoginCredentials(
-        LoginCredentialsValueObject loginCredentials)
+    public override object GetPrimaryKey()
     {
-        LoginCredentials = loginCredentials;
+        return Id;
     }
 }

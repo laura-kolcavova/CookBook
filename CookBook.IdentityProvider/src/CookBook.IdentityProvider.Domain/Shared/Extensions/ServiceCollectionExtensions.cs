@@ -1,6 +1,4 @@
-﻿using CookBook.IdentityProvider.Domain.Users.Services;
-using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.IdentityProvider.Domain.Shared.Extensions;
 
@@ -16,9 +14,6 @@ public static class ServiceCollectionExtensions
 
     internal static IServiceCollection AddUsers(this IServiceCollection services)
     {
-        services
-            .AddScoped<IUserManager, UserManager>();
-
         return services;
     }
 }

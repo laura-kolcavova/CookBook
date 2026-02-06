@@ -1,4 +1,4 @@
-﻿namespace CookBook.Recipes.Domain.Shared;
+﻿namespace CookBook.IdentityProvider.Domain.Shared.Entities;
 
 public abstract class AggregateRoot :
     Entity,
