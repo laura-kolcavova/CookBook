@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build">
   <Sdk Name="Microsoft.Build.Sql" Version="1.0.0" />
+
   <PropertyGroup>
     <Name>CookBook.Recipes.Database</Name>
-    <ProjectGuid>{79AF1F49-1FDA-42F4-BCC5-3B9B6BCCA520}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
     <ModelCollation>1033, CI</ModelCollation>
+    <ProjectGuid>{79AF1F49-1FDA-42F4-BCC5-3B9B6BCCA520}</ProjectGuid>
   </PropertyGroup>
+
   <ItemGroup>
     <None Include="PublishProfiles\Local.publish.xml" />
   </ItemGroup>
+
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
   </Target>
@@ -18,7 +21,7 @@
     <None Include="SeedAndPatch\Seed.sql" />
   </ItemGroup>
 
-   <ItemGroup>
+  <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>

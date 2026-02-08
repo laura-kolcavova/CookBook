@@ -1,0 +1,1 @@
+sqlpackage /a:Publish /sf:"../database/build_output/CookBook.IdentityProvider.Database.dacpac" /TargetConnectionString:"Data source=localhost,8000;User Id=SA;Initial Catalog=CookBookUsers;Integrated Security=False;TrustServerCertificate=True;Application Name=CookBookUsers;Password=y9WH7F4hNL"

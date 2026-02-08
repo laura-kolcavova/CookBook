@@ -1,7 +1,6 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
+using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Domain.Recipes;
-using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
-using CookBook.Recipes.Persistence.Shared.Exceptions;
 using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 
@@ -53,10 +52,11 @@ internal sealed class RemoveRecipeUseCase(
         catch (Exception ex)
         when (ex is not TaskCanceledException)
         {
-            throw RecipesPersistenceException.LogAndCreate(
-                logger,
+            logger.LogError(
                 ex,
                 "An unexpected error occurred while removing a recipe");
+
+            throw;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
+﻿using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Persistence.Recipes;
 using CookBook.Recipes.Persistence.Recipes.UseCases;
 using CookBook.Recipes.Persistence.Shared.Interceptors;
@@ -10,13 +10,13 @@ public static class IServiceCollectionExtensions
 {
     public static IServiceCollection AddPersistence(
         this IServiceCollection services,
-        string cookBookRecipesConnectionString,
+        string connectionString,
         bool isDevelopment)
     {
         services
            .AddHealthChecks()
            .AddSqlServer(
-               cookBookRecipesConnectionString,
+               connectionString,
                name: "CookBookRecipes_DB",
                tags: new[]
                {
@@ -25,7 +25,7 @@ public static class IServiceCollectionExtensions
 
         services
             .AddRecipes(
-                cookBookRecipesConnectionString,
+                connectionString,
                 isDevelopment);
 
         services
@@ -43,7 +43,7 @@ public static class IServiceCollectionExtensions
            .AddScoped(serviceProvider =>
            {
                var updateTrackingFieldsInterceptor = serviceProvider
-                   .GetRequiredService<UpdateTrackingFieldsInterceptor>();
+               .GetRequiredService<UpdateTrackingFieldsInterceptor>();
 
                return new RecipesContext(
                    connectionString: connectionString,

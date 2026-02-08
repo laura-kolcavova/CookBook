@@ -1,4 +1,9 @@
+using Carter;
+using CookBook.Extensions.AspNetCore.SqlServer;
+using CookBook.IdentityProvider.Api.Shared.Configuration;
 using CookBook.IdentityProvider.Api.Shared.Extensions;
+using CookBook.IdentityProvider.Domain.Shared.Extensions;
+using CookBook.IdentityProvider.Persistence.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +18,17 @@ builder.Host
         options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
     });
 
+var cookBookUsersConnectionString = configuration.GetSqlConnectionString(
+    ConfigurationConstants.CookBookUsersConnectionStringSectionName);
+
 services
     .AddOptions();
 
 services
+    .AddDomain()
+    .AddPersistence(
+        cookBookUsersConnectionString,
+        isDevelopment)
     .AddApi(
         builder.Environment.ApplicationName);
 
@@ -48,5 +60,7 @@ app.UseSwaggerUI(options =>
     options.ConfigObject.Filter = string.Empty;
     options.ConfigObject.TryItOutEnabled = true;
 });
+
+app.MapCarter();
 
 app.Run();

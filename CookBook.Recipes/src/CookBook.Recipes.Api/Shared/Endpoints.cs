@@ -1,13 +1,18 @@
-﻿using CookBook.Recipes.Api.Recipes;
+﻿using CookBook.Extensions.AspNetCore.FluentValidation;
+using CookBook.Extensions.AspNetCore.Shared;
+using CookBook.Recipes.Api.Recipes;
 
 namespace CookBook.Recipes.Api.Shared;
 
 internal static class Endpoints
 {
-    public static RouteGroupBuilder UseEndpoints(this WebApplication app)
+    public static RouteGroupBuilder MapEndpoints(this WebApplication app)
     {
         return app
             .MapGroup("/api")
-            .AddRecipesEndpoints();
+            .AddEndpointFilter<OperationCanceledExceptionFilter>()
+            .AddEndpointFilter<FluentValidationEndpointFilter>()
+            .WithOpenApi()
+            .MapRecipesEndpoints();
     }
 }

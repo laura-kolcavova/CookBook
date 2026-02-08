@@ -6,33 +6,21 @@ using Microsoft.Extensions.Logging;
 
 namespace CookBook.Recipes.Persistence.Recipes;
 
-internal sealed class RecipesContext : DbContext
+internal sealed class RecipesContext(
+    string connectionString,
+    bool useDevelopmentLogging,
+    UpdateTrackingFieldsInterceptor updateTrackingFieldsInterceptor) :
+    DbContext
 {
-    private readonly string _connectionString;
-
-    private readonly bool _useDevelopmentLogging;
-
-    private readonly UpdateTrackingFieldsInterceptor _updateTrackingFieldsInterceptor;
-
     public DbSet<RecipeAggregate> Recipes => Set<RecipeAggregate>();
-
-    public RecipesContext(
-        string connectionString,
-        bool useDevelopmentLogging,
-        UpdateTrackingFieldsInterceptor updateTrackingFieldsInterceptor)
-    {
-        _connectionString = connectionString;
-        _useDevelopmentLogging = useDevelopmentLogging;
-        _updateTrackingFieldsInterceptor = updateTrackingFieldsInterceptor;
-    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder
-           .UseSqlServer(_connectionString)
-           .AddInterceptors(_updateTrackingFieldsInterceptor);
+           .UseSqlServer(connectionString)
+           .AddInterceptors(updateTrackingFieldsInterceptor);
 
-        if (_useDevelopmentLogging)
+        if (useDevelopmentLogging)
         {
             optionsBuilder
                 .UseLoggerFactory(CreateLoggerFactory())
@@ -43,10 +31,10 @@ internal sealed class RecipesContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new RecipeAggregateRootConfiguration());
-        modelBuilder.ApplyConfiguration(new RecipeIngredientEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new RecipeInstructionEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new RecipeTagEntityConfiguration());
+        modelBuilder.ApplyConfiguration(new RecipeAggregateEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new RecipeIngredientEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new RecipeInstructionEntityTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new RecipeTagEntityTypeConfiguration());
     }
 
     private static ILoggerFactory CreateLoggerFactory()

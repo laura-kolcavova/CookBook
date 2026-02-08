@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\CookBook.IdentityProvider.Domain\CookBook.IdentityProvider.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,7 +1,6 @@
-﻿using CookBook.Recipes.Domain.Recipes.ReadModels;
-using CookBook.Recipes.Domain.Recipes.UseCases.Abstractions;
+﻿using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
+using CookBook.Recipes.Domain.Recipes.ReadModels;
 using CookBook.Recipes.Persistence.Recipes.Extensions;
-using CookBook.Recipes.Persistence.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -35,10 +34,11 @@ internal sealed class GetLatestRecipesUseCase(
         catch (Exception ex)
         when (ex is not TaskCanceledException)
         {
-            throw RecipesPersistenceException.LogAndCreate(
-                logger,
+            logger.LogError(
                 ex,
                 "An unexpected error occurred while getting latest recipes");
+
+            throw;
         }
     }
 }

@@ -24,9 +24,11 @@ internal sealed class SaveRecipeRequestDtoValidator :
             .RecipeDescription();
 
         RuleFor(request => request.Servings)
+            .NotNull()
             .RecipeServings();
 
         RuleFor(request => request.CookTime)
+            .NotNull()
             .RecipeCookTime();
 
         RuleFor(request => request.Notes)
