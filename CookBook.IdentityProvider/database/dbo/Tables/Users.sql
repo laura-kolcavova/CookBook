@@ -2,7 +2,7 @@ CREATE TABLE [dbo].[Users]
 (
     [Id]                INT IDENTITY(1, 1)  NOT NULL,
     [IdentityUserId]    INT                 NOT NULL,
-    [UserNumber]        INT                 NOT NULL,
+    [UserNumber]        UNIQUEIDENTIFIER    NOT NULL,
     [DisplayName]       NVARCHAR(50)        NOT NULL,
     [DateCreatedAt]     DATETIMEOFFSET      NOT NULL DEFAULT SYSDATETIMEOFFSET(),
     [DateUpdatedAt]     DATETIMEOFFSET      NULL,
