@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CookBook.Recipes.Persistence.Recipes.EntityTypeConfigurations;
 
-internal sealed class RecipeAggregateRootConfiguration :
+internal sealed class RecipeAggregateEntityTypeConfiguration :
     IEntityTypeConfiguration<RecipeAggregate>
 {
     public void Configure(EntityTypeBuilder<RecipeAggregate> builder)

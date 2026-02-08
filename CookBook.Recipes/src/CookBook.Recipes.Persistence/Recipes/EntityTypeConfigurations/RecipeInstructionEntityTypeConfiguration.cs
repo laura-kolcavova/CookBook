@@ -5,21 +5,21 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CookBook.Recipes.Persistence.Recipes.EntityTypeConfigurations;
 
-internal sealed class RecipeIngredientEntityConfiguration :
-    IEntityTypeConfiguration<RecipeIngredientEntity>
+internal sealed class RecipeInstructionEntityTypeConfiguration :
+    IEntityTypeConfiguration<RecipeInstructionEntity>
 {
     public void Configure(
-        EntityTypeBuilder<RecipeIngredientEntity> builder)
+        EntityTypeBuilder<RecipeInstructionEntity> builder)
     {
         builder.ToTable(
-            DboSchema.RecipeIngredientsTableName,
+            DboSchema.RecipeInstructionsTableName,
             DboSchema.Name);
 
         builder
             .HasKey(e => new
             {
                 e.RecipeId,
-                e.LocalId
+                e.LocalId,
             });
 
         builder
@@ -32,7 +32,7 @@ internal sealed class RecipeIngredientEntityConfiguration :
 
         builder
             .Property(e => e.Note)
-            .HasMaxLength(256)
+            .HasMaxLength(1024)
             .IsRequired();
 
         builder

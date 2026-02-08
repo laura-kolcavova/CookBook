@@ -11,6 +11,7 @@ namespace CookBook.IdentityProvider.Persistence.Users.UseCases.RegisterUser;
 
 internal sealed class RegisterUserUseCase(
     UserManager<IdentityUser<int>> userManager,
+    UsersContext usersContext,
     ILogger<RegisterUserUseCase> logger) :
     IRegisterUserUseCase
 {
@@ -56,8 +57,11 @@ internal sealed class RegisterUserUseCase(
                 displayName: registerUserRequest.DisplayName,
                 identityUserId: identityUser.Id);
 
+            await usersContext.Users.AddAsync(
+                user,
+                cancellationToken);
 
-
+            transaction.Complete();
         }
         catch (Exception ex)
         when (ex is not TaskCanceledException)

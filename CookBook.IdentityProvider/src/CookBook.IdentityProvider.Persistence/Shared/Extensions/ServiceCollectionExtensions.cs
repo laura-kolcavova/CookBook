@@ -1,12 +1,11 @@
-﻿using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
-using CookBook.Recipes.Persistence.Recipes;
-using CookBook.Recipes.Persistence.Recipes.UseCases;
-using CookBook.Recipes.Persistence.Shared.Interceptors;
+﻿using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser.Abstractions;
+using CookBook.IdentityProvider.Persistence.Shared.Interceptors;
+using CookBook.IdentityProvider.Persistence.Users;
+using CookBook.IdentityProvider.Persistence.Users.UseCases.RegisterUser;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CookBook.Recipes.Persistence.Shared.Extensions;
-
-public static class IServiceCollectionExtensions
+namespace CookBook.IdentityProvider.Persistence.Shared.Extensions;
+public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddPersistence(
         this IServiceCollection services,
@@ -24,7 +23,7 @@ public static class IServiceCollectionExtensions
                });
 
         services
-            .AddRecipes(
+            .AddUsers(
                 connectionString,
                 isDevelopment);
 
@@ -34,29 +33,25 @@ public static class IServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddRecipes(
-        this IServiceCollection services,
-        string connectionString,
-        bool isDevelopment)
+    public static IServiceCollection AddUsers(
+       this IServiceCollection services,
+       string connectionString,
+       bool isDevelopment)
     {
         services
            .AddScoped(serviceProvider =>
            {
                var updateTrackingFieldsInterceptor = serviceProvider
-               .GetRequiredService<UpdateTrackingFieldsInterceptor>();
+                   .GetRequiredService<UpdateTrackingFieldsInterceptor>();
 
-               return new RecipesContext(
+               return new UsersContext(
                    connectionString: connectionString,
                    useDevelopmentLogging: isDevelopment,
                    updateTrackingFieldsInterceptor: updateTrackingFieldsInterceptor);
            });
 
         services
-            .AddScoped<ISaveRecipeUseCase, SaveRecipeUseCase>()
-            .AddScoped<IRemoveRecipeUseCase, RemoveRecipeUseCase>()
-            .AddScoped<ISearchRecipesUseCase, SearchRecipesUseCase>()
-            .AddScoped<IGetLatestRecipesUseCase, GetLatestRecipesUseCase>()
-            .AddScoped<IGetRecipeDetailUseCase, GetRecipesDetailUseCase>();
+            .AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
 
         return services;
     }
