@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.IdentityProvider.Persistence.Shared.Extensions;
+
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddPersistence(
@@ -51,7 +52,10 @@ public static class ServiceCollectionExtensions
             });
 
         services
-            .AddIdentityCore<IdentityUser<int>>()
+            .AddIdentityCore<IdentityUser<int>>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            })
             .AddEntityFrameworkStores<IdentityUsersContext>();
 
         return services;
@@ -63,16 +67,16 @@ public static class ServiceCollectionExtensions
        bool isDevelopment)
     {
         services
-           .AddScoped(serviceProvider =>
-           {
-               var updateTrackingFieldsInterceptor = serviceProvider
-                   .GetRequiredService<UpdateTrackingFieldsInterceptor>();
+            .AddScoped(serviceProvider =>
+            {
+                var updateTrackingFieldsInterceptor = serviceProvider
+                    .GetRequiredService<UpdateTrackingFieldsInterceptor>();
 
-               return new UsersContext(
-                   connectionString: connectionString,
-                   useDevelopmentLogging: isDevelopment,
-                   updateTrackingFieldsInterceptor: updateTrackingFieldsInterceptor);
-           });
+                return new UsersContext(
+                    connectionString: connectionString,
+                    useDevelopmentLogging: isDevelopment,
+                    updateTrackingFieldsInterceptor: updateTrackingFieldsInterceptor);
+            });
 
         services
             .AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();

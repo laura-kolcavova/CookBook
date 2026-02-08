@@ -21,7 +21,6 @@ builder.Host
 var cookBookUsersConnectionString = configuration.GetSqlConnectionString(
     ConfigurationConstants.CookBookUsersConnectionStringSectionName);
 
-
 services
     .AddOptions();
 

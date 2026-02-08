@@ -28,7 +28,6 @@ internal sealed class IdentityUsersContext(
     protected override void OnModelCreating(
         ModelBuilder modelBuilder)
     {
-
     }
 
     private static ILoggerFactory CreateLoggerFactory()

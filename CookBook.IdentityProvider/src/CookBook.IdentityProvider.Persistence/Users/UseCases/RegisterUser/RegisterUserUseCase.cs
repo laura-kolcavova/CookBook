@@ -57,9 +57,11 @@ internal sealed class RegisterUserUseCase(
                 displayName: registerUserRequest.DisplayName,
                 identityUserId: identityUser.Id);
 
-            await usersContext.Users.AddAsync(
-                user,
-                cancellationToken);
+            await usersContext
+                .Users
+                .AddAsync(
+                    user,
+                    cancellationToken);
 
             transaction.Complete();
 
