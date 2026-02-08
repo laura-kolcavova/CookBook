@@ -62,6 +62,8 @@ internal sealed class RegisterUserUseCase(
                 cancellationToken);
 
             transaction.Complete();
+
+            return user;
         }
         catch (Exception ex)
         when (ex is not TaskCanceledException)

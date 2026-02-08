@@ -2,6 +2,7 @@
 using CookBook.IdentityProvider.Persistence.Shared.Interceptors;
 using CookBook.IdentityProvider.Persistence.Users;
 using CookBook.IdentityProvider.Persistence.Users.UseCases.RegisterUser;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.IdentityProvider.Persistence.Shared.Extensions;
@@ -23,12 +24,35 @@ public static class ServiceCollectionExtensions
                });
 
         services
+            .AddIdentityUsers(
+                connectionString,
+                isDevelopment)
             .AddUsers(
                 connectionString,
                 isDevelopment);
 
         services
             .AddSingleton<UpdateTrackingFieldsInterceptor>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddIdentityUsers(
+        this IServiceCollection services,
+        string connectionString,
+        bool isDevelopment)
+    {
+        services
+            .AddScoped(serviceProvider =>
+            {
+                return new IdentityUsersContext(
+                    connectionString: connectionString,
+                    useDevelopmentLogging: isDevelopment);
+            });
+
+        services
+            .AddIdentityCore<IdentityUser<int>>()
+            .AddEntityFrameworkStores<IdentityUsersContext>();
 
         return services;
     }
