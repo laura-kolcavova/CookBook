@@ -31,7 +31,11 @@ internal sealed class RegisterUserUseCase(
                 TransactionScopeOption.Required,
                 TransactionScopeAsyncFlowOption.Enabled);
 
-            var identityUser = new IdentityUser<int>();
+            var identityUser = new IdentityUser<int>()
+            {
+                UserName = null,
+                Email = registerUserRequest.Email,
+            };
 
             var identityResult = await userManager.CreateAsync(
                 identityUser,

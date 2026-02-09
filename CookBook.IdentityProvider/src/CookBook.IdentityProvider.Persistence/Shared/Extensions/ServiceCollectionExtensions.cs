@@ -55,6 +55,8 @@ public static class ServiceCollectionExtensions
             .AddIdentityCore<IdentityUser<int>>(options =>
             {
                 options.User.RequireUniqueEmail = true;
+
+                options.Password.RequireNonAlphanumeric = false;
             })
             .AddEntityFrameworkStores<IdentityUsersContext>();
 
