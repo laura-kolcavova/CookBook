@@ -2,7 +2,6 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TargetDatabaseName>CookBookRecipes</TargetDatabaseName>
-    <TargetConnectionString>Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Password=******;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Name=azdata;Command Timeout=30</TargetConnectionString>
     <AllowIncompatiblePlatform>True</AllowIncompatiblePlatform>
     <DropPermissionsNotInSource>True</DropPermissionsNotInSource>
     <DropObjectsNotInSource>True</DropObjectsNotInSource>
