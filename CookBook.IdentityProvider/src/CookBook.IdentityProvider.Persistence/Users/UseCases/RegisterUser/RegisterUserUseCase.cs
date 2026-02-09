@@ -31,9 +31,11 @@ internal sealed class RegisterUserUseCase(
                 TransactionScopeOption.Required,
                 TransactionScopeAsyncFlowOption.Enabled);
 
+            var userNumber = Guid.NewGuid();
+
             var identityUser = new IdentityUser<int>()
             {
-                UserName = null,
+                UserName = userNumber.ToString(),
                 Email = registerUserRequest.Email,
             };
 
@@ -53,8 +55,6 @@ internal sealed class RegisterUserUseCase(
 
                 return error;
             }
-
-            var userNumber = Guid.NewGuid();
 
             var user = new UserAggregate(
                 userNumber: userNumber,

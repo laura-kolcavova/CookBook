@@ -11,7 +11,7 @@ internal sealed class IdentityUsersContext(
     IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
 {
     protected override void OnConfiguring(
-    DbContextOptionsBuilder optionsBuilder)
+        DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder
            .UseSqlServer(connectionString);
@@ -23,11 +23,6 @@ internal sealed class IdentityUsersContext(
                 .EnableDetailedErrors()
                 .EnableSensitiveDataLogging();
         }
-    }
-
-    protected override void OnModelCreating(
-        ModelBuilder modelBuilder)
-    {
     }
 
     private static ILoggerFactory CreateLoggerFactory()
