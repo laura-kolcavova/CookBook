@@ -8,7 +8,7 @@ COPY ./Directory.Build.props ./
 
 COPY ./src/CookBook.IdentityProvider.Api/*.csproj ./src/CookBook.IdentityProvider.Api/
 COPY ./src/CookBook.IdentityProvider.Application/*.csproj ./src/CookBook.IdentityProvider.Application/
-COPY ./src/CookBook.IdentityProvider.Domain/*.csproj ./src/IdentityProvider.Recipes.Domain/
+COPY ./src/CookBook.IdentityProvider.Domain/*.csproj ./src/CookBook.IdentityProvider.Domain/
 COPY ./src/CookBook.IdentityProvider.Persistence/*.csproj ./src/CookBook.IdentityProvider.Persistence/
 
 # Restore dependencies
