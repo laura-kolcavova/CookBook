@@ -8,6 +8,8 @@ An example of a recipe management system built using microservices architecture
 
 [CookBook Recipes](CookBook.Recipes/README.md)
 
+[CookBook Identity Provider](CookBook.IdentityProvider/README.md)
+
 ### CookBook Frontend Services
 
 [CookBook Recipes Webapp](CookBook.RecipesWebapp/README.md)
@@ -56,10 +58,18 @@ From the `deploy` folder run the following command:
 04_Recipes_Deploy.bat
 ```
 
-4. Deploy [CookBook Recipes Webapp](CookBook.RecipesWebapp/README.md) container:
+5. Deploy [CookBook Identity Provider](CookBook.IdentityProvider/README.md) container:
 
 From the `deploy` folder run the following command:
 
 ```Bash
-05_RecipesWebapp_Deploy.bat
+05_IdentityProvider_Deploy.bat
+```
+
+6. Deploy [CookBook Recipes Webapp](CookBook.RecipesWebapp/README.md) container:
+
+From the `deploy` folder run the following command:
+
+```Bash
+06_RecipesWebapp_Deploy.bat
 ```

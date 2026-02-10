@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CookBook.IdentityProvider.Application\CookBook.IdentityProvider.Application.csproj" />
     <ProjectReference Include="..\CookBook.IdentityProvider.Persistence\CookBook.IdentityProvider.Persistence.csproj" />
   </ItemGroup>
 
