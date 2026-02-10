@@ -1,0 +1,1 @@
+docker run -it --rm -p 8020:8020 --name cookbook-identity-provider-container -d cookbook-identity-provider

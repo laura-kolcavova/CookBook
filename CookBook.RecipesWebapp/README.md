@@ -29,6 +29,8 @@ Ensure a [Nuget Repository](../CookBook.NugetRepository/README.md/) container is
 
 Ensure [nuget extensions packages](../README.md#deploy) are deployed at `Nuget Repository`.
 
+Ensure a [Identity Provider](../CookBook.IdentityProvider/README.md/) container is running.
+
 Ensure a [Recipes](../CookBook.Recipes/README.md/) container is running.
 
 ## Deployment

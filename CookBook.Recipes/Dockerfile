@@ -8,7 +8,6 @@ COPY ./Directory.Build.props ./
 
 COPY ./src/CookBook.Recipes.Api/*.csproj ./src/CookBook.Recipes.Api/
 COPY ./src/CookBook.Recipes.Application/*.csproj ./src/CookBook.Recipes.Application/
-COPY ./src/CookBook.Recipes.Constants/*.csproj ./src/CookBook.Recipes.Constants/
 COPY ./src/CookBook.Recipes.Domain/*.csproj ./src/CookBook.Recipes.Domain/
 COPY ./src/CookBook.Recipes.Persistence/*.csproj ./src/CookBook.Recipes.Persistence/
 

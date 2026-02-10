@@ -4,11 +4,13 @@ CookBook Recipes is a service for managing recipes, its ingredients and instruct
 
 ## Architecture
 
-A RESTful API backend service for managing recipes, ingredients, and cooking instructions. The service follows clean architecture principles with domain-driven design and vertical-slice architecture.
+A RESTful API backend service for managing recipes, ingredients, and cooking instructions.
+
+The service follows Clean Architecture principles with Domain Driven Design, Vertical Slice Architecture and Database First approach.
 
 **Technologies:**
 
-- .NET Core 8
+- .NET 8
 - ASP.NET Core Minimal API
 - Entity Framework Core
 
@@ -38,7 +40,7 @@ Or from the `deploy` folder run the following command:
 01_Database_Build.bat
 ```
 
-### Database release
+### Release database
 
 Run the following command to publish the database project to `MsSql Server`:
 
