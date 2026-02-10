@@ -31,7 +31,13 @@ internal sealed class RegisterUserUseCase(
                 TransactionScopeOption.Required,
                 TransactionScopeAsyncFlowOption.Enabled);
 
-            var identityUser = new IdentityUser<int>();
+            var userNumber = Guid.NewGuid();
+
+            var identityUser = new IdentityUser<int>()
+            {
+                UserName = userNumber.ToString(),
+                Email = registerUserRequest.Email,
+            };
 
             var identityResult = await userManager.CreateAsync(
                 identityUser,
@@ -50,18 +56,19 @@ internal sealed class RegisterUserUseCase(
                 return error;
             }
 
-            var userNumber = Guid.NewGuid();
-
             var user = new UserAggregate(
+                identityUserId: identityUser.Id,
                 userNumber: userNumber,
-                displayName: registerUserRequest.DisplayName,
-                identityUserId: identityUser.Id);
+                displayName: registerUserRequest.DisplayName);
 
             await usersContext
                 .Users
                 .AddAsync(
                     user,
                     cancellationToken);
+
+            await usersContext.SaveChangesAsync(
+                cancellationToken);
 
             transaction.Complete();
 
