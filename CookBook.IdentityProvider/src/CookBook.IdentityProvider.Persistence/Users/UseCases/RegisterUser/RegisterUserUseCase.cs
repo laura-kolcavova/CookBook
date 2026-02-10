@@ -57,15 +57,18 @@ internal sealed class RegisterUserUseCase(
             }
 
             var user = new UserAggregate(
+                identityUserId: identityUser.Id,
                 userNumber: userNumber,
-                displayName: registerUserRequest.DisplayName,
-                identityUserId: identityUser.Id);
+                displayName: registerUserRequest.DisplayName);
 
             await usersContext
                 .Users
                 .AddAsync(
                     user,
                     cancellationToken);
+
+            await usersContext.SaveChangesAsync(
+                cancellationToken);
 
             transaction.Complete();
 

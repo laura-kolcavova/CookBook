@@ -3,8 +3,8 @@ CREATE TABLE [dbo].[Users] (
     [IdentityUserId]    INT                 NOT NULL,
     [UserNumber]        UNIQUEIDENTIFIER    NOT NULL,
     [DisplayName]       NVARCHAR(50)        NOT NULL,
-    [DateCreatedAt]     DATETIMEOFFSET      NOT NULL DEFAULT SYSDATETIMEOFFSET(),
-    [DateUpdatedAt]     DATETIMEOFFSET      NULL,
+    [CreatedAt]         DATETIMEOFFSET      NOT NULL DEFAULT SYSDATETIMEOFFSET(),
+    [UpdatedAt]         DATETIMEOFFSET      NULL,
 
     CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED (
         [Id] ASC

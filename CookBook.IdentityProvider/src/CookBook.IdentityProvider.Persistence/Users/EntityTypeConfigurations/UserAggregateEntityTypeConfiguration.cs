@@ -24,6 +24,10 @@ internal sealed class UserAggregateEntityTypeConfiguration :
             .IsRequired();
 
         builder
+           .Property(e => e.IdentityUserId)
+           .IsRequired();
+
+        builder
            .Property(e => e.UserNumber)
            .IsRequired();
 
