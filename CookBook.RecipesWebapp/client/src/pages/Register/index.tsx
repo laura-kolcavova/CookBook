@@ -111,6 +111,7 @@ export const Register = () => {
               id="passowrd"
               name="passowrd"
               type="password"
+              pattern="(?=.*\d).+"
               autoComplete="off"
               required
               maxLength={256}
