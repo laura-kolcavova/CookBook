@@ -8,10 +8,10 @@ export const useSaveRecipeErrorMessage = () => {
 
   const getErrorMessage = useCallback(
     (error: Error): string => {
-      if (isAxiosError(error) && error.response?.data.code) {
-        const code = error.response.data.code;
+      if (isAxiosError(error) && error.response?.data.errorCode) {
+        const code = error.response.data.errorCode;
 
-        return `${formatMessage(sharedMessages.somethingWentWrong)} ${code}`;
+        return `${formatMessage(sharedMessages.somethingWentWrong)}: ${code}`;
       }
 
       return formatMessage(sharedMessages.somethingWentWrong);

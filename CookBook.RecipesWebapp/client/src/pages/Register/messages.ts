@@ -29,4 +29,8 @@ export const messages = defineMessages({
     id: 'register.emailAlreadyExistsError',
     defaultMessage: 'User with this email already exists',
   },
+  passwordRequiresDigitError: {
+    id: 'register.passwordRequiresDigitError',
+    defaultMessage: "Passwords must have at least one digit ('0'-'9')",
+  },
 });

@@ -30,10 +30,10 @@ var reverseProxyOptions = configuration
 //});
 
 services
-    .AddClient(clientOptions)
     .AddApi(
         builder.Environment.ApplicationName,
-        reverseProxyOptions);
+        reverseProxyOptions)
+    .AddClient(clientOptions);
 
 var app = builder.Build();
 

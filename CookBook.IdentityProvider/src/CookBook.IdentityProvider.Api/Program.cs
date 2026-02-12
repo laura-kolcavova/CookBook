@@ -45,7 +45,7 @@ else
 
 app.UseRouting();
 
-app.MapCarter()
+app.MapCarter();
 
 app.UseSwagger(options =>
 {

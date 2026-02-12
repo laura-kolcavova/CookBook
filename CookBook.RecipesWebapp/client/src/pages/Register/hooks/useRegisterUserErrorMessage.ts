@@ -9,15 +9,18 @@ export const useRegisterUserErrorMessage = () => {
 
   const getErrorMessage = useCallback(
     (error: Error): string => {
-      if (isAxiosError(error) && error.response?.data.code) {
-        const code = error.response.data.code;
+      if (isAxiosError(error) && error.response?.data.errorCode) {
+        const code = error.response.data.errorCode;
 
         switch (code) {
-          case 'User.EmailAlreadyExists':
+          case 'PasswordRequiresDigit':
+            return formatMessage(messages.passwordRequiresDigitError);
+
+          case 'DuplicateEmail':
             return formatMessage(messages.emailAlreadyExistsError);
         }
 
-        return `${formatMessage(sharedMessages.somethingWentWrong)} ${code}`;
+        return `${formatMessage(sharedMessages.somethingWentWrong)}: ${code}`;
       }
 
       return formatMessage(sharedMessages.somethingWentWrong);

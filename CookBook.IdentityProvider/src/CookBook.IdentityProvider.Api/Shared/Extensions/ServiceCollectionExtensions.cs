@@ -11,7 +11,7 @@ internal static class ServiceCollectionExtensions
     public static IServiceCollection AddApi(this IServiceCollection services, string applicationName)
     {
         services
-            .AddCarter();
+            .AddCarter(new DependencyContextAssemblyCatalog([typeof(Program).Assembly]));
 
         services
             .ConfigureHttpJsonOptions(options =>
