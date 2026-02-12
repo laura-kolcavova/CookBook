@@ -45,6 +45,8 @@ else
 
 app.UseRouting();
 
+app.MapCarter()
+
 app.UseSwagger(options =>
 {
     options.RouteTemplate = ".less-known/api-docs/{documentName}.json";
@@ -60,7 +62,5 @@ app.UseSwaggerUI(options =>
     options.ConfigObject.Filter = string.Empty;
     options.ConfigObject.TryItOutEnabled = true;
 });
-
-app.MapCarter();
 
 app.Run();

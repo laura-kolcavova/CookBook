@@ -88,6 +88,8 @@ if (clientOptions.IsSpaEnabled)
         });
 }
 
+app.MapReverseProxy();
+
 app.UseSwagger(options =>
 {
     options.RouteTemplate = ".less-known/api-docs/{documentName}.json";
@@ -103,7 +105,5 @@ app.UseSwaggerUI(options =>
     options.ConfigObject.Filter = string.Empty;
     options.ConfigObject.TryItOutEnabled = true;
 });
-
-app.MapReverseProxy();
 
 app.Run();

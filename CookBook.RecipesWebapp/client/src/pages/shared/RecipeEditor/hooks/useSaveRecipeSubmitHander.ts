@@ -18,7 +18,7 @@ export const useSaveRecipeSubmitHandler = () => {
 
   const [validations, setValidations] = useState<FieldValidations>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const validationResults = validate();

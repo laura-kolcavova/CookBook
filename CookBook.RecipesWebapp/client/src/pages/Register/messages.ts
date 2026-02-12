@@ -25,4 +25,8 @@ export const messages = defineMessages({
     id: 'register.logInLink',
     defaultMessage: 'Log In',
   },
+  emailAlreadyExistsError: {
+    id: 'register.emailAlreadyExistsError',
+    defaultMessage: 'User with this email already exists',
+  },
 });
