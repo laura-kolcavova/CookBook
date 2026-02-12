@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { sharedMessages } from '~/pages/shared/sharedMessages';
 
-export const useRemoveErrorMessage = () => {
+export const useRegisterUserErrorMessage = () => {
   const { formatMessage } = useIntl();
 
   const getErrorMessage = useCallback(

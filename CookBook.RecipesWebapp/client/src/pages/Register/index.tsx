@@ -5,11 +5,30 @@ import { StyledLink } from '../shared/StyledLink';
 import { pages } from '~/navigation/pages';
 import { FormattedMessage } from 'react-intl';
 import { messages } from './messages';
+import { useRegisterUserMutation } from './hooks/useRegisterUserMutation';
+import { useRegisterUserErrorMessage } from './hooks/useRegisterUserErrorMessage';
+import { Alert } from '../shared/Alert';
 
 export const Register = () => {
+  const {
+    mutate: registerUseMutate,
+    isPending: registerUserIsPending,
+    isSuccess: registerUserIsSuccess,
+    isError: registerUserIsError,
+    error: registerUserError,
+  } = useRegisterUserMutation();
+
+  const { getErrorMessage } = useRegisterUserErrorMessage();
+
   return (
     <div className="bg-content-background-color-primary">
       <div className="container mx-auto py-10 px-4 flex flex-col items-center justify-center">
+        {registerUserIsError && (
+          <Alert color="danger" isDismissible={true}>
+            {getErrorMessage(registerUserError!)}
+          </Alert>
+        )}
+
         <form className="w-full max-w-xs mb-12">
           <div className="mb-6">
             <FormLabel htmlFor="email">
