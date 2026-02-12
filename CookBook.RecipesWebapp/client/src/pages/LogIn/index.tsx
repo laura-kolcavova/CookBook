@@ -23,12 +23,6 @@ export const LogIn = () => {
 
   const [data, setData] = useState<LoginData>(EMPTY_LOGIN_DATA);
 
-  const handleSubmit = async () => {
-    await login(data.email, data.password);
-
-    navigate(pages.Home.paths[0]);
-  };
-
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, email: e.target.value });
   };
@@ -37,10 +31,18 @@ export const LogIn = () => {
     setData({ ...data, password: e.target.value });
   };
 
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    await login(data.email, data.password);
+
+    navigate(pages.Home.paths[0]);
+  };
+
   return (
     <div className="bg-content-background-color-primary">
       <div className="container mx-auto py-10 px-4 flex flex-col items-center justify-center">
-        <form className="w-full max-w-xs mb-12">
+        <form className="w-full max-w-xs mb-12" onSubmit={handleSubmit}>
           <div className="mb-6">
             <FormLabel htmlFor="email">
               <FormattedMessage {...messages.emailLabel} />
@@ -72,7 +74,7 @@ export const LogIn = () => {
           </div>
 
           <div>
-            <Button className="w-full" onClick={handleSubmit}>
+            <Button type="submit" variant="primary" className="w-full">
               <FormattedMessage {...messages.logInButton} />
             </Button>
           </div>
