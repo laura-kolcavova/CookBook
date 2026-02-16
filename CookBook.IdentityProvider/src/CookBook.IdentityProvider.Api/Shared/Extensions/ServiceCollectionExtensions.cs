@@ -49,7 +49,9 @@ internal static class ServiceCollectionExtensions
             });
 
         services
-            .AddProblemDetails()
+            .AddProblemDetails();
+
+        services
             .AddValidatorsFromAssembly(
                 typeof(Program).Assembly,
                 ServiceLifetime.Singleton,

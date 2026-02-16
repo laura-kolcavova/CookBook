@@ -9,11 +9,11 @@ public static class HttpRequestExtensions
             httpRequest.Path.StartsWithSegments("/api", StringComparison.OrdinalIgnoreCase);
     }
 
-    public static bool IsSwaggerRenderingRequest(this HttpRequest httpRequest)
+    public static bool IsLessKnownRequest(this HttpRequest httpRequest)
     {
         return
             httpRequest.Path.HasValue &&
-            httpRequest.Path.Value.Contains("/.less-known/api-docs/ui/index.html", StringComparison.OrdinalIgnoreCase);
+            httpRequest.Path.StartsWithSegments("/.less-known", StringComparison.OrdinalIgnoreCase);
     }
 
     public static bool IsRenderingRequest(this HttpRequest httpRequest)

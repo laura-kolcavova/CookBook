@@ -46,8 +46,11 @@ else
 app.UseRouting();
 
 //app.UseCors();
+
 //app.UseAuthentication();
 //app.UseAuthorization();
+
+app.MapEndpoints();
 
 app.UseSwagger(options =>
 {
@@ -64,8 +67,5 @@ app.UseSwaggerUI(options =>
     options.ConfigObject.Filter = string.Empty;
     options.ConfigObject.TryItOutEnabled = true;
 });
-
-app
-    .MapEndpoints();
 
 app.Run();

@@ -1,7 +1,10 @@
+using Carter;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Shared.Options;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Physical;
+using OpenIddict.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,10 +33,34 @@ var reverseProxyOptions = configuration
 //});
 
 services
+    .AddInfrastructure(
+        isDevelopment)
     .AddApi(
         builder.Environment.ApplicationName,
         reverseProxyOptions)
-    .AddClient(clientOptions);
+    .AddSpaClient(clientOptions);
+
+services
+    .AddOpenIddict()
+    .AddClient(
+        options =>
+        {
+            options.AllowPasswordFlow();
+
+            options.DisableTokenStorage();
+
+            options.UseSystemNetHttp(
+                ).SetProductInformation(typeof(Program).Assembly);
+
+
+            options.AddRegistration(
+                new OpenIddictClientRegistration
+                {
+                    Issuer = new Uri("http://localhost:5020/", UriKind.Absolute),
+                });
+
+            options.UseAspNetCore();
+        });
 
 var app = builder.Build();
 
@@ -48,15 +75,18 @@ else
 
 app.UseRouting();
 
-//app.UseCors();
 //app.UseAuthentication();
 //app.UseAuthorization();
+
+app.MapCarter();
+
+app.MapReverseProxy();
 
 if (clientOptions.IsSpaEnabled)
 {
     app.MapWhen(ctx =>
         !ctx.Request.IsApiRequest() &&
-        !ctx.Request.IsSwaggerRenderingRequest(),
+        !ctx.Request.IsLessKnownRequest(),
         spaAppBuilder =>
         {
             spaAppBuilder.UseWhen(
@@ -87,8 +117,6 @@ if (clientOptions.IsSpaEnabled)
             });
         });
 }
-
-app.MapReverseProxy();
 
 app.UseSwagger(options =>
 {

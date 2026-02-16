@@ -15,8 +15,6 @@ internal static class ServiceCollectionExtensions
                 options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
-        // services.Configure<JsonOptions>(options => options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-
         services
             .AddEndpointsApiExplorer()
             .AddSwaggerExamplesFromAssemblyOf<Program>()
@@ -40,30 +38,10 @@ internal static class ServiceCollectionExtensions
                 xmlFiles.ForEach(xmlFile => options.IncludeXmlComments(xmlFile));
             });
 
-        //services
-        //    .AddAuthentication(options =>
-        //    {
-        //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        //    })
-        //    .AddJwtBearer(options => builder.Configuration.GetSection(nameof(JwtBearerOptions)).Bind(options));
-
-        //services.AddAuthorizationBuilder()
-        //    .AddPolicy("", policy =>
-        //    {
-        //        policy.RequireClaim("scope", "");
-        //    })
-        //    .AddClientsRightAsPolicy();
-
-        //services
-        //    .AddControllers()
-        //    .AddJsonOptions(options =>
-        //    {
-        //        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        //    });
+        services
+            .AddProblemDetails();
 
         services
-            .AddProblemDetails()
             .AddValidatorsFromAssembly(
                 typeof(Program).Assembly,
                 ServiceLifetime.Singleton,

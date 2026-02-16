@@ -22,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.IdentityProvider.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.IdentityProvider.Application", "src\CookBook.IdentityProvider.Application\CookBook.IdentityProvider.Application.csproj", "{A16CC508-9D6D-4A45-B0A5-547C7A4C5B62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.IdentityProvider.Persistence", "src\CookBook.IdentityProvider.Persistence\CookBook.IdentityProvider.Persistence.csproj", "{250E9C0C-2168-42E7-BF50-B5FBD8091387}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.IdentityProvider.Infrastructure", "src\CookBook.IdentityProvider.Infrastructure\CookBook.IdentityProvider.Infrastructure.csproj", "{250E9C0C-2168-42E7-BF50-B5FBD8091387}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
