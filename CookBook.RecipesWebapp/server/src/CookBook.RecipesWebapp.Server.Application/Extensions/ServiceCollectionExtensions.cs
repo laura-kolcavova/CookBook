@@ -1,11 +1,11 @@
-﻿using CookBook.RecipesWebapp.Server.Infrastructure.Users.Extensions;
+﻿using CookBook.RecipesWebapp.Server.Application.Users.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
+namespace CookBook.RecipesWebapp.Server.Application.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddInfrastructure(
+    public static IServiceCollection AddApplication(
         this IServiceCollection services)
     {
         services

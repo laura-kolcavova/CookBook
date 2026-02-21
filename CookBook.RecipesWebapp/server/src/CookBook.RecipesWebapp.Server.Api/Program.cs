@@ -1,7 +1,9 @@
 using Carter;
 using CookBook.RecipesWebapp.Server.Api.Shared.Antiforgery;
+using CookBook.RecipesWebapp.Server.Api.Shared.Authentication;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
+using CookBook.RecipesWebapp.Server.Application.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileProviders;
@@ -50,19 +52,17 @@ services
         options =>
         {
             options.ExpireTimeSpan = TimeSpan.FromDays(1);
+            options.SlidingExpiration = true;
+            options.Cookie.Name = AuthenticationConstants.Cookies.CookieName;
+            options.Cookie.HttpOnly = true;
+            options.Cookie.SameSite = SameSiteMode.Strict;
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+
         });
 
-//services.AddSession(options =>
-//{
-//    options.IdleTimeout = TimeSpan.FromMinutes(2);
-//    options.Cookie.HttpOnly = true;
-//    options.Cookie.SameSite = SameSiteMode.None;
-//    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-//});
-
 services
-    .AddInfrastructure(
-        isDevelopment)
+    .AddApplication()
+    .AddInfrastructure()
     .AddApi(
         builder.Environment.ApplicationName,
         reverseProxyOptions)

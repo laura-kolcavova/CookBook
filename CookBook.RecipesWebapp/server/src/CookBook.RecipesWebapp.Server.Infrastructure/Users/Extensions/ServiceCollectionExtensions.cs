@@ -1,5 +1,5 @@
-﻿using CookBook.RecipesWebapp.Server.Application.Users.UseCases.Abstractions;
-using CookBook.RecipesWebapp.Server.Infrastructure.Users.UseCases;
+﻿using CookBook.RecipesWebapp.Server.Domain.Users.Services.Abstractions;
+using CookBook.RecipesWebapp.Server.Infrastructure.Users.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.RecipesWebapp.Server.Infrastructure.Users.Extensions;
@@ -10,7 +10,7 @@ internal static class ServiceCollectionExtensions
         this IServiceCollection services)
     {
         services
-            .AddScoped<ILogInUseCase, LogInUseCase>();
+            .AddScoped<IAuthenticationManager, AuthenticationManager>();
 
         return services;
     }

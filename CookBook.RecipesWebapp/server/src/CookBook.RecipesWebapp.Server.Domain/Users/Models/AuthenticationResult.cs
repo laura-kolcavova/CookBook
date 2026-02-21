@@ -1,0 +1,6 @@
+﻿namespace CookBook.RecipesWebapp.Server.Domain.Users.Models;
+
+public sealed record AuthenticationResult
+{
+    public required string AccessToken { get; init; }
+}
