@@ -14,6 +14,7 @@ import { SpinnerIcon } from '~/pages/shared/icons/SpinnerIcon';
 export type CurrentUserContextValue = {
   currentUser: CurrentUserDto;
   resetCurrentUser: () => void;
+  refreshCurrentUser: () => void;
 };
 
 export const ANONYMOUS_USER: CurrentUserDto = {
@@ -31,11 +32,16 @@ export const CurrentUserProvider = ({ children }: CurrentUserProviderProps) => {
   const [currentUser, setCurrentUser] = useState<CurrentUserDto>(ANONYMOUS_USER);
   const [isReady, setIsReady] = useState<boolean>(false);
 
-  const { data, isSuccess, isFetching } = useGetCurrentUserQuery();
+  const { data, isSuccess, refetch } = useGetCurrentUserQuery();
 
   const resetCurrentUser = useCallback(() => {
     setCurrentUser(ANONYMOUS_USER);
   }, []);
+
+  const refreshCurrentUser = useCallback(() => {
+    setIsReady(false);
+    refetch();
+  }, [refetch]);
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -50,14 +56,15 @@ export const CurrentUserProvider = ({ children }: CurrentUserProviderProps) => {
       value={{
         currentUser,
         resetCurrentUser,
+        refreshCurrentUser,
       }}>
-      {isFetching && (
+      {isReady ? (
+        children
+      ) : (
         <div className="flex flex-col justify-center items-center h-full">
           <SpinnerIcon className="animate-spin size-5 mx-auto" />
         </div>
       )}
-
-      {isReady && children}
     </CurrentUserContext.Provider>
   );
 };
