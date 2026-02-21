@@ -3,7 +3,7 @@ using CookBook.Recipes.Api.Shared;
 using CookBook.Recipes.Api.Shared.Configuration;
 using CookBook.Recipes.Api.Shared.Extensions;
 using CookBook.Recipes.Application.Shared.Extensions;
-using CookBook.Recipes.Persistence.Shared.Extensions;
+using CookBook.Recipes.Infrastructure.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +26,7 @@ services
 
 services
     .AddApplication()
-    .AddPersistence(
+    .AddInfrastructure(
         cookBookRecipesConnectionString,
         isDevelopment)
     .AddApi(

@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CookBook.Recipes.Persistence\CookBook.Recipes.Persistence.csproj" />
+    <ProjectReference Include="..\CookBook.Recipes.Infrastructure\CookBook.Recipes.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
