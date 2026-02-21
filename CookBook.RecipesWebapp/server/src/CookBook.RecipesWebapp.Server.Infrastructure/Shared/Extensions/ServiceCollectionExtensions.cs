@@ -9,18 +9,6 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         bool isDevelopment)
     {
-        //services
-        //    .AddAuthentication(
-        //        options =>
-        //        {
-        //            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        //        })
-        //    .AddCookie(
-        //        options =>
-        //        {
-        //            options.ExpireTimeSpan = TimeSpan.FromDays(1);
-        //        });
-
         services
             .AddUsers();
 

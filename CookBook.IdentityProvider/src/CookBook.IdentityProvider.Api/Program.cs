@@ -25,6 +25,9 @@ services
     .AddOptions();
 
 services
+    .AddAuthorization();
+
+services
     .AddDomain()
     .AddInfrastructure(
         cookBookUsersConnectionString,

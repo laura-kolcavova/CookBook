@@ -15,8 +15,6 @@ internal static class ServiceCollectionExtensions
         string connectionString,
         bool isDevelopment)
     {
-        services.AddAuthorization();
-
         services
            .AddScoped(serviceProvider =>
            {

@@ -18,7 +18,8 @@ public sealed class LogInEndpointModule :
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
-            .WithFluentValidation();
+            .HandleOperationCancelled()
+            .ValidateRequest();
     }
 
     private static async Task<IResult> HandleAsync(

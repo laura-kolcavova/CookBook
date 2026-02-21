@@ -1,6 +1,6 @@
-﻿namespace CookBook.RecipesWebapp.Server.Api.Shared.Options;
+﻿namespace CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
 
-public sealed class ClientOptions
+public sealed class SpaClientOptions
 {
     public bool IsSpaEnabled { get; init; }
 

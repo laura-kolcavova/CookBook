@@ -1,7 +1,9 @@
 using Carter;
+using CookBook.RecipesWebapp.Server.Api.Shared.Antiforgery;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
-using CookBook.RecipesWebapp.Server.Api.Shared.Options;
+using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Physical;
 using OpenIddict.Client;
@@ -19,17 +21,43 @@ builder.Host
         options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
     });
 
-var clientOptions = configuration
-    .GetRequiredSection(nameof(ClientOptions))
-    .Get<ClientOptions>()!;
+var spaClientOptions = configuration
+    .GetRequiredSection(nameof(SpaClientOptions))
+    .Get<SpaClientOptions>()!;
 
 var reverseProxyOptions = configuration
     .GetRequiredSection("ReverseProxyOptions");
 
-//services.AddAntiforgery(options =>
+services
+    .AddOptions();
+
+services
+    .AddAntiforgery(options =>
+    {
+        options.HeaderName = AntiforgeryConstants.HeaderName;
+        options.Cookie.Name = AntiforgeryConstants.CookieName;
+        options.Cookie.SameSite = SameSiteMode.Strict;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    });
+
+services
+    .AddAuthentication(
+        options =>
+        {
+            options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        })
+    .AddCookie(
+        options =>
+        {
+            options.ExpireTimeSpan = TimeSpan.FromDays(1);
+        });
+
+//services.AddSession(options =>
 //{
-//    options.HeaderName = ConfigurationConstants.XXSFRHeaderName;
-//    options.Cookie.Name = ConfigurationConstants.XXSFRCookieName;
+//    options.IdleTimeout = TimeSpan.FromMinutes(2);
+//    options.Cookie.HttpOnly = true;
+//    options.Cookie.SameSite = SameSiteMode.None;
+//    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 //});
 
 services
@@ -38,7 +66,7 @@ services
     .AddApi(
         builder.Environment.ApplicationName,
         reverseProxyOptions)
-    .AddSpaClient(clientOptions);
+    .AddSpaClient(spaClientOptions);
 
 services
     .AddOpenIddict()
@@ -73,16 +101,18 @@ else
     app.UseExceptionHandler();
 }
 
+app.UseAntiforgery();
+app.UseStaticFiles();
 app.UseRouting();
 
-//app.UseAuthentication();
-//app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapCarter();
 
 app.MapReverseProxy();
 
-if (clientOptions.IsSpaEnabled)
+if (spaClientOptions.IsSpaEnabled)
 {
     app.MapWhen(ctx =>
         !ctx.Request.IsApiRequest() &&
@@ -93,26 +123,28 @@ if (clientOptions.IsSpaEnabled)
                 ctx => ctx.Request.IsRenderingRequest(),
                 appBuilder =>
                 {
-                    //appBuilder.UseAntiforgeryMiddleware();
                 });
 
-            var useStaticFiles = !clientOptions.UseDevelopmentProxyServer;
+            var useStaticFiles = !spaClientOptions.UseDevelopmentProxyServer;
 
             if (useStaticFiles)
             {
                 app.UseStaticFiles(new StaticFileOptions()
                 {
                     FileProvider = new PhysicalFileProvider(
-                        Path.Combine(Directory.GetCurrentDirectory(), clientOptions.StaticFilesRootPath),
+                        Path.Combine(
+                            Directory.GetCurrentDirectory(),
+                            spaClientOptions.StaticFilesRootPath),
                         ExclusionFilters.None)
                 });
             }
 
             spaAppBuilder.UseSpa(spa =>
             {
-                if (clientOptions.UseDevelopmentProxyServer)
+                if (spaClientOptions.UseDevelopmentProxyServer)
                 {
-                    spa.UseProxyToSpaDevelopmentServer(clientOptions.DevelopmentProxyServerBaseUri);
+                    spa.UseProxyToSpaDevelopmentServer(
+                        spaClientOptions.DevelopmentProxyServerBaseUri);
                 }
             });
         });

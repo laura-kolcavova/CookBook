@@ -1,4 +1,5 @@
-﻿using CookBook.IdentityProvider.Domain.Users;
+﻿using CookBook.IdentityProvider.Api.Shared.Extensions;
+using CookBook.IdentityProvider.Domain.Users;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -27,7 +28,9 @@ public sealed class ExchangeTokenEndpointModule :
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
-            .DisableAntiforgery();
+            .DisableAntiforgery()
+            .ValidateRequest()
+            .HandleOperationCancelled();
     }
 
     private static Task<IResult> HandleAsync(
