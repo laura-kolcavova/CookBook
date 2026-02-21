@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Recipes.Api", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Recipes.Domain", "src\CookBook.Recipes.Domain\CookBook.Recipes.Domain.csproj", "{A763515F-A81B-45BC-8872-D0F03FCD2727}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Recipes.Persistence", "src\CookBook.Recipes.Persistence\CookBook.Recipes.Persistence.csproj", "{754F9E68-033D-4DF0-8B50-F0BD84DD5916}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Recipes.Infrastructure", "src\CookBook.Recipes.Infrastructure\CookBook.Recipes.Infrastructure.csproj", "{754F9E68-033D-4DF0-8B50-F0BD84DD5916}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.Recipes.Application", "src\CookBook.Recipes.Application\CookBook.Recipes.Application.csproj", "{8BB61FA4-AD41-446B-8E40-0DAE0F70A72A}"
 EndProject
