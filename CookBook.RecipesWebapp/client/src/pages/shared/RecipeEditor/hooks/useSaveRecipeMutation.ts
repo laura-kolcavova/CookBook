@@ -4,11 +4,12 @@ import { recipeDataAtom } from '../atoms/recipeDataAtom';
 import { useAtomValue } from 'jotai';
 import { recipesService } from '~/api/recipes/recipesService';
 import type { SaveRecipeRequestDto } from '~/api/recipes/dto/SaveRecipeRequestDto';
-import { useLoggedUser } from '~/authentication/LoggedUserProvider';
 import { useAbortSignal } from '~/abort/useAbortSignal';
+import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 
 export const useSaveRecipeMutation = () => {
-  const { user } = useLoggedUser();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { currentUser } = useCurrentUser();
 
   const { createAbortSignal, finishAbortSignal } = useAbortSignal();
 
@@ -20,7 +21,7 @@ export const useSaveRecipeMutation = () => {
 
       const saveRecipeRequest: SaveRecipeRequestDto = {
         recipeId: recipeData.recipeId,
-        userId: user.userId,
+        userId: 1, // currentUser.userNumber ,
         title: recipeData.title,
         description: recipeData.description,
         servings: recipeData.servings,

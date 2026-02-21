@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { recipesService } from '~/api/recipes/recipesService';
 
-export const useRecipeDetailQuery = (recipeId: number) => {
+export const useGetRecipeDetailQuery = (recipeId: number) => {
   return useQuery({
     queryKey: ['getRecipeDetail', recipeId],
     queryFn: async ({ signal }) => {

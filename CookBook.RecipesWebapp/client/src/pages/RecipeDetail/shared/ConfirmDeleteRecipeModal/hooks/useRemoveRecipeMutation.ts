@@ -2,10 +2,11 @@ import { useMutation } from '@tanstack/react-query';
 import { useAbortSignal } from '~/abort/useAbortSignal';
 
 import { recipesService } from '~/api/recipes/recipesService';
-import { useLoggedUser } from '~/authentication/LoggedUserProvider';
+import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 
 export const useRemoveRecipeMutation = (recipeId: number) => {
-  const { user } = useLoggedUser();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { currentUser } = useCurrentUser();
 
   const { createAbortSignal, finishAbortSignal } = useAbortSignal();
 
@@ -13,7 +14,9 @@ export const useRemoveRecipeMutation = (recipeId: number) => {
     mutationFn: async () => {
       const signal = createAbortSignal();
 
-      await recipesService.removeRecipe(recipeId, user.userId, signal);
+      // await recipesService.removeRecipe(recipeId, currentUser.userNumber, signal);
+
+      await recipesService.removeRecipe(recipeId, 1, signal);
     },
     onMutate: () => {
       finishAbortSignal();

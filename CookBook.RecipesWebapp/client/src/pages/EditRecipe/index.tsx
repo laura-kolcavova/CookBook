@@ -2,11 +2,11 @@ import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { RecipeEditor } from '../shared/RecipeEditor';
 import { useMemo } from 'react';
-import { useRecipeDetailQuery } from './hooks/useGetRecipeDetailQuery';
 import { LoadingSpinner } from '../shared/LoadingSpinner';
 import { Alert } from '../shared/Alert';
 import { messages } from './messages';
 import { sharedMessages } from '../shared/sharedMessages';
+import { useGetRecipeDetailQuery } from './hooks/useGetRecipeDetailQuery';
 
 export const EditRecipe = () => {
   const { recipeId: recipeIdParam } = useParams();
@@ -17,7 +17,7 @@ export const EditRecipe = () => {
 
   const recipeId = useMemo(() => Number.parseInt(recipeIdParam, 10), [recipeIdParam]);
 
-  const { isLoading, isError, data } = useRecipeDetailQuery(recipeId);
+  const { isLoading, isError, data } = useGetRecipeDetailQuery(recipeId);
 
   return (
     <div className="bg-content-background-color-primary">

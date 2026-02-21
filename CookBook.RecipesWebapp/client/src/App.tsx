@@ -3,9 +3,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { Layout } from './pages/shared/Layout';
 import { LocalizationProvider } from './localization/LocalizationProvider';
 import { ErrorBoundary } from 'react-error-boundary';
-import { LoggedUserProvider } from './authentication/LoggedUserProvider';
 import { ModalProvider } from './modals/ModalProvider';
 import { ErrorFallback } from './pages/shared/ErrorFallback';
+import { CurrentUserProvider } from './authentication/CurrentUserProvider';
 
 const queryClient = new QueryClient();
 
@@ -15,11 +15,11 @@ export const App: React.FC = () => {
       <LocalizationProvider>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <QueryClientProvider client={queryClient}>
-            <LoggedUserProvider>
+            <CurrentUserProvider>
               <ModalProvider>
                 <Layout />
               </ModalProvider>
-            </LoggedUserProvider>
+            </CurrentUserProvider>
           </QueryClientProvider>
         </ErrorBoundary>
       </LocalizationProvider>
