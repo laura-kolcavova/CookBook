@@ -3,6 +3,7 @@
   <ItemGroup>
     <PackageReference Include="CookBook.Extensions.CSharpExtended" Version="1.0.4" />
     <PackageReference Include="CSharpFunctionalExtensions" Version="3.6.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.24" />
   </ItemGroup>
 
 </Project>

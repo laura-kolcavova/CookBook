@@ -26,7 +26,6 @@ const userAtom = atomWithStorage<LoggedUser>(
 export type LoggedUserContextValue = {
   isAuthenticated: boolean;
   user: LoggedUser;
-  login: (email: string, password: string) => Promise<void>;
   logout: () => void;
 };
 
@@ -35,27 +34,11 @@ const LoggedUserContext = createContext<LoggedUserContextValue | null>(null);
 export type LoggedUserProviderProps = PropsWithChildren;
 
 export const LoggedUserProvider = ({ children }: LoggedUserProviderProps) => {
-  const [user, setUser] = useAtom(userAtom);
+  const [user] = useAtom(userAtom);
 
   const [isAuthenticated, setIsAuthenticated] = useState(user !== EMPTY_LOGGED_USER);
 
   const resetUser = useResetAtom(userAtom);
-
-  const login = (email: string, pasword: string): Promise<void> => {
-    console.log(email, pasword);
-
-    setUser({
-      fullName: 'John Doe',
-      firstName: 'John',
-      lastName: 'Doe',
-      userId: 1,
-      roles: [],
-    });
-
-    setIsAuthenticated(true);
-
-    return Promise.resolve();
-  };
 
   const logout = () => {
     resetUser();
@@ -68,7 +51,6 @@ export const LoggedUserProvider = ({ children }: LoggedUserProviderProps) => {
       value={{
         isAuthenticated,
         user,
-        login,
         logout,
       }}>
       {children}

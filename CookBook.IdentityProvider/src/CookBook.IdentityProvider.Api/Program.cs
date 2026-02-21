@@ -3,7 +3,7 @@ using CookBook.Extensions.AspNetCore.SqlServer;
 using CookBook.IdentityProvider.Api.Shared.Configuration;
 using CookBook.IdentityProvider.Api.Shared.Extensions;
 using CookBook.IdentityProvider.Domain.Shared.Extensions;
-using CookBook.IdentityProvider.Persistence.Shared.Extensions;
+using CookBook.IdentityProvider.Infrastructure.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +26,7 @@ services
 
 services
     .AddDomain()
-    .AddPersistence(
+    .AddInfrastructure(
         cookBookUsersConnectionString,
         isDevelopment)
     .AddApi(
@@ -44,6 +44,9 @@ else
 }
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapCarter();
 

@@ -4,7 +4,7 @@ namespace CookBook.IdentityProvider.Api.Shared.Extensions;
 
 internal static class RouteHandlerBuilderExtensions
 {
-    // TODO this is in extensions project
+    // TODO move this into extensions project
     public static RouteHandlerBuilder WithFluentValidation(
         this RouteHandlerBuilder builder)
     {
