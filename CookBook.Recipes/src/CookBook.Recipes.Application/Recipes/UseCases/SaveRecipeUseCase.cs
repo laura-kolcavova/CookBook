@@ -20,7 +20,7 @@ internal sealed class SaveRecipeUseCase(
         using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
             ["RecipeId"] = saveRecipeParams.RecipeId,
-            ["UserId"] = saveRecipeParams.UserId,
+            ["UserName"] = saveRecipeParams.UserName,
             ["Title"] = saveRecipeParams.Title,
         });
 
@@ -48,11 +48,11 @@ internal sealed class SaveRecipeUseCase(
                 };
             }
 
-            if (recipe.UserId != saveRecipeParams.UserId)
+            if (recipe.UserName != saveRecipeParams.UserName)
             {
                 return RecipeErrors.Recipe.NotOwnedByUser(
                     recipe.Id,
-                    saveRecipeParams.UserId);
+                    saveRecipeParams.UserName);
             }
 
             UpdateRecipe(recipe, saveRecipeParams);
@@ -82,7 +82,7 @@ internal sealed class SaveRecipeUseCase(
     {
         var recipe = new RecipeAggregate(
             saveRecipeParams.Title,
-            saveRecipeParams.UserId);
+            saveRecipeParams.UserName);
 
         recipe.SetDescription(saveRecipeParams.Description);
         recipe.SetServings(saveRecipeParams.Servings);

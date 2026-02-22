@@ -5,11 +5,10 @@ import { Route, Routes } from 'react-router-dom';
 import type { PageDefinition } from '~/navigation/PageDefinition';
 import { pages } from '~/navigation/pages';
 import { ProtectedRoute } from '~/pages/shared/routes/ProtectedRoute';
-import { PublicRoute } from '~/pages/shared/routes/PublicRoute';
 
 export const RoutesPage: React.FC = () => {
   const getRouteElement = (page: PageDefinition) => {
-    return page.public ? <PublicRoute page={page} /> : <ProtectedRoute page={page} />;
+    return page.public ? <page.component /> : <ProtectedRoute page={page} />;
   };
 
   return (

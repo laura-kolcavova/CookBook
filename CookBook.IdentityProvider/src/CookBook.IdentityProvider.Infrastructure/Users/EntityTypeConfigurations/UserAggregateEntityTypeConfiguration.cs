@@ -24,16 +24,17 @@ internal sealed class UserAggregateEntityTypeConfiguration :
             .IsRequired();
 
         builder
-           .Property(e => e.IdentityUserId)
-           .IsRequired();
+            .Property(e => e.IdentityUserId)
+            .IsRequired();
 
         builder
-           .Property(e => e.UserNumber)
-           .IsRequired();
+            .Property(e => e.UserName)
+            .HasMaxLength(256)
+            .IsRequired();
 
         builder
             .Property(e => e.DisplayName)
-            .HasMaxLength(50)
+            .HasMaxLength(256)
             .IsRequired();
 
         builder

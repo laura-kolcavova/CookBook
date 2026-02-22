@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { FaHouse, FaMagnifyingGlass, FaPlus, FaRegCircleUser } from 'react-icons/fa6';
 import { NavIconLink } from './NavIconLink';
@@ -7,11 +7,11 @@ import { useRouter } from '~/navigation/hooks/useRouter';
 import { Link } from 'react-router-dom';
 import { UserIconButton } from './UserIconButton';
 import { pages } from '~/navigation/pages';
-import { useLoggedUser } from '~/authentication/LoggedUserProvider';
 import { messages } from './messages';
+import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 
 export const Header: React.FC = () => {
-  const { isAuthenticated } = useLoggedUser();
+  const { currentUser } = useCurrentUser();
 
   const { isPageActive } = useRouter();
 
@@ -44,7 +44,7 @@ export const Header: React.FC = () => {
               />
             </li>
 
-            {isAuthenticated && (
+            {currentUser.isAuthenticated && (
               <li>
                 <NavIconLink
                   text={<FormattedMessage {...messages.addRecipe} />}
@@ -55,7 +55,7 @@ export const Header: React.FC = () => {
               </li>
             )}
 
-            {!isAuthenticated && (
+            {!currentUser.isAuthenticated && (
               <li>
                 <NavIconLink
                   text={<FormattedMessage {...messages.logIn} />}
@@ -66,7 +66,7 @@ export const Header: React.FC = () => {
               </li>
             )}
 
-            {isAuthenticated && (
+            {currentUser.isAuthenticated && (
               <li>
                 <UserIconButton />
               </li>

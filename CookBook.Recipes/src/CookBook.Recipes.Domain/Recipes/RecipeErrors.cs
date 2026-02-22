@@ -13,8 +13,8 @@ public static class RecipeErrors
 
         public static Error NotOwnedByUser(
             long recipeId,
-            int userId) => Error.Failure(
+            string userName) => Error.Failure(
                 $"{nameof(Recipe)}.{nameof(NotOwnedByUser)}",
-                $"Recipe with id {recipeId} is not owned by user {userId}.");
+                $"Recipe with id {recipeId} is not owned by user {userName}.");
     }
 }

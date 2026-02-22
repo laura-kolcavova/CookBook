@@ -1,10 +1,11 @@
-﻿using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser.Abstractions;
-using CookBook.IdentityProvider.Domain.Users;
+﻿using CookBook.IdentityProvider.Domain.Users;
+using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
 using CookBook.IdentityProvider.Infrastructure.Shared.Interceptors;
-using CookBook.IdentityProvider.Infrastructure.Users.UseCases.RegisterUser;
+using CookBook.IdentityProvider.Infrastructure.Users.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Infrastructure.Users.Extensions;
 
@@ -15,8 +16,6 @@ internal static class ServiceCollectionExtensions
         string connectionString,
         bool isDevelopment)
     {
-        services.AddAuthorization();
-
         services
            .AddScoped(serviceProvider =>
            {
@@ -33,6 +32,11 @@ internal static class ServiceCollectionExtensions
 
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
+
+                    options.ClaimsIdentity.UserNameClaimType = Claims.Name;
+                    options.ClaimsIdentity.UserIdClaimType = Claims.Subject;
+                    options.ClaimsIdentity.RoleClaimType = Claims.Role;
+                    options.ClaimsIdentity.EmailClaimType = Claims.Email;
                 })
             .AddEntityFrameworkStores<IdentityUsersContext>()
             .AddDefaultTokenProviders();
@@ -58,13 +62,16 @@ internal static class ServiceCollectionExtensions
                         .ReplaceDefaultEntities<int>();
 
                     options
-                    .UseQuartz();
+                        .UseQuartz();
                 })
             .AddServer(
                 options =>
                 {
                     options.SetTokenEndpointUris(
                         "api/authorization/token");
+
+                    options.SetUserInfoEndpointUris(
+                        "api/authorization/userinfo");
 
                     options.AllowPasswordFlow();
 
@@ -78,10 +85,15 @@ internal static class ServiceCollectionExtensions
                             .AddDevelopmentSigningCertificate();
                     }
 
+                    options.RegisterScopes(
+                        Scopes.Email,
+                        Scopes.Profile);
+
                     options
                         .UseAspNetCore()
                         .DisableTransportSecurityRequirement()
-                        .EnableTokenEndpointPassthrough();
+                        .EnableTokenEndpointPassthrough()
+                        .EnableUserInfoEndpointPassthrough();
                 })
         .AddValidation(
             options =>
@@ -112,7 +124,7 @@ internal static class ServiceCollectionExtensions
             });
 
         services
-            .AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+            .AddScoped<IRegisterManager, RegisterManager>();
 
         return services;
     }

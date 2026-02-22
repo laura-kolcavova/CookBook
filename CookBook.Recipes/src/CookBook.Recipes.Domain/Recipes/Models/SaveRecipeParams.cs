@@ -4,7 +4,7 @@ public sealed record SaveRecipeParams
 {
     public required long? RecipeId { get; init; }
 
-    public required int UserId { get; init; }
+    public required string UserName { get; init; }
 
     public required string Title { get; init; }
 

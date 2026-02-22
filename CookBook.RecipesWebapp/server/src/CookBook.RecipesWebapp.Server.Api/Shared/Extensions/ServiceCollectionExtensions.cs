@@ -1,5 +1,4 @@
 ﻿using Carter;
-using CookBook.RecipesWebapp.Server.Api.Shared.Options;
 using FluentValidation;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -9,18 +8,6 @@ namespace CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddSpaClient(
-        this IServiceCollection services,
-        ClientOptions clientOptions)
-    {
-        services.AddSpaStaticFiles(c =>
-        {
-            c.RootPath = clientOptions.StaticFilesRootPath;
-        });
-
-        return services;
-    }
-
     public static IServiceCollection AddApi(
         this IServiceCollection services,
         string applicationName,

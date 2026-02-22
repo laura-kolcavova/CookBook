@@ -14,6 +14,7 @@ import type { LogInUserRequestDto } from '~/api/users/dto/LogInUserRequestDto';
 import { SpinnerIcon } from '../shared/icons/SpinnerIcon';
 import { Alert } from '../shared/Alert';
 import { useLogInUserErrorMessage } from './hooks/useLogInErrorMessage';
+import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 
 const EMPTY_LOGIN_DATA: LoginData = {
   email: '',
@@ -22,6 +23,8 @@ const EMPTY_LOGIN_DATA: LoginData = {
 
 export const LogIn = () => {
   const navigate = useNavigate();
+
+  const { currentUser, refreshCurrentUser } = useCurrentUser();
 
   const [data, setData] = useState<LoginData>(EMPTY_LOGIN_DATA);
 
@@ -37,9 +40,15 @@ export const LogIn = () => {
 
   useEffect(() => {
     if (logInUserIsSuccess) {
+      refreshCurrentUser();
+    }
+  }, [logInUserIsSuccess, refreshCurrentUser]);
+
+  useEffect(() => {
+    if (currentUser.isAuthenticated) {
       navigate(pages.Home.paths[0]);
     }
-  }, [logInUserIsSuccess, navigate]);
+  }, [currentUser.isAuthenticated, navigate]);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData({ ...data, email: e.target.value });

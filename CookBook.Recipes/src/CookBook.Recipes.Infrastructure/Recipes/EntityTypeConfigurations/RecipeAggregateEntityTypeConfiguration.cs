@@ -20,32 +20,41 @@ internal sealed class RecipeAggregateEntityTypeConfiguration :
 
         builder
             .Property(e => e.Id)
+            .HasColumnType("BIGINT")
+            .UseIdentityColumn(1, 1)
             .IsRequired();
 
         builder
-            .Property(e => e.UserId)
+            .Property(e => e.UserName)
+            .HasColumnType("NVARCHAR(256)")
+            .HasMaxLength(256)
             .IsRequired();
 
         builder
             .Property(e => e.Title)
+            .HasColumnType("NVARCHAR(256)")
             .HasMaxLength(256)
             .IsRequired();
 
         builder
             .Property(e => e.Description)
+            .HasColumnType("NVARCHAR(1024)")
             .HasMaxLength(1024);
 
         builder
             .Property(e => e.Notes)
+            .HasColumnType("NVARCHAR(1024)")
             .HasMaxLength(1024);
 
         builder
             .Property(e => e.Servings)
+            .HasColumnType("SMALLINT")
             .HasDefaultValue(0)
             .IsRequired();
 
         builder
             .Property(e => e.CookTime)
+            .HasColumnType("SMALLINT")
             .HasDefaultValue(0)
             .IsRequired();
 

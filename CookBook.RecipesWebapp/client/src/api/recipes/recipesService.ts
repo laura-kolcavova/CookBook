@@ -64,14 +64,14 @@ const saveRecipe = (
 
 const removeRecipe = (
   recipeId: number,
-  userId: number,
+  userName: string,
   signal?: GenericAbortSignal,
 ): AxiosPromise<void> => {
   return callAxios({
     url: `/api/recipes/${recipeId}/remove`,
     method: 'DELETE',
     params: {
-      userId,
+      userName,
     },
     signal: signal,
   });

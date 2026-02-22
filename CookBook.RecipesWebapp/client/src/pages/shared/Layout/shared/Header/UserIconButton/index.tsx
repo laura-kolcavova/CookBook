@@ -3,11 +3,11 @@ import { FormattedMessage } from 'react-intl';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '~/navigation/pages';
-import { useLoggedUser } from '~/authentication/LoggedUserProvider';
 import { messages } from '../messages';
+import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 
 export const UserIconButton: React.FC = () => {
-  const { user, logout } = useLoggedUser();
+  const { currentUser, resetCurrentUser } = useCurrentUser();
 
   const navigate = useNavigate();
 
@@ -46,7 +46,7 @@ export const UserIconButton: React.FC = () => {
         <span className="mb-1">
           <FaRegCircleUser />
         </span>
-        <span className="text-center">{user.fullName}</span>
+        <span className="text-center">{currentUser.displayName}</span>
       </button>
 
       <div
@@ -64,7 +64,7 @@ export const UserIconButton: React.FC = () => {
         <button
           className="w-full text-left py-2 px-4 leading-6 cursor-pointer text-navlink-color hover:text-navlink-color-hover"
           onClick={() => {
-            logout();
+            resetCurrentUser();
             setIsOpen(false);
           }}>
           <FormattedMessage {...messages.logOut} />

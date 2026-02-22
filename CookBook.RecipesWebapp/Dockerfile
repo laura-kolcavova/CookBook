@@ -16,7 +16,10 @@ COPY ./NuGet.Config ./
 COPY ./global.json ./
 COPY ./Directory.Build.props ./
 
-COPY ./server/src/CookBook.RecipesWebapp.Server.Api/CookBook.RecipesWebapp.Server.Api.csproj ./server/src/CookBook.RecipesWebapp.Server.Api/
+COPY ./server/src/CookBook.RecipesWebapp.Server.Domain/*.csproj ./server/src/CookBook.RecipesWebapp.Server.Domain/
+COPY ./server/src/CookBook.RecipesWebapp.Server.Application/*.csproj ./server/src/CookBook.RecipesWebapp.Server.Application/
+COPY ./server/src/CookBook.RecipesWebapp.Server.Infrastructure/*.csproj ./server/src/CookBook.RecipesWebapp.Server.Infrastructure/
+COPY ./server/src/CookBook.RecipesWebapp.Server.Api/*.csproj ./server/src/CookBook.RecipesWebapp.Server.Api/
 
 # Restore dependencies
 RUN dotnet restore ./server/src/CookBook.RecipesWebapp.Server.Api/ -v diag -r linux-x64

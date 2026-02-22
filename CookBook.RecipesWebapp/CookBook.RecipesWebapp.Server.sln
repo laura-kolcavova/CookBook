@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.RecipesWebapp.Serv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.RecipesWebapp.Server.Infrastructure", "server\src\CookBook.RecipesWebapp.Server.Infrastructure\CookBook.RecipesWebapp.Server.Infrastructure.csproj", "{D6440D95-21A9-427F-A47B-3BDCE323618C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.RecipesWebapp.Server.Domain", "server\src\CookBook.RecipesWebapp.Server.Domain\CookBook.RecipesWebapp.Server.Domain.csproj", "{50C09371-31C8-46FE-B59D-931EDC5D6D9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{D6440D95-21A9-427F-A47B-3BDCE323618C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6440D95-21A9-427F-A47B-3BDCE323618C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6440D95-21A9-427F-A47B-3BDCE323618C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50C09371-31C8-46FE-B59D-931EDC5D6D9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C09371-31C8-46FE-B59D-931EDC5D6D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C09371-31C8-46FE-B59D-931EDC5D6D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C09371-31C8-46FE-B59D-931EDC5D6D9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{959889F7-340A-4788-B77F-973D566F4F91} = {47E00905-1F7B-4878-9D0A-E271134E5092}
 		{C569CE6C-41C9-4818-8C09-1656825BCD49} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{D6440D95-21A9-427F-A47B-3BDCE323618C} = {959889F7-340A-4788-B77F-973D566F4F91}
+		{50C09371-31C8-46FE-B59D-931EDC5D6D9D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6D2C77F2-4627-46DD-9C21-0A4AD66196AE}

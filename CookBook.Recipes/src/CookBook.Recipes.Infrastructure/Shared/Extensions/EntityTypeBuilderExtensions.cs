@@ -12,11 +12,12 @@ internal static class EntityTypeBuilderExtensions
     {
         builder
             .Property(o => o.CreatedAt)
-            .HasColumnName("DateCreatedAt");
+            .HasColumnType("DATETIMEOFFSET")
+            .IsRequired();
 
         builder
             .Property(c => c.UpdatedAt)
-            .HasColumnName("DateUpdatedAt");
+            .HasColumnType("DATETIMEOFFSET");
 
         return builder;
     }

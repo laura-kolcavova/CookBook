@@ -8,5 +8,5 @@ internal sealed record RemoveRecipeEndpointParams
     public required long RecipeId { get; init; }
 
     [FromQuery]
-    public required int UserId { get; init; }
+    public required string UserName { get; init; }
 }

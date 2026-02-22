@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
-import { useRecipeDetailQuery } from './hooks/useGetRecipeDetailQuery';
+import { useGetRecipeDetailQuery } from './hooks/useGetRecipeDetailQuery';
 import { LoadingSpinner } from '../shared/LoadingSpinner';
 import { Alert } from '../shared/Alert';
 import { RecipeDetailContent } from './shared/RecipeDetailContent';
@@ -18,7 +18,7 @@ export const RecipeDetail = () => {
 
   const recipeId = useMemo(() => Number.parseInt(recipeIdParam, 10), [recipeIdParam]);
 
-  const { isLoading, isError, data } = useRecipeDetailQuery(recipeId);
+  const { isLoading, isError, data } = useGetRecipeDetailQuery(recipeId);
 
   return (
     <div className="bg-content-background-color-tertiary">

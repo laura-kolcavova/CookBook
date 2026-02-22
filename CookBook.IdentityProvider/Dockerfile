@@ -6,10 +6,10 @@ COPY ./NuGet.Config ./
 COPY ./global.json ./
 COPY ./Directory.Build.props ./
 
-COPY ./src/CookBook.IdentityProvider.Api/*.csproj ./src/CookBook.IdentityProvider.Api/
-COPY ./src/CookBook.IdentityProvider.Application/*.csproj ./src/CookBook.IdentityProvider.Application/
 COPY ./src/CookBook.IdentityProvider.Domain/*.csproj ./src/CookBook.IdentityProvider.Domain/
+COPY ./src/CookBook.IdentityProvider.Application/*.csproj ./src/CookBook.IdentityProvider.Application/
 COPY ./src/CookBook.IdentityProvider.Infrastructure/*.csproj ./src/CookBook.IdentityProvider.Infrastructure/
+COPY ./src/CookBook.IdentityProvider.Api/*.csproj ./src/CookBook.IdentityProvider.Api/
 
 # Restore dependencies
 RUN dotnet restore ./src/CookBook.IdentityProvider.Api/ -v diag -r linux-x64

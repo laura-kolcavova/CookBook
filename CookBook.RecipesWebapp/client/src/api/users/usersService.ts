@@ -2,6 +2,7 @@ import type { AxiosPromise, GenericAbortSignal } from 'axios';
 import { callAxios } from '~/utils/axios';
 import type { RegisterUserRequestDto } from './dto/RegisterUserRequestDto';
 import type { LogInUserRequestDto } from './dto/LogInUserRequestDto';
+import type { CurrentUserDto } from './dto/CurrentUserDto';
 
 const registerUser = (
   registerUserRequest: RegisterUserRequestDto,
@@ -27,7 +28,16 @@ const logInUser = (
   });
 };
 
+const getCurrentUser = (signal?: GenericAbortSignal): AxiosPromise<CurrentUserDto> => {
+  return callAxios({
+    url: `/api/users/current`,
+    method: 'GET',
+    signal: signal,
+  });
+};
+
 export const usersService = {
   registerUser,
   logInUser,
+  getCurrentUser,
 };
