@@ -5,6 +5,7 @@ using CookBook.IdentityProvider.Infrastructure.Users.UseCases.RegisterUser;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Infrastructure.Users.Extensions;
 
@@ -56,13 +57,16 @@ internal static class ServiceCollectionExtensions
                         .ReplaceDefaultEntities<int>();
 
                     options
-                    .UseQuartz();
+                        .UseQuartz();
                 })
             .AddServer(
                 options =>
                 {
                     options.SetTokenEndpointUris(
                         "api/authorization/token");
+
+                    options.SetUserInfoEndpointUris(
+                        "api/authorization/userinfo");
 
                     options.AllowPasswordFlow();
 
@@ -75,6 +79,10 @@ internal static class ServiceCollectionExtensions
                             .AddDevelopmentEncryptionCertificate()
                             .AddDevelopmentSigningCertificate();
                     }
+
+                    options.RegisterScopes(
+                        Scopes.Email,
+                        Scopes.Profile);
 
                     options
                         .UseAspNetCore()

@@ -75,7 +75,7 @@ services
         {
             options.AllowPasswordFlow();
 
-            options.DisableTokenStorage();
+            //options.DisableTokenStorage();
 
             options.UseSystemNetHttp(
                 ).SetProductInformation(typeof(Program).Assembly);

@@ -19,6 +19,7 @@ public sealed class GetCurrentUserEndpointModule :
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
             .HandleOperationCancelled()
+
             .AllowAnonymous();
     }
 
@@ -41,12 +42,14 @@ public sealed class GetCurrentUserEndpointModule :
             IsAuthenticated = true,
             DisplayName = claimsPrincipal!
                 .Claims
-                .First(c => c.Type == ClaimTypes.Email)
-                .Value,
+                .FirstOrDefault(c => c.Type == ClaimTypes.Email)
+                ?.Value
+                ?? string.Empty,
             Email = claimsPrincipal!
                 .Claims
-                .First(c => c.Type == AuthenticationConstants.CustomClaimTypes.DisplayName)
-                .Value
+                .FirstOrDefault(c => c.Type == AuthenticationConstants.CustomClaimTypes.DisplayName)
+                ?.Value
+                ?? string.Empty
         };
 
         return TypedResults.Ok(

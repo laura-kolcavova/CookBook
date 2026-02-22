@@ -13,15 +13,15 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Api.Authorization.Endpoints.ExchangeToken;
 
-public sealed class ExchangeTokenEndpointModule :
+public sealed class TokenEndpointModule :
     AuthorizationModule
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
         app
             .MapPost("/token", HandleAsync)
-            .WithName("ExchangeToken")
-            .WithSummary("Exchanges a token")
+            .WithName("Token")
+            .WithSummary("OpenIddict token endpoint")
             .WithDescription("")
             .Accepts<IFormCollection>("application/x-www-form-urlencoded")
             .ProducesProblem(StatusCodes.Status400BadRequest)
@@ -36,6 +36,7 @@ public sealed class ExchangeTokenEndpointModule :
     private static Task<IResult> HandleAsync(
         [FromServices] UserManager<CustomIdentityUser> userManager,
         [FromServices] SignInManager<CustomIdentityUser> signInManager,
+        [FromServices] IOpenIddictScopeManager scopeManager,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
@@ -49,6 +50,7 @@ public sealed class ExchangeTokenEndpointModule :
                 openIddictRequest,
                 userManager,
                 signInManager,
+                scopeManager,
                 httpContext,
                 cancellationToken);
         }
@@ -61,6 +63,7 @@ public sealed class ExchangeTokenEndpointModule :
         OpenIddictRequest openIddictRequest,
         UserManager<CustomIdentityUser> userManager,
         SignInManager<CustomIdentityUser> signInManager,
+        IOpenIddictScopeManager scopeManager,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
@@ -82,8 +85,6 @@ public sealed class ExchangeTokenEndpointModule :
                     OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
                 ]);
         }
-
-        // Validate the username/password parameters and ensure the account is not locked out.
         var signInResult = await signInManager.CheckPasswordSignInAsync(
             user,
             openIddictRequest.Password!,
@@ -105,13 +106,11 @@ public sealed class ExchangeTokenEndpointModule :
                 ]);
         }
 
-        // Create the claims-based identity that will be used by OpenIddict to generate tokens.
         var identity = new ClaimsIdentity(
             authenticationType: TokenValidationParameters.DefaultAuthenticationType,
             nameType: Claims.Name,
             roleType: Claims.Role);
 
-        // Add the claims that will be persisted in the tokens.
         identity
             .SetClaim(Claims.Subject, await userManager.GetUserIdAsync(user))
             .SetClaim(Claims.Email, await userManager.GetEmailAsync(user))
@@ -119,21 +118,30 @@ public sealed class ExchangeTokenEndpointModule :
             .SetClaim(Claims.PreferredUsername, await userManager.GetUserNameAsync(user))
             .SetClaims(Claims.Role, (await userManager.GetRolesAsync(user)).ToImmutableArray());
 
-        // Set the list of scopes granted to the client application.
+        var restrictedScopes = new string[]
+        {
+            Scopes.Email,
+            Scopes.Profile,
+        };
+
+        var requestScopes = openIddictRequest.GetScopes();
+
+        var scopes = requestScopes
+            .Intersect(requestScopes)
+            .ToImmutableArray();
+
         identity
-            .SetScopes(
-                new[]
-                {
-                    Scopes.OpenId,
-                    Scopes.Email,
-                    Scopes.Profile,
-                    Scopes.Roles
-                }
-            .Intersect(openIddictRequest.GetScopes()));
+            .SetScopes(scopes);
+
+        var resources = await scopeManager
+            .ListResourcesAsync(scopes, cancellationToken)
+            .ToListAsync(cancellationToken);
+
+        identity.SetResources(resources);
 
         identity.SetDestinations(GetDestinations);
 
-        return Results.SignIn(
+        return TypedResults.SignIn(
             new ClaimsPrincipal(identity),
             authenticationScheme: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
     }

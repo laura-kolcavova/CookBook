@@ -28,7 +28,7 @@ internal sealed class AuthenticateUserUseCase(
         when (ex is not OperationCanceledException)
         {
             logger.LogError(
-                "An unexpected error occurred while authenticating an user");
+            "An unexpected error occurred while authenticating an user");
 
             throw;
         }

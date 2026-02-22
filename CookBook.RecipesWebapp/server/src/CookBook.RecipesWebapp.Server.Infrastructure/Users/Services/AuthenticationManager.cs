@@ -1,6 +1,7 @@
 ﻿using CookBook.RecipesWebapp.Server.Domain.Users.Models;
 using CookBook.RecipesWebapp.Server.Domain.Users.Services.Abstractions;
 using OpenIddict.Client;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 using static OpenIddict.Client.OpenIddictClientModels;
 
 namespace CookBook.RecipesWebapp.Server.Infrastructure.Users.Services;
@@ -17,7 +18,12 @@ internal class AuthenticationManager(
         var request = new PasswordAuthenticationRequest
         {
             Username = email,
-            Password = password
+            Password = password,
+
+            Scopes = [
+                Scopes.Email,
+                Scopes.Profile
+                ],
         };
 
         var passwordAuthenticationResult = await openIddictClientService.AuthenticateWithPasswordAsync(
@@ -25,7 +31,9 @@ internal class AuthenticationManager(
 
         var authenticationResult = new AuthenticationResult
         {
-            AccessToken = passwordAuthenticationResult.AccessToken
+            AccessToken = passwordAuthenticationResult.AccessToken,
+            UserInfoTokenPrincipal = passwordAuthenticationResult.UserInfoTokenPrincipal
+                ?? throw new InvalidOperationException("User info token principal is not set.")
         };
 
         return authenticationResult;
