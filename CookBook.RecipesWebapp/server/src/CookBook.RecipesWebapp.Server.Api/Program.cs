@@ -3,7 +3,7 @@ using CookBook.RecipesWebapp.Server.Api.Shared.Antiforgery;
 using CookBook.RecipesWebapp.Server.Api.Shared.Authentication;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
-using CookBook.RecipesWebapp.Server.Application.Extensions;
+using CookBook.RecipesWebapp.Server.Application.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileProviders;

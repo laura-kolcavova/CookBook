@@ -1,5 +1,5 @@
-﻿using CookBook.RecipesWebapp.Server.Application.Users.UseCases.Abstractions;
-using CookBook.RecipesWebapp.Server.Infrastructure.Users.UseCases;
+﻿using CookBook.RecipesWebapp.Server.Application.Users.UseCases;
+using CookBook.RecipesWebapp.Server.Application.Users.UseCases.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.RecipesWebapp.Server.Application.Users.Extensions;

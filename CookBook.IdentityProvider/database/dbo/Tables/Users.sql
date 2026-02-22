@@ -1,7 +1,7 @@
 CREATE TABLE [dbo].[Users] (
     [Id]                INT IDENTITY(1, 1)  NOT NULL,
     [IdentityUserId]    INT                 NOT NULL,
-    [UserNumber]        UNIQUEIDENTIFIER    NOT NULL,
+    [UserNumber]        NVARCHAR(256)       NOT NULL,
     [DisplayName]       NVARCHAR(256)       NOT NULL,
     [CreatedAt]         DATETIMEOFFSET      NOT NULL DEFAULT SYSDATETIMEOFFSET(),
     [UpdatedAt]         DATETIMEOFFSET      NULL,
@@ -16,9 +16,9 @@ CREATE TABLE [dbo].[Users] (
 
 GO;
 
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Users_UserNumber]
+CREATE UNIQUE NONCLUSTERED INDEX [UX_Users_UserName]
 ON [dbo].[Users] (
-    [UserNumber] ASC
+    [UserName] ASC
 )
 -- INCLUDE(
 --     [DisplayName]

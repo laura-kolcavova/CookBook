@@ -3,7 +3,7 @@ using CookBook.RecipesWebapp.Server.Domain.Users.Models;
 using CookBook.RecipesWebapp.Server.Domain.Users.Services.Abstractions;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.RecipesWebapp.Server.Infrastructure.Users.UseCases;
+namespace CookBook.RecipesWebapp.Server.Application.Users.UseCases;
 
 internal sealed class AuthenticateUserUseCase(
     IAuthenticationManager authenticationManager,

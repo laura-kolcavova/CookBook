@@ -1,7 +1,7 @@
-﻿using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser.Abstractions;
-using CookBook.IdentityProvider.Domain.Users;
+﻿using CookBook.IdentityProvider.Domain.Users;
+using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
 using CookBook.IdentityProvider.Infrastructure.Shared.Interceptors;
-using CookBook.IdentityProvider.Infrastructure.Users.UseCases.RegisterUser;
+using CookBook.IdentityProvider.Infrastructure.Users.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Quartz;
@@ -118,7 +118,7 @@ internal static class ServiceCollectionExtensions
             });
 
         services
-            .AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+            .AddScoped<IRegisterManager, RegisterManager>();
 
         return services;
     }

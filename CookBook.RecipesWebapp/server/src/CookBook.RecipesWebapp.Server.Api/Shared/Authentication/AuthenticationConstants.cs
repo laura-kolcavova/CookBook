@@ -6,9 +6,4 @@ public class AuthenticationConstants
     {
         public const string CookieName = "Identity.CookBookWebapp";
     }
-
-    public static class CustomClaimTypes
-    {
-        public const string DisplayName = "display_name";
-    }
 }

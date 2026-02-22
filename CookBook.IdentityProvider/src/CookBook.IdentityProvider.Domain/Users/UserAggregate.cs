@@ -10,7 +10,7 @@ public sealed class UserAggregate :
 
     public int IdentityUserId { get; }
 
-    public Guid UserNumber { get; }
+    public string UserName { get; }
 
     public string DisplayName { get; }
 
@@ -20,11 +20,11 @@ public sealed class UserAggregate :
 
     public UserAggregate(
         int identityUserId,
-        Guid userNumber,
+        string userName,
         string displayName)
     {
         IdentityUserId = identityUserId;
-        UserNumber = userNumber;
+        UserName = userName;
         DisplayName = displayName;
     }
 

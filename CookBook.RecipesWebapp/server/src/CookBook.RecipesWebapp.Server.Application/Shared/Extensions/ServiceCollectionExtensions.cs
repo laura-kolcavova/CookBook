@@ -1,7 +1,7 @@
 ﻿using CookBook.RecipesWebapp.Server.Application.Users.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CookBook.RecipesWebapp.Server.Application.Extensions;
+namespace CookBook.RecipesWebapp.Server.Application.Shared.Extensions;
 
 public static class ServiceCollectionExtensions
 {

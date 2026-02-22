@@ -2,6 +2,7 @@ using Carter;
 using CookBook.Extensions.AspNetCore.SqlServer;
 using CookBook.IdentityProvider.Api.Shared.Configuration;
 using CookBook.IdentityProvider.Api.Shared.Extensions;
+using CookBook.IdentityProvider.Application.Shared.Extensions;
 using CookBook.IdentityProvider.Domain.Shared.Extensions;
 using CookBook.IdentityProvider.Infrastructure.Shared.Extensions;
 
@@ -29,6 +30,7 @@ services
 
 services
     .AddDomain()
+    .AddApplication()
     .AddInfrastructure(
         cookBookUsersConnectionString,
         isDevelopment)

@@ -1,5 +1,6 @@
 ﻿using CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Contracts;
 using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser;
+using CookBook.IdentityProvider.Domain.Users.Models;
 using Riok.Mapperly.Abstractions;
 
 namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Mappers;

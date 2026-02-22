@@ -64,10 +64,21 @@ public sealed class GetUserInfoEndpointModule :
             [Claims.Subject] = await userManager.GetUserIdAsync(user)
         };
 
+        if (claimsPrincipal.HasScope(Scopes.Profile))
+        {
+            claims[Claims.Name] = await userManager.GetUserNameAsync(user)
+                ?? throw new InvalidOperationException("User name is not set.");
+
+            claims[Claims.PreferredUsername] = (await userManager.GetClaimsAsync(user))
+                .FirstOrDefault(claim => claim.Type == Claims.PreferredUsername)
+                ?.Value
+                ?? throw new InvalidOperationException("Preferred user name is not set.");
+        }
+
         if (claimsPrincipal.HasScope(Scopes.Email))
         {
             claims[Claims.Email] = await userManager.GetEmailAsync(user)
-                ?? throw new InvalidOperationException("User email is not set.");
+                ?? throw new InvalidOperationException("Email is not set.");
         }
 
         return TypedResults.Ok(
