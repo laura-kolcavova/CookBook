@@ -3,6 +3,7 @@ import React from 'react';
 import { Footer } from './shared/Footer';
 import { Main } from './shared/Main';
 import { Header } from './shared/Header';
+import { ToastContainer } from 'react-toastify';
 
 export const Layout: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ export const Layout: React.FC = () => {
       <Header />
       <Main />
       <Footer />
+      <ToastContainer />
     </>
   );
 };

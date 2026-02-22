@@ -32,7 +32,7 @@ export const CurrentUserProvider = ({ children }: CurrentUserProviderProps) => {
   const [currentUser, setCurrentUser] = useState<CurrentUserDto>(ANONYMOUS_USER);
   const [isReady, setIsReady] = useState<boolean>(false);
 
-  const { data, isSuccess, refetch } = useGetCurrentUserQuery();
+  const { data, dataUpdatedAt, isSuccess, refetch } = useGetCurrentUserQuery();
 
   const resetCurrentUser = useCallback(() => {
     setCurrentUser(ANONYMOUS_USER);
@@ -49,7 +49,7 @@ export const CurrentUserProvider = ({ children }: CurrentUserProviderProps) => {
       setCurrentUser(data);
       setIsReady(true);
     }
-  }, [data, isSuccess]);
+  }, [data, dataUpdatedAt, isSuccess]);
 
   return (
     <CurrentUserContext.Provider
