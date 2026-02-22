@@ -19,8 +19,8 @@ export type CurrentUserContextValue = {
 
 export const ANONYMOUS_USER: CurrentUserDto = {
   isAuthenticated: false,
+  userName: '',
   displayName: '',
-  userNumber: '',
   email: '',
 };
 

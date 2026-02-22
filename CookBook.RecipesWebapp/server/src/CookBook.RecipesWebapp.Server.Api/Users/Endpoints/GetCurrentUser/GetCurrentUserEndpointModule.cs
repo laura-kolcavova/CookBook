@@ -2,6 +2,7 @@
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Users.Endpoints.GetCurrentUser.Contracts;
 using System.Security.Claims;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.GetCurrentUser;
 
@@ -40,14 +41,20 @@ public sealed class GetCurrentUserEndpointModule :
         var currentUserDto = new CurrentUserDto
         {
             IsAuthenticated = true,
+            UserName = claimsPrincipal!
+                .Claims
+                .FirstOrDefault(c => c.Type == Claims.Username)
+                ?.Value
+                ?? string.Empty,
             DisplayName = claimsPrincipal!
                 .Claims
-                .FirstOrDefault(c => c.Type == ClaimTypes.Email)
+                .FirstOrDefault(c => c.Type == AuthenticationConstants.CustomClaimTypes.DisplayName)
+
                 ?.Value
                 ?? string.Empty,
             Email = claimsPrincipal!
                 .Claims
-                .FirstOrDefault(c => c.Type == AuthenticationConstants.CustomClaimTypes.DisplayName)
+                .FirstOrDefault(c => c.Type == Claims.Email)
                 ?.Value
                 ?? string.Empty
         };

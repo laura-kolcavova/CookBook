@@ -12,8 +12,7 @@ export const RecipeDetailHeader = ({ recipe }: RecipeDetailHeaderProps) => {
 
   return (
     <div className="flex items-center justify-end gap-4 mb-4">
-      {/* // {recipe && currentUser.isAuthenticated && recipe.userId === currentUser.userNumer && ( */}
-      {recipe && currentUser.isAuthenticated && recipe.userId === 1 && (
+      {recipe && currentUser.isAuthenticated && recipe.userName === currentUser.userName && (
         <>
           <EditRecipeButton recipe={recipe} />
 

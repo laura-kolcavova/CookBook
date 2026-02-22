@@ -6,7 +6,7 @@ namespace CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 public interface IRemoveRecipeUseCase
 {
     public Task<UnitResult<Error>> RemoveRecipe(
-    long recipeId,
-    int userId,
-    CancellationToken cancellationToken);
+        long recipeId,
+        string userName,
+        CancellationToken cancellationToken);
 }

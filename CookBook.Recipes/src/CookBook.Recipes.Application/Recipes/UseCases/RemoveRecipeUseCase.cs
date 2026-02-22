@@ -14,12 +14,13 @@ internal sealed class RemoveRecipeUseCase(
 {
     public async Task<UnitResult<Error>> RemoveRecipe(
         long recipeId,
-        int userId,
+        string userName,
         CancellationToken cancellationToken)
     {
         using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
-            ["RecipeId"] = recipeId
+            ["RecipeId"] = recipeId,
+            ["UserName"] = userName,
         });
 
         try
@@ -34,11 +35,11 @@ internal sealed class RemoveRecipeUseCase(
                     recipeId);
             }
 
-            if (recipe.UserId != userId)
+            if (recipe.UserName != userName)
             {
                 return RecipeErrors.Recipe.NotOwnedByUser(
                     recipeId,
-                    userId);
+                    userName);
             }
 
             await recipeStore.Delete(

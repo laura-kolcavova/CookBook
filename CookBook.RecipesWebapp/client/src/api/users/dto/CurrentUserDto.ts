@@ -1,6 +1,6 @@
 export type CurrentUserDto = {
   isAuthenticated: boolean;
+  userName: string;
   displayName: string;
-  userNumber: string;
   email: string;
 };

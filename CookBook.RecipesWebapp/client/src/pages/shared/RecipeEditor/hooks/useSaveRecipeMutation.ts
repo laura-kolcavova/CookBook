@@ -21,7 +21,7 @@ export const useSaveRecipeMutation = () => {
 
       const saveRecipeRequest: SaveRecipeRequestDto = {
         recipeId: recipeData.recipeId,
-        userId: 1, // currentUser.userNumber ,
+        userName: currentUser.userName,
         title: recipeData.title,
         description: recipeData.description,
         servings: recipeData.servings,

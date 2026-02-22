@@ -28,7 +28,7 @@ internal static class RemoveRecipeEndpoint
     {
         var removeRecipeResult = await removeRecipeUseCase.RemoveRecipe(
             request.RecipeId,
-            request.UserId,
+            request.UserName,
             cancellationToken);
 
         if (removeRecipeResult.IsFailure)

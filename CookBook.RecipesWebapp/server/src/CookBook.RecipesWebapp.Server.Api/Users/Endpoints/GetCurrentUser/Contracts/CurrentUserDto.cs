@@ -4,6 +4,8 @@ public sealed record CurrentUserDto
 {
     public required bool IsAuthenticated { get; init; }
 
+    public required string UserName { get; init; }
+
     public required string DisplayName { get; init; }
 
     public required string Email { get; init; }
@@ -11,6 +13,7 @@ public sealed record CurrentUserDto
     public static CurrentUserDto Anonymous => new()
     {
         IsAuthenticated = false,
+        UserName = string.Empty,
         DisplayName = string.Empty,
         Email = string.Empty
     };
