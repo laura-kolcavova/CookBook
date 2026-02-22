@@ -32,6 +32,11 @@ internal static class ServiceCollectionExtensions
 
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequireUppercase = false;
+
+                    options.ClaimsIdentity.UserNameClaimType = Claims.Name;
+                    options.ClaimsIdentity.UserIdClaimType = Claims.Subject;
+                    options.ClaimsIdentity.RoleClaimType = Claims.Role;
+                    options.ClaimsIdentity.EmailClaimType = Claims.Email;
                 })
             .AddEntityFrameworkStores<IdentityUsersContext>()
             .AddDefaultTokenProviders();
