@@ -111,11 +111,16 @@ public sealed class TokenEndpointModule :
             nameType: Claims.Name,
             roleType: Claims.Role);
 
+        var preferredUsernameClaimValue = (await userManager.GetClaimsAsync(user))
+                .FirstOrDefault(claim => claim.Type == Claims.PreferredUsername)
+                ?.Value
+                ?? throw new InvalidOperationException("Preferred user name is not set.");
+
         identity
             .SetClaim(Claims.Subject, await userManager.GetUserIdAsync(user))
             .SetClaim(Claims.Email, await userManager.GetEmailAsync(user))
             .SetClaim(Claims.Name, await userManager.GetUserNameAsync(user))
-            .SetClaim(Claims.PreferredUsername, await userManager.GetUserNameAsync(user))
+            .SetClaim(Claims.PreferredUsername, preferredUsernameClaimValue)
             .SetClaims(Claims.Role, (await userManager.GetRolesAsync(user)).ToImmutableArray());
 
         var restrictedScopes = new string[]

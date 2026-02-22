@@ -21,9 +21,9 @@ internal class AuthenticationManager(
             Password = password,
 
             Scopes = [
-                Scopes.Email,
-                Scopes.Profile
-                ],
+                Scopes.Profile,
+                Scopes.Email
+            ],
         };
 
         // IdentityToken and IdentityToken is not available when using password flow so UserInfoTokenPrincipal is used instead
