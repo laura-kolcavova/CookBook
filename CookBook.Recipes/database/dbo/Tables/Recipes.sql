@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Recipes]
 (
     [Id]                BIGINT IDENTITY(1, 1)   NOT NULL,
-    [UserId]            INT                     NOT NULL,
+    [UserName]          NVARCHAR(256)           NOT NULL,
     [Title]             NVARCHAR(256)           NOT NULL,
     [Description]       NVARCHAR(1024)          NULL,
     [Notes]             NVARCHAR(1024)          NULL,

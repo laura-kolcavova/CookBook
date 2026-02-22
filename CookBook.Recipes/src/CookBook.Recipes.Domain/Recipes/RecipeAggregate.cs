@@ -10,7 +10,7 @@ public sealed class RecipeAggregate :
 {
     public long Id { get; }
 
-    public int UserId { get; private set; }
+    public string UserName { get; private set; }
 
     public string Title { get; private set; }
 
@@ -44,10 +44,10 @@ public sealed class RecipeAggregate :
 
     public RecipeAggregate(
         string title,
-        int userId)
+        string userName)
     {
         Title = title;
-        UserId = userId;
+        UserName = userName;
 
         _ingredients = [];
         _instructions = [];

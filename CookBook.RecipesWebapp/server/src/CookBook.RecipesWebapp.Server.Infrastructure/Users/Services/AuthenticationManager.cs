@@ -26,6 +26,7 @@ internal class AuthenticationManager(
                 ],
         };
 
+        // IdentityToken and IdentityToken is not available when using password flow so UserInfoTokenPrincipal is used instead
         var passwordAuthenticationResult = await openIddictClientService.AuthenticateWithPasswordAsync(
             request);
 

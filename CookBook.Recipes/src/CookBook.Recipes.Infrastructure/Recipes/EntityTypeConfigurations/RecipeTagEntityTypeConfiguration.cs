@@ -24,10 +24,12 @@ internal sealed class RecipeTagEntityTypeConfiguration :
 
         builder
             .Property(e => e.RecipeId)
+            .HasColumnType("BIGINT")
             .IsRequired();
 
         builder
             .Property(e => e.Name)
+            .HasColumnType("NVARCHAR(256)")
             .HasMaxLength(256)
             .IsRequired();
     }
