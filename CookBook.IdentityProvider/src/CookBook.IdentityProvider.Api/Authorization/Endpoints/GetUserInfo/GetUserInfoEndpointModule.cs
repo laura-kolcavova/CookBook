@@ -40,7 +40,10 @@ public sealed class GetUserInfoEndpointModule :
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var user = await userManager.GetUserAsync(claimsPrincipal);
+        var userId = claimsPrincipal.GetClaim(Claims.Subject)
+            ?? throw new InvalidOperationException("The mandatory sub claim is missing.");
+
+        var user = await userManager.FindByIdAsync(userId);
 
         if (user is null)
         {
