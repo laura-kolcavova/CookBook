@@ -1,6 +1,8 @@
-﻿using CookBook.RecipesWebapp.Server.Application.Users.UseCases.Abstractions;
+﻿using CookBook.Extensions.CSharpExtended.Errors;
+using CookBook.RecipesWebapp.Server.Application.Users.UseCases.Abstractions;
 using CookBook.RecipesWebapp.Server.Domain.Users.Models;
 using CookBook.RecipesWebapp.Server.Domain.Users.Services.Abstractions;
+using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 
 namespace CookBook.RecipesWebapp.Server.Application.Users.UseCases;
@@ -10,19 +12,19 @@ internal sealed class AuthenticateUserUseCase(
     ILogger<AuthenticateUserUseCase> logger) :
     IAuthenticateUserUseCase
 {
-    public async Task<AuthenticationResult> AuthenticateUser(
+    public async Task<Result<AuthenticationResult, Error>> AuthenticateUser(
         string email,
         string password,
         CancellationToken cancellationToken)
     {
         try
         {
-            var authenticationResult = await authenticationManager.AuthenticateUser(
+            var result = await authenticationManager.AuthenticateUser(
                 email,
                 password,
                 cancellationToken);
 
-            return authenticationResult;
+            return result;
         }
         catch (Exception ex)
         when (ex is not OperationCanceledException)
