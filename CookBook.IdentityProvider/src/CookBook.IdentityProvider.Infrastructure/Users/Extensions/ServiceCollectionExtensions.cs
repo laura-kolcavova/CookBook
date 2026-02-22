@@ -78,12 +78,9 @@ internal static class ServiceCollectionExtensions
 
                     options.AcceptAnonymousClients();
 
-                    if (isDevelopment)
-                    {
-                        options
-                            .AddDevelopmentEncryptionCertificate()
-                            .AddDevelopmentSigningCertificate();
-                    }
+                    options
+                        .AddDevelopmentEncryptionCertificate()
+                        .AddDevelopmentSigningCertificate();
 
                     options.RegisterScopes(
                         Scopes.Email,
