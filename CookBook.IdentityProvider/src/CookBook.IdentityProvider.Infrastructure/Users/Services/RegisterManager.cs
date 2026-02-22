@@ -31,7 +31,6 @@ internal sealed class RegisterManager(
         {
             UserName = userName,
             Email = registerUserRequest.Email,
-
         };
 
         var identityResult = await userManager.CreateAsync(
@@ -87,7 +86,5 @@ internal sealed class RegisterManager(
         transaction.Complete();
 
         return user;
-
-
     }
 }

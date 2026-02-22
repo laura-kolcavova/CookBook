@@ -21,7 +21,8 @@ public sealed class RegisterUserEndpointModule : UsersModule
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
             .HandleOperationCancelled()
-            .ValidateRequest();
+            .ValidateRequest()
+            .AllowAnonymous();
     }
 
     private static async Task<IResult> HandleAsync(

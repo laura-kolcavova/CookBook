@@ -28,9 +28,9 @@ public sealed class TokenEndpointModule :
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
-            .DisableAntiforgery()
             .ValidateRequest()
-            .HandleOperationCancelled();
+            .HandleOperationCancelled()
+            .AllowAnonymous();
     }
 
     private static Task<IResult> HandleAsync(

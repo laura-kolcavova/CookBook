@@ -2,9 +2,11 @@ using Carter;
 using CookBook.RecipesWebapp.Server.Api.Shared.Antiforgery;
 using CookBook.RecipesWebapp.Server.Api.Shared.Authentication;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
+using CookBook.RecipesWebapp.Server.Api.Shared.ReverseProxy;
 using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
 using CookBook.RecipesWebapp.Server.Application.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIddict;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Physical;
@@ -23,12 +25,16 @@ builder.Host
         options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
     });
 
-var spaClientOptions = configuration
-    .GetRequiredSection(nameof(SpaClientOptions))
-    .Get<SpaClientOptions>()!;
+var spaClientConfiguration = configuration
+    .GetRequiredSection(nameof(SpaClientConfiguration))
+    .Get<SpaClientConfiguration>()!;
 
-var reverseProxyOptions = configuration
-    .GetRequiredSection("ReverseProxyOptions");
+var openIddictConfiguration = configuration
+    .GetRequiredSection(nameof(OpenIddictConfiguration))
+    .Get<OpenIddictConfiguration>()!;
+
+var reverseProxyConfiguration = configuration
+    .GetRequiredSection(ReverseProxyConstants.ConfigurationSectionName);
 
 services
     .AddOptions();
@@ -65,8 +71,8 @@ services
     .AddInfrastructure()
     .AddApi(
         builder.Environment.ApplicationName,
-        reverseProxyOptions)
-    .AddSpaClient(spaClientOptions);
+        reverseProxyConfiguration)
+    .AddSpaClient(spaClientConfiguration);
 
 services
     .AddOpenIddict()
@@ -84,7 +90,9 @@ services
             options.AddRegistration(
                 new OpenIddictClientRegistration
                 {
-                    Issuer = new Uri("http://localhost:5020/", UriKind.Absolute),
+                    Issuer = new Uri(
+                        openIddictConfiguration.IssuerUri,
+                        UriKind.Absolute),
                 });
 
             options.UseAspNetCore();
@@ -112,7 +120,7 @@ app.MapCarter();
 
 app.MapReverseProxy();
 
-if (spaClientOptions.IsSpaEnabled)
+if (spaClientConfiguration.IsSpaEnabled)
 {
     app.MapWhen(ctx =>
         !ctx.Request.IsApiRequest() &&
@@ -125,7 +133,7 @@ if (spaClientOptions.IsSpaEnabled)
                 {
                 });
 
-            var useStaticFiles = !spaClientOptions.UseDevelopmentProxyServer;
+            var useStaticFiles = !spaClientConfiguration.UseDevelopmentProxyServer;
 
             if (useStaticFiles)
             {
@@ -134,17 +142,17 @@ if (spaClientOptions.IsSpaEnabled)
                     FileProvider = new PhysicalFileProvider(
                         Path.Combine(
                             Directory.GetCurrentDirectory(),
-                            spaClientOptions.StaticFilesRootPath),
+                            spaClientConfiguration.StaticFilesRootPath),
                         ExclusionFilters.None)
                 });
             }
 
             spaAppBuilder.UseSpa(spa =>
             {
-                if (spaClientOptions.UseDevelopmentProxyServer)
+                if (spaClientConfiguration.UseDevelopmentProxyServer)
                 {
                     spa.UseProxyToSpaDevelopmentServer(
-                        spaClientOptions.DevelopmentProxyServerBaseUri);
+                        spaClientConfiguration.DevelopmentProxyServerBaseUri);
                 }
             });
         });

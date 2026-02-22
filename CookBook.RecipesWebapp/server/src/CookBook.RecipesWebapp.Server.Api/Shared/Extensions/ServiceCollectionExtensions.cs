@@ -11,7 +11,7 @@ internal static class ServiceCollectionExtensions
     public static IServiceCollection AddApi(
         this IServiceCollection services,
         string applicationName,
-        IConfigurationSection reverseProxyOptions)
+        IConfigurationSection reverseProxyConfiguration)
     {
         services
             .AddCarter(new DependencyContextAssemblyCatalog([typeof(Program).Assembly]));
@@ -43,7 +43,7 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddReverseProxy()
-            .LoadFromConfig(reverseProxyOptions);
+            .LoadFromConfig(reverseProxyConfiguration);
 
         services
             .AddProblemDetails();

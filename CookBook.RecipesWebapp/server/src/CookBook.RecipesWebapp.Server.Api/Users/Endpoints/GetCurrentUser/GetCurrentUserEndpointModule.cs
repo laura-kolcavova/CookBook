@@ -1,5 +1,6 @@
 ﻿using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Users.Endpoints.GetCurrentUser.Contracts;
+using OpenIddict.Abstractions;
 using System.Security.Claims;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
@@ -17,9 +18,7 @@ public sealed class GetCurrentUserEndpointModule :
             .WithDescription("")
             .Produces(StatusCodes.Status200OK, typeof(CurrentUserDto))
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesValidationProblem()
             .HandleOperationCancelled()
-
             .AllowAnonymous();
     }
 
@@ -41,20 +40,14 @@ public sealed class GetCurrentUserEndpointModule :
         {
             IsAuthenticated = true,
             UserName = claimsPrincipal!
-                .Claims
-                .FirstOrDefault(c => c.Type == Claims.Name)
-                ?.Value
-                ?? string.Empty,
+                .GetClaim(Claims.Name)
+                ?? throw new InvalidOperationException("Authenticated user must have a name claim."),
             DisplayName = claimsPrincipal!
-                .Claims
-                .FirstOrDefault(c => c.Type == Claims.PreferredUsername)
-                ?.Value
-                ?? string.Empty,
+                .GetClaim(Claims.PreferredUsername)
+                ?? throw new InvalidOperationException("Authenticated user must have a preferred_username claim."),
             Email = claimsPrincipal!
-                .Claims
-                .FirstOrDefault(c => c.Type == Claims.Email)
-                ?.Value
-                ?? string.Empty
+                .GetClaim(Claims.Email)
+                ?? throw new InvalidOperationException("Authenticated user must have an email claim.")
         };
 
         return TypedResults.Ok(

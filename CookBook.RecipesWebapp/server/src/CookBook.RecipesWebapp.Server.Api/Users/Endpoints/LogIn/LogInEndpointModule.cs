@@ -13,26 +13,26 @@ public sealed class LogInEndpointModule :
         app
             .MapPost("/login", HandleAsync)
             .WithName("LogIn")
-            .WithSummary("Signs in a user")
+            .WithSummary("Signs in an user")
             .WithDescription("")
             .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
-            .HandleOperationCancelled()
             .ValidateRequest()
+            .HandleOperationCancelled()
             .AllowAnonymous();
     }
 
     private static async Task<IResult> HandleAsync(
         [AsParameters] LogInEndpointParams request,
-        IAuthenticateUserUseCase logInUseCase,
+        IAuthenticateUserUseCase authenticateUserUseCase,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
         var logInRequest = request.LogInRequest;
 
-        var authenticationResult = await logInUseCase.AuthenticateUser(
+        var authenticationResult = await authenticateUserUseCase.AuthenticateUser(
             logInRequest.Email,
             logInRequest.Password,
             cancellationToken);
