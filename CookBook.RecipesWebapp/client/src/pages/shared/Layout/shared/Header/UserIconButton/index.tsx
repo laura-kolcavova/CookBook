@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
@@ -6,24 +6,31 @@ import { pages } from '~/navigation/pages';
 import { messages } from '../messages';
 import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 
-export const UserIconButton: React.FC = () => {
-  const { currentUser, resetCurrentUser } = useCurrentUser();
+import { useLogOutUser } from './hooks/useLogOutUser';
 
+export const UserIconButton = () => {
   const navigate = useNavigate();
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { currentUser } = useCurrentUser();
+
+  const { logOutUser } = useLogOutUser();
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const toggle = () => setIsOpen(!isOpen);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const closeDropdown = () => setIsDropdownOpen(false);
 
   useEffect(() => {
-    if (!isOpen) {
+    if (!isDropdownOpen) {
       return;
     }
 
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        closeDropdown();
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -31,15 +38,18 @@ export const UserIconButton: React.FC = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isDropdownOpen]);
 
-  const isOpenDropdownButtonStyles = isOpen ? 'text-navlink-color-active' : 'text-navlink-color';
-  const isOpenDropdownListStyled = isOpen ? 'visible' : 'invisible';
+  const isOpenDropdownButtonStyles = isDropdownOpen
+    ? 'text-navlink-color-active'
+    : 'text-navlink-color';
+
+  const isOpenDropdownListStyled = isDropdownOpen ? 'visible' : 'invisible';
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        onClick={toggle}
+        onClick={toggleDropdown}
         className={`py-1 px-6 flex flex-col justify-center items-center cursor-pointer transition-colors duration-150
           ${isOpenDropdownButtonStyles} hover:text-navlink-color-hover`}
         type="button">
@@ -56,7 +66,7 @@ export const UserIconButton: React.FC = () => {
           className="w-full text-left py-2 px-4 leading-6 cursor-pointer text-navlink-color hover:text-navlink-color-hover"
           onClick={() => {
             navigate(pages.MyProfile.paths[0]);
-            setIsOpen(false);
+            closeDropdown();
           }}>
           <FormattedMessage {...messages.myProfile} />
         </button>
@@ -64,8 +74,8 @@ export const UserIconButton: React.FC = () => {
         <button
           className="w-full text-left py-2 px-4 leading-6 cursor-pointer text-navlink-color hover:text-navlink-color-hover"
           onClick={() => {
-            resetCurrentUser();
-            setIsOpen(false);
+            logOutUser();
+            closeDropdown();
           }}>
           <FormattedMessage {...messages.logOut} />
         </button>

@@ -28,6 +28,14 @@ const logInUser = (
   });
 };
 
+const logOutUser = (signal?: GenericAbortSignal): AxiosPromise<void> => {
+  return callAxios({
+    url: `/api/users/logout`,
+    method: 'POST',
+    signal: signal,
+  });
+};
+
 const getCurrentUser = (signal?: GenericAbortSignal): AxiosPromise<CurrentUserDto> => {
   return callAxios({
     url: `/api/users/current`,
@@ -39,5 +47,6 @@ const getCurrentUser = (signal?: GenericAbortSignal): AxiosPromise<CurrentUserDt
 export const usersService = {
   registerUser,
   logInUser,
+  logOutUser,
   getCurrentUser,
 };

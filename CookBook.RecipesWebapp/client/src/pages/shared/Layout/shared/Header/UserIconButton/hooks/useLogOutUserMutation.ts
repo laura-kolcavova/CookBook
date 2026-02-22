@@ -1,19 +1,19 @@
 import { useMutation } from '@tanstack/react-query';
 import { useAbortSignal } from '~/abort/useAbortSignal';
-import type { LogInUserRequestDto } from '~/api/users/dto/LogInUserRequestDto';
 import { usersService } from '~/api/users/usersService';
 
-export const useLogInUserMutation = () => {
+export const useLogOutUserMutation = () => {
   const { createAbortSignal, finishAbortSignal } = useAbortSignal();
 
   return useMutation({
-    mutationFn: async (logInUserRequest: LogInUserRequestDto) => {
+    mutationFn: async () => {
       const signal = createAbortSignal();
 
-      await usersService.logInUser(logInUserRequest, signal);
+      await usersService.logOutUser(signal);
     },
     onMutate: () => {
       finishAbortSignal();
     },
+    throwOnError: true,
   });
 };
