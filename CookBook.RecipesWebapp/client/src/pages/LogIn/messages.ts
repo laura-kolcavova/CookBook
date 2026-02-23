@@ -21,4 +21,8 @@ export const messages = defineMessages({
     id: 'logIn.registerLink',
     defaultMessage: 'Register',
   },
+  invalidCredentialsError: {
+    id: 'logIn.invalidCredentialsError',
+    defaultMessage: 'The provided email or password is incorrect',
+  },
 });

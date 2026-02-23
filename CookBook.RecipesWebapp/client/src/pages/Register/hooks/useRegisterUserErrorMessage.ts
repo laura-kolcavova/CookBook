@@ -18,9 +18,10 @@ export const useRegisterUserErrorMessage = () => {
 
           case 'DuplicateEmail':
             return formatMessage(messages.emailAlreadyExistsError);
-        }
 
-        return `${formatMessage(sharedMessages.somethingWentWrong)}: ${code}`;
+          default:
+            return `${formatMessage(sharedMessages.somethingWentWrong)}: ${code}`;
+        }
       }
 
       return formatMessage(sharedMessages.somethingWentWrong);
