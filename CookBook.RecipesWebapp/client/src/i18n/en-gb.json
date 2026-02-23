@@ -20,6 +20,7 @@
     "logIn.logInButton": "Log In",
     "logIn.needAccount": "Need an account?",
     "logIn.registerLink": "Register",
+    "logIn.invalidCredentialsError": "The provided email or password is incorrect",
     "register.emailLabel": "Email",
     "register.displayNameLabel": "Display name",
     "register.passwordLabel": "Password",
