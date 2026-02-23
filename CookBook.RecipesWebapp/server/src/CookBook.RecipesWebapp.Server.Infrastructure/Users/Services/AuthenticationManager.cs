@@ -10,7 +10,7 @@ using static OpenIddict.Client.OpenIddictClientModels;
 
 namespace CookBook.RecipesWebapp.Server.Infrastructure.Users.Services;
 
-internal class AuthenticationManager(
+internal sealed class AuthenticationManager(
     OpenIddictClientService openIddictClientService) :
     IAuthenticationManager
 {

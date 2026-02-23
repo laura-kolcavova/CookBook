@@ -17,6 +17,11 @@ internal sealed class AuthenticateUserUseCase(
         string password,
         CancellationToken cancellationToken)
     {
+        using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
+        {
+            ["Email"] = email
+        });
+
         try
         {
             var result = await authenticationManager.AuthenticateUser(
@@ -30,7 +35,7 @@ internal sealed class AuthenticateUserUseCase(
         when (ex is not OperationCanceledException)
         {
             logger.LogError(
-            "An unexpected error occurred while authenticating an user");
+                "An unexpected error occurred while authenticating an user");
 
             throw;
         }
