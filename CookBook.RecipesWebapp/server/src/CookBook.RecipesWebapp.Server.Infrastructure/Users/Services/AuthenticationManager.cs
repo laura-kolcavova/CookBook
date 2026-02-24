@@ -26,6 +26,7 @@ internal sealed class AuthenticationManager(
                 Username = email,
                 Password = password,
                 Scopes = [
+                    Scopes.OpenId,
                     Scopes.Profile,
                     Scopes.Email
                 ],

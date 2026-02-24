@@ -83,6 +83,7 @@ internal static class ServiceCollectionExtensions
                         .AddDevelopmentSigningCertificate();
 
                     options.RegisterScopes(
+                        Scopes.OpenId,
                         Scopes.Email,
                         Scopes.Profile);
 

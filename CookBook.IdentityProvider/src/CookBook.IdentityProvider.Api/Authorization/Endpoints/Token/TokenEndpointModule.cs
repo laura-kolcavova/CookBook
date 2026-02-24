@@ -125,6 +125,7 @@ public sealed class TokenEndpointModule :
 
         var restrictedScopes = new string[]
         {
+            Scopes.OpenId,
             Scopes.Email,
             Scopes.Profile,
         };
