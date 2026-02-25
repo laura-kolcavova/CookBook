@@ -1,4 +1,5 @@
 ﻿using CookBook.IdentityProvider.Infrastructure.Shared.Interceptors;
+using CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Extensions;
 using CookBook.IdentityProvider.Infrastructure.Users.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,7 +28,8 @@ public static class ServiceCollectionExtensions
         services
             .AddIdentityUsers(
                 connectionString,
-                isDevelopment);
+                isDevelopment)
+            .AddOpenIddictServer();
 
         services
             .AddUsers(

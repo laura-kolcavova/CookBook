@@ -4,7 +4,6 @@ using CookBook.IdentityProvider.Infrastructure.Shared.Interceptors;
 using CookBook.IdentityProvider.Infrastructure.Users.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Quartz;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Infrastructure.Users.Extensions;
@@ -40,66 +39,6 @@ internal static class ServiceCollectionExtensions
                 })
             .AddEntityFrameworkStores<IdentityUsersContext>()
             .AddDefaultTokenProviders();
-
-        services
-            .AddQuartz(options =>
-            {
-                options.UseSimpleTypeLoader();
-                options.UseInMemoryStore();
-            });
-
-        services
-            .AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
-
-        services
-            .AddOpenIddict()
-            .AddCore(
-                options =>
-                {
-                    options
-                        .UseEntityFrameworkCore()
-                        .UseDbContext<IdentityUsersContext>()
-                        .ReplaceDefaultEntities<int>();
-
-                    options
-                        .UseQuartz();
-                })
-            .AddServer(
-                options =>
-                {
-                    options.SetTokenEndpointUris(
-                        "api/authorization/token");
-
-                    options.SetUserInfoEndpointUris(
-                        "api/authorization/userinfo");
-
-                    options.AllowPasswordFlow();
-
-
-                    options.AcceptAnonymousClients();
-
-                    options
-                        .AddDevelopmentEncryptionCertificate()
-                        .AddDevelopmentSigningCertificate();
-
-                    options.RegisterScopes(
-                        Scopes.OpenId,
-                        Scopes.Email,
-                        Scopes.Profile);
-
-                    options
-                        .UseAspNetCore()
-                        .DisableTransportSecurityRequirement()
-                        .EnableTokenEndpointPassthrough()
-                        .EnableUserInfoEndpointPassthrough();
-                })
-        .AddValidation(
-            options =>
-            {
-                options.UseLocalServer();
-
-                options.UseAspNetCore();
-            });
 
         return services;
     }
