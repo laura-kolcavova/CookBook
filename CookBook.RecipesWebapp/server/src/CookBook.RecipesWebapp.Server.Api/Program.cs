@@ -81,7 +81,7 @@ services
         {
             options.AllowPasswordFlow();
 
-            //options.DisableTokenStorage();
+            options.DisableTokenStorage();
 
             options.UseSystemNetHttp(
                 ).SetProductInformation(typeof(Program).Assembly);
@@ -93,6 +93,9 @@ services
                     Issuer = new Uri(
                         openIddictConfiguration.IssuerUri,
                         UriKind.Absolute),
+
+                    ClientId = "CookBook.WebApp",
+                    ClientSecret = "c0741d5c-f119-4b19-be90-08b6bd1084bf",
                 });
 
             options.UseAspNetCore();

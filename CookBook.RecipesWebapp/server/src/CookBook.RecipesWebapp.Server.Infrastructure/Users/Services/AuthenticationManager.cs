@@ -26,12 +26,12 @@ internal sealed class AuthenticationManager(
                 Username = email,
                 Password = password,
                 Scopes = [
+                    Scopes.OpenId,
                     Scopes.Profile,
                     Scopes.Email
                 ],
             };
 
-            // IdentityToken and IdentityToken is not available when using password flow so UserInfoTokenPrincipal is used instead
             var passwordAuthenticationResult = await openIddictClientService.AuthenticateWithPasswordAsync(
                 request);
 
