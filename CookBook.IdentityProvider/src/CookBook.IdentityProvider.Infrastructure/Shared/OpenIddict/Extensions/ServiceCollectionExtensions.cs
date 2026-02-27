@@ -47,9 +47,6 @@ internal static class ServiceCollectionExtensions
 
                     options.AllowPasswordFlow();
 
-
-                    options.AcceptAnonymousClients();
-
                     options
                         .AddDevelopmentEncryptionCertificate()
                         .AddDevelopmentSigningCertificate();

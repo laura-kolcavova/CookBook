@@ -54,7 +54,7 @@ public sealed class LogInEndpointModule :
             scheme: CookieAuthenticationDefaults.AuthenticationScheme,
             principal: authenticationResult
                 .Value
-                .UserInfoTokenPrincipal,
+                .IdentityTokenPrincipal,
             properties: authProperties);
 
         return TypedResults.NoContent();
