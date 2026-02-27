@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CookBook.IdentityProvider.Api.Pages.Users.Login;
+namespace CookBook.IdentityProvider.Api.Pages.Users.LogIn;
 
 public sealed record InputModel
 {
@@ -11,5 +11,5 @@ public sealed record InputModel
     [Required]
     public required string Password { get; init; }
 
-    public required bool RememberLogin { get; init; }
+    public required bool RememberMe { get; init; }
 }
