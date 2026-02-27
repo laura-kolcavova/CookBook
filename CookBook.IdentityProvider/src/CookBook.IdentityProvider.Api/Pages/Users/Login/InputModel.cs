@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CookBook.IdentityProvider.Api.Users.Endpoints.Login;
+namespace CookBook.IdentityProvider.Api.Pages.Users.Login;
 
 public sealed record InputModel
 {

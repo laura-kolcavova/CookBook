@@ -14,6 +14,9 @@ internal static class ServiceCollectionExtensions
             .AddCarter(new DependencyContextAssemblyCatalog([typeof(Program).Assembly]));
 
         services
+            .AddRazorPages();
+
+        services
             .ConfigureHttpJsonOptions(options =>
             {
                 options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());

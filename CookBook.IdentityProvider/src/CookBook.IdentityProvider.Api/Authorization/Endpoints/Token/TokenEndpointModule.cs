@@ -11,7 +11,7 @@ using System.Collections.Immutable;
 using System.Security.Claims;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace CookBook.IdentityProvider.Api.Authorization.Endpoints.ExchangeToken;
+namespace CookBook.IdentityProvider.Api.Authorization.Endpoints.Token;
 
 public sealed class TokenEndpointModule :
     AuthorizationModule

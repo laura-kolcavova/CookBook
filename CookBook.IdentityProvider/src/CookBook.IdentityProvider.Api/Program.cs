@@ -55,6 +55,8 @@ app.UseAuthorization();
 
 app.MapCarter();
 
+app.MapRazorPages();
+
 app.UseSwagger(options =>
 {
     options.RouteTemplate = ".less-known/api-docs/{documentName}.json";

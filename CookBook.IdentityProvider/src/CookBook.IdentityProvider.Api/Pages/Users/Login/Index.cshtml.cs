@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CookBook.IdentityProvider.Api.Users.Endpoints.Login;
+namespace CookBook.IdentityProvider.Api.Pages.Users.Login;
 
 public sealed class IndexModel :
     PageModel
