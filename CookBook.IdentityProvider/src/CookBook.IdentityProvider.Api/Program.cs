@@ -48,6 +48,8 @@ else
     app.UseExceptionHandler();
 }
 
+app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseAuthentication();
