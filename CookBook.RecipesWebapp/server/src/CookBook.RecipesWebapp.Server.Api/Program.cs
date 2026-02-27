@@ -44,6 +44,7 @@ services
     {
         options.HeaderName = AntiforgeryConstants.HeaderName;
         options.Cookie.Name = AntiforgeryConstants.CookieName;
+        options.Cookie.HttpOnly = true;
         options.Cookie.SameSite = SameSiteMode.Strict;
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     });

@@ -38,6 +38,8 @@ internal sealed class AuthenticationManager(
             var authenticationResult = new AuthenticationResult
             {
                 AccessToken = passwordAuthenticationResult.AccessToken,
+                IdentityTokenPrincipal = passwordAuthenticationResult.IdentityTokenPrincipal
+                    ?? throw new InvalidOperationException("Identity token principal is not set."),
                 UserInfoTokenPrincipal = passwordAuthenticationResult.UserInfoTokenPrincipal
                     ?? throw new InvalidOperationException("User info token principal is not set.")
             };
