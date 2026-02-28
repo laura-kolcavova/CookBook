@@ -2,14 +2,16 @@
 
 namespace CookBook.IdentityProvider.Api.Pages.Users.LogIn;
 
-public sealed record InputModel
+public sealed class InputModel
 {
     [Required]
     [EmailAddress]
-    public required string Email { get; init; }
+    public string Email { get; set; } = string.Empty;
 
     [Required]
-    public required string Password { get; init; }
+    public string Password { get; set; } = string.Empty;
 
-    public required bool RememberMe { get; init; }
+    public bool RememberMe { get; set; } = false;
+
+    public string ReturnUrl { get; set; } = string.Empty;
 }

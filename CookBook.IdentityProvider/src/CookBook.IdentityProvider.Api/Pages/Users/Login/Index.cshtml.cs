@@ -12,46 +12,53 @@ public sealed class IndexModel(
     [BindProperty]
     public InputModel Input { get; set; } = null!;
 
-    private string test = string.Empty;
-
-    public string ReturnUrl { get; set; } = string.Empty;
-
-    public void OnGet(
+    public IActionResult OnGet(
         [FromQuery]
         string? returnUrl = null)
     {
+        Input = new InputModel
+        {
+            ReturnUrl = returnUrl ?? Url.Content("~/")
+        };
 
-        ReturnUrl ??= Url.Content("~/");
+        return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(
-        string? returnUrl = null)
+    public async Task<IActionResult> OnPostAsync()
     {
-        returnUrl ??= Url.Content("~/");
-
         if (!ModelState.IsValid)
         {
             return Page();
         }
 
         var result = await signInManager.PasswordSignInAsync(
-            Input.Email,
+            Input.Email!,
             Input.Password,
             Input.RememberMe,
             lockoutOnFailure: false);
 
-        if (result.Succeeded)
+        if (!result.Succeeded)
         {
-            return LocalRedirect(
-                returnUrl);
+            ModelState.AddModelError(
+               string.Empty,
+               "The provided email or password is incorrect.");
+
+            return Page();
+        }
+
+
+        if (string.IsNullOrEmpty(Input.ReturnUrl))
+        {
+            return Redirect("~/");
+        }
+        if (Url.IsLocalUrl(Input.ReturnUrl))
+        {
+            return Redirect(Input.ReturnUrl);
         }
         else
         {
-            ModelState.AddModelError(
-                string.Empty,
-                "The provided email or password is incorrect.");
-
-            return Page();
+            // user might have clicked on a malicious link - should be logged
+            throw new Exception("invalid return URL");
         }
     }
 }
