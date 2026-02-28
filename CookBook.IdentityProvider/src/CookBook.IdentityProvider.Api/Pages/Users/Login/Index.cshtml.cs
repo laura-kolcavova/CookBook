@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CookBook.IdentityProvider.Api.Pages.Users.LogIn;
 
-public sealed class IndexModel(
+public class IndexModel(
     SignInManager<CustomIdentityUser> signInManager) :
     PageModel
 {
+
     [BindProperty]
     public InputModel Input { get; set; } = null!;
 
@@ -18,13 +19,13 @@ public sealed class IndexModel(
     {
         Input = new InputModel
         {
-            ReturnUrl = returnUrl ?? Url.Content("~/")
+            ReturnUrl = returnUrl ?? Url.Content("~/"),
         };
 
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync()
+    public async Task<IActionResult> OnPost()
     {
         if (!ModelState.IsValid)
         {
@@ -32,8 +33,8 @@ public sealed class IndexModel(
         }
 
         var result = await signInManager.PasswordSignInAsync(
-            Input.Email!,
-            Input.Password,
+            Input!.Email!,
+            Input.Password!,
             Input.RememberMe,
             lockoutOnFailure: false);
 
@@ -41,7 +42,7 @@ public sealed class IndexModel(
         {
             ModelState.AddModelError(
                string.Empty,
-               "The provided email or password is incorrect.");
+               "The email/password couple is invalid.");
 
             return Page();
         }
