@@ -1,6 +1,5 @@
 ﻿using CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Services.Abstractions;
 using OpenIddict.Abstractions;
-using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Services;
 
@@ -27,7 +26,8 @@ internal sealed class OpenIddictServerSeeder(
                 ClientId = APPLICATION_CLIENT_ID_COOKBOOK_WEBAPP,
                 ClientSecret = APPLICATION_CLIENT_SECRET_COOKBOOK_WEBAPP,
                 DisplayName = APPLICATION_DISPLAY_NAME_COOKBOOK_WEBAPP,
-                ConsentType = ConsentTypes.Implicit,
+                ConsentType = OpenIddictConstants.ConsentTypes.Implicit,
+                ClientType = OpenIddictConstants.ClientTypes.Public,
                 PostLogoutRedirectUris =
                 {
                     new Uri("http://localhost:5015/signout-callback-oidc")
@@ -38,21 +38,21 @@ internal sealed class OpenIddictServerSeeder(
                 },
                 Permissions =
                 {
-                    Permissions.Endpoints.Authorization,
-                    Permissions.Endpoints.EndSession,
-                    Permissions.Endpoints.Token,
-                    Permissions.Endpoints.Revocation,
-                    Permissions.GrantTypes.AuthorizationCode,
-                    Permissions.GrantTypes.RefreshToken,
-                    Permissions.GrantTypes.Password,
-                    Permissions.ResponseTypes.Code,
-                    Permissions.Scopes.Email,
-                    Permissions.Scopes.Profile,
-                    Permissions.Scopes.Roles
+                    OpenIddictConstants.Permissions.Endpoints.Authorization,
+                    OpenIddictConstants.Permissions.Endpoints.EndSession,
+                    OpenIddictConstants.Permissions.Endpoints.Token,
+                    OpenIddictConstants.Permissions.Endpoints.Revocation,
+                    OpenIddictConstants.Permissions.GrantTypes.AuthorizationCode,
+                    OpenIddictConstants.Permissions.GrantTypes.RefreshToken,
+                    OpenIddictConstants.Permissions.GrantTypes.Password,
+                    OpenIddictConstants.Permissions.ResponseTypes.Code,
+                    OpenIddictConstants.Permissions.Scopes.Email,
+                    OpenIddictConstants.Permissions.Scopes.Profile,
+                    OpenIddictConstants.Permissions.Scopes.Roles
                 },
                 Requirements =
                 {
-                    Requirements.Features.ProofKeyForCodeExchange
+                    OpenIddictConstants.Requirements.Features.ProofKeyForCodeExchange
                 }
             };
 

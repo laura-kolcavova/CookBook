@@ -95,7 +95,7 @@ services
 
             options.SaveTokens = true;
             options.GetClaimsFromUserInfoEndpoint = true;
-            //options.MapInboundClaims = false;
+            options.MapInboundClaims = false;
         });
 
 
