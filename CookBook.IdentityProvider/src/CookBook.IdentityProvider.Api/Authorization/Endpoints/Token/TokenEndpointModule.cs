@@ -11,7 +11,7 @@ using System.Collections.Immutable;
 using System.Security.Claims;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace CookBook.IdentityProvider.Api.Authorization.Endpoints.ExchangeToken;
+namespace CookBook.IdentityProvider.Api.Authorization.Endpoints.Token;
 
 public sealed class TokenEndpointModule :
     AuthorizationModule
@@ -85,10 +85,11 @@ public sealed class TokenEndpointModule :
                     OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
                 ]);
         }
+
         var signInResult = await signInManager.CheckPasswordSignInAsync(
             user,
             openIddictRequest.Password!,
-            lockoutOnFailure: true);
+            lockoutOnFailure: false);
 
         if (!signInResult.Succeeded)
         {
@@ -155,9 +156,6 @@ public sealed class TokenEndpointModule :
     private static IEnumerable<string> GetDestinations(
         Claim claim)
     {
-        // Note: by default, claims are NOT automatically included in the access and identity tokens.
-        // To allow OpenIddict to serialize them, you must attach them a destination, that specifies
-        // whether they should be included in access tokens, in identity tokens or in both.
         switch (claim.Type)
         {
             case Claims.Name or Claims.PreferredUsername:

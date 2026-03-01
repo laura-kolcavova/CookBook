@@ -48,12 +48,16 @@ else
     app.UseExceptionHandler();
 }
 
+app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapCarter();
+
+app.MapRazorPages();
 
 app.UseSwagger(options =>
 {
