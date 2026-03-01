@@ -27,7 +27,6 @@ public sealed class AuthorizeEndpointModule :
             .WithName("Authorize")
             .WithSummary("OpenID Connect authorization endpoint")
             .WithDescription("")
-            //.Accepts<IFormCollection>("application/x-www-form-urlencoded")
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
@@ -165,11 +164,12 @@ public sealed class AuthorizeEndpointModule :
                        );
                 }
             case ConsentTypes.Implicit:
-            case ConsentTypes.External
-                when authorizations.Count is not 0:
+            case ConsentTypes.External:
+            //when authorizations.Count is not 0:
             case ConsentTypes.Explicit
-                when authorizations.Count is not 0 &&
-                !openIddictRequest.HasPromptValue(PromptValues.Consent):
+                when !openIddictRequest.HasPromptValue(PromptValues.Consent):
+                //when authorizations.Count is not 0 &&
+                //!openIddictRequest.HasPromptValue(PromptValues.Consent):
                 {
                     var identity = new ClaimsIdentity(
                         authenticationType: TokenValidationParameters.DefaultAuthenticationType,
@@ -244,7 +244,7 @@ public sealed class AuthorizeEndpointModule :
 
             default:
                 {
-                    return TypedResults.BadRequest();
+                    throw new Exception("");
 
                     //return View(new AuthorizeViewModel
                     //{
