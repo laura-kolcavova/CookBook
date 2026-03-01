@@ -27,7 +27,7 @@ const getLogInUserUrl = (returnUrl?: string): string => {
   const basePath = 'api/users/login';
 
   if (returnUrl) {
-    return `${basePath}?${returnUrl}`;
+    return `${basePath}?returnUrl=${returnUrl}`;
   }
 
   return basePath;
