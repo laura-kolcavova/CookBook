@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { FaHouse, FaMagnifyingGlass, FaPlus, FaRegCircleUser } from 'react-icons/fa6';
+import { FaHouse, FaMagnifyingGlass, FaPlus } from 'react-icons/fa6';
 import { NavIconLink } from './NavIconLink';
 import { useRouter } from '~/navigation/hooks/useRouter';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { UserIconButton } from './UserIconButton';
 import { pages } from '~/navigation/pages';
 import { messages } from './messages';
 import { useCurrentUser } from '~/authentication/CurrentUserProvider';
+import { LogInIconButton } from './LogInIconButton';
 
 export const Header: React.FC = () => {
   const { currentUser } = useCurrentUser();
@@ -57,12 +58,7 @@ export const Header: React.FC = () => {
 
             {!currentUser.isAuthenticated && (
               <li>
-                <NavIconLink
-                  text={<FormattedMessage {...messages.logIn} />}
-                  icon={<FaRegCircleUser />}
-                  to={pages.LogIn.paths[0]}
-                  isActive={isPageActive(pages.LogIn)}
-                />
+                <LogInIconButton />
               </li>
             )}
 

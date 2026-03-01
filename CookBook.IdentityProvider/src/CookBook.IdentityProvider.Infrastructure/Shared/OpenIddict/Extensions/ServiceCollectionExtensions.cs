@@ -21,7 +21,8 @@ internal static class ServiceCollectionExtensions
             });
 
         services
-            .AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
+            .AddQuartzHostedService(options =>
+                options.WaitForJobsToComplete = true);
 
         services
             .AddOpenIddict()
@@ -39,8 +40,8 @@ internal static class ServiceCollectionExtensions
             .AddServer(
                 options =>
                 {
-                    //options.SetAuthorizationEndpointUris(
-                    //    "api/authorization/authorize");
+                    options.SetAuthorizationEndpointUris(
+                        "api/authorization/authorize");
 
                     options.SetTokenEndpointUris(
                         "api/authorization/token");
@@ -48,7 +49,11 @@ internal static class ServiceCollectionExtensions
                     options.SetUserInfoEndpointUris(
                         "api/authorization/userinfo");
 
-                    options.AllowPasswordFlow();
+                    options
+                        .AllowAuthorizationCodeFlow()
+                        .AllowClientCredentialsFlow()
+                        .AllowRefreshTokenFlow()
+                        .AllowPasswordFlow();
 
                     options
                         .AddDevelopmentEncryptionCertificate()
@@ -62,8 +67,11 @@ internal static class ServiceCollectionExtensions
                     options
                         .UseAspNetCore()
                         .DisableTransportSecurityRequirement()
+                        .EnableAuthorizationEndpointPassthrough()
+                        .EnableEndSessionEndpointPassthrough()
                         .EnableTokenEndpointPassthrough()
-                        .EnableUserInfoEndpointPassthrough();
+                        .EnableUserInfoEndpointPassthrough()
+                        .EnableStatusCodePagesIntegration();
                 })
             .AddValidation(
                 options =>

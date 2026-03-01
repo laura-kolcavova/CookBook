@@ -1,16 +1,17 @@
 using Carter;
-using CookBook.RecipesWebapp.Server.Api.Shared.Antiforgery;
-using CookBook.RecipesWebapp.Server.Api.Shared.Authentication;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Shared.ReverseProxy;
 using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
 using CookBook.RecipesWebapp.Server.Application.Shared.Extensions;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIddict;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Physical;
-using OpenIddict.Client;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using OpenIddict.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,9 +30,9 @@ var spaClientConfiguration = configuration
     .GetRequiredSection(nameof(SpaClientConfiguration))
     .Get<SpaClientConfiguration>()!;
 
-var openIddictConfiguration = configuration
-    .GetRequiredSection(nameof(OpenIddictConfiguration))
-    .Get<OpenIddictConfiguration>()!;
+var openIdConnectClientConfiguration = configuration
+    .GetRequiredSection(nameof(OpenIdConnectClientConfiguration))
+    .Get<OpenIdConnectClientConfiguration>()!;
 
 var reverseProxyConfiguration = configuration
     .GetRequiredSection(ReverseProxyConstants.ConfigurationSectionName);
@@ -42,8 +43,8 @@ services
 services
     .AddAntiforgery(options =>
     {
-        options.HeaderName = AntiforgeryConstants.HeaderName;
-        options.Cookie.Name = AntiforgeryConstants.CookieName;
+        options.HeaderName = ConfigurationConstants.Antiforgery.HeaderName;
+        options.Cookie.Name = ConfigurationConstants.Antiforgery.CookieName;
         options.Cookie.HttpOnly = true;
         options.Cookie.SameSite = SameSiteMode.Strict;
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
@@ -54,18 +55,73 @@ services
         options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
         })
     .AddCookie(
         options =>
         {
+            //options.LoginPath = "/login";
+            //options.LogoutPath = "/logout";
+
             options.ExpireTimeSpan = TimeSpan.FromDays(1);
             options.SlidingExpiration = true;
-            options.Cookie.Name = AuthenticationConstants.Cookies.CookieName;
+
+            options.Cookie.Name = ConfigurationConstants.Identity.CookieName;
             options.Cookie.HttpOnly = true;
             options.Cookie.SameSite = SameSiteMode.Strict;
             options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 
+        })
+    .AddOpenIdConnect(
+        options =>
+        {
+            options.Authority = openIdConnectClientConfiguration.Authority;
+            options.ClientId = openIdConnectClientConfiguration.ClientId;
+            options.ClientSecret = openIdConnectClientConfiguration.ClientSecret;
+
+            options.ResponseType = OpenIdConnectResponseType.Code;
+            options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+            options.Scope.Add(OpenIddictConstants.Scopes.OpenId);
+            options.Scope.Add(OpenIddictConstants.Scopes.Email);
+            options.Scope.Add(OpenIddictConstants.Scopes.Profile);
+
+            if (isDevelopment)
+            {
+                options.RequireHttpsMetadata = false;
+            }
+
+            options.SaveTokens = true;
+            options.MapInboundClaims = false;
+            options.GetClaimsFromUserInfoEndpoint = true;
         });
+
+//services
+//    .AddOpenIddict()
+//    .AddClient(
+//        options =>
+//        {
+//            options.AllowPasswordFlow();
+
+//            options.DisableTokenStorage();
+
+//            options.UseSystemNetHttp(
+//                ).SetProductInformation(typeof(Program).Assembly);
+
+
+//            options.AddRegistration(
+//                new OpenIddictClientRegistration
+//                {
+//                    Issuer = new Uri(
+//                        openIddictConfiguration.IssuerUri,
+//                        UriKind.Absolute),
+
+//                    ClientId = "CookBook.WebApp",
+//                    ClientSecret = "c0741d5c-f119-4b19-be90-08b6bd1084bf",
+//                });
+
+//            options.UseAspNetCore();
+//        });
 
 services
     .AddApplication()
@@ -74,33 +130,6 @@ services
         builder.Environment.ApplicationName,
         reverseProxyConfiguration)
     .AddSpaClient(spaClientConfiguration);
-
-services
-    .AddOpenIddict()
-    .AddClient(
-        options =>
-        {
-            options.AllowPasswordFlow();
-
-            options.DisableTokenStorage();
-
-            options.UseSystemNetHttp(
-                ).SetProductInformation(typeof(Program).Assembly);
-
-
-            options.AddRegistration(
-                new OpenIddictClientRegistration
-                {
-                    Issuer = new Uri(
-                        openIddictConfiguration.IssuerUri,
-                        UriKind.Absolute),
-
-                    ClientId = "CookBook.WebApp",
-                    ClientSecret = "c0741d5c-f119-4b19-be90-08b6bd1084bf",
-                });
-
-            options.UseAspNetCore();
-        });
 
 var app = builder.Build();
 

@@ -1,7 +1,6 @@
 import { Home } from '~/pages/Home';
 
 import { Explore } from '~/pages/Explore';
-import { LogIn } from '~/pages/LogIn';
 import { Register } from '~/pages/Register';
 import { Saved } from '~/pages/Saved';
 import { MyProfile } from '~/pages/MyProfile';
@@ -21,11 +20,6 @@ export const pages = {
   [Page.Explore]: {
     paths: ['/explore'],
     component: Explore,
-    public: true,
-  },
-  [Page.LogIn]: {
-    paths: ['/login'],
-    component: LogIn,
     public: true,
   },
   [Page.Register]: {

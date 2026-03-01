@@ -1,5 +1,6 @@
 ﻿using CookBook.IdentityProvider.Domain.Users;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
+using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
 using CookBook.IdentityProvider.Infrastructure.Shared.Interceptors;
 using CookBook.IdentityProvider.Infrastructure.Users.Services;
 using Microsoft.AspNetCore.Identity;
@@ -40,6 +41,12 @@ internal static class ServiceCollectionExtensions
                 })
             .AddEntityFrameworkStores<IdentityUsersContext>()
             .AddDefaultTokenProviders();
+
+        services
+            .ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = ConfigurationConstants.IdentityApplication.CookieName;
+            });
 
         return services;
     }

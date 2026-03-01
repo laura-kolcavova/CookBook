@@ -1,9 +1,9 @@
 using Carter;
 using CookBook.Extensions.AspNetCore.SqlServer;
-using CookBook.IdentityProvider.Api.Shared.Configuration;
 using CookBook.IdentityProvider.Api.Shared.Extensions;
 using CookBook.IdentityProvider.Application.Shared.Extensions;
 using CookBook.IdentityProvider.Domain.Shared.Extensions;
+using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
 using CookBook.IdentityProvider.Infrastructure.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,13 +20,25 @@ builder.Host
     });
 
 var cookBookUsersConnectionString = configuration.GetSqlConnectionString(
-    ConfigurationConstants.CookBookUsersConnectionStringSectionName);
+    ConfigurationConstants.SqlConnectionStrings.CookBookUsersSectionName);
 
 services
     .AddOptions();
 
 services
     .AddAuthorization();
+
+services
+    .AddCors(options =>
+        options
+            .AddPolicy(
+                ConfigurationConstants.CorsPolicies.Main,
+                builder => builder
+                    .WithOrigins()
+                    .AllowCredentials()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .SetIsOriginAllowed(origin => true)));
 
 services
     .AddDomain()
@@ -51,6 +63,8 @@ else
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors(ConfigurationConstants.SqlConnectionStrings.CookBookUsersSectionName);
 
 app.UseAuthentication();
 app.UseAuthorization();
