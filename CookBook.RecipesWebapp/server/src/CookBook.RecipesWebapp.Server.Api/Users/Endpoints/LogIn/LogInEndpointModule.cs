@@ -44,7 +44,8 @@ public sealed class LogInEndpointModule :
         {
             return pathBase;
         }
-        else if (!Uri.IsWellFormedUriString(returnUrl, UriKind.Relative))
+
+        if (!Uri.IsWellFormedUriString(returnUrl, UriKind.Relative))
         {
             var uri = new Uri(
                 returnUrl,
@@ -52,13 +53,12 @@ public sealed class LogInEndpointModule :
 
             return uri.PathAndQuery;
         }
-        else if (returnUrl[0] != '/')
+
+        if (returnUrl[0] != '/')
         {
             return $"{pathBase}{returnUrl}";
         }
-        else
-        {
-            return returnUrl;
-        }
+
+        return returnUrl;
     }
 }
