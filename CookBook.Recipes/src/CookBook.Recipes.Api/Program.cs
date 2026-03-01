@@ -1,8 +1,8 @@
 using CookBook.Extensions.AspNetCore.SqlServer;
 using CookBook.Recipes.Api.Shared;
-using CookBook.Recipes.Api.Shared.Configuration;
 using CookBook.Recipes.Api.Shared.Extensions;
 using CookBook.Recipes.Application.Shared.Extensions;
+using CookBook.Recipes.Infrastructure.Shared.Configuration;
 using CookBook.Recipes.Infrastructure.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +19,7 @@ builder.Host
     });
 
 var cookBookRecipesConnectionString = configuration.GetSqlConnectionString(
-    ConfigurationConstants.CookBookRecipesConnectionStringSectionName);
+    ConfigurationConstants.SqlConnectionStrings.CookBookRecipesSectionName);
 
 services
     .AddOptions();
