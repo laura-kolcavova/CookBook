@@ -1,10 +1,9 @@
 using Carter;
-using CookBook.RecipesWebapp.Server.Api.Shared.Antiforgery;
-using CookBook.RecipesWebapp.Server.Api.Shared.Authentication;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Shared.ReverseProxy;
 using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
 using CookBook.RecipesWebapp.Server.Application.Shared.Extensions;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIddict;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -44,8 +43,8 @@ services
 services
     .AddAntiforgery(options =>
     {
-        options.HeaderName = AntiforgeryConstants.HeaderName;
-        options.Cookie.Name = AntiforgeryConstants.CookieName;
+        options.HeaderName = ConfigurationConstants.Antiforgery.HeaderName;
+        options.Cookie.Name = ConfigurationConstants.Antiforgery.CookieName;
         options.Cookie.HttpOnly = true;
         options.Cookie.SameSite = SameSiteMode.Strict;
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
@@ -67,7 +66,7 @@ services
             options.ExpireTimeSpan = TimeSpan.FromDays(1);
             options.SlidingExpiration = true;
 
-            options.Cookie.Name = AuthenticationConstants.Cookies.CookieName;
+            options.Cookie.Name = ConfigurationConstants.Identity.CookieName;
             options.Cookie.HttpOnly = true;
             options.Cookie.SameSite = SameSiteMode.Strict;
             options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
