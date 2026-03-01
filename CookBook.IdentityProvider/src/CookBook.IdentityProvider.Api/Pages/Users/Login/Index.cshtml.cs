@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CookBook.IdentityProvider.Api.Pages.Users.LogIn;
 
-public class IndexModel(
+public sealed class IndexModel(
+    UserManager<CustomIdentityUser> userManager,
     SignInManager<CustomIdentityUser> signInManager) :
     PageModel
 {
@@ -32,8 +33,20 @@ public class IndexModel(
             return Page();
         }
 
+        var user = await userManager.FindByEmailAsync(
+            Input.Email);
+
+        if (user is null)
+        {
+            ModelState.AddModelError(
+               string.Empty,
+               "The email/password couple is invalid.");
+
+            return Page();
+        }
+
         var result = await signInManager.PasswordSignInAsync(
-            Input!.Email!,
+            user,
             Input.Password!,
             Input.RememberMe,
             lockoutOnFailure: false);
@@ -47,19 +60,17 @@ public class IndexModel(
             return Page();
         }
 
-
         if (string.IsNullOrEmpty(Input.ReturnUrl))
         {
             return Redirect("~/");
         }
+
         if (Url.IsLocalUrl(Input.ReturnUrl))
         {
             return Redirect(Input.ReturnUrl);
         }
-        else
-        {
-            // user might have clicked on a malicious link - should be logged
-            throw new Exception("invalid return URL");
-        }
+
+        // user might have clicked on a malicious link
+        throw new Exception("Invalid return URL");
     }
 }

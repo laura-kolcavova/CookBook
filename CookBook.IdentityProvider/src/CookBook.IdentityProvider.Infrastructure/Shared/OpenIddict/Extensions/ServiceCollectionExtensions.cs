@@ -39,6 +39,9 @@ internal static class ServiceCollectionExtensions
             .AddServer(
                 options =>
                 {
+                    //options.SetAuthorizationEndpointUris(
+                    //    "api/authorization/authorize");
+
                     options.SetTokenEndpointUris(
                         "api/authorization/token");
 
