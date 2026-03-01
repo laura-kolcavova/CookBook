@@ -56,13 +56,15 @@ public sealed class TokenEndpointModule :
         if (openIddictRequest.IsAuthorizationCodeGrantType() ||
             openIddictRequest.IsRefreshTokenGrantType())
         {
-            // Retrieve the claims principal stored in the authorization code/refresh token.
-            var result = await httpContext.AuthenticateAsync(
+            var authenticationResult = await httpContext.AuthenticateAsync(
                 OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
 
-            // Retrieve the user profile corresponding to the authorization code/refresh token.
+            var userId = authenticationResult
+                    .Principal
+                    !.GetClaim(Claims.Subject)!;
+
             var user = await userManager.FindByIdAsync(
-                result.Principal!.GetClaim(Claims.Subject)!);
+                userId);
 
             if (user is null)
             {
@@ -77,7 +79,8 @@ public sealed class TokenEndpointModule :
                     ]);
             }
 
-            var canSignIn = await signInManager.CanSignInAsync(user);
+            var canSignIn = await signInManager.CanSignInAsync(
+                user);
 
             if (!canSignIn)
             {
@@ -92,7 +95,10 @@ public sealed class TokenEndpointModule :
                     ]);
             }
 
-            var identity = new ClaimsIdentity(result.Principal!.Claims,
+            var identity = new ClaimsIdentity(
+                authenticationResult
+                    .Principal
+                    !.Claims,
                 authenticationType: TokenValidationParameters.DefaultAuthenticationType,
                 nameType: Claims.Name,
                 roleType: Claims.Role);
