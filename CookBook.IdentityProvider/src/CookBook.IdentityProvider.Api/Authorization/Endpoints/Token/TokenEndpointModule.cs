@@ -21,19 +21,17 @@ public sealed class TokenEndpointModule :
         app
             .MapPost("/token", HandleAsync)
             .WithName("Token")
-            .WithSummary("OpenIddict token endpoint")
+            .WithSummary("OpenID Connect token endpoint")
             .WithDescription("")
             .Accepts<IFormCollection>("application/x-www-form-urlencoded")
-            .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
-            .ValidateRequest()
             .HandleOperationCancelled()
             .AllowAnonymous();
     }
 
-    private static Task<IResult> HandleAsync(
+    private static async Task<IResult> HandleAsync(
         [FromServices] UserManager<CustomIdentityUser> userManager,
         [FromServices] SignInManager<CustomIdentityUser> signInManager,
         [FromServices] IOpenIddictScopeManager scopeManager,
@@ -46,13 +44,77 @@ public sealed class TokenEndpointModule :
 
         if (openIddictRequest.IsPasswordGrantType())
         {
-            return HandlePasswordGrantTypeAsync(
+            return await HandlePasswordGrantTypeAsync(
                 openIddictRequest,
                 userManager,
                 signInManager,
                 scopeManager,
                 httpContext,
                 cancellationToken);
+        }
+
+        if (openIddictRequest.IsAuthorizationCodeGrantType() ||
+            openIddictRequest.IsRefreshTokenGrantType())
+        {
+            // Retrieve the claims principal stored in the authorization code/refresh token.
+            var result = await httpContext.AuthenticateAsync(
+                OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+
+            // Retrieve the user profile corresponding to the authorization code/refresh token.
+            var user = await userManager.FindByIdAsync(
+                result.Principal!.GetClaim(Claims.Subject)!);
+
+            if (user is null)
+            {
+                return TypedResults.Forbid(
+                    properties: new AuthenticationProperties(new Dictionary<string, string?>
+                    {
+                        [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
+                        [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The token is no longer valid."
+                    }),
+                    authenticationSchemes: [
+                        OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
+                    ]);
+            }
+
+            var canSignIn = await signInManager.CanSignInAsync(user);
+
+            if (!canSignIn)
+            {
+                return TypedResults.Forbid(
+                    properties: new AuthenticationProperties(new Dictionary<string, string?>
+                    {
+                        [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
+                        [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The user is no longer allowed to sign in."
+                    }),
+                    authenticationSchemes: [
+                        OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
+                    ]);
+            }
+
+            var identity = new ClaimsIdentity(result.Principal!.Claims,
+                authenticationType: TokenValidationParameters.DefaultAuthenticationType,
+                nameType: Claims.Name,
+                roleType: Claims.Role);
+
+            var preferredUsernameClaimValue = (await userManager.GetClaimsAsync(user))
+                .FirstOrDefault(claim => claim.Type == Claims.PreferredUsername)
+                ?.Value
+                ?? throw new InvalidOperationException("Preferred user name is not set.");
+
+            identity
+                .SetClaim(Claims.Subject, await userManager.GetUserIdAsync(user))
+                .SetClaim(Claims.Email, await userManager.GetEmailAsync(user))
+                .SetClaim(Claims.Name, await userManager.GetUserNameAsync(user))
+                .SetClaim(Claims.PreferredUsername, preferredUsernameClaimValue)
+                .SetClaims(Claims.Role, (await userManager.GetRolesAsync(user)).ToImmutableArray());
+
+            identity.SetDestinations(ClaimExtensions.GetDestinations);
+
+            return TypedResults.SignIn(
+                new ClaimsPrincipal(identity),
+                authenticationScheme: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+
         }
 
         throw new NotImplementedException(
@@ -146,59 +208,10 @@ public sealed class TokenEndpointModule :
 
         identity.SetResources(resources);
 
-        identity.SetDestinations(GetDestinations);
+        identity.SetDestinations(ClaimExtensions.GetDestinations);
 
         return TypedResults.SignIn(
             new ClaimsPrincipal(identity),
             authenticationScheme: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
-    }
-
-    private static IEnumerable<string> GetDestinations(
-        Claim claim)
-    {
-        switch (claim.Type)
-        {
-            case Claims.Name or Claims.PreferredUsername:
-                {
-                    yield return Destinations.AccessToken;
-
-                    if (claim.Subject!.HasScope(Scopes.Profile))
-                    {
-                        yield return Destinations.IdentityToken;
-                    }
-
-                    yield break;
-                }
-            case Claims.Email:
-                {
-                    yield return Destinations.AccessToken;
-
-                    if (claim.Subject!.HasScope(Scopes.Email))
-                        yield return Destinations.IdentityToken;
-
-                    yield break;
-                }
-            case Claims.Role:
-                {
-                    yield return Destinations.AccessToken;
-
-                    if (claim.Subject!.HasScope(Scopes.Roles))
-                    {
-                        yield return Destinations.IdentityToken;
-                    }
-
-                    yield break;
-                }
-            // Never include the security stamp in the access and identity tokens, as it's a secret value.
-            case "AspNet.Identity.SecurityStamp":
-                yield break;
-
-            default:
-                {
-                    yield return Destinations.AccessToken;
-
-                    yield break;
-                }
-        }
     }
 }

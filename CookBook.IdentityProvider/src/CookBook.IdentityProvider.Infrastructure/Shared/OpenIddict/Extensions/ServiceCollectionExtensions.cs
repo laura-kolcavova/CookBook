@@ -39,8 +39,8 @@ internal static class ServiceCollectionExtensions
             .AddServer(
                 options =>
                 {
-                    //options.SetAuthorizationEndpointUris(
-                    //    "api/authorization/authorize");
+                    options.SetAuthorizationEndpointUris(
+                        "api/authorization/authorize");
 
                     options.SetTokenEndpointUris(
                         "api/authorization/token");
@@ -48,7 +48,11 @@ internal static class ServiceCollectionExtensions
                     options.SetUserInfoEndpointUris(
                         "api/authorization/userinfo");
 
-                    options.AllowPasswordFlow();
+                    options
+                        .AllowAuthorizationCodeFlow()
+                        .AllowClientCredentialsFlow()
+                        .AllowRefreshTokenFlow()
+                        .AllowPasswordFlow();
 
                     options
                         .AddDevelopmentEncryptionCertificate()
