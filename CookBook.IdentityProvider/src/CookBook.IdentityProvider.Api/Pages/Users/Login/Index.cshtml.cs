@@ -1,10 +1,12 @@
 using CookBook.IdentityProvider.Domain.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CookBook.IdentityProvider.Api.Pages.Users.LogIn;
 
+[AllowAnonymous]
 public sealed class IndexModel(
     UserManager<CustomIdentityUser> userManager,
     SignInManager<CustomIdentityUser> signInManager) :

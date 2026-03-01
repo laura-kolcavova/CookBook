@@ -10,7 +10,6 @@ using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIddict;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Physical;
-using OpenIddict.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,7 +64,51 @@ services
             options.Cookie.SameSite = SameSiteMode.Strict;
             options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 
+        })
+    .AddOpenIdConnect(
+        options =>
+        {
+            options.Authority = openIddictConfiguration.IssuerUri;
+
+            options.ClientId = "CookBook.WebApp";
+            options.ClientSecret = "c0741d5c-f119-4b19-be90-08b6bd1084bf";
+            options.ResponseType = "code";
+
+            //options.Scope.Add("roles");
+            //options.Scope.Add("globoapi");
+            //options.Scope.Add("authapi");
+
+            options.SaveTokens = true;
+            options.MapInboundClaims = false;
         });
+
+
+//services
+//    .AddOpenIddict()
+//    .AddClient(
+//        options =>
+//        {
+//            options.AllowPasswordFlow();
+
+//            options.DisableTokenStorage();
+
+//            options.UseSystemNetHttp(
+//                ).SetProductInformation(typeof(Program).Assembly);
+
+
+//            options.AddRegistration(
+//                new OpenIddictClientRegistration
+//                {
+//                    Issuer = new Uri(
+//                        openIddictConfiguration.IssuerUri,
+//                        UriKind.Absolute),
+
+//                    ClientId = "CookBook.WebApp",
+//                    ClientSecret = "c0741d5c-f119-4b19-be90-08b6bd1084bf",
+//                });
+
+//            options.UseAspNetCore();
+//        });
 
 services
     .AddApplication()
@@ -74,33 +117,6 @@ services
         builder.Environment.ApplicationName,
         reverseProxyConfiguration)
     .AddSpaClient(spaClientConfiguration);
-
-services
-    .AddOpenIddict()
-    .AddClient(
-        options =>
-        {
-            options.AllowPasswordFlow();
-
-            options.DisableTokenStorage();
-
-            options.UseSystemNetHttp(
-                ).SetProductInformation(typeof(Program).Assembly);
-
-
-            options.AddRegistration(
-                new OpenIddictClientRegistration
-                {
-                    Issuer = new Uri(
-                        openIddictConfiguration.IssuerUri,
-                        UriKind.Absolute),
-
-                    ClientId = "CookBook.WebApp",
-                    ClientSecret = "c0741d5c-f119-4b19-be90-08b6bd1084bf",
-                });
-
-            options.UseAspNetCore();
-        });
 
 var app = builder.Build();
 
