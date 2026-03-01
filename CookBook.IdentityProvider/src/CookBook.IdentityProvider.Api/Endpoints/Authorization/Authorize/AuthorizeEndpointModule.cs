@@ -10,7 +10,6 @@ using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 using System.Collections.Immutable;
 using System.Security.Claims;
-using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Api.Endpoints.Authorization.Authorize;
 
@@ -48,28 +47,28 @@ public sealed class AuthorizeEndpointModule :
 
         var httpRequest = httpContext.Request;
 
-        if (openIddictRequest.HasPromptValue(PromptValues.Login))
+        if (openIddictRequest.HasPromptValue(OpenIddictConstants.PromptValues.Login))
         {
             var prompt = string.Join(
                 " ",
                 openIddictRequest
                     .GetPromptValues()
-                    .Remove(PromptValues.Login));
+                    .Remove(OpenIddictConstants.PromptValues.Login));
 
             var parameters = httpRequest
                 .HasFormContentType
                 ? httpRequest
                     .Form
-                    .Where(parameter => parameter.Key != Parameters.Prompt)
+                    .Where(parameter => parameter.Key != OpenIddictConstants.Parameters.Prompt)
                     .ToList()
                 : httpRequest
                     .Query
-                    .Where(parameter => parameter.Key != Parameters.Prompt)
+                    .Where(parameter => parameter.Key != OpenIddictConstants.Parameters.Prompt)
                     .ToList();
 
             parameters.Add(
                 KeyValuePair.Create(
-                    Parameters.Prompt,
+                    OpenIddictConstants.Parameters.Prompt,
                     new StringValues(prompt)));
 
             var returnUrl = httpRequest.PathBase
@@ -97,12 +96,12 @@ public sealed class AuthorizeEndpointModule :
 
         )
         {
-            if (openIddictRequest.HasPromptValue(PromptValues.None))
+            if (openIddictRequest.HasPromptValue(OpenIddictConstants.PromptValues.None))
             {
                 return TypedResults.Forbid(
                     properties: new AuthenticationProperties(new Dictionary<string, string?>
                     {
-                        [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.LoginRequired,
+                        [OpenIddictServerAspNetCoreConstants.Properties.Error] = OpenIddictConstants.Errors.LoginRequired,
                         [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The user is not logged in."
                     }),
                     authenticationSchemes: [
@@ -139,8 +138,8 @@ public sealed class AuthorizeEndpointModule :
             .FindAsync(
                 subject: await userManager.GetUserIdAsync(user),
                 client: await applicationManager.GetIdAsync(application),
-                status: Statuses.Valid,
-                type: AuthorizationTypes.Permanent,
+                status: OpenIddictConstants.Statuses.Valid,
+                type: OpenIddictConstants.AuthorizationTypes.Permanent,
                 scopes: openIddictRequest.GetScopes())
             .ToListAsync(cancellationToken);
 
@@ -148,13 +147,13 @@ public sealed class AuthorizeEndpointModule :
 
         switch (consentType)
         {
-            case ConsentTypes.External
+            case OpenIddictConstants.ConsentTypes.External
                 when authorizations.Count is 0:
                 {
                     return TypedResults.Forbid(
                         properties: new AuthenticationProperties(new Dictionary<string, string?>
                         {
-                            [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.ConsentRequired,
+                            [OpenIddictServerAspNetCoreConstants.Properties.Error] = OpenIddictConstants.Errors.ConsentRequired,
                             [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] =
                                 "The logged in user is not allowed to access this client application."
                         }),
@@ -163,36 +162,45 @@ public sealed class AuthorizeEndpointModule :
                         ]
                        );
                 }
-            case ConsentTypes.Implicit:
-            case ConsentTypes.External:
-            //when authorizations.Count is not 0:
-            case ConsentTypes.Explicit
-                when !openIddictRequest.HasPromptValue(PromptValues.Consent):
-                //when authorizations.Count is not 0 &&
-                //!openIddictRequest.HasPromptValue(PromptValues.Consent):
+            case OpenIddictConstants.ConsentTypes.Implicit:
+            case OpenIddictConstants.ConsentTypes.External
+                when authorizations.Count is not 0:
+            case OpenIddictConstants.ConsentTypes.Explicit
+                when authorizations.Count is not 0 &&
+                !openIddictRequest.HasPromptValue(OpenIddictConstants.PromptValues.Consent):
                 {
                     var identity = new ClaimsIdentity(
                         authenticationType: TokenValidationParameters.DefaultAuthenticationType,
-                        nameType: Claims.Name,
-                        roleType: Claims.Role);
+                        nameType: OpenIddictConstants.Claims.Name,
+                        roleType: OpenIddictConstants.Claims.Role);
 
                     var preferredUsernameClaimValue = (await userManager.GetClaimsAsync(user))
-                        .FirstOrDefault(claim => claim.Type == Claims.PreferredUsername)
+                        .FirstOrDefault(claim => claim.Type == OpenIddictConstants.Claims.PreferredUsername)
                         ?.Value
                         ?? throw new InvalidOperationException("Preferred user name is not set.");
 
                     identity
-                        .SetClaim(Claims.Subject, await userManager.GetUserIdAsync(user))
-                        .SetClaim(Claims.Email, await userManager.GetEmailAsync(user))
-                        .SetClaim(Claims.Name, await userManager.GetUserNameAsync(user))
-                        .SetClaim(Claims.PreferredUsername, preferredUsernameClaimValue)
-                        .SetClaims(Claims.Role, (await userManager.GetRolesAsync(user)).ToImmutableArray());
+                        .SetClaim(
+                            OpenIddictConstants.Claims.Subject,
+                            await userManager.GetUserIdAsync(user))
+                        .SetClaim(
+                            OpenIddictConstants.Claims.Email,
+                            await userManager.GetEmailAsync(user))
+                        .SetClaim(
+                            OpenIddictConstants.Claims.Name,
+                            await userManager.GetUserNameAsync(user))
+                        .SetClaim(
+                            OpenIddictConstants.Claims.PreferredUsername,
+                            preferredUsernameClaimValue)
+                        .SetClaims(
+                            OpenIddictConstants.Claims.Role,
+                            (await userManager.GetRolesAsync(user)).ToImmutableArray());
 
                     var restrictedScopes = new string[]
                     {
-                        Scopes.OpenId,
-                        Scopes.Email,
-                        Scopes.Profile,
+                        OpenIddictConstants.Scopes.OpenId,
+                        OpenIddictConstants.Scopes.Email,
+                        OpenIddictConstants.Scopes.Profile,
                     };
 
                     var requestScopes = openIddictRequest.GetScopes();
@@ -213,7 +221,7 @@ public sealed class AuthorizeEndpointModule :
                         identity: identity,
                         subject: await userManager.GetUserIdAsync(user),
                         client: (await applicationManager.GetIdAsync(application))!,
-                        type: AuthorizationTypes.Permanent,
+                        type: OpenIddictConstants.AuthorizationTypes.Permanent,
                         scopes: identity.GetScopes());
 
                     identity.SetAuthorizationId(
@@ -225,15 +233,15 @@ public sealed class AuthorizeEndpointModule :
                         new ClaimsPrincipal(identity),
                         authenticationScheme: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
                 }
-            case ConsentTypes.Explicit
-                when openIddictRequest.HasPromptValue(PromptValues.None):
-            case ConsentTypes.Systematic
-                when openIddictRequest.HasPromptValue(PromptValues.None):
+            case OpenIddictConstants.ConsentTypes.Explicit
+                when openIddictRequest.HasPromptValue(OpenIddictConstants.PromptValues.None):
+            case OpenIddictConstants.ConsentTypes.Systematic
+                when openIddictRequest.HasPromptValue(OpenIddictConstants.PromptValues.None):
                 {
                     return TypedResults.Forbid(
                         properties: new AuthenticationProperties(new Dictionary<string, string?>
                         {
-                            [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.ConsentRequired,
+                            [OpenIddictServerAspNetCoreConstants.Properties.Error] = OpenIddictConstants.Errors.ConsentRequired,
                             [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] =
                                 "Interactive user consent is required."
                         }),
@@ -241,16 +249,9 @@ public sealed class AuthorizeEndpointModule :
                             OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
                         ]);
                 }
-
             default:
                 {
-                    throw new Exception("");
-
-                    //return View(new AuthorizeViewModel
-                    //{
-                    //    ApplicationName = await _applicationManager.GetLocalizedDisplayNameAsync(application),
-                    //    Scope = request.Scope
-                    //});
+                    throw new InvalidOperationException($"Explicit authorization page is not supported.");
                 }
         }
     }

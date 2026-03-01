@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Physical;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using OpenIddict.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,9 +31,9 @@ var spaClientConfiguration = configuration
     .GetRequiredSection(nameof(SpaClientConfiguration))
     .Get<SpaClientConfiguration>()!;
 
-var openIddictConfiguration = configuration
-    .GetRequiredSection(nameof(OpenIddictConfiguration))
-    .Get<OpenIddictConfiguration>()!;
+var openIdConnectClientConfiguration = configuration
+    .GetRequiredSection(nameof(OpenIdConnectClientConfiguration))
+    .Get<OpenIdConnectClientConfiguration>()!;
 
 var reverseProxyConfiguration = configuration
     .GetRequiredSection(ReverseProxyConstants.ConfigurationSectionName);
@@ -75,7 +76,7 @@ services
     .AddOpenIdConnect(
         options =>
         {
-            options.Authority = openIddictConfiguration.IssuerUri;
+            options.Authority = openIdConnectClientConfiguration.IssuerUri;
 
             options.ClientId = "CookBook.WebApp";
             options.ClientSecret = "c0741d5c-f119-4b19-be90-08b6bd1084bf";
@@ -83,9 +84,9 @@ services
 
             options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
-            //options.Scope.Add("roles");
-            //options.Scope.Add("globoapi");
-            //options.Scope.Add("authapi");
+            options.Scope.Add(OpenIddictConstants.Scopes.OpenId);
+            options.Scope.Add(OpenIddictConstants.Scopes.Email);
+            options.Scope.Add(OpenIddictConstants.Scopes.Profile);
 
             if (isDevelopment)
             {

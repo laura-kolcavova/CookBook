@@ -28,7 +28,7 @@ public sealed class LogInEndpointModule :
     {
         var properties = new AuthenticationProperties
         {
-            RedirectUri = BuildReturnUrl(request.ReturnUrl)
+            RedirectUri = BuildReturnUrl(request.ReturnUrl),
         };
 
         return TypedResults.Challenge(
