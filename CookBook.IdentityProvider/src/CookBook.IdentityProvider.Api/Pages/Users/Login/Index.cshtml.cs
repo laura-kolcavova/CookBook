@@ -10,7 +10,6 @@ public sealed class IndexModel(
     SignInManager<CustomIdentityUser> signInManager) :
     PageModel
 {
-
     [BindProperty]
     public InputModel Input { get; set; } = null!;
 
@@ -65,12 +64,11 @@ public sealed class IndexModel(
             return Redirect("~/");
         }
 
-        if (Url.IsLocalUrl(Input.ReturnUrl))
+        if (!Url.IsLocalUrl(Input.ReturnUrl))
         {
-            return Redirect(Input.ReturnUrl);
+            return Redirect("~/");
         }
 
-        // user might have clicked on a malicious link
-        throw new Exception("Invalid return URL");
+        return Redirect(Input.ReturnUrl);
     }
 }
