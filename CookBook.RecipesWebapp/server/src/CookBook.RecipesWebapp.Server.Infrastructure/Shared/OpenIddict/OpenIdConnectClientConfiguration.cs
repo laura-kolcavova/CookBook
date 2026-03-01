@@ -5,5 +5,11 @@ namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIddict;
 public sealed class OpenIdConnectClientConfiguration
 {
     [Required]
-    public string IssuerUri { get; init; } = string.Empty;
+    public string Authority { get; set; } = string.Empty;
+
+    [Required]
+    public string ClientId { get; set; } = string.Empty;
+
+    [Required]
+    public string ClientSecret { get; set; } = string.Empty;
 }

@@ -76,12 +76,11 @@ services
     .AddOpenIdConnect(
         options =>
         {
-            options.Authority = openIdConnectClientConfiguration.IssuerUri;
+            options.Authority = openIdConnectClientConfiguration.Authority;
+            options.ClientId = openIdConnectClientConfiguration.ClientId;
+            options.ClientSecret = openIdConnectClientConfiguration.ClientSecret;
 
-            options.ClientId = "CookBook.WebApp";
-            options.ClientSecret = "c0741d5c-f119-4b19-be90-08b6bd1084bf";
             options.ResponseType = OpenIdConnectResponseType.Code;
-
             options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
             options.Scope.Add(OpenIddictConstants.Scopes.OpenId);
@@ -94,10 +93,9 @@ services
             }
 
             options.SaveTokens = true;
-            options.GetClaimsFromUserInfoEndpoint = true;
             options.MapInboundClaims = false;
+            options.GetClaimsFromUserInfoEndpoint = true;
         });
-
 
 //services
 //    .AddOpenIddict()

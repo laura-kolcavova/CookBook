@@ -23,8 +23,6 @@ internal static class ServiceCollectionExtensions
                    useDevelopmentLogging: isDevelopment);
            });
 
-
-
         services
             .AddIdentity<CustomIdentityUser, IdentityRole<int>>(
                 options =>
