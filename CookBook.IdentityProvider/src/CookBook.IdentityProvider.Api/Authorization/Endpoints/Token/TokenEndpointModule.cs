@@ -120,7 +120,6 @@ public sealed class TokenEndpointModule :
             return TypedResults.SignIn(
                 new ClaimsPrincipal(identity),
                 authenticationScheme: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
-
         }
 
         throw new NotImplementedException(

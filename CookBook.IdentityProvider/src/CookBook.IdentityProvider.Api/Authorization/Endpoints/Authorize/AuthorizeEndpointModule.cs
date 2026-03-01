@@ -27,7 +27,7 @@ public sealed class AuthorizeEndpointModule :
             .WithName("Authorize")
             .WithSummary("OpenID Connect authorization endpoint")
             .WithDescription("")
-            .Accepts<IFormCollection>("application/x-www-form-urlencoded")
+            //.Accepts<IFormCollection>("application/x-www-form-urlencoded")
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()

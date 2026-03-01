@@ -27,10 +27,21 @@ internal sealed class OpenIddictServerSeeder(
                 ClientId = APPLICATION_CLIENT_ID_COOKBOOK_WEBAPP,
                 ClientSecret = APPLICATION_CLIENT_SECRET_COOKBOOK_WEBAPP,
                 DisplayName = APPLICATION_DISPLAY_NAME_COOKBOOK_WEBAPP,
+                ConsentType = ConsentTypes.Explicit,
+                PostLogoutRedirectUris =
+                {
+                    new Uri("http://localhost:5015/signout-callback-oidc")
+                },
+                RedirectUris =
+                {
+                    new Uri("http://localhost:5015/signin-oidc")
+                },
                 Permissions =
                 {
                     Permissions.Endpoints.Authorization,
+                    Permissions.Endpoints.EndSession,
                     Permissions.Endpoints.Token,
+                    Permissions.Endpoints.Revocation,
                     Permissions.GrantTypes.AuthorizationCode,
                     Permissions.GrantTypes.RefreshToken,
                     Permissions.GrantTypes.Password,

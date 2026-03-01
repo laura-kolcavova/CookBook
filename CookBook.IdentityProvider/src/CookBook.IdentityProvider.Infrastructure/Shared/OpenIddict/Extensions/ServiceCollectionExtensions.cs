@@ -66,6 +66,7 @@ internal static class ServiceCollectionExtensions
                     options
                         .UseAspNetCore()
                         .DisableTransportSecurityRequirement()
+                        .EnableAuthorizationEndpointPassthrough()
                         .EnableTokenEndpointPassthrough()
                         .EnableUserInfoEndpointPassthrough();
                 })

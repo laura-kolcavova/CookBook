@@ -29,6 +29,17 @@ services
     .AddAuthorization();
 
 services
+    .AddCors(options =>
+        options
+            .AddPolicy("IDP_CORS", builder =>
+                builder
+                    .WithOrigins()
+                    .AllowCredentials()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .SetIsOriginAllowed(origin => true)));
+
+services
     .AddDomain()
     .AddApplication()
     .AddInfrastructure(
@@ -51,6 +62,8 @@ else
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors("IDP_CORS");
 
 app.UseAuthentication();
 app.UseAuthorization();
