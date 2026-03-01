@@ -46,7 +46,7 @@ internal static class ServiceCollectionExtensions
         services
             .ConfigureApplicationCookie(options =>
             {
-
+                options.Cookie.Name = "CookBook.IdentityProvider.Identity";
             });
 
         return services;

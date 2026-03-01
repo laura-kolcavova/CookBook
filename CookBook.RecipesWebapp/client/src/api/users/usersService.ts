@@ -15,15 +15,22 @@ const registerUser = (
   });
 };
 
-const logInUser = (returnUrl?: string, signal?: GenericAbortSignal): AxiosPromise<void> => {
+const getCurrentUser = (signal?: GenericAbortSignal): AxiosPromise<CurrentUserDto> => {
   return callAxios({
-    url: `/api/users/login`,
+    url: `/api/users/current`,
     method: 'GET',
-    params: {
-      returnUrl,
-    },
     signal: signal,
   });
+};
+
+const getLogInUserUrl = (returnUrl?: string): string => {
+  const basePath = 'api/users/login';
+
+  if (returnUrl) {
+    return `${basePath}?${returnUrl}`;
+  }
+
+  return basePath;
 };
 
 const logOutUser = (signal?: GenericAbortSignal): AxiosPromise<void> => {
@@ -34,17 +41,9 @@ const logOutUser = (signal?: GenericAbortSignal): AxiosPromise<void> => {
   });
 };
 
-const getCurrentUser = (signal?: GenericAbortSignal): AxiosPromise<CurrentUserDto> => {
-  return callAxios({
-    url: `/api/users/current`,
-    method: 'GET',
-    signal: signal,
-  });
-};
-
 export const usersService = {
   registerUser,
-  logInUser,
-  logOutUser,
   getCurrentUser,
+  getLogInUserUrl,
+  logOutUser,
 };
