@@ -111,7 +111,7 @@ public sealed class AuthorizeEndpointModule :
                     ]);
             }
 
-            var returnUrl = httpRequest.PathBase
+            var redirectUrl = httpRequest.PathBase
               + httpRequest.Path
               + QueryString.Create(
                   httpRequest.HasFormContentType
@@ -121,7 +121,7 @@ public sealed class AuthorizeEndpointModule :
             return TypedResults.Challenge(
                 properties: new AuthenticationProperties
                 {
-                    RedirectUri = returnUrl
+                    RedirectUri = redirectUrl
                 },
                 authenticationSchemes: [
                     IdentityConstants.ApplicationScheme

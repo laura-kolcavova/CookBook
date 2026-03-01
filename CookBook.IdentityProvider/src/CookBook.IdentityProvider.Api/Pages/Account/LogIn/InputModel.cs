@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CookBook.IdentityProvider.Api.Pages.Users.LogIn;
+namespace CookBook.IdentityProvider.Api.Pages.Account.LogIn;
 
 public sealed class InputModel
 {

@@ -23,6 +23,8 @@ internal static class ServiceCollectionExtensions
                    useDevelopmentLogging: isDevelopment);
            });
 
+
+
         services
             .AddIdentity<CustomIdentityUser, IdentityRole<int>>(
                 options =>
@@ -40,6 +42,12 @@ internal static class ServiceCollectionExtensions
                 })
             .AddEntityFrameworkStores<IdentityUsersContext>()
             .AddDefaultTokenProviders();
+
+        services
+            .ConfigureApplicationCookie(options =>
+            {
+
+            });
 
         return services;
     }

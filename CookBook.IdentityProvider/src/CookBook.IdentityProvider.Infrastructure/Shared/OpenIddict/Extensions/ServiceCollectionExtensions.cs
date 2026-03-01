@@ -21,7 +21,8 @@ internal static class ServiceCollectionExtensions
             });
 
         services
-            .AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
+            .AddQuartzHostedService(options =>
+                options.WaitForJobsToComplete = true);
 
         services
             .AddOpenIddict()
@@ -67,8 +68,10 @@ internal static class ServiceCollectionExtensions
                         .UseAspNetCore()
                         .DisableTransportSecurityRequirement()
                         .EnableAuthorizationEndpointPassthrough()
+                        .EnableEndSessionEndpointPassthrough()
                         .EnableTokenEndpointPassthrough()
-                        .EnableUserInfoEndpointPassthrough();
+                        .EnableUserInfoEndpointPassthrough()
+                        .EnableStatusCodePagesIntegration();
                 })
             .AddValidation(
                 options =>

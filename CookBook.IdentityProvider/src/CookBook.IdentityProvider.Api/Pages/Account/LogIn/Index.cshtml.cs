@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CookBook.IdentityProvider.Api.Pages.Users.LogIn;
+namespace CookBook.IdentityProvider.Api.Pages.Account.LogIn;
 
 [AllowAnonymous]
 public sealed class IndexModel(
