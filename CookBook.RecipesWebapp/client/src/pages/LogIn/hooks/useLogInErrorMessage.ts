@@ -2,7 +2,6 @@ import { isAxiosError } from 'axios';
 import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { sharedMessages } from '~/pages/shared/sharedMessages';
-import { messages } from '../messages';
 
 export const useLogInUserErrorMessage = () => {
   const { formatMessage } = useIntl();
@@ -13,9 +12,6 @@ export const useLogInUserErrorMessage = () => {
         const code = error.response.data.errorCode;
 
         switch (code) {
-          case 'User.InvalidCredentials':
-            return formatMessage(messages.invalidCredentialsError);
-
           default:
             return `${formatMessage(sharedMessages.somethingWentWrong)}: ${code}`;
         }

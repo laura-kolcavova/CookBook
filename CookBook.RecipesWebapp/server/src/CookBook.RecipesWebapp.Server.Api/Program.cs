@@ -8,8 +8,10 @@ using CookBook.RecipesWebapp.Server.Application.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIddict;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileProviders.Physical;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,12 +55,17 @@ services
         options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
         })
     .AddCookie(
         options =>
         {
+            //options.LoginPath = "/login";
+            //options.LogoutPath = "/logout";
+
             options.ExpireTimeSpan = TimeSpan.FromDays(1);
             options.SlidingExpiration = true;
+
             options.Cookie.Name = AuthenticationConstants.Cookies.CookieName;
             options.Cookie.HttpOnly = true;
             options.Cookie.SameSite = SameSiteMode.Strict;
@@ -72,14 +79,22 @@ services
 
             options.ClientId = "CookBook.WebApp";
             options.ClientSecret = "c0741d5c-f119-4b19-be90-08b6bd1084bf";
-            options.ResponseType = "code";
+            options.ResponseType = OpenIdConnectResponseType.Code;
+
+            options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
             //options.Scope.Add("roles");
             //options.Scope.Add("globoapi");
             //options.Scope.Add("authapi");
 
+            if (isDevelopment)
+            {
+                options.RequireHttpsMetadata = false;
+            }
+
             options.SaveTokens = true;
-            options.MapInboundClaims = false;
+            options.GetClaimsFromUserInfoEndpoint = true;
+            //options.MapInboundClaims = false;
         });
 
 

@@ -1,7 +1,5 @@
 ﻿using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
-using CookBook.RecipesWebapp.Server.Application.Users.UseCases.Abstractions;
 using Microsoft.AspNetCore.Authentication;
-using OpenIddict.Client.AspNetCore;
 
 namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogIn;
 
@@ -26,8 +24,6 @@ public sealed class LogInEndpointModule :
 
     private static IResult Handle(
         [AsParameters] LogInEndpointParams request,
-        IAuthenticateUserUseCase authenticateUserUseCase,
-        HttpContext httpContext,
         CancellationToken cancellationToken)
     {
         var properties = new AuthenticationProperties
@@ -36,10 +32,7 @@ public sealed class LogInEndpointModule :
         };
 
         return TypedResults.Challenge(
-            properties,
-            [
-                OpenIddictClientAspNetCoreDefaults.AuthenticationScheme
-            ]);
+            properties);
     }
 
     private static string BuildReturnUrl(
