@@ -1,7 +1,7 @@
-﻿using CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Contracts;
+﻿using CookBook.IdentityProvider.Api.Endpoints.Users.RegisterUser.Contracts;
 using FluentValidation;
 
-namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Validators;
+namespace CookBook.IdentityProvider.Api.Endpoints.Users.RegisterUser.Validators;
 
 internal sealed class RegisterUserRequestDtoValidator :
     AbstractValidator<RegisterUserRequestDto>

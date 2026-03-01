@@ -9,7 +9,7 @@ using OpenIddict.Server.AspNetCore;
 using System.Security.Claims;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace CookBook.IdentityProvider.Api.Authorization.Endpoints.GetUserInfo;
+namespace CookBook.IdentityProvider.Api.Endpoints.Authorization.GetUserInfo;
 
 public sealed class GetUserInfoEndpointModule :
     AuthorizationModule

@@ -1,4 +1,4 @@
-﻿namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Contracts;
+﻿namespace CookBook.IdentityProvider.Api.Endpoints.Users.RegisterUser.Contracts;
 
 internal sealed record RegisterUserRequestDto
 {

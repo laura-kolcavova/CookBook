@@ -1,6 +1,6 @@
 ﻿using CookBook.IdentityProvider.Api.Shared;
 
-namespace CookBook.IdentityProvider.Api.Users;
+namespace CookBook.IdentityProvider.Api.Endpoints.Users;
 
 public abstract class UsersModule : ApiModule
 {

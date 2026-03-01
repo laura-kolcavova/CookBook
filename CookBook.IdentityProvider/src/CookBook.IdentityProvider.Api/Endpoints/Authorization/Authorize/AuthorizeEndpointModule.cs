@@ -12,7 +12,7 @@ using System.Collections.Immutable;
 using System.Security.Claims;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
-namespace CookBook.IdentityProvider.Api.Authorization.Endpoints.Authorize;
+namespace CookBook.IdentityProvider.Api.Endpoints.Authorization.Authorize;
 
 public sealed class AuthorizeEndpointModule :
         AuthorizationModule
@@ -91,11 +91,11 @@ public sealed class AuthorizeEndpointModule :
 
         if (
             authenticationResult is not { Succeeded: true } ||
-            (
+
                 openIddictRequest.MaxAge is not null &&
                 authenticationResult.Properties?.IssuedUtc is not null &&
                 DateTimeOffset.UtcNow - authenticationResult.Properties.IssuedUtc > TimeSpan.FromSeconds(openIddictRequest.MaxAge.Value)
-            )
+
         )
         {
             if (openIddictRequest.HasPromptValue(PromptValues.None))

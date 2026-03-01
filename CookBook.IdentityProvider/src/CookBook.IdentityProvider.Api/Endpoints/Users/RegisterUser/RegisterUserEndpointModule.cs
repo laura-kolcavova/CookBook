@@ -4,7 +4,7 @@ using CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Mappers;
 using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser;
+namespace CookBook.IdentityProvider.Api.Endpoints.Users.RegisterUser;
 
 public sealed class RegisterUserEndpointModule : UsersModule
 {

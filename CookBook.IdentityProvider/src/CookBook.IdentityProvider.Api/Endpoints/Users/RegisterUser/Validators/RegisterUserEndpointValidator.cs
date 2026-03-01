@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Validators;
+namespace CookBook.IdentityProvider.Api.Endpoints.Users.RegisterUser.Validators;
 
 internal sealed class RegisterUserEndpointValidator :
     AbstractValidator<RegisterUserEndpointParams>

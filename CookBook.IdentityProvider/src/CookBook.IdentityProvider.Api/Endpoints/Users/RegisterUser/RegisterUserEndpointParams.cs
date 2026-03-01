@@ -1,7 +1,7 @@
-﻿using CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser.Contracts;
+﻿using CookBook.IdentityProvider.Api.Endpoints.Users.RegisterUser.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CookBook.IdentityProvider.Api.Users.Endpoints.RegisterUser;
+namespace CookBook.IdentityProvider.Api.Endpoints.Users.RegisterUser;
 
 internal sealed record RegisterUserEndpointParams
 {

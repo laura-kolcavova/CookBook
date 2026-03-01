@@ -1,6 +1,6 @@
 ﻿using CookBook.IdentityProvider.Api.Shared;
 
-namespace CookBook.IdentityProvider.Api.Authorization;
+namespace CookBook.IdentityProvider.Api.Endpoints.Authorization;
 
 public abstract class AuthorizationModule :
     ApiModule
