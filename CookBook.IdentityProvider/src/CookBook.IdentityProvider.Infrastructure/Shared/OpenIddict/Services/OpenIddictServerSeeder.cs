@@ -27,7 +27,7 @@ internal sealed class OpenIddictServerSeeder(
                 ClientSecret = APPLICATION_CLIENT_SECRET_COOKBOOK_WEBAPP,
                 DisplayName = APPLICATION_DISPLAY_NAME_COOKBOOK_WEBAPP,
                 ConsentType = OpenIddictConstants.ConsentTypes.Implicit,
-                ClientType = OpenIddictConstants.ClientTypes.Public,
+                ClientType = OpenIddictConstants.ClientTypes.Confidential,
                 PostLogoutRedirectUris =
                 {
                     new Uri("http://localhost:5015/signout-callback-oidc")
