@@ -1,5 +1,6 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
 using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser.Abstractions;
+using CookBook.IdentityProvider.Domain.Userrs.Models;
 using CookBook.IdentityProvider.Domain.Users.Models;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
 using CSharpFunctionalExtensions;
