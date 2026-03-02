@@ -16,4 +16,9 @@ public static class ConfigurationConstants
     {
         public const string CookieName = "CookBook.IdentityProvider.Identity";
     }
+
+    public static class Antiforgery
+    {
+        public const string CookieName = "CookBook.IdentityProvider.Antiforgery.Host";
+    }
 }
