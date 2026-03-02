@@ -1,0 +1,16 @@
+﻿@page
+
+@using CookBook.IdentityProvider.Api.Pages.Home;
+
+@model IndexModel
+
+@if (Model.UserInfo.IsAuthenticated)
+{
+    <h1>Welcome @Model.UserInfo.DisplayName</h1>
+}
+else
+{
+    <h1>
+        Welcome to CookBook Identity Provider. You can <a asp-page="/Account/LogIn/Index">log in</a>.
+    </h1>
+}

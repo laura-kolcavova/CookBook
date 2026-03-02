@@ -72,6 +72,6 @@ public sealed class IndexModel(
             return Redirect("~/");
         }
 
-        return Redirect(Input.ReturnUrl);
+        return LocalRedirect(Input.ReturnUrl);
     }
 }
