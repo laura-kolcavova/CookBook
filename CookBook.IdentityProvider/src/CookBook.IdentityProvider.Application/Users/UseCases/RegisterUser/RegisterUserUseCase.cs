@@ -1,6 +1,5 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
 using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser.Abstractions;
-using CookBook.IdentityProvider.Domain.Users;
 using CookBook.IdentityProvider.Domain.Users.Models;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
 using CSharpFunctionalExtensions;
@@ -13,7 +12,7 @@ internal sealed class RegisterUserUseCase(
     ILogger<RegisterUserUseCase> logger) :
     IRegisterUserUseCase
 {
-    public async Task<Result<UserAggregate, Error>> RegisterUser(
+    public async Task<Result<RegisterUserResult, Error>> RegisterUser(
         RegisterUserRequest registerUserRequest,
         CancellationToken cancellationToken)
     {

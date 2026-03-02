@@ -27,7 +27,8 @@ public sealed class IndexModel(
         return Page();
     }
 
-    public async Task<IActionResult> OnPost()
+    public async Task<IActionResult> OnPostAsync(
+        CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid)
         {
@@ -46,13 +47,13 @@ public sealed class IndexModel(
             return Page();
         }
 
-        var result = await signInManager.PasswordSignInAsync(
+        var signInResult = await signInManager.PasswordSignInAsync(
             user,
             Input.Password!,
             Input.RememberMe,
             lockoutOnFailure: false);
 
-        if (!result.Succeeded)
+        if (!signInResult.Succeeded)
         {
             ModelState.AddModelError(
                string.Empty,
