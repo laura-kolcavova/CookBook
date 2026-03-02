@@ -38,7 +38,10 @@ internal static class ServiceCollectionExtensions
             .AddCarter(new DependencyContextAssemblyCatalog([typeof(Program).Assembly]));
 
         services
-            .AddRazorPages();
+            .AddRazorPages(options =>
+            {
+                options.Conventions.AddPageRoute("/home/index", "");
+            });
 
         services
             .ConfigureHttpJsonOptions(options =>

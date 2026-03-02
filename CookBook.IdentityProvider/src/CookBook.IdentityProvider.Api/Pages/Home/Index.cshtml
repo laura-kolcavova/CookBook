@@ -13,7 +13,7 @@
         <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg text-center">
             @if (Model.UserInfo.IsAuthenticated)
             {
-                <h1 class="text-2xl font-bold text-gray-800">Welcome @Model.UserInfo.DisplayName</h1>
+                <h1 class="text-2xl font-bold text-gray-800">Hello @Model.UserInfo.DisplayName</h1>
             }
             else
             {
@@ -21,7 +21,7 @@
                     Welcome to CookBook
                 </h1>
                 <p class="text-gray-600">
-                    You can <a asp-page="/Account/LogIn/Index" class="text-blue-500 hover:text-blue-700">log in</a> to continue.
+                    <a asp-page="/Account/LogIn/Index" class="text-blue-500 hover:text-blue-700">Log In</a> to continue.
                 </p>
             }
         </div>
