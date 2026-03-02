@@ -64,7 +64,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseCors(ConfigurationConstants.SqlConnectionStrings.CookBookUsersSectionName);
+app.UseCors(ConfigurationConstants.CorsPolicies.Main);
 
 app.UseAuthentication();
 app.UseAuthorization();
