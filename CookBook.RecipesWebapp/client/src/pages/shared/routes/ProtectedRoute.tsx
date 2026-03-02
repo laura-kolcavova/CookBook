@@ -1,8 +1,8 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { usersService } from '~/api/users/usersService';
 import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 import type { PageDefinition } from '~/navigation/PageDefinition';
-import { pages } from '~/navigation/pages';
 
 export type ProtectedRouteProps = {
   page: PageDefinition;
@@ -10,9 +10,16 @@ export type ProtectedRouteProps = {
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ page }) => {
   const { currentUser } = useCurrentUser();
+  const location = useLocation();
 
   if (!currentUser.isAuthenticated) {
-    return <Navigate to={pages.LogIn.paths[0]} />;
+    const returnUrl = `${location.pathname}${location.search}${location.hash}`;
+
+    const loginUrl = usersService.getLogInUserUrl(returnUrl);
+
+    window.location.replace(loginUrl);
+
+    return null;
   }
 
   return <page.component />;

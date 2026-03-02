@@ -47,7 +47,7 @@ services
         options.Cookie.Name = ConfigurationConstants.Antiforgery.CookieName;
         options.Cookie.HttpOnly = true;
         options.Cookie.SameSite = SameSiteMode.Strict;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
     });
 
 services

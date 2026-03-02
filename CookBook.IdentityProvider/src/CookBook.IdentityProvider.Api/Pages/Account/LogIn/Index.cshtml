@@ -54,14 +54,20 @@
 
                 <input type="hidden" asp-for="Input.ReturnUrl" />
 
-                @Html.AntiForgeryToken()
-
                 <div class="flex items-center justify-between">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full">
                         Log In
                     </button>
                 </div>
             </form>
+
+
+            <div class="text-center mt-6 text-base ">
+                Need an account? <a
+                    asp-page="/Account/Register/Index"
+                    asp-route-returnUrl="@Model.Input.ReturnUrl"
+                    class="text-blue-500 hover:text-blue-700">Register</a>
+            </div>
         </div>
     </div>
 </div>

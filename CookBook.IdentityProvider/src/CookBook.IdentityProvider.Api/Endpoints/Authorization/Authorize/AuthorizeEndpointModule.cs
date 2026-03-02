@@ -14,7 +14,7 @@ using System.Security.Claims;
 namespace CookBook.IdentityProvider.Api.Endpoints.Authorization.Authorize;
 
 public sealed class AuthorizeEndpointModule :
-        AuthorizationModule
+    AuthorizationModule
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {

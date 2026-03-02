@@ -1,4 +1,5 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
+using CookBook.IdentityProvider.Domain.Userrs.Models;
 using CookBook.IdentityProvider.Domain.Users;
 using CookBook.IdentityProvider.Domain.Users.Models;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
@@ -15,7 +16,7 @@ internal sealed class RegisterManager(
     UsersContext usersContext) :
     IRegisterManager
 {
-    public async Task<Result<UserAggregate, Error>> RegisterUser(
+    public async Task<Result<RegisterUserResult, Error>> RegisterUser(
         RegisterUserRequest registerUserRequest,
         CancellationToken cancellationToken)
     {
@@ -85,6 +86,10 @@ internal sealed class RegisterManager(
 
         transaction.Complete();
 
-        return user;
+        return new RegisterUserResult
+        {
+            User = user,
+            IdentityUser = identityUser
+        };
     }
 }

@@ -1,14 +1,16 @@
+using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser.Abstractions;
 using CookBook.IdentityProvider.Domain.Users;
+using CookBook.IdentityProvider.Domain.Users.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CookBook.IdentityProvider.Api.Pages.Account.LogIn;
+namespace CookBook.IdentityProvider.Api.Pages.Account.Register;
 
 [AllowAnonymous]
-public sealed class IndexModel(
-    UserManager<CustomIdentityUser> userManager,
+public class IndexModel(
+    IRegisterUserUseCase registerUserUseCase,
     SignInManager<CustomIdentityUser> signInManager) :
     PageModel
 {
@@ -35,32 +37,31 @@ public sealed class IndexModel(
             return Page();
         }
 
-        var user = await userManager.FindByEmailAsync(
-            Input.Email);
+        var registerUserRequest = new RegisterUserRequest
+        {
+            DisplayName = Input.DisplayName,
+            Email = Input.Email,
+            Password = Input.Password
+        };
 
-        if (user is null)
+        var registerUserResult = await registerUserUseCase.RegisterUser(
+            registerUserRequest,
+            cancellationToken);
+
+        if (registerUserResult.IsFailure)
         {
             ModelState.AddModelError(
-               string.Empty,
-               "The email/password couple is invalid.");
+                registerUserResult.Error.Code,
+                registerUserResult.Error.Message);
 
             return Page();
         }
 
-        var signInResult = await signInManager.PasswordSignInAsync(
-            user,
-            Input.Password!,
-            Input.RememberMe,
-            lockoutOnFailure: false);
+        var identityUser = registerUserResult.Value.IdentityUser;
 
-        if (!signInResult.Succeeded)
-        {
-            ModelState.AddModelError(
-               string.Empty,
-               "The email/password couple is invalid.");
-
-            return Page();
-        }
+        await signInManager.SignInAsync(
+            identityUser,
+            isPersistent: false);
 
         if (string.IsNullOrEmpty(Input.ReturnUrl))
         {

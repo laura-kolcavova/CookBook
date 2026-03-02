@@ -26,21 +26,6 @@ services
     .AddOptions();
 
 services
-    .AddAuthorization();
-
-services
-    .AddCors(options =>
-        options
-            .AddPolicy(
-                ConfigurationConstants.CorsPolicies.Main,
-                builder => builder
-                    .WithOrigins()
-                    .AllowCredentials()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .SetIsOriginAllowed(origin => true)));
-
-services
     .AddDomain()
     .AddApplication()
     .AddInfrastructure(
