@@ -97,18 +97,6 @@ services
         });
 
 services
-    .AddCors(options =>
-        options
-            .AddPolicy(
-                ConfigurationConstants.CorsPolicies.Main,
-                builder => builder
-                    .WithOrigins()
-                    .AllowCredentials()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .SetIsOriginAllowed(origin => true)));
-
-services
     .AddApplication()
     .AddInfrastructure()
     .AddApi(
@@ -130,8 +118,6 @@ else
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
-app.UseCors(ConfigurationConstants.CorsPolicies.Main);
 
 app.UseAuthentication();
 app.UseAuthorization();

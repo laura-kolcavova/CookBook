@@ -68,12 +68,6 @@ internal static class ServiceCollectionExtensions
         services
             .AddProblemDetails();
 
-        //services
-        //    .AddValidatorsFromAssembly(
-        //        typeof(Program).Assembly,
-        //        ServiceLifetime.Singleton,
-        //        includeInternalTypes: true);
-
         return services;
     }
 }

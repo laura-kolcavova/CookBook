@@ -26,7 +26,6 @@ public sealed class GetUserInfoEndpointModule :
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .ProducesValidationProblem()
             .DisableAntiforgery()
-            .ValidateRequest()
             .HandleOperationCancelled()
             .RequireAuthorization(new AuthorizeAttribute
             {
