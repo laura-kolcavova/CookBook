@@ -14,6 +14,7 @@ The service follows Clean Architecture principles with Domain Driven Design, Ver
 - ASP.NET Core Minimal API
 - ASP.NET Core Identity
 - Entity Framework Core
+- OpenIddict
 
 ## Prerequisites
 
