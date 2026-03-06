@@ -100,7 +100,7 @@ services
     .AddCors(options =>
         options
             .AddPolicy(
-                "CORS",
+                ConfigurationConstants.CorsPolicies.Main,
                 builder => builder
                     .WithOrigins()
                     .AllowCredentials()
@@ -131,7 +131,7 @@ else
 app.UseStaticFiles();
 app.UseRouting();
 
-app.UseCors("CORS");
+app.UseCors(ConfigurationConstants.CorsPolicies.Main);
 
 app.UseAuthentication();
 app.UseAuthorization();

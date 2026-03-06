@@ -2,6 +2,11 @@
 
 public static class ConfigurationConstants
 {
+    public static class CorsPolicies
+    {
+        public const string Main = "CorsPolicy.Main";
+    }
+
     public static class Identity
     {
         public const string CookieName = "CookBook.RecipesWebapp.Identity";

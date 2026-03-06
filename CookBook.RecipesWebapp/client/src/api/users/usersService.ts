@@ -32,6 +32,7 @@ const getCurrentUser = (signal?: GenericAbortSignal): AxiosPromise<CurrentUserDt
 
 const redirectTologInUser = (returnUrl?: string): void => {
   const url = getLogInUserUrl(returnUrl);
+
   window.location.assign(url);
 };
 
