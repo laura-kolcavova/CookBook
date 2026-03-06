@@ -41,16 +41,16 @@ internal static class ServiceCollectionExtensions
                 options =>
                 {
                     options.SetAuthorizationEndpointUris(
-                        "authorization/authorize");
+                        "connect/authorize");
 
                     options.SetTokenEndpointUris(
-                        "authorization/token");
+                        "connect/token");
 
                     options.SetUserInfoEndpointUris(
-                        "authorization/userinfo");
+                        "connect/userinfo");
 
                     options.SetEndSessionEndpointUris(
-                        "authorization/logout");
+                        "connect/logout");
 
                     options
                         .AllowAuthorizationCodeFlow()

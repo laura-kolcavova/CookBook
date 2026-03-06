@@ -6,7 +6,7 @@ public abstract class AuthorizationModule :
     CarterModule
 {
     protected AuthorizationModule()
-       : base("/authorization")
+       : base("/connect")
     {
         WithTags("Authorization");
     }
