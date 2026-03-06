@@ -5,18 +5,20 @@ import { usersService } from '~/api/users/usersService';
 import { pages } from '~/navigation/pages';
 
 export const LogInIconButton = () => {
-  const loginUrl = usersService.getLogInUserUrl(pages.Home.paths[0]);
+  const handleClick = () => {
+    usersService.redirectTologInUser(pages.Home.paths[0]);
+  };
 
   return (
-    <a
-      href={loginUrl}
-      className="py-1 px-6 flex flex-col justify-center items-center transition-colors duration-150 text-navlink-color hover:text-navlink-color-hover">
+    <button
+      onClick={handleClick}
+      className="py-1 px-6 flex flex-col justify-center items-center transition-colors duration-150 text-navlink-color hover:text-navlink-color-hover cursor-pointer">
       <span className="mb-1">
         <FaRegCircleUser />
       </span>
       <span className="text-center">
         <FormattedMessage {...messages.logIn} />
       </span>
-    </a>
+    </button>
   );
 };

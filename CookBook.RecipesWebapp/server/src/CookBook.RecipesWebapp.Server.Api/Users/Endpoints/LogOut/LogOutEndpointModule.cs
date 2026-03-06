@@ -1,4 +1,5 @@
 ﻿using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
+using CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogOut;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -12,7 +13,7 @@ public sealed class LogOutEndpointModule :
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
         app
-            .MapPost("/logout", HandleAsync)
+            .MapGet("/logout", HandleAsync)
             .WithName("LogOut")
             .WithSummary("Signs out an user")
             .WithDescription("")
@@ -26,11 +27,12 @@ public sealed class LogOutEndpointModule :
     }
 
     private static IResult HandleAsync(
+        [AsParameters] LogOutEndpointParams request,
         CancellationToken cancellationToken)
     {
         var authProperties = new AuthenticationProperties
         {
-            RedirectUri = "/"
+            RedirectUri = BuildReturnUrl(request.ReturnUrl),
         };
 
         return TypedResults.SignOut(
@@ -39,5 +41,32 @@ public sealed class LogOutEndpointModule :
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 OpenIdConnectDefaults.AuthenticationScheme
             ]);
+    }
+
+    private static string BuildReturnUrl(
+       string? returnUrl)
+    {
+        const string pathBase = "/";
+
+        if (string.IsNullOrEmpty(returnUrl))
+        {
+            return pathBase;
+        }
+
+        if (!Uri.IsWellFormedUriString(returnUrl, UriKind.Relative))
+        {
+            var uri = new Uri(
+                returnUrl,
+                UriKind.Absolute);
+
+            return uri.PathAndQuery;
+        }
+
+        if (returnUrl[0] != '/')
+        {
+            return $"{pathBase}{returnUrl}";
+        }
+
+        return returnUrl;
     }
 }

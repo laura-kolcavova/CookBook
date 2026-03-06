@@ -96,32 +96,17 @@ services
             options.GetClaimsFromUserInfoEndpoint = true;
         });
 
-//services
-//    .AddOpenIddict()
-//    .AddClient(
-//        options =>
-//        {
-//            options.AllowPasswordFlow();
-
-//            options.DisableTokenStorage();
-
-//            options.UseSystemNetHttp(
-//                ).SetProductInformation(typeof(Program).Assembly);
-
-
-//            options.AddRegistration(
-//                new OpenIddictClientRegistration
-//                {
-//                    Issuer = new Uri(
-//                        openIddictConfiguration.IssuerUri,
-//                        UriKind.Absolute),
-
-//                    ClientId = "CookBook.WebApp",
-//                    ClientSecret = "c0741d5c-f119-4b19-be90-08b6bd1084bf",
-//                });
-
-//            options.UseAspNetCore();
-//        });
+services
+    .AddCors(options =>
+        options
+            .AddPolicy(
+                "CORS",
+                builder => builder
+                    .WithOrigins()
+                    .AllowCredentials()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .SetIsOriginAllowed(origin => true)));
 
 services
     .AddApplication()
@@ -142,12 +127,16 @@ else
     app.UseExceptionHandler();
 }
 
-app.UseAntiforgery();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseCors("CORS");
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseAntiforgery();
 
 app.MapCarter();
 

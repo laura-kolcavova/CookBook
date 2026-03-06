@@ -5,15 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { pages } from '~/navigation/pages';
 import { messages } from '../messages';
 import { useCurrentUser } from '~/authentication/CurrentUserProvider';
-
-import { useLogOutUser } from './hooks/useLogOutUser';
+import { usersService } from '~/api/users/usersService';
 
 export const UserIconButton = () => {
   const navigate = useNavigate();
 
   const { currentUser } = useCurrentUser();
-
-  const { logOutUser } = useLogOutUser();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
@@ -74,7 +71,7 @@ export const UserIconButton = () => {
         <button
           className="w-full text-left py-2 px-4 leading-6 cursor-pointer text-navlink-color hover:text-navlink-color-hover"
           onClick={() => {
-            logOutUser();
+            usersService.redirectTologOutUser(pages.Home.paths[0]);
             closeDropdown();
           }}>
           <FormattedMessage {...messages.logOut} />
