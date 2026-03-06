@@ -21,17 +21,17 @@ internal static class ServiceCollectionExtensions
         services
             .AddAuthorization();
 
-        services
-            .AddCors(options =>
-                options
-                    .AddPolicy(
-                        ConfigurationConstants.CorsPolicies.Main,
-                        builder => builder
-                            .WithOrigins()
-                            .AllowCredentials()
-                            .AllowAnyHeader()
-                            .AllowAnyMethod()
-                            .SetIsOriginAllowed(origin => true)));
+        //services
+        //    .AddCors(options =>
+        //        options
+        //            .AddPolicy(
+        //                ConfigurationConstants.CorsPolicies.Main,
+        //                builder => builder
+        //                    .WithOrigins()
+        //                    .AllowCredentials()
+        //                    .AllowAnyHeader()
+        //                    .AllowAnyMethod()
+        //                    .SetIsOriginAllowed(origin => true)));
 
         services
             .AddCarter(new DependencyContextAssemblyCatalog([typeof(Program).Assembly]));
