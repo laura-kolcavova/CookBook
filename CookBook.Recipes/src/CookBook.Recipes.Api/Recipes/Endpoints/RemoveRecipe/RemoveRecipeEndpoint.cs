@@ -6,9 +6,9 @@ namespace CookBook.Recipes.Api.Recipes.Endpoints.RemoveRecipe;
 
 internal static class RemoveRecipeEndpoint
 {
-    public static void Configure(RouteGroupBuilder recipesGroup)
+    public static void Configure(IEndpointRouteBuilder builder)
     {
-        recipesGroup
+        builder
             .MapDelete("/{recipeId}/remove", HandleAsync)
             .WithName("RemoveRecipe")
             .WithSummary("Removes a recipe by its id")

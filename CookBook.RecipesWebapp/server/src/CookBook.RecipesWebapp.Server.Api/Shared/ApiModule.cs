@@ -9,8 +9,6 @@ public abstract class ApiModule :
        : base($"/api{route}")
     {
         VerifyUrlPathIsSane(route);
-
-        IncludeInOpenApi();
     }
 
     private static void VerifyUrlPathIsSane(string relativePath)
