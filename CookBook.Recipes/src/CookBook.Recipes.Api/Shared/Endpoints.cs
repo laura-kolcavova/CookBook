@@ -12,7 +12,7 @@ internal static class Endpoints
             .MapGroup("/api")
             .AddEndpointFilter<OperationCanceledExceptionFilter>()
             .AddEndpointFilter<FluentValidationEndpointFilter>()
-            .WithOpenApi()
-            .MapRecipesEndpoints();
+            .MapRecipesEndpoints()
+            .WithOpenApi(); // This is not needed since newer versions of Swashbuckle.AspNetCore
     }
 }

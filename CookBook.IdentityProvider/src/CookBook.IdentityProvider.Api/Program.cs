@@ -45,14 +45,16 @@ else
     app.UseExceptionHandler();
 }
 
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
-app.UseCors(ConfigurationConstants.CorsPolicies.Main);
+//app.UseCors(ConfigurationConstants.CorsPolicies.Main);
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseAntiforgery();
 
 app.MapCarter();
 

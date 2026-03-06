@@ -15,9 +15,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ page }) => {
   if (!currentUser.isAuthenticated) {
     const returnUrl = `${location.pathname}${location.search}${location.hash}`;
 
-    const loginUrl = usersService.getLogInUserUrl(returnUrl);
-
-    window.location.replace(loginUrl);
+    usersService.redirectTologInUser(returnUrl);
 
     return null;
   }

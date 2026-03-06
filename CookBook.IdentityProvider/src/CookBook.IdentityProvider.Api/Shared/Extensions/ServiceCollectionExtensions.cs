@@ -1,7 +1,6 @@
 ﻿using Carter;
 using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
 namespace CookBook.IdentityProvider.Api.Shared.Extensions;
@@ -22,17 +21,17 @@ internal static class ServiceCollectionExtensions
         services
             .AddAuthorization();
 
-        services
-            .AddCors(options =>
-                options
-                    .AddPolicy(
-                        ConfigurationConstants.CorsPolicies.Main,
-                        builder => builder
-                            .WithOrigins()
-                            .AllowCredentials()
-                            .AllowAnyHeader()
-                            .AllowAnyMethod()
-                            .SetIsOriginAllowed(origin => true)));
+        //services
+        //    .AddCors(options =>
+        //        options
+        //            .AddPolicy(
+        //                ConfigurationConstants.CorsPolicies.Main,
+        //                builder => builder
+        //                    .WithOrigins()
+        //                    .AllowCredentials()
+        //                    .AllowAnyHeader()
+        //                    .AllowAnyMethod()
+        //                    .SetIsOriginAllowed(origin => true)));
 
         services
             .AddCarter(new DependencyContextAssemblyCatalog([typeof(Program).Assembly]));
@@ -51,7 +50,6 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddEndpointsApiExplorer()
-            .AddSwaggerExamplesFromAssemblyOf<Program>()
             .AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -60,32 +58,15 @@ internal static class ServiceCollectionExtensions
                     Version = "v1"
                 });
 
-                options.ExampleFilters();
                 options.SupportNonNullableReferenceTypes();
 
                 options.CustomSchemaIds(x => x.FullName?
                     .Replace("Dto", string.Empty)
                     .Replace("+", "."));
-
-                // Set the comments path for the Swagger JSON and UI.
-                var xmlFiles = Directory
-                    .GetFiles(
-                        AppContext.BaseDirectory,
-                        "CookBook.IdentityProvider.*.xml",
-                        SearchOption.TopDirectoryOnly)
-                    .ToList();
-
-                xmlFiles.ForEach(xmlFile => options.IncludeXmlComments(xmlFile));
             });
 
         services
             .AddProblemDetails();
-
-        //services
-        //    .AddValidatorsFromAssembly(
-        //        typeof(Program).Assembly,
-        //        ServiceLifetime.Singleton,
-        //        includeInternalTypes: true);
 
         return services;
     }

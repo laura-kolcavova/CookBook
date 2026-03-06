@@ -6,9 +6,9 @@ namespace CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes;
 
 internal static class GetLatestRecipesEndpoint
 {
-    public static void Configure(RouteGroupBuilder recipesGroup)
+    public static void Configure(IEndpointRouteBuilder builder)
     {
-        recipesGroup
+        builder
             .MapGet("/latest", HandleAsync)
             .WithName("GetLatestRecipes")
             .WithSummary("Gets latest recipes")

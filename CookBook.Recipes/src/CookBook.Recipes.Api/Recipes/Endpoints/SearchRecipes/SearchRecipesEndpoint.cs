@@ -9,9 +9,9 @@ namespace CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes;
 
 internal static class SearchRecipesEndpoint
 {
-    public static void Configure(RouteGroupBuilder recipesGroup)
+    public static void Configure(IEndpointRouteBuilder builder)
     {
-        recipesGroup
+        builder
             .MapGet("/search", HandleAsync)
             .WithName("SearchRecipes")
             .WithSummary("Search for existing recipes")

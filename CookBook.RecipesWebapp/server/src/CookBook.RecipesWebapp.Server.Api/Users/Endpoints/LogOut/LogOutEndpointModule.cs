@@ -1,6 +1,8 @@
 ﻿using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
+using CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogOut;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogIn;
@@ -11,11 +13,11 @@ public sealed class LogOutEndpointModule :
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
         app
-            .MapPost("/logout", HandleAsync)
+            .MapGet("/logout", HandleAsync)
             .WithName("LogOut")
             .WithSummary("Signs out an user")
             .WithDescription("")
-            .Produces(StatusCodes.Status204NoContent)
+            .Produces(StatusCodes.Status302Found)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .HandleOperationCancelled()
             .RequireAuthorization(new AuthorizeAttribute
@@ -24,18 +26,47 @@ public sealed class LogOutEndpointModule :
             });
     }
 
-    private static async Task<IResult> HandleAsync(
-        HttpContext httpContext,
+    private static IResult HandleAsync(
+        [AsParameters] LogOutEndpointParams request,
         CancellationToken cancellationToken)
     {
         var authProperties = new AuthenticationProperties
         {
+            RedirectUri = BuildReturnUrl(request.ReturnUrl),
         };
 
-        await httpContext.SignOutAsync(
-            scheme: CookieAuthenticationDefaults.AuthenticationScheme,
-            properties: authProperties);
+        return TypedResults.SignOut(
+            properties: authProperties,
+            authenticationSchemes: [
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                OpenIdConnectDefaults.AuthenticationScheme
+            ]);
+    }
 
-        return TypedResults.NoContent();
+    private static string BuildReturnUrl(
+       string? returnUrl)
+    {
+        const string pathBase = "/";
+
+        if (string.IsNullOrEmpty(returnUrl))
+        {
+            return pathBase;
+        }
+
+        if (!Uri.IsWellFormedUriString(returnUrl, UriKind.Relative))
+        {
+            var uri = new Uri(
+                returnUrl,
+                UriKind.Absolute);
+
+            return uri.PathAndQuery;
+        }
+
+        if (returnUrl[0] != '/')
+        {
+            return $"{pathBase}{returnUrl}";
+        }
+
+        return returnUrl;
     }
 }

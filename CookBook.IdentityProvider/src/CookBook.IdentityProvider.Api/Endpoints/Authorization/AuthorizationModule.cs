@@ -1,9 +1,9 @@
-﻿using CookBook.IdentityProvider.Api.Shared;
+﻿using Carter;
 
 namespace CookBook.IdentityProvider.Api.Endpoints.Authorization;
 
 public abstract class AuthorizationModule :
-    ApiModule
+    CarterModule
 {
     protected AuthorizationModule()
        : base("/authorization")
