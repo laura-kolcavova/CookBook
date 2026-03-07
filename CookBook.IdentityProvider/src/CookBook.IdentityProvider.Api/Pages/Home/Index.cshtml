@@ -14,7 +14,7 @@
             @if (Model.UserInfo.IsAuthenticated)
             {
                 <h1 class="text-2xl font-bold text-gray-800 mb-6">Hello @Model.UserInfo.DisplayName</h1>
-                <form method="post" asp-page-handler="LogOut">
+                <form method="post" action="/connect/logout">
                     <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         Log Out
                     </button>

@@ -1,6 +1,4 @@
-using CookBook.IdentityProvider.Domain.Users;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using static OpenIddict.Abstractions.OpenIddictConstants;
@@ -8,8 +6,7 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 namespace CookBook.IdentityProvider.Api.Pages.Home;
 
 [AllowAnonymous]
-public sealed class IndexModel(
-    SignInManager<CustomIdentityUser> signInManager) :
+public sealed class IndexModel :
     PageModel
 {
     public UserInfo UserInfo { get; set; } = null!;
@@ -43,13 +40,13 @@ public sealed class IndexModel(
         return Page();
     }
 
-    public async Task<IActionResult> OnPostLogOutAsync(
-        CancellationToken cancellationToken)
-    {
-        await signInManager.SignOutAsync();
+    //public async Task<IActionResult> OnPostLogOutAsync(
+    //    CancellationToken cancellationToken)
+    //{
+    //    await signInManager.SignOutAsync();
 
-        UserInfo = UserInfo.Anonymous;
+    //    UserInfo = UserInfo.Anonymous;
 
-        return Page();
-    }
+    //    return Page();
+    //}
 }
