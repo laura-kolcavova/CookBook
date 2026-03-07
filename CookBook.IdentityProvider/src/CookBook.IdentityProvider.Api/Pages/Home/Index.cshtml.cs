@@ -40,14 +40,13 @@ public sealed class IndexModel :
         return Page();
     }
 
-    public IActionResult OnPostLogOut()
-    {
-        return Redirect("/connect/logout");
+    //public async Task<IActionResult> OnPostLogOutAsync(
+    //    CancellationToken cancellationToken)
+    //{
+    //    await signInManager.SignOutAsync();
 
-        //await signInManager.SignOutAsync();
+    //    UserInfo = UserInfo.Anonymous;
 
-        //UserInfo = UserInfo.Anonymous;
-
-        //return Page();
-    }
+    //    return Page();
+    //}
 }
