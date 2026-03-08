@@ -5,7 +5,7 @@ using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
 using CookBook.RecipesWebapp.Server.Application.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
-using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIddict;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Extensions.FileProviders;
