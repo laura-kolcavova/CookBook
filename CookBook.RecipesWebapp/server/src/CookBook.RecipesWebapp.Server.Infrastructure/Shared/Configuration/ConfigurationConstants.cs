@@ -13,4 +13,9 @@ public static class ConfigurationConstants
 
         public const string CookieName = "CookBook.RecipesWebapp.Antiforgery.Host";
     }
+
+    public static class AuthenticationPolicies
+    {
+        public const string Cookie = "CookieAuthenticationPolicy";
+    }
 }

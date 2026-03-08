@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using CookBook.Recipes.Infrastructure.Shared.Configuration;
+using FluentValidation;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
 using System.Text.Json.Serialization;
@@ -15,8 +16,17 @@ internal static class ServiceCollectionExtensions
             .AddAuthentication(
                 OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
 
-        services
-            .AddAuthorization();
+        //services
+        //    .AddAuthorization();
+
+        services.AddAuthorizationBuilder()
+            .AddPolicy(
+                ConfigurationConstants.AuthenticationPolicies.OpenIdConnect,
+                builder =>
+                {
+                    builder.AddAuthenticationSchemes(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+                    builder.RequireAuthenticatedUser();
+                });
 
         services
             .ConfigureHttpJsonOptions(options =>
