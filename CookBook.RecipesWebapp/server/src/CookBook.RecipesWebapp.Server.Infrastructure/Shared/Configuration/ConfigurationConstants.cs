@@ -18,4 +18,9 @@ public static class ConfigurationConstants
     {
         public const string Cookie = "CookieAuthenticationPolicy";
     }
+
+    public static class ReverseProxy
+    {
+        public const string ReverseProxySectionName = "ReverseProxyConfiguration";
+    }
 }

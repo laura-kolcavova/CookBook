@@ -1,5 +1,6 @@
 ﻿using CookBook.Extensions.AspNetCore.Errors;
 using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
+using CookBook.Recipes.Infrastructure.Shared.Configuration;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.RemoveRecipe;
@@ -14,9 +15,12 @@ internal static class RemoveRecipeEndpoint
             .WithSummary("Removes a recipe by its id")
             .WithDescription("This endpoint returns Status 204 OK response if recipe was successfully removed.")
             .Produces(StatusCodes.Status204NoContent)
-            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .ProducesValidationProblem();
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status403Forbidden)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.OpenIdConnect);
     }
 
     private static async Task<IResult> HandleAsync(

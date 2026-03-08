@@ -1,9 +1,9 @@
 ﻿using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogOut;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
+using OpenIddict.Client.AspNetCore;
 
 namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogIn;
 
@@ -20,10 +20,7 @@ public sealed class LogOutEndpointModule :
             .Produces(StatusCodes.Status302Found)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .HandleOperationCancelled()
-            .RequireAuthorization(new AuthorizeAttribute
-            {
-                AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme
-            });
+            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.Cookie);
     }
 
     private static IResult HandleAsync(
@@ -39,7 +36,7 @@ public sealed class LogOutEndpointModule :
             properties: authProperties,
             authenticationSchemes: [
                 CookieAuthenticationDefaults.AuthenticationScheme,
-                OpenIdConnectDefaults.AuthenticationScheme
+                OpenIddictClientAspNetCoreDefaults.AuthenticationScheme
             ]);
     }
 

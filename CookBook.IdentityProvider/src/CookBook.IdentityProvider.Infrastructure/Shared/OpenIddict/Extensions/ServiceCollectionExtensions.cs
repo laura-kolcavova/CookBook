@@ -11,7 +11,8 @@ namespace CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Extensions;
 internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddOpenIddictServer(
-       this IServiceCollection services)
+       this IServiceCollection services,
+       bool isDevelopment)
     {
         services
             .AddQuartz(options =>
@@ -67,14 +68,18 @@ internal static class ServiceCollectionExtensions
                         Scopes.Email,
                         Scopes.Profile);
 
-                    options
+                    var aspNetCoreBuilder = options
                         .UseAspNetCore()
-                        .DisableTransportSecurityRequirement()
                         .EnableAuthorizationEndpointPassthrough()
                         .EnableEndSessionEndpointPassthrough()
                         .EnableTokenEndpointPassthrough()
                         .EnableUserInfoEndpointPassthrough()
                         .EnableStatusCodePagesIntegration();
+
+                    if (isDevelopment)
+                    {
+                        aspNetCoreBuilder.DisableTransportSecurityRequirement();
+                    }
                 })
             .AddValidation(
                 options =>

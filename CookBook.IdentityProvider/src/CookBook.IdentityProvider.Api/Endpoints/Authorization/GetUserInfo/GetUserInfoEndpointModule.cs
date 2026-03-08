@@ -21,10 +21,10 @@ public sealed class GetUserInfoEndpointModule :
             .WithName("GetUserInfo")
             .WithSummary("OpenID Connect userinfo endpoint")
             .WithDescription("")
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesValidationProblem()
             .DisableAntiforgery()
             .HandleOperationCancelled()
             .RequireAuthorization(new AuthorizeAttribute

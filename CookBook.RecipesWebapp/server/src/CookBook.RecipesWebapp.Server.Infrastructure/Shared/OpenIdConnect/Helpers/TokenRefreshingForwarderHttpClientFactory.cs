@@ -3,7 +3,7 @@ using Yarp.ReverseProxy.Forwarder;
 
 namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect.Helpers;
 
-internal sealed class TokenRefreshingForwarderHttpClientFactory(
+public sealed class TokenRefreshingForwarderHttpClientFactory(
     OpenIddictClientService service) :
     ForwarderHttpClientFactory
 {

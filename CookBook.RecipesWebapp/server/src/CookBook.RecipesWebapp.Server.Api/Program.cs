@@ -1,8 +1,8 @@
 using Carter;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
-using CookBook.RecipesWebapp.Server.Api.Shared.ReverseProxy;
 using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
 using CookBook.RecipesWebapp.Server.Application.Shared.Extensions;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect;
 using Microsoft.Extensions.FileProviders;
@@ -30,7 +30,7 @@ var openIdConnectAppConfiguration = configuration
     .Get<OpenIdConnectAppConfiguration>()!;
 
 var reverseProxyConfiguration = configuration
-    .GetRequiredSection(ReverseProxyConstants.ConfigurationSectionName);
+    .GetRequiredSection(ConfigurationConstants.ReverseProxy.ReverseProxySectionName);
 
 services
     .AddOptions();
@@ -69,6 +69,22 @@ app.MapCarter();
 
 app.MapReverseProxy();
 
+app.UseSwagger(options =>
+{
+    options.RouteTemplate = ".less-known/api-docs/{documentName}.json";
+    options.PreSerializeFilters.Add((swagger, _) =>
+        // Clear servers -element in swagger.json because it got the wrong port when hosted behind reverse proxy
+        swagger.Servers.Clear());
+});
+
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/.less-known/api-docs/v1.json", "v1");
+    options.RoutePrefix = ".less-known/api-docs/ui";
+    options.ConfigObject.Filter = string.Empty;
+    options.ConfigObject.TryItOutEnabled = true;
+});
+
 if (spaClientConfiguration.IsSpaEnabled)
 {
     app.MapWhen(ctx =>
@@ -106,21 +122,5 @@ if (spaClientConfiguration.IsSpaEnabled)
             });
         });
 }
-
-app.UseSwagger(options =>
-{
-    options.RouteTemplate = ".less-known/api-docs/{documentName}.json";
-    options.PreSerializeFilters.Add((swagger, _) =>
-        // Clear servers -element in swagger.json because it got the wrong port when hosted behind reverse proxy
-        swagger.Servers.Clear());
-});
-
-app.UseSwaggerUI(options =>
-{
-    options.SwaggerEndpoint("/.less-known/api-docs/v1.json", "v1");
-    options.RoutePrefix = ".less-known/api-docs/ui";
-    options.ConfigObject.Filter = string.Empty;
-    options.ConfigObject.TryItOutEnabled = true;
-});
 
 app.Run();

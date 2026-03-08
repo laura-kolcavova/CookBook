@@ -24,9 +24,9 @@ public sealed class TokenEndpointModule :
             .WithSummary("OpenID Connect token endpoint")
             .WithDescription("")
             .Accepts<IFormCollection>("application/x-www-form-urlencoded")
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesValidationProblem()
             .HandleOperationCancelled()
             .AllowAnonymous();
     }

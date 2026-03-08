@@ -1,5 +1,6 @@
 ﻿using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using Microsoft.AspNetCore.Authentication;
+using OpenIddict.Client.AspNetCore;
 
 namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogIn;
 
@@ -14,10 +15,10 @@ public sealed class LogInEndpointModule :
             .WithSummary("Signs in an user")
             .WithDescription("")
             .Produces(StatusCodes.Status307TemporaryRedirect)
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesValidationProblem()
             .ValidateRequest()
             .AllowAnonymous();
     }
@@ -32,7 +33,10 @@ public sealed class LogInEndpointModule :
         };
 
         return TypedResults.Challenge(
-            properties);
+            properties,
+            authenticationSchemes: [
+                OpenIddictClientAspNetCoreDefaults.AuthenticationScheme
+            ]);
     }
 
     private static string BuildReturnUrl(

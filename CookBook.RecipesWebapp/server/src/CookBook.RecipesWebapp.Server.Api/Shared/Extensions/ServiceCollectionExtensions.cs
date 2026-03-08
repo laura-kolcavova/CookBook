@@ -5,14 +5,15 @@ using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect.Helpers;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Abstractions;
+using OpenIddict.Client;
 using OpenIddict.Client.AspNetCore;
 using Swashbuckle.AspNetCore.Filters;
 using System.Globalization;
 using System.Text.Json.Serialization;
+using Yarp.ReverseProxy.Forwarder;
 using Yarp.ReverseProxy.Transforms;
 
 namespace CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
@@ -42,7 +43,6 @@ internal static class ServiceCollectionExtensions
                 options =>
                 {
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 })
             .AddCookie(
                 options =>
@@ -58,29 +58,80 @@ internal static class ServiceCollectionExtensions
                     options.Cookie.SameSite = SameSiteMode.Strict;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 
-                })
-            .AddOpenIdConnect(
+                });
+        //.AddOpenIdConnect(
+        //    options =>
+        //    {
+        //        options.Authority = openIdConnectAppConfiguration.Authority;
+        //        options.ClientId = openIdConnectAppConfiguration.ClientId;
+        //        options.ClientSecret = openIdConnectAppConfiguration.ClientSecret;
+
+        //        options.ResponseType = OpenIdConnectResponseType.Code;
+        //        options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+        //        options.Scope.Add(OpenIddictConstants.Scopes.OpenId);
+        //        options.Scope.Add(OpenIddictConstants.Scopes.Email);
+        //        options.Scope.Add(OpenIddictConstants.Scopes.Profile);
+
+        //        if (isDevelopment)
+        //        {
+        //            options.RequireHttpsMetadata = false;
+        //        }
+
+        //        options.SaveTokens = true;
+        //        options.MapInboundClaims = false;
+        //        options.GetClaimsFromUserInfoEndpoint = true;
+        //    });
+
+        services
+            .AddOpenIddict()
+            .AddClient(
                 options =>
                 {
-                    options.Authority = openIdConnectAppConfiguration.Authority;
-                    options.ClientId = openIdConnectAppConfiguration.ClientId;
-                    options.ClientSecret = openIdConnectAppConfiguration.ClientSecret;
+                    options
+                        .AllowAuthorizationCodeFlow()
+                        .AllowRefreshTokenFlow();
 
-                    options.ResponseType = OpenIdConnectResponseType.Code;
-                    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options
+                        .AddDevelopmentEncryptionCertificate()
+                        .AddDevelopmentSigningCertificate();
 
-                    options.Scope.Add(OpenIddictConstants.Scopes.OpenId);
-                    options.Scope.Add(OpenIddictConstants.Scopes.Email);
-                    options.Scope.Add(OpenIddictConstants.Scopes.Profile);
+                    var aspNetCoreBuilder = options
+                        .UseAspNetCore()
+                        .EnableStatusCodePagesIntegration()
+                        .EnableRedirectionEndpointPassthrough();
 
                     if (isDevelopment)
                     {
-                        options.RequireHttpsMetadata = false;
+                        aspNetCoreBuilder.DisableTransportSecurityRequirement();
                     }
 
-                    options.SaveTokens = true;
-                    options.MapInboundClaims = false;
-                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options
+                        .UseSystemNetHttp()
+                        .SetProductInformation(typeof(Program).Assembly);
+
+                    options.DisableTokenStorage();
+
+                    options.AddRegistration(
+                        new OpenIddictClientRegistration
+                        {
+                            Issuer = new Uri(
+                                openIdConnectAppConfiguration.Authority,
+                                UriKind.Absolute),
+
+                            ClientId = openIdConnectAppConfiguration.ClientId,
+                            ClientSecret = openIdConnectAppConfiguration.ClientSecret,
+
+                            Scopes = {
+                                OpenIddictConstants.Scopes.OpenId,
+                                OpenIddictConstants.Scopes.Email,
+                                OpenIddictConstants.Scopes.Profile
+                            },
+
+                            RedirectUri = new Uri(
+                                "/signin-oidc",
+                                UriKind.Relative)
+                        });
                 });
 
         services.AddAuthorizationBuilder()
@@ -99,25 +150,6 @@ internal static class ServiceCollectionExtensions
             .ConfigureHttpJsonOptions(options =>
             {
                 options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
-
-        services
-            .AddEndpointsApiExplorer()
-            .AddSwaggerExamplesFromAssemblyOf<Program>()
-            .AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = applicationName,
-                    Version = "v1"
-                });
-
-                options.ExampleFilters();
-                options.SupportNonNullableReferenceTypes();
-
-                options.CustomSchemaIds(x => x.FullName?
-                    .Replace("Dto", string.Empty)
-                    .Replace("+", "."));
             });
 
         services
@@ -219,6 +251,30 @@ internal static class ServiceCollectionExtensions
                             result.Principal,
                             properties);
                 });
+            });
+
+        services.Replace(
+            ServiceDescriptor.Singleton<
+                IForwarderHttpClientFactory,
+                TokenRefreshingForwarderHttpClientFactory>());
+
+        services
+            .AddEndpointsApiExplorer()
+            .AddSwaggerExamplesFromAssemblyOf<Program>()
+            .AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = applicationName,
+                    Version = "v1"
+                });
+
+                options.ExampleFilters();
+                options.SupportNonNullableReferenceTypes();
+
+                options.CustomSchemaIds(x => x.FullName?
+                    .Replace("Dto", string.Empty)
+                    .Replace("+", "."));
             });
 
         services

@@ -14,8 +14,9 @@ internal static class GetRecipeDetailEndpoint
             .WithDescription("Returns a DTO containing recipe detail")
             .Produces<GetRecipeDetailResponseDto>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status204NoContent)
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesValidationProblem();
+            .AllowAnonymous();
     }
 
     private static async Task<IResult> HandleAsync(
