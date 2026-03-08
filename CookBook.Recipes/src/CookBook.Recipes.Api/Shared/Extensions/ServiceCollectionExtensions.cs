@@ -1,13 +1,23 @@
 ﻿using FluentValidation;
 using Microsoft.OpenApi.Models;
+using OpenIddict.Validation.AspNetCore;
 using System.Text.Json.Serialization;
 
 namespace CookBook.Recipes.Api.Shared.Extensions;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddApi(this IServiceCollection services, string applicationName)
+    public static IServiceCollection AddApi(
+        this IServiceCollection services,
+        string applicationName)
     {
+        services
+            .AddAuthentication(
+                OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+
+        services
+            .AddAuthorization();
+
         services
             .ConfigureHttpJsonOptions(options =>
             {

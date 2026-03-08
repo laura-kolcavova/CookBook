@@ -30,9 +30,9 @@ var spaClientConfiguration = configuration
     .GetRequiredSection(nameof(SpaClientConfiguration))
     .Get<SpaClientConfiguration>()!;
 
-var openIdConnectClientConfiguration = configuration
-    .GetRequiredSection(nameof(OpenIdConnectClientConfiguration))
-    .Get<OpenIdConnectClientConfiguration>()!;
+var openIdConnectAppConfiguration = configuration
+    .GetRequiredSection(nameof(OpenIdConnectAppConfiguration))
+    .Get<OpenIdConnectAppConfiguration>()!;
 
 var reverseProxyConfiguration = configuration
     .GetRequiredSection(ReverseProxyConstants.ConfigurationSectionName);
@@ -75,9 +75,9 @@ services
     .AddOpenIdConnect(
         options =>
         {
-            options.Authority = openIdConnectClientConfiguration.Authority;
-            options.ClientId = openIdConnectClientConfiguration.ClientId;
-            options.ClientSecret = openIdConnectClientConfiguration.ClientSecret;
+            options.Authority = openIdConnectAppConfiguration.Authority;
+            options.ClientId = openIdConnectAppConfiguration.ClientId;
+            options.ClientSecret = openIdConnectAppConfiguration.ClientSecret;
 
             options.ResponseType = OpenIdConnectResponseType.Code;
             options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;

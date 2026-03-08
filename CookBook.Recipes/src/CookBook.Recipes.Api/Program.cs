@@ -4,6 +4,7 @@ using CookBook.Recipes.Api.Shared.Extensions;
 using CookBook.Recipes.Application.Shared.Extensions;
 using CookBook.Recipes.Infrastructure.Shared.Configuration;
 using CookBook.Recipes.Infrastructure.Shared.Extensions;
+using CookBook.Recipes.Infrastructure.Shared.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,10 @@ builder.Host
 var cookBookRecipesConnectionString = configuration.GetSqlConnectionString(
     ConfigurationConstants.SqlConnectionStrings.CookBookRecipesSectionName);
 
+var openIdConnectAppConfiguration = configuration
+    .GetRequiredSection(nameof(OpenIdConnectAppConfiguration))
+    .Get<OpenIdConnectAppConfiguration>()!;
+
 services
     .AddOptions();
 
@@ -28,7 +33,8 @@ services
     .AddApplication()
     .AddInfrastructure(
         cookBookRecipesConnectionString,
-        isDevelopment)
+        isDevelopment,
+        openIdConnectAppConfiguration)
     .AddApi(
         builder.Environment.ApplicationName);
 
@@ -45,12 +51,10 @@ else
 
 app.UseRouting();
 
-//app.UseCors();
+app.UseAuthentication();
+app.UseAuthorization();
 
-//app.UseAuthentication();
-//app.UseAuthorization();
-
-app.MapEndpoints();
+app.MapApiEndpoints();
 
 app.UseSwagger(options =>
 {

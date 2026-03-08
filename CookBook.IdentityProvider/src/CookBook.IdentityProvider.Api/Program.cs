@@ -47,8 +47,6 @@ else
 app.UseStaticFiles();
 app.UseRouting();
 
-//app.UseCors(ConfigurationConstants.CorsPolicies.Main);
-
 app.UseAuthentication();
 app.UseAuthorization();
 

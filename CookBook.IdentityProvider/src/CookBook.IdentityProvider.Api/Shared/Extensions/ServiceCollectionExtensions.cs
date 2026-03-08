@@ -7,7 +7,9 @@ namespace CookBook.IdentityProvider.Api.Shared.Extensions;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddApi(this IServiceCollection services, string applicationName)
+    public static IServiceCollection AddApi(
+        this IServiceCollection services,
+        string applicationName)
     {
         services
             .AddAntiforgery(options =>
