@@ -26,9 +26,9 @@ public sealed class AuthorizeEndpointModule :
             .WithName("Authorize")
             .WithSummary("OpenID Connect authorization endpoint")
             .WithDescription("")
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesValidationProblem()
             .HandleOperationCancelled()
             .AllowAnonymous();
     }

@@ -6,4 +6,9 @@ public static class ConfigurationConstants
     {
         public const string CookBookRecipesSectionName = "CookBookRecipesSql";
     }
+
+    public static class AuthenticationPolicies
+    {
+        public const string OpenIdConnect = "OpenIdConnectAuthenticationPolicy";
+    }
 }

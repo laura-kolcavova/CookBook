@@ -4,9 +4,10 @@ using CookBook.Recipes.Api.Recipes;
 
 namespace CookBook.Recipes.Api.Shared;
 
-internal static class Endpoints
+internal static class ApiEndpoints
 {
-    public static RouteGroupBuilder MapEndpoints(this WebApplication app)
+    public static RouteGroupBuilder MapApiEndpoints(
+        this WebApplication app)
     {
         return app
             .MapGroup("/api")

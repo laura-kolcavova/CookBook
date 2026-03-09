@@ -3,15 +3,16 @@ using CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Services;
 using CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Services.Abstractions;
 using CookBook.IdentityProvider.Infrastructure.Users;
 using Microsoft.Extensions.DependencyInjection;
+using OpenIddict.Abstractions;
 using Quartz;
-using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Extensions;
 
 internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddOpenIddictServer(
-       this IServiceCollection services)
+       this IServiceCollection services,
+       bool isDevelopment)
     {
         services
             .AddQuartz(options =>
@@ -63,18 +64,24 @@ internal static class ServiceCollectionExtensions
                         .AddDevelopmentSigningCertificate();
 
                     options.RegisterScopes(
-                        Scopes.OpenId,
-                        Scopes.Email,
-                        Scopes.Profile);
+                        OpenIddictConstants.Scopes.OpenId,
+                        OpenIddictConstants.Scopes.Email,
+                        OpenIddictConstants.Scopes.Profile);
 
-                    options
+                    options.DisableAccessTokenEncryption();
+
+                    var aspNetCoreBuilder = options
                         .UseAspNetCore()
-                        .DisableTransportSecurityRequirement()
                         .EnableAuthorizationEndpointPassthrough()
                         .EnableEndSessionEndpointPassthrough()
                         .EnableTokenEndpointPassthrough()
                         .EnableUserInfoEndpointPassthrough()
                         .EnableStatusCodePagesIntegration();
+
+                    if (isDevelopment)
+                    {
+                        aspNetCoreBuilder.DisableTransportSecurityRequirement();
+                    }
                 })
             .AddValidation(
                 options =>

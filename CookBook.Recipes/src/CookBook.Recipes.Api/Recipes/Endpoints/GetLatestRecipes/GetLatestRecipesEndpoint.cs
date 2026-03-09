@@ -15,8 +15,9 @@ internal static class GetLatestRecipesEndpoint
             .WithDescription("Returns a collection of latest recipes")
             .Produces<GetLatestRecipesResponseDto>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status204NoContent)
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesValidationProblem();
+            .AllowAnonymous();
     }
 
     private static async Task<IResult> HandleAsync(

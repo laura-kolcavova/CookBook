@@ -5,9 +5,9 @@ using CookBook.IdentityProvider.Domain.Users.Models;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
 using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Identity;
+using OpenIddict.Abstractions;
 using System.Security.Claims;
 using System.Transactions;
-using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Infrastructure.Users.Services;
 
@@ -54,7 +54,7 @@ internal sealed class RegisterManager(
         var claimsResult = await userManager.AddClaimAsync(
             identityUser,
             new Claim(
-                Claims.PreferredUsername,
+                OpenIddictConstants.Claims.PreferredUsername,
                 registerUserRequest.DisplayName));
 
         if (!claimsResult.Succeeded)

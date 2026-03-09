@@ -2,6 +2,7 @@
 using CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe.Contracts;
 using CookBook.Recipes.Api.Recipes.Features.SaveRecipe.Mappers;
 using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
+using CookBook.Recipes.Infrastructure.Shared.Configuration;
 using FluentValidation;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
@@ -17,9 +18,12 @@ internal static class SaveRecipeEndpoint
             .WithSummary("Updates a recipe or creates a new one if it does not exist")
             .WithDescription("This endpoint returns a DTO containing an id of created or edited recipe.")
             .Produces<SaveRecipeResponseDto>(StatusCodes.Status200OK)
-            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .ProducesValidationProblem();
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status403Forbidden)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.OpenIdConnect);
     }
 
     private static async Task<IResult> HandleAsync(

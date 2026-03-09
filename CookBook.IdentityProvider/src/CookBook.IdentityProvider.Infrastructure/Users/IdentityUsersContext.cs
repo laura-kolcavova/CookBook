@@ -14,8 +14,8 @@ internal sealed class IdentityUsersContext(
     protected override void OnConfiguring(
         DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder
-           .UseSqlServer(connectionString);
+        optionsBuilder.UseSqlServer(
+            connectionString);
 
         optionsBuilder.UseOpenIddict<int>();
 

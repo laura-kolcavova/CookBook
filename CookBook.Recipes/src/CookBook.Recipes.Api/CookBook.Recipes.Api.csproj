@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
+  <PropertyGroup>
+    <UserSecretsId>857efe8d-0862-4b94-828c-ef6bde083210</UserSecretsId>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="CookBook.Extensions.AspNetCore" Version="1.0.2" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.1" />

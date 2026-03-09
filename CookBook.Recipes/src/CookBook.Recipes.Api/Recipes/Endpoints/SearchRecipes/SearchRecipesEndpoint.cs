@@ -18,8 +18,9 @@ internal static class SearchRecipesEndpoint
             .WithDescription("Returns a DTO containing a collection of recipe listing item DTOs.")
             .Produces<SearchRecipesResponseDto>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status204NoContent)
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesValidationProblem();
+            .AllowAnonymous();
     }
 
     private static async Task<IResult> HandleAsync(

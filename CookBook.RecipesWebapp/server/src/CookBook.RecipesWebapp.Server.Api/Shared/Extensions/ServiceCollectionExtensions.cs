@@ -1,6 +1,12 @@
 ﻿using Carter;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect.Yarp.TransformProviders;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.OpenApi.Models;
+using OpenIddict.Abstractions;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
@@ -11,16 +17,90 @@ internal static class ServiceCollectionExtensions
     public static IServiceCollection AddApi(
         this IServiceCollection services,
         string applicationName,
-        IConfigurationSection reverseProxyConfiguration)
+        bool isDevelopment,
+        IConfigurationSection reverseProxyConfiguration,
+        OpenIdConnectAppConfiguration openIdConnectAppConfiguration)
     {
         services
-            .AddCarter(new DependencyContextAssemblyCatalog([typeof(Program).Assembly]));
+            .AddAntiforgery(
+                options =>
+                {
+                    options.HeaderName = ConfigurationConstants.Antiforgery.HeaderName;
+                    options.Cookie.Name = ConfigurationConstants.Antiforgery.CookieName;
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SameSite = SameSiteMode.Strict;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                });
 
         services
-            .ConfigureHttpJsonOptions(options =>
-            {
-                options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
+            .AddAuthentication(
+                options =>
+                {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                })
+            .AddCookie(
+                options =>
+                {
+                    //options.LoginPath = "/login";
+                    //options.LogoutPath = "/logout";
+
+                    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                    options.SlidingExpiration = true;
+
+                    options.Cookie.Name = ConfigurationConstants.Identity.CookieName;
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SameSite = SameSiteMode.Strict;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+
+                })
+            .AddOpenIdConnect(
+                options =>
+                {
+                    options.Authority = openIdConnectAppConfiguration.Authority;
+                    options.ClientId = openIdConnectAppConfiguration.ClientId;
+                    options.ClientSecret = openIdConnectAppConfiguration.ClientSecret;
+
+                    options.ResponseType = OpenIdConnectResponseType.Code;
+                    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+                    options.Scope.Add(OpenIddictConstants.Scopes.OpenId);
+                    options.Scope.Add(OpenIddictConstants.Scopes.Email);
+                    options.Scope.Add(OpenIddictConstants.Scopes.Profile);
+
+                    if (isDevelopment)
+                    {
+                        options.RequireHttpsMetadata = false;
+                    }
+
+                    options.SaveTokens = true;
+                    options.MapInboundClaims = false;
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                });
+
+        services.AddAuthorizationBuilder()
+            .AddPolicy(
+                ConfigurationConstants.AuthenticationPolicies.Cookie,
+                builder =>
+                {
+                    builder.AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme);
+                    builder.RequireAuthenticatedUser();
+                });
+
+        services
+          .ConfigureHttpJsonOptions(options =>
+          {
+              options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+          });
+
+        services
+            .AddCarter(
+                new DependencyContextAssemblyCatalog(
+                    [typeof(Program).Assembly]));
+
+        services
+          .AddReverseProxy()
+          .LoadFromConfig(reverseProxyConfiguration)
+          .AddTransforms<OpenIdConnectTransformProvider>();
 
         services
             .AddEndpointsApiExplorer()
@@ -40,10 +120,6 @@ internal static class ServiceCollectionExtensions
                     .Replace("Dto", string.Empty)
                     .Replace("+", "."));
             });
-
-        services
-            .AddReverseProxy()
-            .LoadFromConfig(reverseProxyConfiguration);
 
         services
             .AddProblemDetails();

@@ -29,7 +29,8 @@ public static class ServiceCollectionExtensions
             .AddIdentityUsers(
                 connectionString,
                 isDevelopment)
-            .AddOpenIddictServer();
+            .AddOpenIddictServer(
+                isDevelopment);
 
         services
             .AddUsers(

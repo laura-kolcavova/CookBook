@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIddict;
+namespace CookBook.Recipes.Infrastructure.Shared.OpenIdConnect;
 
-public sealed class OpenIdConnectClientConfiguration
+public sealed class OpenIdConnectAppConfiguration
 {
     [Required]
     public string Authority { get; set; } = string.Empty;

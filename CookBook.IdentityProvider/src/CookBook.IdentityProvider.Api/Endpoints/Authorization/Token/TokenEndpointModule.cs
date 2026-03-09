@@ -9,7 +9,6 @@ using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 using System.Collections.Immutable;
 using System.Security.Claims;
-using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Api.Endpoints.Authorization.Token;
 
@@ -24,9 +23,9 @@ public sealed class TokenEndpointModule :
             .WithSummary("OpenID Connect token endpoint")
             .WithDescription("")
             .Accepts<IFormCollection>("application/x-www-form-urlencoded")
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ProducesValidationProblem()
             .HandleOperationCancelled()
             .AllowAnonymous();
     }
@@ -61,7 +60,7 @@ public sealed class TokenEndpointModule :
 
             var userId = authenticationResult
                     .Principal
-                    !.GetClaim(Claims.Subject)!;
+                    !.GetClaim(OpenIddictConstants.Claims.Subject)!;
 
             var user = await userManager.FindByIdAsync(
                 userId);
@@ -71,7 +70,7 @@ public sealed class TokenEndpointModule :
                 return TypedResults.Forbid(
                     properties: new AuthenticationProperties(new Dictionary<string, string?>
                     {
-                        [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
+                        [OpenIddictServerAspNetCoreConstants.Properties.Error] = OpenIddictConstants.Errors.InvalidGrant,
                         [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The token is no longer valid."
                     }),
                     authenticationSchemes: [
@@ -87,7 +86,7 @@ public sealed class TokenEndpointModule :
                 return TypedResults.Forbid(
                     properties: new AuthenticationProperties(new Dictionary<string, string?>
                     {
-                        [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
+                        [OpenIddictServerAspNetCoreConstants.Properties.Error] = OpenIddictConstants.Errors.InvalidGrant,
                         [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The user is no longer allowed to sign in."
                     }),
                     authenticationSchemes: [
@@ -100,20 +99,20 @@ public sealed class TokenEndpointModule :
                     .Principal
                     !.Claims,
                 authenticationType: TokenValidationParameters.DefaultAuthenticationType,
-                nameType: Claims.Name,
-                roleType: Claims.Role);
+                nameType: OpenIddictConstants.Claims.Name,
+                roleType: OpenIddictConstants.Claims.Role);
 
             var preferredUsernameClaimValue = (await userManager.GetClaimsAsync(user))
-                .FirstOrDefault(claim => claim.Type == Claims.PreferredUsername)
+                .FirstOrDefault(claim => claim.Type == OpenIddictConstants.Claims.PreferredUsername)
                 ?.Value
                 ?? throw new InvalidOperationException("Preferred user name is not set.");
 
             identity
-                .SetClaim(Claims.Subject, await userManager.GetUserIdAsync(user))
-                .SetClaim(Claims.Email, await userManager.GetEmailAsync(user))
-                .SetClaim(Claims.Name, await userManager.GetUserNameAsync(user))
-                .SetClaim(Claims.PreferredUsername, preferredUsernameClaimValue)
-                .SetClaims(Claims.Role, (await userManager.GetRolesAsync(user)).ToImmutableArray());
+                .SetClaim(OpenIddictConstants.Claims.Subject, await userManager.GetUserIdAsync(user))
+                .SetClaim(OpenIddictConstants.Claims.Email, await userManager.GetEmailAsync(user))
+                .SetClaim(OpenIddictConstants.Claims.Name, await userManager.GetUserNameAsync(user))
+                .SetClaim(OpenIddictConstants.Claims.PreferredUsername, preferredUsernameClaimValue)
+                .SetClaims(OpenIddictConstants.Claims.Role, (await userManager.GetRolesAsync(user)).ToImmutableArray());
 
             identity.SetDestinations(ClaimExtensions.GetDestinations);
 
@@ -141,7 +140,7 @@ public sealed class TokenEndpointModule :
         {
             var properties = new AuthenticationProperties(new Dictionary<string, string?>
             {
-                [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
+                [OpenIddictServerAspNetCoreConstants.Properties.Error] = OpenIddictConstants.Errors.InvalidGrant,
                 [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] =
                     "The username/password couple is invalid."
             });
@@ -162,7 +161,7 @@ public sealed class TokenEndpointModule :
         {
             var properties = new AuthenticationProperties(new Dictionary<string, string?>
             {
-                [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
+                [OpenIddictServerAspNetCoreConstants.Properties.Error] = OpenIddictConstants.Errors.InvalidGrant,
                 [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] =
                     "The username/password couple is invalid."
             });
@@ -176,26 +175,26 @@ public sealed class TokenEndpointModule :
 
         var identity = new ClaimsIdentity(
             authenticationType: TokenValidationParameters.DefaultAuthenticationType,
-            nameType: Claims.Name,
-            roleType: Claims.Role);
+            nameType: OpenIddictConstants.Claims.Name,
+            roleType: OpenIddictConstants.Claims.Role);
 
         var preferredUsernameClaimValue = (await userManager.GetClaimsAsync(user))
-                .FirstOrDefault(claim => claim.Type == Claims.PreferredUsername)
+                .FirstOrDefault(claim => claim.Type == OpenIddictConstants.Claims.PreferredUsername)
                 ?.Value
                 ?? throw new InvalidOperationException("Preferred user name is not set.");
 
         identity
-            .SetClaim(Claims.Subject, await userManager.GetUserIdAsync(user))
-            .SetClaim(Claims.Email, await userManager.GetEmailAsync(user))
-            .SetClaim(Claims.Name, await userManager.GetUserNameAsync(user))
-            .SetClaim(Claims.PreferredUsername, preferredUsernameClaimValue)
-            .SetClaims(Claims.Role, (await userManager.GetRolesAsync(user)).ToImmutableArray());
+            .SetClaim(OpenIddictConstants.Claims.Subject, await userManager.GetUserIdAsync(user))
+            .SetClaim(OpenIddictConstants.Claims.Email, await userManager.GetEmailAsync(user))
+            .SetClaim(OpenIddictConstants.Claims.Name, await userManager.GetUserNameAsync(user))
+            .SetClaim(OpenIddictConstants.Claims.PreferredUsername, preferredUsernameClaimValue)
+            .SetClaims(OpenIddictConstants.Claims.Role, (await userManager.GetRolesAsync(user)).ToImmutableArray());
 
         var restrictedScopes = new string[]
         {
-            Scopes.OpenId,
-            Scopes.Email,
-            Scopes.Profile,
+            OpenIddictConstants.Scopes.OpenId,
+            OpenIddictConstants.Scopes.Email,
+            OpenIddictConstants.Scopes.Profile,
         };
 
         var requestScopes = openIddictRequest.GetScopes();
