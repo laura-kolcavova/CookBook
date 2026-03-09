@@ -4,9 +4,9 @@ using System.Net.Http.Headers;
 using Yarp.ReverseProxy.Transforms;
 using Yarp.ReverseProxy.Transforms.Builder;
 
-namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect.Transformers;
+namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect.Yarp.TransformProviders;
 
-public sealed class OpenIdConnectClientTransformer :
+public sealed class OpenIdConnectTransformProvider :
     ITransformProvider
 {
     private const string OpenIdConnectScopesMetaDataName = "OpenIdConnectScopes";
