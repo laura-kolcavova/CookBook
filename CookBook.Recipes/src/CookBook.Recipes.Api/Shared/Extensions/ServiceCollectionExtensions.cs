@@ -34,10 +34,7 @@ internal static class ServiceCollectionExtensions
                     {
                         ValidateIssuer = true,
                         ValidateAudience = false,
-
                         ValidIssuer = openIdConnectAppConfiguration.Authority,
-                        //ValidAudience = openIdConnectAppConfiguration.ClientId,
-
                         ValidTypes = new[]
                         {
                             "at+jwt"
@@ -51,8 +48,10 @@ internal static class ServiceCollectionExtensions
                 ConfigurationConstants.AuthenticationPolicies.OpenIdConnect,
                 builder =>
                 {
-                    builder.RequireAuthenticatedUser();
-                    builder.RequireScope("email");
+                    builder
+                        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                        .RequireAuthenticatedUser()
+                        .RequireScope("CookBook.Recipes.ReadWrite");
                 });
 
         services

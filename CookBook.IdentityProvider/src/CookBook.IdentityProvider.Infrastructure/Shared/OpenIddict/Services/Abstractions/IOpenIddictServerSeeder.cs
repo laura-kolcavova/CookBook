@@ -4,4 +4,7 @@ public interface IOpenIddictServerSeeder
 {
     public Task SeedApplications(
         CancellationToken cancellationToken);
+
+    public Task SeedResources(
+        CancellationToken cancellationToken);
 }
