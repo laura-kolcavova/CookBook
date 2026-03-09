@@ -1,6 +1,6 @@
 ﻿using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using Microsoft.AspNetCore.Authentication;
-using OpenIddict.Client.AspNetCore;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogIn;
 
@@ -35,7 +35,7 @@ public sealed class LogInEndpointModule :
         return TypedResults.Challenge(
             properties,
             authenticationSchemes: [
-                OpenIddictClientAspNetCoreDefaults.AuthenticationScheme
+                OpenIdConnectDefaults.AuthenticationScheme
             ]);
     }
 

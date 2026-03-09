@@ -3,7 +3,7 @@ using CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogOut;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using OpenIddict.Client.AspNetCore;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogIn;
 
@@ -36,7 +36,7 @@ public sealed class LogOutEndpointModule :
             properties: authProperties,
             authenticationSchemes: [
                 CookieAuthenticationDefaults.AuthenticationScheme,
-                OpenIddictClientAspNetCoreDefaults.AuthenticationScheme
+                OpenIdConnectDefaults.AuthenticationScheme
             ]);
     }
 

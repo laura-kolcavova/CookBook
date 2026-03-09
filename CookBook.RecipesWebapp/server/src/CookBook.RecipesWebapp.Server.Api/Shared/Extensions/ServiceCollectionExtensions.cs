@@ -1,20 +1,14 @@
 ﻿using Carter;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect;
-using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect.Helpers;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect.Transformers;
 using FluentValidation;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Abstractions;
-using OpenIddict.Client;
-using OpenIddict.Client.AspNetCore;
 using Swashbuckle.AspNetCore.Filters;
-using System.Globalization;
 using System.Text.Json.Serialization;
-using Yarp.ReverseProxy.Forwarder;
-using Yarp.ReverseProxy.Transforms;
 
 namespace CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 
@@ -58,81 +52,81 @@ internal static class ServiceCollectionExtensions
                     options.Cookie.SameSite = SameSiteMode.Strict;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 
-                });
-        //.AddOpenIdConnect(
-        //    options =>
-        //    {
-        //        options.Authority = openIdConnectAppConfiguration.Authority;
-        //        options.ClientId = openIdConnectAppConfiguration.ClientId;
-        //        options.ClientSecret = openIdConnectAppConfiguration.ClientSecret;
-
-        //        options.ResponseType = OpenIdConnectResponseType.Code;
-        //        options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-
-        //        options.Scope.Add(OpenIddictConstants.Scopes.OpenId);
-        //        options.Scope.Add(OpenIddictConstants.Scopes.Email);
-        //        options.Scope.Add(OpenIddictConstants.Scopes.Profile);
-
-        //        if (isDevelopment)
-        //        {
-        //            options.RequireHttpsMetadata = false;
-        //        }
-
-        //        options.SaveTokens = true;
-        //        options.MapInboundClaims = false;
-        //        options.GetClaimsFromUserInfoEndpoint = true;
-        //    });
-
-        services
-            .AddOpenIddict()
-            .AddClient(
+                })
+            .AddOpenIdConnect(
                 options =>
                 {
-                    options
-                        .AllowAuthorizationCodeFlow()
-                        .AllowRefreshTokenFlow();
+                    options.Authority = openIdConnectAppConfiguration.Authority;
+                    options.ClientId = openIdConnectAppConfiguration.ClientId;
+                    options.ClientSecret = openIdConnectAppConfiguration.ClientSecret;
 
-                    options
-                        .AddDevelopmentEncryptionCertificate()
-                        .AddDevelopmentSigningCertificate();
+                    options.ResponseType = OpenIdConnectResponseType.Code;
+                    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
-                    var aspNetCoreBuilder = options
-                        .UseAspNetCore()
-                        .EnableStatusCodePagesIntegration()
-                        .EnableRedirectionEndpointPassthrough();
+                    options.Scope.Add(OpenIddictConstants.Scopes.OpenId);
+                    options.Scope.Add(OpenIddictConstants.Scopes.Email);
+                    options.Scope.Add(OpenIddictConstants.Scopes.Profile);
 
                     if (isDevelopment)
                     {
-                        aspNetCoreBuilder.DisableTransportSecurityRequirement();
+                        options.RequireHttpsMetadata = false;
                     }
 
-                    options
-                        .UseSystemNetHttp()
-                        .SetProductInformation(typeof(Program).Assembly);
-
-                    options.DisableTokenStorage();
-
-                    options.AddRegistration(
-                        new OpenIddictClientRegistration
-                        {
-                            Issuer = new Uri(
-                                openIdConnectAppConfiguration.Authority,
-                                UriKind.Absolute),
-
-                            ClientId = openIdConnectAppConfiguration.ClientId,
-                            ClientSecret = openIdConnectAppConfiguration.ClientSecret,
-
-                            Scopes = {
-                                OpenIddictConstants.Scopes.OpenId,
-                                OpenIddictConstants.Scopes.Email,
-                                OpenIddictConstants.Scopes.Profile
-                            },
-
-                            RedirectUri = new Uri(
-                                "/signin-oidc",
-                                UriKind.Relative)
-                        });
+                    options.SaveTokens = true;
+                    options.MapInboundClaims = false;
+                    options.GetClaimsFromUserInfoEndpoint = true;
                 });
+
+        //services
+        //    .AddOpenIddict()
+        //    .AddClient(
+        //        options =>
+        //        {
+        //            options
+        //                .AllowAuthorizationCodeFlow()
+        //                .AllowRefreshTokenFlow();
+
+        //            options
+        //                .AddDevelopmentEncryptionCertificate()
+        //                .AddDevelopmentSigningCertificate();
+
+        //            var aspNetCoreBuilder = options
+        //                .UseAspNetCore()
+        //                .EnableStatusCodePagesIntegration()
+        //                .EnableRedirectionEndpointPassthrough();
+
+        //            if (isDevelopment)
+        //            {
+        //                aspNetCoreBuilder.DisableTransportSecurityRequirement();
+        //            }
+
+        //            options
+        //                .UseSystemNetHttp()
+        //                .SetProductInformation(typeof(Program).Assembly);
+
+        //            options.DisableTokenStorage();
+
+        //            options.AddRegistration(
+        //                new OpenIddictClientRegistration
+        //                {
+        //                    Issuer = new Uri(
+        //                        openIdConnectAppConfiguration.Authority,
+        //                        UriKind.Absolute),
+
+        //                    ClientId = openIdConnectAppConfiguration.ClientId,
+        //                    ClientSecret = openIdConnectAppConfiguration.ClientSecret,
+
+        //                    Scopes = {
+        //                        OpenIddictConstants.Scopes.OpenId,
+        //                        OpenIddictConstants.Scopes.Email,
+        //                        OpenIddictConstants.Scopes.Profile
+        //                    },
+
+        //                    RedirectUri = new Uri(
+        //                        "/signin-oidc",
+        //                        UriKind.Relative)
+        //                });
+        //        });
 
         services.AddAuthorizationBuilder()
             .AddPolicy(
@@ -144,119 +138,125 @@ internal static class ServiceCollectionExtensions
                 });
 
         services
-            .AddCarter(new DependencyContextAssemblyCatalog([typeof(Program).Assembly]));
+          .ConfigureHttpJsonOptions(options =>
+          {
+              options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+          });
 
         services
-            .ConfigureHttpJsonOptions(options =>
-            {
-                options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
+            .AddCarter(
+                new DependencyContextAssemblyCatalog(
+                    [typeof(Program).Assembly]));
 
         services
-            .AddReverseProxy()
-            .LoadFromConfig(reverseProxyConfiguration)
-            .AddTransforms(builder =>
-            {
-                builder.AddRequestTransform(async context =>
-                {
-                    var result = await context
-                        .HttpContext
-                        .AuthenticateAsync(
-                            CookieAuthenticationDefaults.AuthenticationScheme);
+          .AddReverseProxy()
+          .LoadFromConfig(reverseProxyConfiguration)
+          .AddTransforms<OpenIdConnectClientTransformer>();
 
-                    if (result is not { Succeeded: true })
-                    {
-                        return;
-                    }
+        services.AddHttpForwarder();
 
-                    var proxyRequestOptions = context
-                        .ProxyRequest
-                        .Options;
+        //    .AddTransforms(builder =>
+        //    {
+        //        builder.AddRequestTransform(async context =>
+        //        {
+        //            var result = await context
+        //                .HttpContext
+        //                .AuthenticateAsync(
+        //                    CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    proxyRequestOptions.Set(
-                        key: new(
-                            OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken),
-                        value: result
-                            .Properties
-                            .GetTokenValue(
-                                OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken));
+        //            if (result is not { Succeeded: true })
+        //            {
+        //                return;
+        //            }
 
-                    proxyRequestOptions.Set(
-                        key: new(
-                            OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessTokenExpirationDate),
-                        value: result
-                            .Properties
-                            .GetTokenValue(
-                                OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessTokenExpirationDate));
+        //            var proxyRequestOptions = context
+        //                .ProxyRequest
+        //                .Options;
 
-                    proxyRequestOptions.Set(
-                        key: new(
-                            OpenIddictClientAspNetCoreConstants.Tokens.RefreshToken),
-                        value: result
-                            .Properties
-                            .GetTokenValue(
-                                OpenIddictClientAspNetCoreConstants.Tokens.RefreshToken));
-                });
+        //            proxyRequestOptions.Set(
+        //                key: new(
+        //                    OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken),
+        //                value: result
+        //                    .Properties
+        //                    .GetTokenValue(
+        //                        OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken));
 
-                builder.AddResponseTransform(async context =>
-                {
-                    if (context.ProxyResponse is not TokenRefreshingHttpResponseMessage response)
-                    {
-                        return;
-                    }
+        //            proxyRequestOptions.Set(
+        //                key: new(
+        //                    OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessTokenExpirationDate),
+        //                value: result
+        //                    .Properties
+        //                    .GetTokenValue(
+        //                        OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessTokenExpirationDate));
 
-                    var result = await context
-                        .HttpContext
-                        .AuthenticateAsync(
-                            CookieAuthenticationDefaults.AuthenticationScheme);
+        //            proxyRequestOptions.Set(
+        //                key: new(
+        //                    OpenIddictClientAspNetCoreConstants.Tokens.RefreshToken),
+        //                value: result
+        //                    .Properties
+        //                    .GetTokenValue(
+        //                        OpenIddictClientAspNetCoreConstants.Tokens.RefreshToken));
+        //        });
 
-                    if (result is not { Succeeded: true })
-                    {
-                        return;
-                    }
+        //        builder.AddResponseTransform(async context =>
+        //        {
+        //            if (context.ProxyResponse is not TokenRefreshingHttpResponseMessage response)
+        //            {
+        //                return;
+        //            }
 
-                    var properties = result.Properties.Clone();
+        //            var result = await context
+        //                .HttpContext
+        //                .AuthenticateAsync(
+        //                    CookieAuthenticationDefaults.AuthenticationScheme);
 
-                    properties.UpdateTokenValue(
-                        OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken,
-                        response.RefreshTokenAuthenticationResult.AccessToken);
+        //            if (result is not { Succeeded: true })
+        //            {
+        //                return;
+        //            }
 
-                    properties.UpdateTokenValue(
-                        OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessTokenExpirationDate,
-                        response
-                            .RefreshTokenAuthenticationResult
-                            .AccessTokenExpirationDate
-                            ?.ToString(CultureInfo.InvariantCulture)
-                            ?? string.Empty);
+        //            var properties = result.Properties.Clone();
 
-                    // Note: if no refresh token was returned, preserve the refresh token initially returned.
-                    if (!string.IsNullOrEmpty(response.RefreshTokenAuthenticationResult.RefreshToken))
-                    {
-                        properties.UpdateTokenValue(
-                            OpenIddictClientAspNetCoreConstants.Tokens.RefreshToken,
-                            response
-                                .RefreshTokenAuthenticationResult
-                                .RefreshToken);
-                    }
+        //            properties.UpdateTokenValue(
+        //                OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessToken,
+        //                response.RefreshTokenAuthenticationResult.AccessToken);
 
-                    properties.RedirectUri = null;
+        //            properties.UpdateTokenValue(
+        //                OpenIddictClientAspNetCoreConstants.Tokens.BackchannelAccessTokenExpirationDate,
+        //                response
+        //                    .RefreshTokenAuthenticationResult
+        //                    .AccessTokenExpirationDate
+        //                    ?.ToString(CultureInfo.InvariantCulture)
+        //                    ?? string.Empty);
 
-                    properties.IssuedUtc = TimeProvider.System.GetUtcNow();
-                    properties.ExpiresUtc = properties.IssuedUtc + TimeSpan.FromDays(7);
+        //            // Note: if no refresh token was returned, preserve the refresh token initially returned.
+        //            if (!string.IsNullOrEmpty(response.RefreshTokenAuthenticationResult.RefreshToken))
+        //            {
+        //                properties.UpdateTokenValue(
+        //                    OpenIddictClientAspNetCoreConstants.Tokens.RefreshToken,
+        //                    response
+        //                        .RefreshTokenAuthenticationResult
+        //                        .RefreshToken);
+        //            }
 
-                    await context
-                        .HttpContext
-                        .SignInAsync(
-                            result.Ticket.AuthenticationScheme,
-                            result.Principal,
-                            properties);
-                });
-            });
+        //            properties.RedirectUri = null;
 
-        services.Replace(
-            ServiceDescriptor.Singleton<
-                IForwarderHttpClientFactory,
-                TokenRefreshingForwarderHttpClientFactory>());
+        //            properties.IssuedUtc = TimeProvider.System.GetUtcNow();
+        //            properties.ExpiresUtc = properties.IssuedUtc + TimeSpan.FromDays(7);
+
+        //            await context
+        //                .HttpContext
+        //                .SignInAsync(
+        //                    result.Ticket.AuthenticationScheme,
+        //                    result.Principal,
+        //                    properties);
+        //        });
+        //    });
+
+        //services.Replace(
+        //    ServiceDescriptor.Singleton<
+        //        IForwarderHttpClientFactory,
+        //        TokenRefreshingForwarderHttpClientFactory>());
 
         services
             .AddEndpointsApiExplorer()

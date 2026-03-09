@@ -16,9 +16,6 @@ internal static class ServiceCollectionExtensions
             .AddAuthentication(
                 OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
 
-        //services
-        //    .AddAuthorization();
-
         services.AddAuthorizationBuilder()
             .AddPolicy(
                 ConfigurationConstants.AuthenticationPolicies.OpenIdConnect,
