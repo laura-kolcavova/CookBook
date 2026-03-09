@@ -1,6 +1,5 @@
 ﻿using OpenIddict.Abstractions;
 using System.Security.Claims;
-using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Api.Shared.Extensions;
 
@@ -11,33 +10,33 @@ internal static class ClaimExtensions
     {
         switch (claim.Type)
         {
-            case Claims.Name or Claims.PreferredUsername:
+            case OpenIddictConstants.Claims.Name or OpenIddictConstants.Claims.PreferredUsername:
                 {
-                    yield return Destinations.AccessToken;
+                    yield return OpenIddictConstants.Destinations.AccessToken;
 
-                    if (claim.Subject!.HasScope(Scopes.Profile))
+                    if (claim.Subject!.HasScope(OpenIddictConstants.Scopes.Profile))
                     {
-                        yield return Destinations.IdentityToken;
+                        yield return OpenIddictConstants.Destinations.IdentityToken;
                     }
 
                     yield break;
                 }
-            case Claims.Email:
+            case OpenIddictConstants.Claims.Email:
                 {
-                    yield return Destinations.AccessToken;
+                    yield return OpenIddictConstants.Destinations.AccessToken;
 
-                    if (claim.Subject!.HasScope(Scopes.Email))
-                        yield return Destinations.IdentityToken;
+                    if (claim.Subject!.HasScope(OpenIddictConstants.Scopes.Email))
+                        yield return OpenIddictConstants.Destinations.IdentityToken;
 
                     yield break;
                 }
-            case Claims.Role:
+            case OpenIddictConstants.Claims.Role:
                 {
-                    yield return Destinations.AccessToken;
+                    yield return OpenIddictConstants.Destinations.AccessToken;
 
-                    if (claim.Subject!.HasScope(Scopes.Roles))
+                    if (claim.Subject!.HasScope(OpenIddictConstants.Scopes.Roles))
                     {
-                        yield return Destinations.IdentityToken;
+                        yield return OpenIddictConstants.Destinations.IdentityToken;
                     }
 
                     yield break;
@@ -48,7 +47,7 @@ internal static class ClaimExtensions
 
             default:
                 {
-                    yield return Destinations.AccessToken;
+                    yield return OpenIddictConstants.Destinations.AccessToken;
 
                     yield break;
                 }

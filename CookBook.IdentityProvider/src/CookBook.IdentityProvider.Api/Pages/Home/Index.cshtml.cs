@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using static OpenIddict.Abstractions.OpenIddictConstants;
+using OpenIddict.Abstractions;
 
 namespace CookBook.IdentityProvider.Api.Pages.Home;
 
@@ -26,7 +26,7 @@ public sealed class IndexModel :
         }
 
         var displayName = User.Claims
-            .FirstOrDefault(claim => claim.Type == Claims.PreferredUsername)
+            .FirstOrDefault(claim => claim.Type == OpenIddictConstants.Claims.PreferredUsername)
             ?.Value
             ?? throw new InvalidOperationException("Preferred user name is not set.");
 

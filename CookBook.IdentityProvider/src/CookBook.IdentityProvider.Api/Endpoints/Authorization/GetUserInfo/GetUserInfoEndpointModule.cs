@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 using System.Security.Claims;
-using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Api.Endpoints.Authorization.GetUserInfo;
 
@@ -45,7 +44,7 @@ public sealed class GetUserInfoEndpointModule :
         {
             var properties = new AuthenticationProperties(new Dictionary<string, string?>
             {
-                [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
+                [OpenIddictServerAspNetCoreConstants.Properties.Error] = OpenIddictConstants.Errors.InvalidGrant,
                 [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] =
                    "The username/password couple is invalid."
             });
@@ -60,23 +59,23 @@ public sealed class GetUserInfoEndpointModule :
         var claims = new Dictionary<string, object>(StringComparer.Ordinal)
         {
             // Note: the "sub" claim is a mandatory claim and must be included in the JSON response.
-            [Claims.Subject] = await userManager.GetUserIdAsync(user)
+            [OpenIddictConstants.Claims.Subject] = await userManager.GetUserIdAsync(user)
         };
 
-        if (claimsPrincipal.HasScope(Scopes.Profile))
+        if (claimsPrincipal.HasScope(OpenIddictConstants.Scopes.Profile))
         {
-            claims[Claims.Name] = await userManager.GetUserNameAsync(user)
+            claims[OpenIddictConstants.Claims.Name] = await userManager.GetUserNameAsync(user)
                 ?? throw new InvalidOperationException("User name is not set.");
 
-            claims[Claims.PreferredUsername] = (await userManager.GetClaimsAsync(user))
-                .FirstOrDefault(claim => claim.Type == Claims.PreferredUsername)
+            claims[OpenIddictConstants.Claims.PreferredUsername] = (await userManager.GetClaimsAsync(user))
+                .FirstOrDefault(claim => claim.Type == OpenIddictConstants.Claims.PreferredUsername)
                 ?.Value
                 ?? throw new InvalidOperationException("Preferred user name is not set.");
         }
 
-        if (claimsPrincipal.HasScope(Scopes.Email))
+        if (claimsPrincipal.HasScope(OpenIddictConstants.Scopes.Email))
         {
-            claims[Claims.Email] = await userManager.GetEmailAsync(user)
+            claims[OpenIddictConstants.Claims.Email] = await userManager.GetEmailAsync(user)
                 ?? throw new InvalidOperationException("Email is not set.");
         }
 

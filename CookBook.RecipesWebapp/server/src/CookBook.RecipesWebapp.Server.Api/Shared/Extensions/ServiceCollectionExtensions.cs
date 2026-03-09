@@ -6,6 +6,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.OpenApi.Models;
+using OpenIddict.Abstractions;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
@@ -75,57 +76,6 @@ internal static class ServiceCollectionExtensions
                     options.MapInboundClaims = false;
                     options.GetClaimsFromUserInfoEndpoint = true;
                 });
-
-        //services
-        //    .AddOpenIddict()
-        //    .AddClient(
-        //        options =>
-        //        {
-        //            options
-        //                .AllowAuthorizationCodeFlow()
-        //                .AllowRefreshTokenFlow();
-
-        //            options
-        //                .AddDevelopmentEncryptionCertificate()
-        //                .AddDevelopmentSigningCertificate();
-
-        //            var aspNetCoreBuilder = options
-        //                .UseAspNetCore()
-        //                .EnableStatusCodePagesIntegration()
-        //                .EnableRedirectionEndpointPassthrough();
-
-        //            if (isDevelopment)
-        //            {
-        //                aspNetCoreBuilder.DisableTransportSecurityRequirement();
-        //            }
-
-        //            options
-        //                .UseSystemNetHttp()
-        //                .SetProductInformation(typeof(Program).Assembly);
-
-        //            options.DisableTokenStorage();
-
-        //            options.AddRegistration(
-        //                new OpenIddictClientRegistration
-        //                {
-        //                    Issuer = new Uri(
-        //                        openIdConnectAppConfiguration.Authority,
-        //                        UriKind.Absolute),
-
-        //                    ClientId = openIdConnectAppConfiguration.ClientId,
-        //                    ClientSecret = openIdConnectAppConfiguration.ClientSecret,
-
-        //                    Scopes = {
-        //                        OpenIddictConstants.Scopes.OpenId,
-        //                        OpenIddictConstants.Scopes.Email,
-        //                        OpenIddictConstants.Scopes.Profile
-        //                    },
-
-        //                    RedirectUri = new Uri(
-        //                        "/signin-oidc",
-        //                        UriKind.Relative)
-        //                });
-        //        });
 
         services.AddAuthorizationBuilder()
             .AddPolicy(

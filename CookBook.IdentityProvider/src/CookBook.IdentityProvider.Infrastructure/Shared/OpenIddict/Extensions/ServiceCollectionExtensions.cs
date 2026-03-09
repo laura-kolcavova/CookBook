@@ -3,8 +3,8 @@ using CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Services;
 using CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Services.Abstractions;
 using CookBook.IdentityProvider.Infrastructure.Users;
 using Microsoft.Extensions.DependencyInjection;
+using OpenIddict.Abstractions;
 using Quartz;
-using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Extensions;
 
@@ -64,9 +64,9 @@ internal static class ServiceCollectionExtensions
                         .AddDevelopmentSigningCertificate();
 
                     options.RegisterScopes(
-                        Scopes.OpenId,
-                        Scopes.Email,
-                        Scopes.Profile);
+                        OpenIddictConstants.Scopes.OpenId,
+                        OpenIddictConstants.Scopes.Email,
+                        OpenIddictConstants.Scopes.Profile);
 
                     var aspNetCoreBuilder = options
                         .UseAspNetCore()
