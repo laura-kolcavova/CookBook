@@ -16,6 +16,9 @@ internal sealed class OpenIddictServerSeedingWorker(
 
             await seeder.SeedApplications(
                 cancellationToken);
+
+            await seeder.SeedResources(
+                cancellationToken);
         }
     }
 

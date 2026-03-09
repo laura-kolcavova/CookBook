@@ -66,7 +66,8 @@ internal static class ServiceCollectionExtensions
                     options.RegisterScopes(
                         OpenIddictConstants.Scopes.OpenId,
                         OpenIddictConstants.Scopes.Email,
-                        OpenIddictConstants.Scopes.Profile);
+                        OpenIddictConstants.Scopes.Profile,
+                        OpenIddictConstants.Scopes.Roles);
 
                     options.DisableAccessTokenEncryption();
 

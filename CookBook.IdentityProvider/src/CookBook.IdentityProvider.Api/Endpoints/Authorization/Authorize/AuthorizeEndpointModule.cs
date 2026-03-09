@@ -215,6 +215,8 @@ public sealed class AuthorizeEndpointModule :
                         .ListResourcesAsync(scopes, cancellationToken)
                         .ToListAsync(cancellationToken);
 
+                    identity.SetResources(resources);
+
                     var authorization = authorizations.LastOrDefault();
 
                     authorization ??= await authorizationManager.CreateAsync(
