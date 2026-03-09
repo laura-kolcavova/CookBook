@@ -33,10 +33,11 @@ services
     .AddApplication()
     .AddInfrastructure(
         cookBookRecipesConnectionString,
-        isDevelopment,
-        openIdConnectAppConfiguration)
+        isDevelopment)
     .AddApi(
-        builder.Environment.ApplicationName);
+        builder.Environment.ApplicationName,
+        isDevelopment,
+        openIdConnectAppConfiguration);
 
 var app = builder.Build();
 

@@ -68,6 +68,8 @@ internal static class ServiceCollectionExtensions
                         OpenIddictConstants.Scopes.Email,
                         OpenIddictConstants.Scopes.Profile);
 
+                    options.DisableAccessTokenEncryption();
+
                     var aspNetCoreBuilder = options
                         .UseAspNetCore()
                         .EnableAuthorizationEndpointPassthrough()
