@@ -31,8 +31,8 @@ public sealed class OpenIdConnectTransformProvider :
             async transformContext =>
             {
                 var accessToken = await transformContext
-                .HttpContext
-                .GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+                    .HttpContext
+                    .GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
 
                 transformContext
                     .ProxyRequest
