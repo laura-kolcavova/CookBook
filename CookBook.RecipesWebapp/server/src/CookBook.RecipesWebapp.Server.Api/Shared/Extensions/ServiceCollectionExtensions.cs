@@ -41,9 +41,6 @@ internal static class ServiceCollectionExtensions
             .AddCookie(
                 options =>
                 {
-                    //options.LoginPath = "/login";
-                    //options.LogoutPath = "/logout";
-
                     options.ExpireTimeSpan = TimeSpan.FromDays(1);
                     options.SlidingExpiration = true;
 
@@ -52,6 +49,19 @@ internal static class ServiceCollectionExtensions
                     options.Cookie.SameSite = SameSiteMode.Strict;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 
+                    options.Events.OnRedirectToLogin = redirectContext =>
+                    {
+                        return redirectContext
+                            .HttpContext
+                            .WriteProblemDetails(StatusCodes.Status401Unauthorized);
+                    };
+
+                    options.Events.OnRedirectToAccessDenied = redirectContext =>
+                    {
+                        return redirectContext
+                            .HttpContext
+                            .WriteProblemDetails(StatusCodes.Status403Forbidden);
+                    };
                 })
             .AddOpenIdConnect(
                 options =>
@@ -94,16 +104,6 @@ internal static class ServiceCollectionExtensions
           });
 
         services
-            .AddCarter(
-                new DependencyContextAssemblyCatalog(
-                    [typeof(Program).Assembly]));
-
-        services
-          .AddReverseProxy()
-          .LoadFromConfig(reverseProxyConfiguration)
-          .AddTransforms<OpenIdConnectTransformProvider>();
-
-        services
             .AddEndpointsApiExplorer()
             .AddSwaggerExamplesFromAssemblyOf<Program>()
             .AddSwaggerGen(options =>
@@ -124,6 +124,16 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddProblemDetails();
+
+        services
+            .AddCarter(
+                new DependencyContextAssemblyCatalog(
+                    [typeof(Program).Assembly]));
+
+        services
+            .AddReverseProxy()
+            .LoadFromConfig(reverseProxyConfiguration)
+            .AddTransforms<OpenIdConnectTransformProvider>();
 
         services
             .AddValidatorsFromAssembly(
