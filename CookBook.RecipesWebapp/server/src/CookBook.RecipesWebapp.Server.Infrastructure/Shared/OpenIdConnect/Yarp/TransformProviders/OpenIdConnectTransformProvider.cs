@@ -9,7 +9,7 @@ namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect.Yarp
 public sealed class OpenIdConnectTransformProvider :
     ITransformProvider
 {
-    private const string OpenIdConnectScopesMetaDataName = "OpenIdConnectScopes";
+    private const string UseOpenIdConnectMetaDataName = "UseOpenIdConnect";
 
     public void Apply(
         TransformBuilderContext context)
@@ -19,10 +19,19 @@ public sealed class OpenIdConnectTransformProvider :
             return;
         }
 
-        if (!context.Route.Metadata.TryGetValue(
-            OpenIdConnectScopesMetaDataName,
-            out var scopes) ||
-            string.IsNullOrWhiteSpace(scopes))
+        var useOpenIdConnect = context
+            .Route
+            .Metadata
+            .TryGetValue(
+                UseOpenIdConnectMetaDataName,
+                out var useOpenIdConnectValue) &&
+            !string.IsNullOrEmpty(useOpenIdConnectValue) &&
+            string.Equals(
+                useOpenIdConnectValue?.ToString(),
+                bool.TrueString,
+                StringComparison.OrdinalIgnoreCase);
+
+        if (!useOpenIdConnect)
         {
             return;
         }
