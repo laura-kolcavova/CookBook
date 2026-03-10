@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Abstractions;
-using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
 namespace CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
@@ -41,9 +40,6 @@ internal static class ServiceCollectionExtensions
             .AddCookie(
                 options =>
                 {
-                    //options.LoginPath = "/login";
-                    //options.LogoutPath = "/logout";
-
                     options.ExpireTimeSpan = TimeSpan.FromDays(1);
                     options.SlidingExpiration = true;
 
@@ -52,6 +48,19 @@ internal static class ServiceCollectionExtensions
                     options.Cookie.SameSite = SameSiteMode.Strict;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 
+                    options.Events.OnRedirectToLogin = redirectContext =>
+                    {
+                        return redirectContext
+                            .HttpContext
+                            .WriteProblemDetails(StatusCodes.Status401Unauthorized);
+                    };
+
+                    options.Events.OnRedirectToAccessDenied = redirectContext =>
+                    {
+                        return redirectContext
+                            .HttpContext
+                            .WriteProblemDetails(StatusCodes.Status403Forbidden);
+                    };
                 })
             .AddOpenIdConnect(
                 options =>
@@ -66,7 +75,8 @@ internal static class ServiceCollectionExtensions
                     options.Scope.Add(OpenIddictConstants.Scopes.OpenId);
                     options.Scope.Add(OpenIddictConstants.Scopes.Email);
                     options.Scope.Add(OpenIddictConstants.Scopes.Profile);
-                    options.Scope.Add("CookBook.Recipes.ReadWrite");
+                    options.Scope.Add(OpenIddictConstants.Scopes.Roles);
+                    options.Scope.Add(openIdConnectAppConfiguration.Scopes.CookBookRecipesReadWrite);
 
                     if (isDevelopment)
                     {
@@ -94,18 +104,7 @@ internal static class ServiceCollectionExtensions
           });
 
         services
-            .AddCarter(
-                new DependencyContextAssemblyCatalog(
-                    [typeof(Program).Assembly]));
-
-        services
-          .AddReverseProxy()
-          .LoadFromConfig(reverseProxyConfiguration)
-          .AddTransforms<OpenIdConnectTransformProvider>();
-
-        services
             .AddEndpointsApiExplorer()
-            .AddSwaggerExamplesFromAssemblyOf<Program>()
             .AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -114,7 +113,6 @@ internal static class ServiceCollectionExtensions
                     Version = "v1"
                 });
 
-                options.ExampleFilters();
                 options.SupportNonNullableReferenceTypes();
 
                 options.CustomSchemaIds(x => x.FullName?
@@ -124,6 +122,16 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddProblemDetails();
+
+        services
+            .AddCarter(
+                new DependencyContextAssemblyCatalog(
+                    [typeof(Program).Assembly]));
+
+        services
+            .AddReverseProxy()
+            .LoadFromConfig(reverseProxyConfiguration)
+            .AddTransforms<OpenIdConnectTransformProvider>();
 
         services
             .AddValidatorsFromAssembly(

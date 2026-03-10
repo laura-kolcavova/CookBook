@@ -1,4 +1,4 @@
-﻿using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
+﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Users.Endpoints.GetCurrentUser.Contracts;
 using OpenIddict.Abstractions;
 using System.Security.Claims;
@@ -18,7 +18,7 @@ public sealed class GetCurrentUserEndpointModule :
             .WithDescription("")
             .Produces(StatusCodes.Status200OK, typeof(CurrentUserDto))
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .HandleOperationCancelled()
+            .AddClosedRequest()
             .AllowAnonymous();
     }
 

@@ -1,4 +1,5 @@
-﻿using CookBook.IdentityProvider.Api.Shared.Extensions;
+﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
+using CookBook.IdentityProvider.Api.Shared.Extensions;
 using CookBook.IdentityProvider.Domain.Users;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
@@ -26,7 +27,7 @@ public sealed class TokenEndpointModule :
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .HandleOperationCancelled()
+            .AddClosedRequest()
             .AllowAnonymous();
     }
 

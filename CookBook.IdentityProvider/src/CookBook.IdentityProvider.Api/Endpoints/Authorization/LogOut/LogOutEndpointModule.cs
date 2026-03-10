@@ -1,4 +1,4 @@
-﻿using CookBook.IdentityProvider.Api.Shared.Extensions;
+﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
 using CookBook.IdentityProvider.Domain.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -22,7 +22,7 @@ public class LogOutEndpointModule :
             .WithDescription("")
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .HandleOperationCancelled();
+            .AddClosedRequest();
     }
 
     private static async Task<IResult> HandleAsync(

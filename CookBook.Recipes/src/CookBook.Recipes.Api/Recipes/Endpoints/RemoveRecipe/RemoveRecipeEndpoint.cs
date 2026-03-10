@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Errors;
+﻿using CookBook.Extensions.AspNetCore.Errors.Extensions;
 using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Infrastructure.Shared.Configuration;
 using IResult = Microsoft.AspNetCore.Http.IResult;
@@ -20,7 +20,7 @@ internal static class RemoveRecipeEndpoint
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.OpenIdConnect);
+            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.ReadWrite);
     }
 
     private static async Task<IResult> HandleAsync(

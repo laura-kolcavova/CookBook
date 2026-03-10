@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Errors;
+﻿using CookBook.Extensions.AspNetCore.Errors.Extensions;
 using CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe.Contracts;
 using CookBook.Recipes.Api.Recipes.Features.SaveRecipe.Mappers;
 using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
@@ -23,7 +23,7 @@ internal static class SaveRecipeEndpoint
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.OpenIdConnect);
+            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.ReadWrite);
     }
 
     private static async Task<IResult> HandleAsync(

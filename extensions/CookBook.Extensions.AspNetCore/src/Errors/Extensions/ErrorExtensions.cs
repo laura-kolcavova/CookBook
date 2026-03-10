@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 
-namespace CookBook.Extensions.AspNetCore.Errors;
+namespace CookBook.Extensions.AspNetCore.Errors.Extensions;
 
 public static class ErrorExtensions
 {

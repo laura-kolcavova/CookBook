@@ -1,5 +1,5 @@
-﻿using CookBook.Extensions.AspNetCore.FluentValidation;
-using CookBook.Extensions.AspNetCore.Shared;
+﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
+using CookBook.Extensions.AspNetCore.FluentValidation.Extensions;
 using CookBook.Recipes.Api.Recipes;
 
 namespace CookBook.Recipes.Api.Shared;
@@ -11,8 +11,8 @@ internal static class ApiEndpoints
     {
         return app
             .MapGroup("/api")
-            .AddEndpointFilter<OperationCanceledExceptionFilter>()
-            .AddEndpointFilter<FluentValidationEndpointFilter>()
+            .AddFluentValidation()
+            .AddClosedRequest()
             .MapRecipesEndpoints()
             .WithOpenApi(); // This is not needed since newer versions of Swashbuckle.AspNetCore
     }
