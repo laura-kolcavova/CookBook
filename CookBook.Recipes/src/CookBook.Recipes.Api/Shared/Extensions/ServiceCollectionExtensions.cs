@@ -45,13 +45,13 @@ internal static class ServiceCollectionExtensions
         services
             .AddAuthorizationBuilder()
             .AddPolicy(
-                ConfigurationConstants.AuthenticationPolicies.OpenIdConnect,
+                ConfigurationConstants.AuthenticationPolicies.ReadWrite,
                 builder =>
                 {
                     builder
                         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                         .RequireAuthenticatedUser()
-                        .RequireScope("CookBook.Recipes.ReadWrite");
+                        .RequireScope(ConfigurationConstants.AuthenticationScopes.CookBookRecipesReadWrite);
                 });
 
         services

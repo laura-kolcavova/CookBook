@@ -9,6 +9,11 @@ public static class ConfigurationConstants
 
     public static class AuthenticationPolicies
     {
-        public const string OpenIdConnect = "OpenIdConnectAuthenticationPolicy";
+        public const string ReadWrite = "ReadWriteAuthenticationPolicy";
+    }
+
+    public static class AuthenticationScopes
+    {
+        public const string CookBookRecipesReadWrite = "CookBook.Recipes.ReadWrite";
     }
 }
