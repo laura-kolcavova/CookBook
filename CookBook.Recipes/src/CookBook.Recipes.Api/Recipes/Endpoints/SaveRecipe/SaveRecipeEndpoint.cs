@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Errors;
+﻿using CookBook.Extensions.AspNetCore.Errors.Extensions;
 using CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe.Contracts;
 using CookBook.Recipes.Api.Recipes.Features.SaveRecipe.Mappers;
 using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;

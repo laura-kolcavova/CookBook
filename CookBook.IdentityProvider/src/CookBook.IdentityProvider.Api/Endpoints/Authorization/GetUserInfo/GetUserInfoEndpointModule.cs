@@ -1,4 +1,4 @@
-﻿using CookBook.IdentityProvider.Api.Shared.Extensions;
+﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
 using CookBook.IdentityProvider.Domain.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -25,7 +25,7 @@ public sealed class GetUserInfoEndpointModule :
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .DisableAntiforgery()
-            .HandleOperationCancelled()
+            .AddClosedRequest()
             .RequireAuthorization(new AuthorizeAttribute
             {
                 AuthenticationSchemes = OpenIddictServerAspNetCoreDefaults.AuthenticationScheme

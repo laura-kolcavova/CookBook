@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.Errors;
+﻿using CookBook.Extensions.AspNetCore.Errors.Extensions;
 using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Infrastructure.Shared.Configuration;
 using IResult = Microsoft.AspNetCore.Http.IResult;

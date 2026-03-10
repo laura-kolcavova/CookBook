@@ -1,4 +1,4 @@
-using CookBook.Extensions.AspNetCore.SqlServer;
+using CookBook.Extensions.AspNetCore.SqlServer.Extensions;
 using CookBook.Recipes.Api.Shared;
 using CookBook.Recipes.Api.Shared.Extensions;
 using CookBook.Recipes.Application.Shared.Extensions;

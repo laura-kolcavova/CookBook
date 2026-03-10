@@ -1,4 +1,5 @@
-﻿using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
+﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
+using CookBook.Extensions.AspNetCore.FluentValidation.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogOut;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using Microsoft.AspNetCore.Authentication;
@@ -19,7 +20,8 @@ public sealed class LogOutEndpointModule :
             .WithDescription("")
             .Produces(StatusCodes.Status302Found)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .HandleOperationCancelled()
+            .AddFluentValidation()
+            .AddClosedRequest()
             .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.Cookie);
     }
 

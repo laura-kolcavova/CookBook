@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Abstractions;
-using Swashbuckle.AspNetCore.Filters;
 using System.Text.Json.Serialization;
 
 namespace CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
@@ -76,6 +75,7 @@ internal static class ServiceCollectionExtensions
                     options.Scope.Add(OpenIddictConstants.Scopes.OpenId);
                     options.Scope.Add(OpenIddictConstants.Scopes.Email);
                     options.Scope.Add(OpenIddictConstants.Scopes.Profile);
+                    options.Scope.Add(OpenIddictConstants.Scopes.Roles);
                     options.Scope.Add(openIdConnectAppConfiguration.Scopes.CookBookRecipesReadWrite);
 
                     if (isDevelopment)
@@ -105,7 +105,6 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddEndpointsApiExplorer()
-            .AddSwaggerExamplesFromAssemblyOf<Program>()
             .AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
@@ -114,7 +113,6 @@ internal static class ServiceCollectionExtensions
                     Version = "v1"
                 });
 
-                options.ExampleFilters();
                 options.SupportNonNullableReferenceTypes();
 
                 options.CustomSchemaIds(x => x.FullName?

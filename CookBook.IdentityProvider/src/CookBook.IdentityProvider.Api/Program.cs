@@ -1,5 +1,5 @@
 using Carter;
-using CookBook.Extensions.AspNetCore.SqlServer;
+using CookBook.Extensions.AspNetCore.SqlServer.Extensions;
 using CookBook.IdentityProvider.Api.Shared.Extensions;
 using CookBook.IdentityProvider.Application.Shared.Extensions;
 using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;

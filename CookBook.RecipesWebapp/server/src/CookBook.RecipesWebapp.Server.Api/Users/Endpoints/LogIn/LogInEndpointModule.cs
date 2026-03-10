@@ -1,4 +1,4 @@
-﻿using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
+﻿using CookBook.Extensions.AspNetCore.FluentValidation.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
@@ -19,13 +19,12 @@ public sealed class LogInEndpointModule :
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .ValidateRequest()
+            .AddFluentValidation()
             .AllowAnonymous();
     }
 
     private static IResult Handle(
-        [AsParameters] LogInEndpointParams request,
-        CancellationToken cancellationToken)
+        [AsParameters] LogInEndpointParams request)
     {
         var properties = new AuthenticationProperties
         {

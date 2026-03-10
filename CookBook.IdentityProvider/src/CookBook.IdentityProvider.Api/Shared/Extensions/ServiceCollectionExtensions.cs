@@ -24,15 +24,6 @@ internal static class ServiceCollectionExtensions
             .AddAuthorization();
 
         services
-            .AddCarter(new DependencyContextAssemblyCatalog([typeof(Program).Assembly]));
-
-        services
-            .AddRazorPages(options =>
-            {
-                options.Conventions.AddPageRoute("/home/index", "");
-            });
-
-        services
             .ConfigureHttpJsonOptions(options =>
             {
                 options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -57,6 +48,17 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddProblemDetails();
+
+        services
+            .AddCarter(
+                new DependencyContextAssemblyCatalog(
+                    [typeof(Program).Assembly]));
+
+        services
+            .AddRazorPages(options =>
+            {
+                options.Conventions.AddPageRoute("/home/index", "");
+            });
 
         return services;
     }

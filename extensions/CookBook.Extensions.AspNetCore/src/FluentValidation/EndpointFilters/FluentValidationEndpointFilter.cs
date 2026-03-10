@@ -1,7 +1,8 @@
-﻿using FluentValidation;
+﻿using CookBook.Extensions.AspNetCore.FluentValidation.Extensions;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
-namespace CookBook.Extensions.AspNetCore.FluentValidation;
+namespace CookBook.Extensions.AspNetCore.FluentValidation.EndpointFilters;
 
 public class FluentValidationEndpointFilter : IEndpointFilter
 {
