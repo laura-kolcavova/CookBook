@@ -1,7 +1,7 @@
 ﻿using Carter;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect;
-using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect.Yarp.TransformProviders;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Yarp.TransformProviders;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;

@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 using Yarp.ReverseProxy.Transforms;
 using Yarp.ReverseProxy.Transforms.Builder;
 
-namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect.Yarp.TransformProviders;
+namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.Yarp.TransformProviders;
 
 public sealed class OpenIdConnectTransformProvider :
     ITransformProvider
