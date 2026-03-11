@@ -33,7 +33,7 @@ internal sealed class SearchRecipesUseCase(
             return searchedRecipes;
         }
         catch (Exception ex)
-        when (ex is not TaskCanceledException)
+        when (ex is not OperationCanceledException)
         {
             logger.LogError(
                 ex,

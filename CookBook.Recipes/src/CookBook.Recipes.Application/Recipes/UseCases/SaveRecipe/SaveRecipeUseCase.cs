@@ -66,7 +66,7 @@ internal sealed class SaveRecipeUseCase(
             };
         }
         catch (Exception ex)
-        when (ex is not TaskCanceledException)
+        when (ex is not OperationCanceledException)
         {
             logger.LogError(
                 ex,
