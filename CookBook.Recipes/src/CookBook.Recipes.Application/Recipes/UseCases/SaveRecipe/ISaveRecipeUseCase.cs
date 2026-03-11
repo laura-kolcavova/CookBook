@@ -2,7 +2,7 @@
 using CookBook.Recipes.Domain.Recipes.Models;
 using CSharpFunctionalExtensions;
 
-namespace CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
+namespace CookBook.Recipes.Application.Recipes.UseCases.SaveRecipe;
 
 public interface ISaveRecipeUseCase
 {

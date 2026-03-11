@@ -1,5 +1,8 @@
-﻿using CookBook.Recipes.Application.Recipes.UseCases;
-using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
+﻿using CookBook.Recipes.Application.Recipes.UseCases.GetLatestRecipes;
+using CookBook.Recipes.Application.Recipes.UseCases.GetRecipeDetail;
+using CookBook.Recipes.Application.Recipes.UseCases.RemoveRecipe;
+using CookBook.Recipes.Application.Recipes.UseCases.SaveRecipe;
+using CookBook.Recipes.Application.Recipes.UseCases.SearchRecipes;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.Recipes.Application.Recipes.Extensions;

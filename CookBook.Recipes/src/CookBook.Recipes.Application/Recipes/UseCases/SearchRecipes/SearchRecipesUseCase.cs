@@ -1,11 +1,10 @@
-﻿using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
-using CookBook.Recipes.Domain.Recipes.ReadModels;
+﻿using CookBook.Recipes.Domain.Recipes.ReadModels;
 using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Domain.Shared.Filtering;
 using CookBook.Recipes.Domain.Shared.Sorting;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.Recipes.Application.Recipes.UseCases;
+namespace CookBook.Recipes.Application.Recipes.UseCases.SearchRecipes;
 
 internal sealed class SearchRecipesUseCase(
     ISearchRecipesQuery searchRecipesQuery,

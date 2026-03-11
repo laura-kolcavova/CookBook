@@ -1,7 +1,7 @@
 ﻿using CookBook.Recipes.Domain.Recipes.ReadModels;
 using CSharpFunctionalExtensions;
 
-namespace CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
+namespace CookBook.Recipes.Application.Recipes.UseCases.GetRecipeDetail;
 
 public interface IGetRecipeDetailUseCase
 {
