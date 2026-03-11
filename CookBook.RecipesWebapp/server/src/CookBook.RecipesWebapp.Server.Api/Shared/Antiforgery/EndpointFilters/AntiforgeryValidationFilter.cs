@@ -31,8 +31,7 @@ internal sealed class AntiforgeryValidationFilter :
         catch (AntiforgeryValidationException)
         {
             return Results.Problem(
-                detail: "Invalid or missing antiforgery token",
-                statusCode: StatusCodes.Status400BadRequest);
+                detail: "Invalid or missing antiforgery token");
         }
 
         return await next(context);
