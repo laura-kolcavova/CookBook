@@ -19,7 +19,8 @@ public sealed class GetCurrentUserEndpointModule :
             .Produces(StatusCodes.Status200OK, typeof(CurrentUserDto))
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .AddClosedRequest()
-            .AllowAnonymous();
+            .AllowAnonymous()
+            .DisableAntiforgery();
     }
 
     private static IResult Handle(

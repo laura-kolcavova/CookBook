@@ -9,9 +9,11 @@ public static class ConfigurationConstants
 
     public static class Antiforgery
     {
-        public const string HeaderName = "CookBook.RecipesWebapp.Antiforgery";
+        public const string TokenCookieName = "CookBook.RecipesWebapp.Antiforgery.CookieToken";
 
-        public const string CookieName = "CookBook.RecipesWebapp.Antiforgery.Host";
+        public const string RequestTokenCookieName = "CookBook.RecipesWebapp.Antiforgery.RequestToken";
+
+        public const string RequestVerificationTokenHeaderName = "CookBook.RecipesWebapp.Antiforgery.RequestVerificationToken";
     }
 
     public static class AuthenticationPolicies

@@ -24,8 +24,8 @@ internal static class ServiceCollectionExtensions
             .AddAntiforgery(
                 options =>
                 {
-                    options.HeaderName = ConfigurationConstants.Antiforgery.HeaderName;
-                    options.Cookie.Name = ConfigurationConstants.Antiforgery.CookieName;
+                    options.HeaderName = ConfigurationConstants.Antiforgery.RequestVerificationTokenHeaderName;
+                    options.Cookie.Name = ConfigurationConstants.Antiforgery.TokenCookieName;
                     options.Cookie.HttpOnly = true;
                     options.Cookie.SameSite = SameSiteMode.Strict;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;

@@ -79,10 +79,12 @@ internal static class ServiceCollectionExtensions
                         .EnableUserInfoEndpointPassthrough()
                         .EnableStatusCodePagesIntegration();
 
-                    if (isDevelopment)
-                    {
-                        aspNetCoreBuilder.DisableTransportSecurityRequirement();
-                    }
+                    //if (isDevelopment)
+                    //{
+                    //    aspNetCoreBuilder.DisableTransportSecurityRequirement();
+                    //}
+
+                    aspNetCoreBuilder.DisableTransportSecurityRequirement();
                 })
             .AddValidation(
                 options =>
