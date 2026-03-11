@@ -1,5 +1,5 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail.Contracts;
-using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
+using CookBook.Recipes.Application.Recipes.UseCases.GetRecipeDetail;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail;
 

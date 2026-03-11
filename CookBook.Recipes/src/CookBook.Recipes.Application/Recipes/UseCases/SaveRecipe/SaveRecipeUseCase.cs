@@ -1,12 +1,11 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
-using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
 using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Domain.Recipes.Models;
 using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.Recipes.Application.Recipes.UseCases;
+namespace CookBook.Recipes.Application.Recipes.UseCases.SaveRecipe;
 
 internal sealed class SaveRecipeUseCase(
     IRecipeStore recipeStore,
@@ -67,7 +66,7 @@ internal sealed class SaveRecipeUseCase(
             };
         }
         catch (Exception ex)
-        when (ex is not TaskCanceledException)
+        when (ex is not OperationCanceledException)
         {
             logger.LogError(
                 ex,

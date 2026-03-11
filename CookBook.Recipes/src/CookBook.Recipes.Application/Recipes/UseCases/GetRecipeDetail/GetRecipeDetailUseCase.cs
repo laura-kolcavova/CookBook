@@ -1,10 +1,9 @@
-﻿using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
-using CookBook.Recipes.Domain.Recipes.ReadModels;
+﻿using CookBook.Recipes.Domain.Recipes.ReadModels;
 using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.Recipes.Application.Recipes.UseCases;
+namespace CookBook.Recipes.Application.Recipes.UseCases.GetRecipeDetail;
 
 internal sealed class GetRecipeDetailUseCase(
     IGetRecipeDetailQuery getRecipeDetailQuery,
@@ -34,7 +33,7 @@ internal sealed class GetRecipeDetailUseCase(
             return recipeDetail;
         }
         catch (Exception ex)
-        when (ex is not TaskCanceledException)
+        when (ex is not OperationCanceledException)
         {
             logger.LogError(
                 ex,

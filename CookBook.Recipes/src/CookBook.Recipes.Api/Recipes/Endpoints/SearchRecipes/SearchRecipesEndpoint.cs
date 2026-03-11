@@ -1,6 +1,6 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Contracts;
 using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Mappers;
-using CookBook.Recipes.Application.Recipes.UseCases.Abstractions;
+using CookBook.Recipes.Application.Recipes.UseCases.SearchRecipes;
 using CookBook.Recipes.Domain.Recipes.ReadModels;
 using CookBook.Recipes.Domain.Shared.Filtering;
 using CookBook.Recipes.Domain.Shared.Sorting;
