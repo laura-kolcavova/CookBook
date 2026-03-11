@@ -131,6 +131,7 @@ internal static class ServiceCollectionExtensions
         services
             .AddReverseProxy()
             .LoadFromConfig(reverseProxyConfiguration)
+            .AddTransforms<AntiforgeryValidationTransformProvider>()
             .AddTransforms<OpenIdConnectTransformProvider>();
 
         services
