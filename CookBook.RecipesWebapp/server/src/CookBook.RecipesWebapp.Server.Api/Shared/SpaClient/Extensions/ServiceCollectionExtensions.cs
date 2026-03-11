@@ -1,4 +1,4 @@
-﻿namespace CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
+﻿namespace CookBook.RecipesWebapp.Server.Api.Shared.SpaClient.Extensions;
 
 internal static class ServiceCollectionExtensions
 {

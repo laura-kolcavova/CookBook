@@ -22,7 +22,8 @@ public sealed class LogOutEndpointModule :
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .AddFluentValidation()
             .AddClosedRequest()
-            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.Cookie);
+            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.Cookie)
+            .DisableAntiforgery();
     }
 
     private static IResult HandleAsync(

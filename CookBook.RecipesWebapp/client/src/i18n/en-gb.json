@@ -9,7 +9,7 @@
     "explore.exploreRecipesTitle": "Explore Recipes",
     "explore.searchPlaceholder": "Search for recipes by title, description, or tags...",
     "explore.searchButton": "Search",
-    "explore.searchError": "Something went wrong whilst searching for recipes",
+    "explore.searchError": "Something went wrong while searching for recipes",
     "explore.searching": "Searching...",
     "explore.noRecipesFound": "No recipes found matching \"{searchTerm}\"",
     "explore.noRecipesCreatedYet": "No recipes were created yet",

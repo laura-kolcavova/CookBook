@@ -25,16 +25,18 @@ internal static class ServiceCollectionExtensions
 
                     options.MapInboundClaims = false;
 
-                    if (isDevelopment)
-                    {
-                        options.RequireHttpsMetadata = false;
-                    }
+                    //if (isDevelopment)
+                    //{
+                    //    options.RequireHttpsMetadata = false;
+                    //}
+
+                    options.RequireHttpsMetadata = false;
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
                         ValidateAudience = false,
-                        ValidIssuer = openIdConnectAppConfiguration.Authority,
+                        ValidIssuers = openIdConnectAppConfiguration.Issuers,
                         ValidTypes = new[]
                         {
                             "at+jwt"
