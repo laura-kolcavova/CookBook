@@ -1,6 +1,6 @@
 import type { AxiosPromise, GenericAbortSignal } from 'axios';
-import { callAxios } from '~/utils/axios';
 import type { CurrentUserDto } from './dto/CurrentUserDto';
+import { apiClient } from '../apiClient';
 
 const getLogInUserUrl = (returnUrl?: string): string => {
   const basePath = '/api/users/login';
@@ -23,7 +23,7 @@ const getLogOutUserUrl = (returnUrl?: string): string => {
 };
 
 const getCurrentUser = (signal?: GenericAbortSignal): AxiosPromise<CurrentUserDto> => {
-  return callAxios({
+  return apiClient({
     url: `/api/users/current`,
     method: 'GET',
     signal: signal,

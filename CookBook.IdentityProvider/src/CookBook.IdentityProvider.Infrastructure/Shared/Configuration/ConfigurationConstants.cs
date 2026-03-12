@@ -14,7 +14,7 @@ public static class ConfigurationConstants
 
     public static class Antiforgery
     {
-        public const string TokenCookieName = "CookBook.IdentityProvider.Antiforgery.Token";
+        public const string TokenCookieName = "CookBook.IdentityProvider.Antiforgery.CookieToken";
 
         public const string RequestVerificationTokenFormFieldName = "CookBook.RecipesWebapp.Antiforgery.RequestVerificationToken";
     }
