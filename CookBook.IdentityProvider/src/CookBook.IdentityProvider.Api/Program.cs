@@ -18,8 +18,8 @@ builder.Host
         options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
     });
 
-var cookBookUsersConnectionString = configuration.GetSqlConnectionString(
-    ConfigurationConstants.SqlConnectionStrings.CookBookUsersSectionName);
+var cookBookIdentityProviderConnectionString = configuration.GetSqlConnectionString(
+    ConfigurationConstants.SqlConnectionStrings.CookBookIdentityProviderSectionName);
 
 services
     .AddOptions();
@@ -27,7 +27,7 @@ services
 services
     .AddApplication()
     .AddInfrastructure(
-        cookBookUsersConnectionString,
+        cookBookIdentityProviderConnectionString,
         isDevelopment)
     .AddApi(
         builder.Environment.ApplicationName);

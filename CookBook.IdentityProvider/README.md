@@ -12,6 +12,7 @@ The service follows Clean Architecture principles with Domain Driven Design, Ver
 
 - .NET 8
 - ASP.NET Core Minimal API
+- ASP.NET Core Razor Pages
 - ASP.NET Core Identity
 - Entity Framework Core
 - OpenIddict
@@ -47,7 +48,7 @@ Or from the `deploy` folder run the following command:
 Run the following command to publish the database project to `MsSql Server`:
 
 ```Bash
-sqlpackage /a:Publish /sf:"./database/build_output/CookBook.IdentityProvider.Database.dacpac" /TargetConnectionString:"Data source=localhost,8000;User Id=SA;Initial Catalog=CookBookUsers;Integrated Security=False;TrustServerCertificate=True;Application Name=CookBookUsers;Password=y9WH7F4hNL"
+sqlpackage /a:Publish /sf:"./database/build_output/CookBook.IdentityProvider.Database.dacpac" /TargetConnectionString:"Data source=localhost,8000;User Id=SA;Initial Catalog=CookBookIdentityProvider;Integrated Security=False;TrustServerCertificate=True;Application Name=CookBookIdentityProvider;Password=y9WH7F4hNL"
 ```
 
 Or from the `deploy` folder run the following command:
