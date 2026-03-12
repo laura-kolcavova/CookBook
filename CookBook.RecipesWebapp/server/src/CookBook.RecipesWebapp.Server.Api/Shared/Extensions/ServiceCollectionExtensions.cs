@@ -1,7 +1,7 @@
 ﻿using Carter;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect;
-using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect.Yarp.TransformProviders;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Yarp.TransformProviders;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -24,8 +24,8 @@ internal static class ServiceCollectionExtensions
             .AddAntiforgery(
                 options =>
                 {
-                    options.HeaderName = ConfigurationConstants.Antiforgery.HeaderName;
-                    options.Cookie.Name = ConfigurationConstants.Antiforgery.CookieName;
+                    options.HeaderName = ConfigurationConstants.Antiforgery.RequestVerificationTokenHeaderName;
+                    options.Cookie.Name = ConfigurationConstants.Antiforgery.TokenCookieName;
                     options.Cookie.HttpOnly = true;
                     options.Cookie.SameSite = SameSiteMode.Strict;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
@@ -131,6 +131,7 @@ internal static class ServiceCollectionExtensions
         services
             .AddReverseProxy()
             .LoadFromConfig(reverseProxyConfiguration)
+            .AddTransforms<AntiforgeryValidationTransformProvider>()
             .AddTransforms<OpenIdConnectTransformProvider>();
 
         services

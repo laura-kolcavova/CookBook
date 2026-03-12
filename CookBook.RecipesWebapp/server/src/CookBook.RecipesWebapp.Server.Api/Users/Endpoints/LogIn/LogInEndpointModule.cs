@@ -20,7 +20,8 @@ public sealed class LogInEndpointModule :
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .AddFluentValidation()
-            .AllowAnonymous();
+            .AllowAnonymous()
+            .DisableAntiforgery();
     }
 
     private static IResult Handle(

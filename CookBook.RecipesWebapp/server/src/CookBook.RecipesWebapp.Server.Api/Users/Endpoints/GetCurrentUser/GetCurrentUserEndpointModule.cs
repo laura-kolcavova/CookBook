@@ -7,7 +7,7 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.GetCurrentUser;
 
 public sealed class GetCurrentUserEndpointModule :
-        UsersModule
+    UsersModule
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -19,7 +19,8 @@ public sealed class GetCurrentUserEndpointModule :
             .Produces(StatusCodes.Status200OK, typeof(CurrentUserDto))
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .AddClosedRequest()
-            .AllowAnonymous();
+            .AllowAnonymous()
+            .DisableAntiforgery();
     }
 
     private static IResult Handle(

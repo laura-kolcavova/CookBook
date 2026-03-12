@@ -8,6 +8,9 @@ public sealed class OpenIdConnectAppConfiguration
     public string Authority { get; set; } = string.Empty;
 
     [Required]
+    public IReadOnlyCollection<string> Issuers { get; set; } = [];
+
+    [Required]
     public string ClientId { get; set; } = string.Empty;
 
     [Required]

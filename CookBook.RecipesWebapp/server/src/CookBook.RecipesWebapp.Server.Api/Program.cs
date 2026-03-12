@@ -1,6 +1,8 @@
 using Carter;
+using CookBook.RecipesWebapp.Server.Api.Shared.Antiforgery.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
+using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient.Extensions;
 using CookBook.RecipesWebapp.Server.Application.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
@@ -96,6 +98,7 @@ if (spaClientConfiguration.IsSpaEnabled)
                 ctx => ctx.Request.IsRenderingRequest(),
                 appBuilder =>
                 {
+                    appBuilder.UseAntiforgeryTokens();
                 });
 
             var useStaticFiles = !spaClientConfiguration.UseDevelopmentProxyServer;
