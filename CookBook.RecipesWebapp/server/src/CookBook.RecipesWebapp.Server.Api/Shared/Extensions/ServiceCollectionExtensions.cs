@@ -84,10 +84,12 @@ internal static class ServiceCollectionExtensions
                     options.Scope.Add(OpenIddictConstants.Scopes.Roles);
                     options.Scope.Add(openIdConnectAppConfiguration.Scopes.CookBookRecipesReadWrite);
 
-                    if (isDevelopment)
-                    {
-                        options.RequireHttpsMetadata = false;
-                    }
+                    //if (isDevelopment)
+                    //{
+                    //    options.RequireHttpsMetadata = false;
+                    //}
+
+                    options.RequireHttpsMetadata = false;
 
                     options.SaveTokens = true;
                     options.MapInboundClaims = false;
