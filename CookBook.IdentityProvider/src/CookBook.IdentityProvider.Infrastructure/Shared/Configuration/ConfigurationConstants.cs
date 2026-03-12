@@ -4,7 +4,7 @@ public static class ConfigurationConstants
 {
     public static class SqlConnectionStrings
     {
-        public const string CookBookUsersSectionName = "CookBookUsersSql";
+        public const string CookBookIdentityProviderSectionName = "CookBookIdentityProviderSql";
     }
 
     public static class IdentityApplication
