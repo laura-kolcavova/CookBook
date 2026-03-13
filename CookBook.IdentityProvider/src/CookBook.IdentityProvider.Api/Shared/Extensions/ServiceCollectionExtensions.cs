@@ -56,10 +56,19 @@ internal static class ServiceCollectionExtensions
                     [typeof(Program).Assembly]));
 
         services
-            .AddRazorPages(options =>
-            {
-                options.Conventions.AddPageRoute("/home/index", "");
-            });
+            .AddLocalization(
+                options =>
+                {
+                    options.ResourcesPath = "Resources";
+                });
+
+        services
+            .AddRazorPages(
+                options =>
+                {
+                    options.Conventions.AddPageRoute("/home/index", "");
+                })
+            .AddViewLocalization();
 
         return services;
     }
