@@ -117,28 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlreadyHaveAnAaccount" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="ConfirmPasswordLabel" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="CreateAnAccount" xml:space="preserve">
+    <value>Create an Account</value>
+  </data>
+  <data name="DisplayNameLabel" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
   <data name="EmailAddressLabel" xml:space="preserve">
     <value>Email Address</value>
   </data>
-  <data name="LogInButton" xml:space="preserve">
+  <data name="LogInLink" xml:space="preserve">
     <value>Log In</value>
   </data>
-  <data name="NeedAnAccount" xml:space="preserve">
-    <value>Need an account?</value>
-  </data>
   <data name="PageTitle" xml:space="preserve">
-    <value>Log in</value>
+    <value>Register</value>
   </data>
   <data name="PasswordLabel" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="RegisterLink" xml:space="preserve">
+  <data name="RegisterButton" xml:space="preserve">
     <value>Register</value>
-  </data>
-  <data name="RememberMeLabel" xml:space="preserve">
-    <value>Remember me</value>
-  </data>
-  <data name="WelcomeBack" xml:space="preserve">
-    <value>Welcome Back</value>
   </data>
 </root>
