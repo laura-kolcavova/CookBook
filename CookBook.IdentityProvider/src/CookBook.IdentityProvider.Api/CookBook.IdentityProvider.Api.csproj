@@ -3,6 +3,7 @@
   <ItemGroup>
     <PackageReference Include="Carter" Version="8.2.1" />
     <PackageReference Include="CookBook.Extensions.AspNetCore" Version="1.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.25" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.4" />
     <PackageReference Include="System.Linq.Async" Version="7.0.0" />
   </ItemGroup>

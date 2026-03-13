@@ -4,6 +4,8 @@ using CookBook.IdentityProvider.Api.Shared.Extensions;
 using CookBook.IdentityProvider.Application.Shared.Extensions;
 using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
 using CookBook.IdentityProvider.Infrastructure.Shared.Extensions;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +44,19 @@ else
 {
     app.UseExceptionHandler();
 }
+
+var supportedCultures = new List<CultureInfo>
+{
+    new CultureInfo( "en-GB" ),
+};
+
+app.UseRequestLocalization(
+    new RequestLocalizationOptions
+    {
+        DefaultRequestCulture = new RequestCulture("en-GB"),
+        SupportedCultures = supportedCultures,
+        SupportedUICultures = supportedCultures
+    });
 
 //app.UseHttpsRedirection();
 app.UseStaticFiles();
