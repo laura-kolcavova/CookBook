@@ -1,4 +1,4 @@
-using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser.Abstractions;
+using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser;
 using CookBook.IdentityProvider.Domain.Users;
 using CookBook.IdentityProvider.Domain.Users.Models;
 using Microsoft.AspNetCore.Authorization;

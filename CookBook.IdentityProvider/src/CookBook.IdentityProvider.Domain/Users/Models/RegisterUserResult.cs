@@ -1,6 +1,6 @@
 ﻿using CookBook.IdentityProvider.Domain.Users;
 
-namespace CookBook.IdentityProvider.Domain.Userrs.Models;
+namespace CookBook.IdentityProvider.Domain.Users.Models;
 
 public sealed record RegisterUserResult
 {

@@ -1,5 +1,4 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
-using CookBook.IdentityProvider.Domain.Userrs.Models;
 using CookBook.IdentityProvider.Domain.Users;
 using CookBook.IdentityProvider.Domain.Users.Models;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;

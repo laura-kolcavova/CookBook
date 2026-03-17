@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services)
     {
         services
-            .AddUser();
+            .AddUsers();
 
         return services;
     }

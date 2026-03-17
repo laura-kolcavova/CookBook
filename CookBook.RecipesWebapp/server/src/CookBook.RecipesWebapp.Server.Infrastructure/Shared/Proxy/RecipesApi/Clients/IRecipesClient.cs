@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.RecipesApi.Dto;
+using Refit;
 
 namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.RecipesApi.Clients;
-internal class IRecipesClient
+
+internal interface IRecipesClient
 {
+    [Get("/api/recipes/{recipeId}/detail")]
+    public Task<IApiResponse<GetRecipeDetailResponseDto>> GetRecipeDetail(
+        int recipeId,
+        CancellationToken cancellationToken);
 }
