@@ -1,14 +1,7 @@
 using Carter;
-using CookBook.RecipesWebapp.Server.Api.Shared.Antiforgery.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
-using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient;
 using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient.Extensions;
-using CookBook.RecipesWebapp.Server.Application.Shared.Extensions;
-using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
-using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.FileProviders.Physical;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,36 +9,25 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 var isDevelopment = builder.Environment.IsDevelopment();
 
-builder.Host
-    .UseDefaultServiceProvider((context, options) =>
-    {
-        options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
-        options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
-    });
-
-var spaClientConfiguration = configuration
-    .GetRequiredSection(nameof(SpaClientConfiguration))
-    .Get<SpaClientConfiguration>()!;
-
-var openIdConnectAppConfiguration = configuration
-    .GetRequiredSection(nameof(OpenIdConnectAppConfiguration))
-    .Get<OpenIdConnectAppConfiguration>()!;
-
-var reverseProxyConfiguration = configuration
-    .GetRequiredSection(ConfigurationConstants.ReverseProxy.ReverseProxySectionName);
+builder
+    .Host
+    .UseDefaultServiceProvider(
+        (context, options) =>
+        {
+            options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
+            options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
+        });
 
 services
     .AddOptions();
 
 services
-    .AddApplication()
-    .AddInfrastructure()
+    .AddInfrastructure(
+        configuration)
     .AddApi(
+        configuration,
         builder.Environment.ApplicationName,
-        isDevelopment,
-        reverseProxyConfiguration,
-        openIdConnectAppConfiguration)
-    .AddSpaClient(spaClientConfiguration);
+        isDevelopment);
 
 var app = builder.Build();
 
@@ -87,43 +69,6 @@ app.UseSwaggerUI(options =>
     options.ConfigObject.TryItOutEnabled = true;
 });
 
-if (spaClientConfiguration.IsSpaEnabled)
-{
-    app.MapWhen(ctx =>
-        !ctx.Request.IsApiRequest() &&
-        !ctx.Request.IsLessKnownRequest(),
-        spaAppBuilder =>
-        {
-            spaAppBuilder.UseWhen(
-                ctx => ctx.Request.IsRenderingRequest(),
-                appBuilder =>
-                {
-                    appBuilder.UseAntiforgeryTokens();
-                });
-
-            var useStaticFiles = !spaClientConfiguration.UseDevelopmentProxyServer;
-
-            if (useStaticFiles)
-            {
-                app.UseStaticFiles(new StaticFileOptions()
-                {
-                    FileProvider = new PhysicalFileProvider(
-                        Path.Combine(
-                            Directory.GetCurrentDirectory(),
-                            spaClientConfiguration.StaticFilesRootPath),
-                        ExclusionFilters.None)
-                });
-            }
-
-            spaAppBuilder.UseSpa(spa =>
-            {
-                if (spaClientConfiguration.UseDevelopmentProxyServer)
-                {
-                    spa.UseProxyToSpaDevelopmentServer(
-                        spaClientConfiguration.DevelopmentProxyServerBaseUri);
-                }
-            });
-        });
-}
+app.UseSpaClient(configuration);
 
 app.Run();

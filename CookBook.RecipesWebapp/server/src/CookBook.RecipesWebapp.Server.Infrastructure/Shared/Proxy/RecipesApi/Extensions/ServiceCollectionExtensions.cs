@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Refit;
 
 namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.RecipesApi.Extensions;
+
 internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddRecipesApiProxy(

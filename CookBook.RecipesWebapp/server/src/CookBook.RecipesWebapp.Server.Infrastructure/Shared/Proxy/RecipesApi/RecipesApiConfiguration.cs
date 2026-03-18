@@ -2,7 +2,7 @@
 
 namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.RecipesApi;
 
-internal sealed class RecipesApiConfiguration
+public sealed class RecipesApiConfiguration
 {
     [Required]
     public string BaseAddress { get; set; } = string.Empty;
