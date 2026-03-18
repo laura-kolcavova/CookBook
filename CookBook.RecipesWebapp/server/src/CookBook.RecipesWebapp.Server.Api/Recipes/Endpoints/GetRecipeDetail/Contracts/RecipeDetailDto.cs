@@ -1,10 +1,8 @@
-﻿namespace CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail.Contracts;
+﻿namespace CookBook.RecipesWebapp.Server.Api.Recipes.Endpoints.GetRecipeDetail.Contracts;
 
 internal sealed record RecipeDetailDto
 {
     public required long RecipeId { get; init; }
-
-    public required string UserName { get; init; }
 
     public required string Title { get; init; }
 
@@ -18,11 +16,20 @@ internal sealed record RecipeDetailDto
 
     public required DateTimeOffset CreatedAt { get; init; }
 
+    public required UserProfileInfoDto UserProfileInfo { get; init; }
+
     public required IReadOnlyCollection<IngredientItemDto> Ingredients { get; init; }
 
     public required IReadOnlyCollection<InstructionItemDto> Instructions { get; init; }
 
     public required IReadOnlyCollection<string> Tags { get; init; }
+
+    public sealed record UserProfileInfoDto
+    {
+        public required string UserName { get; init; }
+
+        public required string DisplayName { get; init; }
+    }
 
     public sealed record IngredientItemDto
     {

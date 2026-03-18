@@ -4,7 +4,7 @@ internal sealed record GetRecipeDetailResponseDto
 {
     public required RecipeDetailDto RecipeDetail { get; init; }
 
-    internal sealed record RecipeDetailDto
+    public sealed record RecipeDetailDto
     {
         public required long RecipeId { get; init; }
 

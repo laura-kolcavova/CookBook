@@ -13,12 +13,14 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 var isDevelopment = builder.Environment.IsDevelopment();
 
-builder.Host
-    .UseDefaultServiceProvider((context, options) =>
-    {
-        options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
-        options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
-    });
+builder
+    .Host
+    .UseDefaultServiceProvider(
+        (context, options) =>
+        {
+            options.ValidateScopes = context.HostingEnvironment.IsDevelopment();
+            options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
+        });
 
 var cookBookIdentityProviderConnectionString = configuration.GetSqlConnectionString(
     ConfigurationConstants.SqlConnectionStrings.CookBookIdentityProviderSectionName);

@@ -11,7 +11,7 @@ public sealed class GetUserProfileInfoEndpointModule :
         IEndpointRouteBuilder app)
     {
         app
-            .MapGet("/{userName}/info", HandleAsync)
+            .MapGet("/{userName}/profile-info", HandleAsync)
             .WithName("GetUserProfileInfo")
             .WithSummary("Retrieves user profile information by username")
             .WithDescription("Gets the public profile information for a user including their display name and username. Returns 204 No Content if the user is not found.")

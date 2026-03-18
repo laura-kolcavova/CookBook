@@ -1,8 +1,7 @@
-﻿using CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail.Contracts;
-using CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail.Mappers;
-using CookBook.Recipes.Application.Recipes.UseCases.GetRecipeDetail;
+﻿using CookBook.RecipesWebapp.Server.Api.Recipes.Endpoints.GetRecipeDetail.Contracts;
+using CookBook.RecipesWebapp.Server.Application.Recipes.UseCases.GetRecipeDetail;
 
-namespace CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail;
+namespace CookBook.RecipesWebapp.Server.Api.Recipes.Endpoints.GetRecipeDetail;
 
 internal static class GetRecipeDetailEndpoint
 {

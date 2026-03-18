@@ -7,7 +7,7 @@ namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.IdentityProv
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddRecipesApiProxy(
+    public static IServiceCollection AddIdentityProviderApiProxy(
        this IServiceCollection services,
        IConfigurationManager configuration)
     {
@@ -16,7 +16,7 @@ internal static class ServiceCollectionExtensions
             .Get<IdentityProviderApiConfiguration>()!;
 
         services
-            .AddRefitClient<IIdentityProviderClient>()
+            .AddRefitClient<IIdentityProviderApiClient>()
             .ConfigureHttpClient(configureClient =>
             {
                 configureClient.BaseAddress = new Uri(

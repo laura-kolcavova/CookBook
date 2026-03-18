@@ -1,6 +1,6 @@
 ﻿namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.IdentityProviderApi.Dto;
 
-internal class GetUserProfileInfoResponseDto
+internal sealed record GetUserProfileInfoResponseDto
 {
     public required UserProfileInfoDto UserProfileInfo { get; init; }
 

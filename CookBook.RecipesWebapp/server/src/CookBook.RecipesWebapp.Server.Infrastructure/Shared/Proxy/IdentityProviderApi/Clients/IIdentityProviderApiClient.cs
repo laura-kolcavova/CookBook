@@ -3,8 +3,9 @@ using Refit;
 
 namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.IdentityProviderApi.Clients;
 
-internal interface IIdentityProviderClient
+internal interface IIdentityProviderApiClient
 {
+    [Get("/api/users/{userName}/profile-info")]
     public Task<IApiResponse<GetUserProfileInfoResponseDto>> GetUserProfileInfo(
         string userName,
         CancellationToken cancellationToken);

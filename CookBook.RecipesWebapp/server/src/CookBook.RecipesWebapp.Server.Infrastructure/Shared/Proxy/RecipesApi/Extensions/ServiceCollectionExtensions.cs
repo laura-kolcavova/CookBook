@@ -16,7 +16,7 @@ internal static class ServiceCollectionExtensions
             .Get<RecipesApiConfiguration>()!;
 
         services
-            .AddRefitClient<IRecipesClient>()
+            .AddRefitClient<IRecipesApiClient>()
             .ConfigureHttpClient(configureClient =>
             {
                 configureClient.BaseAddress = new Uri(

@@ -1,6 +1,7 @@
 using Carter;
 using CookBook.RecipesWebapp.Server.Api.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient.Extensions;
+using CookBook.RecipesWebapp.Server.Application.Shared.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ services
     .AddOptions();
 
 services
+    .AddApplication()
     .AddInfrastructure(
         configuration)
     .AddApi(
