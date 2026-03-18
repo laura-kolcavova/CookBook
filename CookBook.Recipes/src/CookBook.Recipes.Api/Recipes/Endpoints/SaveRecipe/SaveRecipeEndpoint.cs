@@ -10,7 +10,8 @@ namespace CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe;
 
 internal static class SaveRecipeEndpoint
 {
-    public static void Configure(IEndpointRouteBuilder builder)
+    public static void Configure(
+        IEndpointRouteBuilder builder)
     {
         builder
             .MapPut("/save", HandleAsync)

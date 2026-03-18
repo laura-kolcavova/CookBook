@@ -3,20 +3,22 @@ using CookBook.RecipesWebapp.Server.Application.Recipes.UseCases.GetRecipeDetail
 
 namespace CookBook.RecipesWebapp.Server.Api.Recipes.Endpoints.GetRecipeDetail;
 
-internal static class GetRecipeDetailEndpoint
+public sealed class GetRecipeDetailEndpoint :
+    RecipesModule
 {
-    public static void Configure(IEndpointRouteBuilder builder)
+    public override void AddRoutes(
+        IEndpointRouteBuilder app)
     {
-        builder
-            .MapGet("/{recipeId}/detail", HandleAsync)
-            .WithName("GetRecipeDetail")
-            .WithSummary("Gets recipe detail by its id")
-            .WithDescription("Returns a DTO containing recipe detail")
-            .Produces<GetRecipeDetailResponseDto>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status204NoContent)
-            .ProducesValidationProblem()
-            .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .AllowAnonymous();
+        app
+           .MapGet("/{recipeId}/detail", HandleAsync)
+           .WithName("GetRecipeDetail")
+           .WithSummary("Gets recipe detail by its id")
+           .WithDescription("Returns a DTO containing recipe detail")
+           .Produces<GetRecipeDetailResponseDto>(StatusCodes.Status200OK)
+           .Produces(StatusCodes.Status204NoContent)
+           .ProducesValidationProblem()
+           .ProducesProblem(StatusCodes.Status500InternalServerError)
+           .AllowAnonymous();
     }
 
     private static async Task<IResult> HandleAsync(

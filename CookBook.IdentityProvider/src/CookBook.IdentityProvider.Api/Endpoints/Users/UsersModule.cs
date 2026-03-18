@@ -6,7 +6,7 @@ public abstract class UsersModule :
     ApiModule
 {
     protected UsersModule()
-      : base("/user")
+      : base("/users")
     {
         WithTags("Users");
     }

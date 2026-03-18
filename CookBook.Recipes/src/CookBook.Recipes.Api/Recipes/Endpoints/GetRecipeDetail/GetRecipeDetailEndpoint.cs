@@ -6,7 +6,8 @@ namespace CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail;
 
 internal static class GetRecipeDetailEndpoint
 {
-    public static void Configure(IEndpointRouteBuilder builder)
+    public static void Configure(
+        IEndpointRouteBuilder builder)
     {
         builder
             .MapGet("/{recipeId}/detail", HandleAsync)

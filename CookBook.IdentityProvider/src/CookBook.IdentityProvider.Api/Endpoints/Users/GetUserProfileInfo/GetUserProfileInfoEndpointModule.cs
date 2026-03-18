@@ -6,7 +6,6 @@ namespace CookBook.IdentityProvider.Api.Endpoints.Users.GetUserProfileInfo;
 public sealed class GetUserProfileInfoEndpointModule :
     UsersModule
 {
-
     public override void AddRoutes(
         IEndpointRouteBuilder app)
     {
