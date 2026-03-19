@@ -12,13 +12,15 @@ export const RecipeDetailHeader = ({ recipe }: RecipeDetailHeaderProps) => {
 
   return (
     <div className="flex items-center justify-end gap-4 mb-4">
-      {recipe && currentUser.isAuthenticated && recipe.userName === currentUser.userName && (
-        <>
-          <EditRecipeButton recipe={recipe} />
+      {recipe &&
+        currentUser.isAuthenticated &&
+        recipe.userProfileInfo.userName === currentUser.userName && (
+          <>
+            <EditRecipeButton recipe={recipe} />
 
-          <DeleteRecipeButton recipe={recipe} />
-        </>
-      )}
+            <DeleteRecipeButton recipe={recipe} />
+          </>
+        )}
     </div>
   );
 };
