@@ -1,4 +1,5 @@
 ﻿using Carter;
+using CookBook.RecipesWebapp.Server.Api.Shared.SpaClient.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Yarp.TransformProviders;
@@ -15,21 +16,26 @@ internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddApi(
         this IServiceCollection services,
+        IConfigurationManager configuration,
         string applicationName,
-        bool isDevelopment,
-        IConfigurationSection reverseProxyConfiguration,
-        OpenIdConnectAppConfiguration openIdConnectAppConfiguration)
+        bool isDevelopment)
     {
-        services
-            .AddAntiforgery(
-                options =>
-                {
-                    options.HeaderName = ConfigurationConstants.Antiforgery.RequestVerificationTokenHeaderName;
-                    options.Cookie.Name = ConfigurationConstants.Antiforgery.TokenCookieName;
-                    options.Cookie.HttpOnly = true;
-                    options.Cookie.SameSite = SameSiteMode.Strict;
-                    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-                });
+        var openIdConnectAppConfiguration = configuration
+            .GetRequiredSection(nameof(OpenIdConnectAppConfiguration))
+            .Get<OpenIdConnectAppConfiguration>()!;
+
+        var reverseProxyConfiguration = configuration
+            .GetRequiredSection(ConfigurationConstants.ReverseProxy.ReverseProxySectionName);
+
+        services.AddAntiforgery(
+            options =>
+            {
+                options.HeaderName = ConfigurationConstants.Antiforgery.RequestVerificationTokenHeaderName;
+                options.Cookie.Name = ConfigurationConstants.Antiforgery.TokenCookieName;
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+            });
 
         services
             .AddAuthentication(
@@ -88,45 +94,51 @@ internal static class ServiceCollectionExtensions
                     options.GetClaimsFromUserInfoEndpoint = true;
                 });
 
-        services.AddAuthorizationBuilder()
+        services
+            .AddAuthorizationBuilder()
             .AddPolicy(
                 ConfigurationConstants.AuthenticationPolicies.Cookie,
                 builder =>
                 {
-                    builder.AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme);
-                    builder.RequireAuthenticatedUser();
+                    builder
+                        .AddAuthenticationSchemes(
+                            CookieAuthenticationDefaults.AuthenticationScheme)
+                        .RequireAuthenticatedUser();
                 });
 
-        services
-          .ConfigureHttpJsonOptions(options =>
-          {
-              options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-          });
-
-        services
-            .AddEndpointsApiExplorer()
-            .AddSwaggerGen(options =>
+        services.ConfigureHttpJsonOptions(
+            options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = applicationName,
-                    Version = "v1"
-                });
-
-                options.SupportNonNullableReferenceTypes();
-
-                options.CustomSchemaIds(x => x.FullName?
-                    .Replace("Dto", string.Empty)
-                    .Replace("+", "."));
+                options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
         services
-            .AddProblemDetails();
+            .AddEndpointsApiExplorer()
+            .AddSwaggerGen(
+                options =>
+                {
+                    options.SwaggerDoc(
+                        "v1",
+                        new OpenApiInfo
+                        {
+                            Title = applicationName,
+                            Version = "v1"
+                        });
 
-        services
-            .AddCarter(
-                new DependencyContextAssemblyCatalog(
-                    [typeof(Program).Assembly]));
+                    options.SupportNonNullableReferenceTypes();
+
+                    options.CustomSchemaIds(
+                        x => x
+                            .FullName?
+                            .Replace("Dto", string.Empty)
+                            .Replace("+", "."));
+                });
+
+        services.AddProblemDetails();
+
+        services.AddCarter(
+            new DependencyContextAssemblyCatalog(
+                [typeof(Program).Assembly]));
 
         services
             .AddReverseProxy()
@@ -134,11 +146,13 @@ internal static class ServiceCollectionExtensions
             .AddTransforms<AntiforgeryValidationTransformProvider>()
             .AddTransforms<OpenIdConnectTransformProvider>();
 
-        services
-            .AddValidatorsFromAssembly(
-                typeof(Program).Assembly,
-                ServiceLifetime.Singleton,
-                includeInternalTypes: true);
+        services.AddValidatorsFromAssembly(
+            typeof(Program).Assembly,
+            ServiceLifetime.Singleton,
+            includeInternalTypes: true);
+
+        services.AddSpaClient(
+            configuration);
 
         return services;
     }

@@ -1,11 +1,13 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail.Contracts;
+using CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail.Mappers;
 using CookBook.Recipes.Application.Recipes.UseCases.GetRecipeDetail;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail;
 
 internal static class GetRecipeDetailEndpoint
 {
-    public static void Configure(IEndpointRouteBuilder builder)
+    public static void Configure(
+        IEndpointRouteBuilder builder)
     {
         builder
             .MapGet("/{recipeId}/detail", HandleAsync)
@@ -26,18 +28,21 @@ internal static class GetRecipeDetailEndpoint
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var recipeDetail = await getRecipeDetailUseCase.GetRecipeDetail(
+        var recipeDetailResult = await getRecipeDetailUseCase.GetRecipeDetail(
             request.RecipeId,
             cancellationToken);
 
-        if (recipeDetail.HasNoValue)
+        if (recipeDetailResult.HasNoValue)
         {
             return TypedResults.NoContent();
         }
 
+        var recipeDetail = recipeDetailResult.Value;
+
         var responseDto = new GetRecipeDetailResponseDto
         {
-            RecipeDetail = recipeDetail.Value
+            RecipeDetail = recipeDetail
+                .ToDto()
         };
 
         return TypedResults.Ok(responseDto);

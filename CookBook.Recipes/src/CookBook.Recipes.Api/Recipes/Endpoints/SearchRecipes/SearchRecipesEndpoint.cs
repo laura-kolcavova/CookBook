@@ -9,7 +9,8 @@ namespace CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes;
 
 internal static class SearchRecipesEndpoint
 {
-    public static void Configure(IEndpointRouteBuilder builder)
+    public static void Configure(
+        IEndpointRouteBuilder builder)
     {
         builder
             .MapGet("/search", HandleAsync)
@@ -28,8 +29,7 @@ internal static class SearchRecipesEndpoint
         SearchRecipesEndpointParams request,
         ISearchRecipesUseCase searchRecipesUseCase,
         HttpContext httpContext,
-        CancellationToken cancellationToken
-        )
+        CancellationToken cancellationToken)
     {
         var offsetFilter =
             request.Offset is not null ||

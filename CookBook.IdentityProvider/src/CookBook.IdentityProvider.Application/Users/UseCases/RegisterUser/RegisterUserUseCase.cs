@@ -1,12 +1,10 @@
 ﻿using CookBook.Extensions.CSharpExtended.Errors;
-using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser.Abstractions;
-using CookBook.IdentityProvider.Domain.Userrs.Models;
 using CookBook.IdentityProvider.Domain.Users.Models;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
 using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 
-namespace CookBook.IdentityProvider.Infrastructure.Users.UseCases.RegisterUser;
+namespace CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser;
 
 internal sealed class RegisterUserUseCase(
     IRegisterManager registerManager,
@@ -34,7 +32,7 @@ internal sealed class RegisterUserUseCase(
         {
             logger.LogError(
                 ex,
-                "An unexpected error occurred while getting recipe detail.");
+                "An unexpected error occurred while getting recipe detail");
 
             throw;
         }

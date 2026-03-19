@@ -18,14 +18,22 @@ export const RecipeDetailContent = ({ recipe }: RecipeDetailContentProps) => {
   return (
     <>
       <div className="mb-8 border-b-2 border-gray-200 pb-6">
-        <div className="mb-6">
+        <div className="mb-4">
           <h2 className="text-2xl text-center text-text-color-primary font-semibold">
             {recipe.title}
           </h2>
         </div>
 
-        <div className="text-center mb-2">
-          <span className="text-sm text-text-color-secondary">
+        <div className="text-center text-sm text-text-color-secondary mb-4">
+          {recipe.userProfileInfo.displayName ? (
+            <span>{recipe.userProfileInfo.displayName}</span>
+          ) : (
+            <span>
+              <FormattedMessage {...messages.deleted} />
+            </span>
+          )}
+          <span className="mx-2">|</span>
+          <span>
             <FormattedDate value={recipe.createdAt} />
           </span>
         </div>

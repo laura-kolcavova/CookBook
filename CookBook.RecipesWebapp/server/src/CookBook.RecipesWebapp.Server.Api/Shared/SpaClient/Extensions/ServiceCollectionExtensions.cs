@@ -4,8 +4,12 @@ internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSpaClient(
         this IServiceCollection services,
-        SpaClientConfiguration spaClientConfiguration)
+        IConfigurationManager configuration)
     {
+        var spaClientConfiguration = configuration
+            .GetRequiredSection(nameof(SpaClientConfiguration))
+            .Get<SpaClientConfiguration>()!;
+
         services.AddSpaStaticFiles(c =>
         {
             c.RootPath = spaClientConfiguration.StaticFilesRootPath;

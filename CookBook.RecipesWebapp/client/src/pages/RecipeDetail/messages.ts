@@ -45,4 +45,8 @@ export const messages = defineMessages({
     id: 'recipeDetail.cancelButton',
     defaultMessage: 'Cancel',
   },
+  deleted: {
+    id: 'recipeDetail.deleted',
+    defineMessages: '[deleted]',
+  },
 });

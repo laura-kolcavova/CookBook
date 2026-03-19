@@ -1,12 +1,24 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CookBook.RecipesWebapp.Server.Infrastructure.Recipes.Extensions;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.IdentityProviderApi.Extensions;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.RecipesApi.Extensions;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.Extensions;
 
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services)
+        this IServiceCollection services,
+        IConfigurationManager configuration)
     {
+        services
+            .AddRecipesApiProxy(configuration)
+            .AddIdentityProviderApiProxy(configuration);
+
+        services
+            .AddRecipes();
+
         return services;
     }
 }
