@@ -1,1 +1,1 @@
-docker run --rm --name cookbook-mssql-server -p 8000:1433 --env-file "../src/CookBook.MsSqlServer.Server/server.env" -d mcr.microsoft.com/mssql/server:2022-latest
+docker run -it --rm --name cookbook-mssql-server -p 8000:1433 --network=cookbook-network --env-file "../src/CookBook.MsSqlServer.Server/server.env" -d mcr.microsoft.com/mssql/server:2022-latest

@@ -1,1 +1,1 @@
-docker run -it --rm -p 8010:8010 --name cookbook-recipes-container -d cookbook-recipes
+docker run -it --rm  -d -p 8010:8010 --name cookbook-recipes-container --network=cookbook-network cookbook-recipes-image
