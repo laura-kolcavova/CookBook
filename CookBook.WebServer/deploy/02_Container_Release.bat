@@ -1,0 +1,1 @@
+docker run -it --rm -d -p 80:80 --name cookbook-proxy-server-container --network cookbook-network cookbook-proxy-server-image

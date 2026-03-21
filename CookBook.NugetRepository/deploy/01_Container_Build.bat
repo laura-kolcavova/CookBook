@@ -1,1 +1,1 @@
-docker pull loicsharma/baget
+docker build -t cookbook-nuget-server-image ../

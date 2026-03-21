@@ -1,1 +1,1 @@
-docker pull mcr.microsoft.com/mssql/server:2022-latest
+docker build -t cookbook-sql-server-image ../
