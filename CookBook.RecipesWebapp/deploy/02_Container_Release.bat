@@ -1,1 +1,1 @@
-docker run -it --rm -p 8015:8015 --name cookbook-recipes-webapp-container -d cookbook-recipes-webapp
+docker run -it --rm -d -p 8015:8015 --name cookbook-recipes-webapp-container --network cookbook-network cookbook-recipes-webapp
