@@ -1,0 +1,1 @@
+docker run -it --rm -d -p 8000:1433 --name cookbook-sql-server-container --network cookbook-network --env-file "../server.env" cookbook-sql-server-image

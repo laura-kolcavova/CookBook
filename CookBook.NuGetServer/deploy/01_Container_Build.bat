@@ -1,0 +1,1 @@
+docker build -t cookbook-nuget-server-image ../

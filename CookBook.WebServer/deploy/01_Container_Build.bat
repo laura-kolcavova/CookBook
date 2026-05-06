@@ -1,0 +1,1 @@
+docker build -t cookbook-proxy-server-image ../

@@ -16,9 +16,9 @@ An example of a recipe management system built using microservices architecture
 
 ### Other
 
-[CookBook MsSql Server](CookBook.MsSqlServer/README.md)
+[CookBook SQL Server](CookBook.SqlServer/README.md)
 
-[CookBook Nuget Repository](CookBook.NugetRepository/README.md)
+[CookBook NuGet Server](CookBook.NugetServer/README.md)
 
 [CookBook CSharpExtended NuGet Package](extensions/CookBook.Extensions.CSharpExtended/README.md)
 

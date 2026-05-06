@@ -1,0 +1,1 @@
+docker run -it --rm -d -p 8005:80 --name cookbook-nuget-server-container --network cookbook-network --env-file "../baget.env" -v "baget-data:/var/baget" cookbook-nuget-server-image

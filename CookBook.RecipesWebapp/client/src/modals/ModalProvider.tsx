@@ -71,7 +71,6 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
   return (
     <ModalContext.Provider value={{ openModal, hideModal, currentModalKey }}>
       {children}
-
       {modalHandlers.length > 0 && modalHandlers.map((modalHandlers) => modalHandlers.modal)}
     </ModalContext.Provider>
   );
