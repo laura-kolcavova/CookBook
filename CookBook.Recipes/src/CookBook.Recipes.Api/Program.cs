@@ -57,6 +57,10 @@ app.UseAuthorization();
 
 app.MapApiEndpoints();
 
+app.MapHealthChecks("/.less-known/readiness");
+
+app.MapHealthChecks("/.less-known/liveness");
+
 app.UseSwagger(options =>
 {
     options.RouteTemplate = ".less-known/api-docs/{documentName}.json";

@@ -88,6 +88,9 @@ internal static class ServiceCollectionExtensions
                 ServiceLifetime.Singleton,
                 includeInternalTypes: true);
 
+        services
+            .AddHealthChecks();
+
         return services;
     }
 }

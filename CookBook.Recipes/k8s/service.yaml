@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cookbook-recipes-api
+  namespace: cookbook
+spec:
+  type: ClusterIP
+  selector:
+    app: cookbook-recipes-api
+  ports:
+    - protocol: TCP
+      port: 8010
+      targetPort: 8010
