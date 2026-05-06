@@ -14,7 +14,8 @@ internal static class ServiceCollectionExtensions
         this IServiceCollection services,
         string applicationName,
         bool isDevelopment,
-        OpenIdConnectAppConfiguration openIdConnectAppConfiguration)
+        OpenIdConnectAppConfiguration openIdConnectAppConfiguration,
+        string connectionString)
     {
         services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -89,7 +90,15 @@ internal static class ServiceCollectionExtensions
                 includeInternalTypes: true);
 
         services
-            .AddHealthChecks();
+           .AddHealthChecks();
+        //.AddSqlServer(
+        //    connectionString,
+        //    name: "CookBookRecipes_DB",
+        //    tags: new[]
+        //    {
+        //         "readiness"
+        //    });
+
 
         return services;
     }

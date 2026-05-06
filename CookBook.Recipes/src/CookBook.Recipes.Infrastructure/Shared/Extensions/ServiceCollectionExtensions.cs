@@ -12,16 +12,6 @@ public static class ServiceCollectionExtensions
         bool isDevelopment)
     {
         services
-           .AddHealthChecks()
-           .AddSqlServer(
-               connectionString,
-               name: "CookBookRecipes_DB",
-               tags: new[]
-               {
-                    "readiness"
-               });
-
-        services
           .AddSingleton<UpdateTrackingFieldsInterceptor>();
 
         services

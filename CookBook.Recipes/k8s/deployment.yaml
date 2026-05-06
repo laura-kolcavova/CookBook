@@ -21,8 +21,8 @@ spec:
         fsGroup: 2000
       containers:
         - name: cookbook-recipes-api
-          image: cookbook-recipes-api:latest
-          imagePullPolicy: IfNotPresent
+          image: cookbook-recipes-image
+          imagePullPolicy: Never
           ports:
             - containerPort: 8010
           envFrom:
