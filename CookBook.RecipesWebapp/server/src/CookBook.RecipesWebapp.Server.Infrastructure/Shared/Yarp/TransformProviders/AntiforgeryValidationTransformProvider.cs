@@ -26,10 +26,10 @@ public sealed class AntiforgeryValidationTransformProvider :
             .Metadata
             .TryGetValue(
                 UseAntiforgeryValidationMetaDataName,
-                out var useOpenIdConnectValue) &&
-            !string.IsNullOrEmpty(useOpenIdConnectValue) &&
+                out var useAntiforgeryValidationValue) &&
+            !string.IsNullOrEmpty(useAntiforgeryValidationValue) &&
             string.Equals(
-                useOpenIdConnectValue?.ToString(),
+                useAntiforgeryValidationValue?.ToString(),
                 bool.TrueString,
                 StringComparison.OrdinalIgnoreCase);
 

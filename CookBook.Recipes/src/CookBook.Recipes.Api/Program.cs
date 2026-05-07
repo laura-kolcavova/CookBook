@@ -37,7 +37,8 @@ services
     .AddApi(
         builder.Environment.ApplicationName,
         isDevelopment,
-        openIdConnectAppConfiguration);
+        openIdConnectAppConfiguration,
+        cookBookRecipesConnectionString);
 
 var app = builder.Build();
 
@@ -56,6 +57,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapApiEndpoints();
+
+app.MapHealthChecks("/.less-known/readiness");
+
+app.MapHealthChecks("/.less-known/liveness");
 
 app.UseSwagger(options =>
 {

@@ -5,6 +5,7 @@ using CookBook.RecipesWebapp.Server.Infrastructure.Shared.OpenIdConnect;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Yarp.TransformProviders;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Abstractions;
@@ -53,7 +54,6 @@ internal static class ServiceCollectionExtensions
                     options.Cookie.HttpOnly = true;
                     options.Cookie.SameSite = SameSiteMode.Strict;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-
                     options.Events.OnRedirectToLogin = redirectContext =>
                     {
                         return redirectContext
@@ -72,6 +72,39 @@ internal static class ServiceCollectionExtensions
                 options =>
                 {
                     options.Authority = openIdConnectAppConfiguration.Authority;
+
+                    if (!string.IsNullOrEmpty(openIdConnectAppConfiguration.MetadataAddress))
+                    {
+                        options.MetadataAddress = openIdConnectAppConfiguration.MetadataAddress;
+
+                        // Override endpoints: use public Authority for browser redirects, internal for backchannel because of the Docker network setup
+                        options.Events = new OpenIdConnectEvents
+                        {
+                            OnRedirectToIdentityProvider = context =>
+                            {
+                                context.ProtocolMessage.IssuerAddress = $"{openIdConnectAppConfiguration.Authority}/connect/authorize";
+
+                                return Task.CompletedTask;
+                            },
+
+                            OnRedirectToIdentityProviderForSignOut = context =>
+                            {
+                                context.ProtocolMessage.IssuerAddress = $"{openIdConnectAppConfiguration.Authority}/connect/logout";
+
+                                return Task.CompletedTask;
+                            }
+                        };
+
+                        options.TokenValidationParameters.ValidateIssuer = true;
+                        options.TokenValidationParameters.ValidIssuers = new[]
+                        {
+                            openIdConnectAppConfiguration.Authority,
+                            openIdConnectAppConfiguration
+                                .MetadataAddress
+                                .Replace("/.well-known/openid-configuration", string.Empty)
+                        };
+                    }
+
                     options.ClientId = openIdConnectAppConfiguration.ClientId;
                     options.ClientSecret = openIdConnectAppConfiguration.ClientSecret;
 

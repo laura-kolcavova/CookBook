@@ -1,6 +1,9 @@
-﻿using CookBook.IdentityProvider.Infrastructure.Shared.Interceptors;
+﻿using CookBook.Extensions.AspNetCore.SqlServer.Extensions;
+using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
+using CookBook.IdentityProvider.Infrastructure.Shared.Interceptors;
 using CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Extensions;
 using CookBook.IdentityProvider.Infrastructure.Users.Extensions;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CookBook.IdentityProvider.Infrastructure.Shared.Extensions;
@@ -9,32 +12,32 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
-        string connectionString,
+        IConfigurationManager configuration,
         bool isDevelopment)
     {
+        var connectionString = configuration.GetSqlConnectionString(
+            ConfigurationConstants.SqlConnectionStrings.CookBookIdentityProviderSectionName);
+
         services
            .AddHealthChecks()
            .AddSqlServer(
-               connectionString,
-               name: "CookBookRecipes_DB",
-               tags: new[]
-               {
+                connectionString,
+                name: "CookBookIdentityProvider_DB",
+                tags: [
                     "readiness"
-               });
+                ]);
 
         services
             .AddSingleton<UpdateTrackingFieldsInterceptor>();
 
         services
-            .AddIdentityUsers(
+            .AddUsers(
                 connectionString,
-                isDevelopment)
-            .AddOpenIddictServer(
                 isDevelopment);
 
         services
-            .AddUsers(
-                connectionString,
+            .AddOpenIddictServer(
+                configuration,
                 isDevelopment);
 
         return services;

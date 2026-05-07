@@ -14,7 +14,8 @@ internal static class ServiceCollectionExtensions
         this IServiceCollection services,
         string applicationName,
         bool isDevelopment,
-        OpenIdConnectAppConfiguration openIdConnectAppConfiguration)
+        OpenIdConnectAppConfiguration openIdConnectAppConfiguration,
+        string connectionString)
     {
         services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -37,10 +38,9 @@ internal static class ServiceCollectionExtensions
                         ValidateIssuer = true,
                         ValidateAudience = false,
                         ValidIssuers = openIdConnectAppConfiguration.Issuers,
-                        ValidTypes = new[]
-                        {
+                        ValidTypes = [
                             "at+jwt"
-                        }
+                        ]
                     };
                 });
 
