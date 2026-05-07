@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: cookbook-recipes-api
+    - host: cookbook-recipes-api.localhost
       http:
         paths:
           - path: /

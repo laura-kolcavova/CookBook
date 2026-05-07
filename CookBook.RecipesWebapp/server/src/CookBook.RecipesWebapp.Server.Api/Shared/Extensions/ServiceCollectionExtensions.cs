@@ -53,7 +53,6 @@ internal static class ServiceCollectionExtensions
                     options.Cookie.HttpOnly = true;
                     options.Cookie.SameSite = SameSiteMode.Strict;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-
                     options.Events.OnRedirectToLogin = redirectContext =>
                     {
                         return redirectContext
@@ -72,6 +71,12 @@ internal static class ServiceCollectionExtensions
                 options =>
                 {
                     options.Authority = openIdConnectAppConfiguration.Authority;
+
+                    if (!string.IsNullOrEmpty(openIdConnectAppConfiguration.MetadataAddress))
+                    {
+                        options.MetadataAddress = openIdConnectAppConfiguration.MetadataAddress;
+                    }
+
                     options.ClientId = openIdConnectAppConfiguration.ClientId;
                     options.ClientSecret = openIdConnectAppConfiguration.ClientSecret;
 
