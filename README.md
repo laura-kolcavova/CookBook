@@ -4,13 +4,13 @@ An example of a recipe management system built using microservices architecture
 
 ## Links
 
-### CookBook Backend Services
+### Backend Services
 
 [CookBook Recipes](CookBook.Recipes/README.md)
 
 [CookBook Identity Provider](CookBook.IdentityProvider/README.md)
 
-### CookBook Frontend Services
+### Frontend Services
 
 [CookBook Recipes Webapp](CookBook.RecipesWebapp/README.md)
 
@@ -26,20 +26,20 @@ An example of a recipe management system built using microservices architecture
 
 ## Deployment
 
-1. Deploy [CookBook MsSql Server](CookBook.MsSqlServer/README.md) container:
+1. Deploy [CookBook Sql Server](CookBook.SqlServer/README.md) container:
 
 From the `deploy` folder run the following command:
 
 ```Bash
-01_MsSqlServer_Deploy.bat
+01_SqlServer_Deploy.bat
 ```
 
-2. Deploy [CookBook Nuget Repository](CookBook.NugetRepository/README.md) container:
+2. Deploy [CookBook NuGet Server](CookBook.NugetServer/README.md) container:
 
 From the `deploy` folder run the following command:
 
 ```Bash
-02_NugetRepository_Deploy.bat
+02_NugetServer_Deploy.bat
 ```
 
 3. Deploy nuget extensions packages:
