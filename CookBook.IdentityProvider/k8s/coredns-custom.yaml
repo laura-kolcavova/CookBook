@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: coredns-custom
-  namespace: kube-system
-data:
-  cookbook.server: |
-    rewrite name cookbook-identity.localhost cookbook-identity-provider.cookbook.svc.cluster.local

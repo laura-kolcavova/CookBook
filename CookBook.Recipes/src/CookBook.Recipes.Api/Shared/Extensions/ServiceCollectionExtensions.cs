@@ -38,10 +38,9 @@ internal static class ServiceCollectionExtensions
                         ValidateIssuer = true,
                         ValidateAudience = false,
                         ValidIssuers = openIdConnectAppConfiguration.Issuers,
-                        ValidTypes = new[]
-                        {
+                        ValidTypes = [
                             "at+jwt"
-                        }
+                        ]
                     };
                 });
 
@@ -88,17 +87,6 @@ internal static class ServiceCollectionExtensions
                 typeof(Program).Assembly,
                 ServiceLifetime.Singleton,
                 includeInternalTypes: true);
-
-        services
-           .AddHealthChecks();
-        //.AddSqlServer(
-        //    connectionString,
-        //    name: "CookBookRecipes_DB",
-        //    tags: new[]
-        //    {
-        //         "readiness"
-        //    });
-
 
         return services;
     }

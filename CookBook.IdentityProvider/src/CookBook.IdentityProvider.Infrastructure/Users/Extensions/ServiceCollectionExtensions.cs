@@ -11,18 +11,19 @@ namespace CookBook.IdentityProvider.Infrastructure.Users.Extensions;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddIdentityUsers(
+    public static IServiceCollection AddUsers(
         this IServiceCollection services,
         string connectionString,
         bool isDevelopment)
     {
+        // Identity
         services
-           .AddScoped(serviceProvider =>
-           {
-               return new IdentityUsersContext(
-                   connectionString: connectionString,
-                   useDevelopmentLogging: isDevelopment);
-           });
+          .AddScoped(serviceProvider =>
+          {
+              return new IdentityUsersContext(
+                  connectionString: connectionString,
+                  useDevelopmentLogging: isDevelopment);
+          });
 
         services
             .AddIdentity<CustomIdentityUser, IdentityRole<int>>(
@@ -48,14 +49,8 @@ internal static class ServiceCollectionExtensions
                 options.Cookie.Name = ConfigurationConstants.IdentityApplication.CookieName;
             });
 
-        return services;
-    }
 
-    public static IServiceCollection AddUsers(
-        this IServiceCollection services,
-        string connectionString,
-        bool isDevelopment)
-    {
+        // Users
         services
             .AddScoped(serviceProvider =>
             {

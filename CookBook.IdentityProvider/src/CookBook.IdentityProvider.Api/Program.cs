@@ -1,8 +1,6 @@
 using Carter;
-using CookBook.Extensions.AspNetCore.SqlServer.Extensions;
 using CookBook.IdentityProvider.Api.Shared.Extensions;
 using CookBook.IdentityProvider.Application.Shared.Extensions;
-using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
 using CookBook.IdentityProvider.Infrastructure.Shared.Extensions;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
@@ -22,16 +20,13 @@ builder
             options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
         });
 
-var cookBookIdentityProviderConnectionString = configuration.GetSqlConnectionString(
-    ConfigurationConstants.SqlConnectionStrings.CookBookIdentityProviderSectionName);
-
 services
     .AddOptions();
 
 services
     .AddApplication()
     .AddInfrastructure(
-        cookBookIdentityProviderConnectionString,
+        configuration,
         isDevelopment)
     .AddApi(
         builder.Environment.ApplicationName);

@@ -2,6 +2,7 @@
 using CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Services;
 using CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Services.Abstractions;
 using CookBook.IdentityProvider.Infrastructure.Users;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenIddict.Abstractions;
 using Quartz;
@@ -11,9 +12,14 @@ namespace CookBook.IdentityProvider.Infrastructure.Shared.OpenIddict.Extensions;
 internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddOpenIddictServer(
-       this IServiceCollection services,
-       bool isDevelopment)
+        this IServiceCollection services,
+        IConfiguration configuration,
+        bool isDevelopment)
     {
+        var openIddictConfiguration = configuration
+            .GetRequiredSection(nameof(OpenIddictConfiguration))
+            .Get<OpenIddictConfiguration>()!;
+
         services
             .AddQuartz(options =>
             {
@@ -41,6 +47,8 @@ internal static class ServiceCollectionExtensions
             .AddServer(
                 options =>
                 {
+                    options.SetIssuer(new Uri(openIddictConfiguration.Issuer));
+
                     options.SetAuthorizationEndpointUris(
                         "connect/authorize");
 
