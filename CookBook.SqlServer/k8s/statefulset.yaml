@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: cookbook-sql-server
+  namespace: cookbook
+  labels:
+    app: cookbook-sql-server
+spec:
+  serviceName: cookbook-sql-server
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cookbook-sql-server
+  template:
+    metadata:
+      labels:
+        app: cookbook-sql-server
+    spec:
+      securityContext:
+        fsGroup: 10001
+      containers:
+        - name: cookbook-sql-server
+          image: cookbook-sql-server-image
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 1433
+              name: sql-server
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: MSSQL_ENABLE_HADR
+              value: "1"
+            - name: MSSQL_AGENT_ENABLED
+              value: "1"
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cookbook-sql-server-secrets
+                  key: sa-password
+          volumeMounts:
+            - name: cookbook-sql-server-data
+              mountPath: /var/opt/mssql
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: "500m"
+            limits:
+              memory: "4Gi"
+              cpu: "2000m"
+  volumeClaimTemplates:
+    - metadata:
+        name: cookbook-sql-server-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi

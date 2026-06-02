@@ -42,6 +42,7 @@ export const useSearchRecipesQuery = (searchTerm: string | null) => {
   });
 
   const resetAndRefetch = useCallback(async () => {
+    // TODO maybe invalidate query
     await queryClient.resetQueries({ queryKey: getQueryKey(searchTerm) });
     await query.refetch();
   }, [query, queryClient, searchTerm]);
