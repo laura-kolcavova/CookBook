@@ -3,30 +3,40 @@ import { useCallback, useEffect, useRef } from 'react';
 export const useAbortSignal = () => {
   const abortController = useRef<AbortController | null>(null);
 
-  const cancelAbortSignal = useCallback(() => {
+  const abortSignal = useCallback(() => {
     if (abortController.current) {
       abortController.current.abort();
       abortController.current = null;
     }
   }, []);
 
-  const createAbortSignal = useCallback((): AbortSignal => {
-    cancelAbortSignal();
+  const createSignal = useCallback((): AbortSignal => {
+    if (abortController.current) {
+      abortController.current.abort();
+    }
 
     abortController.current = new AbortController();
 
     return abortController.current.signal;
-  }, [cancelAbortSignal]);
+  }, []);
 
-  const finishAbortSignal = useCallback(() => {
+  // const getSignal = useCallback((): AbortSignal => {
+  //   if (!abortController.current) {
+  //     abortController.current = new AbortController();
+  //   }
+
+  //   return abortController.current.signal;
+  // }, []);
+
+  const finishSignal = useCallback(() => {
     abortController.current = null;
   }, []);
 
   useEffect(() => {
     return () => {
-      cancelAbortSignal();
+      abortSignal();
     };
-  }, [cancelAbortSignal]);
+  }, [abortSignal]);
 
-  return { createAbortSignal, cancelAbortSignal, finishAbortSignal };
+  return { createSignal, abortSignal, finishSignal };
 };

@@ -14,7 +14,7 @@ export const useRemoveRecipeMutation = (recipeId: number) => {
 
   const { hideModal } = useModals();
 
-  const { createAbortSignal, finishAbortSignal } = useAbortSignal();
+  const { createSignal, finishSignal } = useAbortSignal();
 
   const redirectToHome = () => {
     navigate(pages.Home.paths[0]);
@@ -22,7 +22,7 @@ export const useRemoveRecipeMutation = (recipeId: number) => {
 
   return useMutation({
     mutationFn: async () => {
-      const signal = createAbortSignal();
+      const signal = createSignal();
 
       await recipesService.removeRecipe(recipeId, currentUser.userName, signal);
     },
@@ -31,7 +31,7 @@ export const useRemoveRecipeMutation = (recipeId: number) => {
       redirectToHome();
     },
     onMutate: () => {
-      finishAbortSignal();
+      finishSignal();
     },
   });
 };
