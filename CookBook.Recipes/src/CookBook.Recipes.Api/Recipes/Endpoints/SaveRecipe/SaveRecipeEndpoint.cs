@@ -30,7 +30,7 @@ internal class SaveRecipeEndpoint
 
     private static async Task<IResult> HandleAsync(
         [AsParameters]
-        SaveRecipeEndpointParams request,
+        SaveRecipeParams request,
         IRecipeStore recipeStore,
         ILogger<SaveRecipeEndpoint> logger,
         HttpContext httpContext,

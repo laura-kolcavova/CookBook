@@ -2,10 +2,10 @@
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe.Validators;
 
-internal sealed class SaveRecipeEndpointValidator :
-    AbstractValidator<SaveRecipeEndpointParams>
+internal sealed class SaveRecipeValidator :
+    AbstractValidator<SaveRecipeParams>
 {
-    public SaveRecipeEndpointValidator()
+    public SaveRecipeValidator()
     {
         RuleFor(request => request.SaveRecipeRequest)
             .NotNull()

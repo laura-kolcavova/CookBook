@@ -1,5 +1,4 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe.Contracts;
-using CookBook.Recipes.Application.Recipes.ValidationRules;
 using FluentValidation;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe.Validators;

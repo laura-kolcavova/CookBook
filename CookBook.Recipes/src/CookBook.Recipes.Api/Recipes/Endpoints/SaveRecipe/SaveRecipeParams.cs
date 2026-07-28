@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe;
 
-internal sealed record SaveRecipeEndpointParams
+internal sealed record SaveRecipeParams
 {
     [FromBody]
     public required SaveRecipeRequestDto SaveRecipeRequest { get; init; }
