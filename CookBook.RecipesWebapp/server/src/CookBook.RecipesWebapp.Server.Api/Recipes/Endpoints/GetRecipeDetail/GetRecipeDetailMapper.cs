@@ -9,6 +9,6 @@ namespace CookBook.RecipesWebapp.Server.Api.Recipes.Endpoints.GetRecipeDetail;
     EnumMappingIgnoreCase = true)]
 internal static partial class GetRecipeDetailMapper
 {
-    public static partial RecipeDetailDto ToDto(
+    public static partial GetRecipeDetailResponseDto.RecipeDetailDto ToDto(
         this RecipeDetailModel source);
 }
