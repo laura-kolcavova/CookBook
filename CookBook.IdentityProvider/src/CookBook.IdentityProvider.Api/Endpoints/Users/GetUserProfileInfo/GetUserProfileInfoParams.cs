@@ -2,7 +2,7 @@
 
 namespace CookBook.IdentityProvider.Api.Endpoints.Users.GetUserProfileInfo;
 
-public sealed record GetUserProfileInfoEndpointParams
+public sealed record GetUserProfileInfoParams
 {
     [FromRoute]
     public required string UserName { get; init; }
