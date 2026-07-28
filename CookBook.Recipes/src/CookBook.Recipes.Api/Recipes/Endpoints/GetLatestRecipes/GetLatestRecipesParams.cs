@@ -2,7 +2,7 @@
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes;
 
-internal sealed record GetLatestRecipesEndpointParams
+internal sealed record GetLatestRecipesParams
 {
     [FromQuery]
     public required int Count { get; init; }

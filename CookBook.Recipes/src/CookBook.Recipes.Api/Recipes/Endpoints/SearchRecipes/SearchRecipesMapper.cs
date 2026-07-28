@@ -7,11 +7,11 @@ namespace CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Mappers;
 [Mapper(
     EnumMappingStrategy = EnumMappingStrategy.ByName,
     EnumMappingIgnoreCase = true)]
-internal static partial class SearchRecipesEndpointMapper
+internal static partial class SearchRecipesMapper
 {
-    public static partial RecipeSearchItemDto ToDto(
+    public static partial SearchRecipesResponseDto.RecipeSearchItemDto ToDto(
         this RecipeSearchItemReadModel source);
 
-    public static partial IReadOnlyCollection<RecipeSearchItemDto> ToDtoCollection(
+    public static partial IReadOnlyCollection<SearchRecipesResponseDto.RecipeSearchItemDto> ToDtoCollection(
         this IEnumerable<RecipeSearchItemReadModel> source);
 }

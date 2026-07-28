@@ -2,10 +2,10 @@
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.RemoveRecipe.Validators;
 
-internal sealed class RemoveRecipeEndpointValidator :
-    AbstractValidator<RemoveRecipeEndpointParams>
+internal sealed class RemoveRecipeValidator :
+    AbstractValidator<RemoveRecipeParams>
 {
-    public RemoveRecipeEndpointValidator()
+    public RemoveRecipeValidator()
     {
         RuleFor(request => request.RecipeId)
             .NotNull()

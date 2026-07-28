@@ -1,11 +1,12 @@
 ﻿using CookBook.Extensions.AspNetCore.Errors.Extensions;
-using CookBook.Recipes.Application.Recipes.UseCases.RemoveRecipe;
+using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Infrastructure.Shared.Configuration;
 using IResult = Microsoft.AspNetCore.Http.IResult;
+using RecipeErrors = CookBook.Recipes.Domain.Recipes.RecipeErrors;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.RemoveRecipe;
 
-internal static class RemoveRecipeEndpoint
+internal class RemoveRecipeEndpoint
 {
     public static void Configure(
         IEndpointRouteBuilder builder)
@@ -26,22 +27,59 @@ internal static class RemoveRecipeEndpoint
 
     private static async Task<IResult> HandleAsync(
         [AsParameters]
-        RemoveRecipeEndpointParams request,
-        IRemoveRecipeUseCase removeRecipeUseCase,
+        RemoveRecipeParams request,
+        IRecipeStore recipeStore,
+        ILogger<RemoveRecipeEndpoint> logger,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var removeRecipeResult = await removeRecipeUseCase.RemoveRecipe(
-            request.RecipeId,
-            request.UserName,
-            cancellationToken);
-
-        if (removeRecipeResult.IsFailure)
+        using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
-            return TypedResults.Problem(
-                removeRecipeResult.Error.AsProblemDetails(httpContext));
-        }
+            ["RecipeId"] = request.RecipeId,
+            ["UserName"] = request.UserName,
+        });
 
-        return TypedResults.NoContent();
+        try
+        {
+            var recipe = await recipeStore.FindByRecipeId(
+                request.RecipeId,
+                cancellationToken);
+
+            if (recipe is null)
+            {
+                return TypedResults.Problem(
+                    RecipeErrors
+                        .Recipe
+                        .NotFound(
+                            request.RecipeId)
+                        .AsProblemDetails(httpContext));
+            }
+
+            if (recipe.UserName != request.UserName)
+            {
+                return TypedResults.Problem(
+                    RecipeErrors
+                        .Recipe
+                        .NotOwnedByUser(
+                            request.RecipeId,
+                            request.UserName)
+                        .AsProblemDetails(httpContext));
+            }
+
+            await recipeStore.Remove(
+                recipe,
+                cancellationToken);
+
+            return TypedResults.NoContent();
+        }
+        catch (Exception ex)
+        when (ex is not OperationCanceledException)
+        {
+            logger.LogError(
+                ex,
+                "An unexpected error occurred while removing a recipe");
+
+            throw;
+        }
     }
 }

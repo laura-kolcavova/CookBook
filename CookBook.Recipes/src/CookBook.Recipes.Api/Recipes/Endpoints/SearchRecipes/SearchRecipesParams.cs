@@ -2,7 +2,7 @@
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes;
 
-internal sealed record SearchRecipesEndpointParams
+internal sealed record SearchRecipesParams
 {
     [FromQuery]
     public string? SearchTerm { get; init; }

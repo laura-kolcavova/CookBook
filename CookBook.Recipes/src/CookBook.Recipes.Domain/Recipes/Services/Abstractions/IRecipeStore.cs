@@ -6,7 +6,7 @@ public interface IRecipeStore
         long recipeId,
         CancellationToken cancellationToken);
 
-    public Task Add(
+    public Task Create(
         RecipeAggregate recipe,
         CancellationToken cancellationToken);
 
@@ -14,7 +14,7 @@ public interface IRecipeStore
         RecipeAggregate recipe,
         CancellationToken cancellationToken);
 
-    public Task Delete(
+    public Task Remove(
         RecipeAggregate recipe,
         CancellationToken cancellationToken);
 }

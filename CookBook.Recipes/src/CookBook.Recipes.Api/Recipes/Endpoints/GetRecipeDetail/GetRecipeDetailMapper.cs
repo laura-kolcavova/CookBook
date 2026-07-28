@@ -7,8 +7,8 @@ namespace CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail.Mappers;
 [Mapper(
     EnumMappingStrategy = EnumMappingStrategy.ByName,
     EnumMappingIgnoreCase = true)]
-internal static partial class GetRecipeDetailEndpointMapper
+internal static partial class GetRecipeDetailMapper
 {
-    public static partial RecipeDetailDto ToDto(
+    public static partial GetRecipeDetailResponseDto.RecipeDetailDto ToDto(
         this RecipeDetailReadModel source);
 }

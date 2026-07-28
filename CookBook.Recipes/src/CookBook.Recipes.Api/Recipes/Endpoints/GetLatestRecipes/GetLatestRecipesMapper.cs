@@ -9,9 +9,9 @@ namespace CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes.Mappers;
     EnumMappingIgnoreCase = true)]
 internal static partial class GetLatestRecipeEndpointMapper
 {
-    public static partial LatestRecipeDto ToDto(
+    public static partial GetLatestRecipesResponseDto.LatestRecipeDto ToDto(
         this LatestRecipeReadModel source);
 
-    public static partial IReadOnlyCollection<LatestRecipeDto> ToDtoCollection(
+    public static partial IReadOnlyCollection<GetLatestRecipesResponseDto.LatestRecipeDto> ToDtoCollection(
         this IEnumerable<LatestRecipeReadModel> source);
 }

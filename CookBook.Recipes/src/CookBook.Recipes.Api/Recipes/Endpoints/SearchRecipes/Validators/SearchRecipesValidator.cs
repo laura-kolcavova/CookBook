@@ -2,10 +2,10 @@
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Validators;
 
-internal sealed class SearchRecipesEndpointValidator :
-    AbstractValidator<SearchRecipesEndpointParams>
+internal sealed class SearchRecipesValidator :
+    AbstractValidator<SearchRecipesParams>
 {
-    public SearchRecipesEndpointValidator()
+    public SearchRecipesValidator()
     {
         RuleFor(request => request.Offset)
             .GreaterThanOrEqualTo(0);

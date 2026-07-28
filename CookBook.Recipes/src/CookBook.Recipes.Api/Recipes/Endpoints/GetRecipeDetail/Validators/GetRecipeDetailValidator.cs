@@ -2,10 +2,10 @@
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.GetRecipeDetail.Validators;
 
-internal sealed class GetRecipeDetailEndpointValidator :
-    AbstractValidator<GetRecipeDetailEndpointParams>
+internal sealed class GetRecipeDetailValidator :
+    AbstractValidator<GetRecipeDetailParams>
 {
-    public GetRecipeDetailEndpointValidator()
+    public GetRecipeDetailValidator()
     {
         RuleFor(request => request.RecipeId)
             .NotNull()

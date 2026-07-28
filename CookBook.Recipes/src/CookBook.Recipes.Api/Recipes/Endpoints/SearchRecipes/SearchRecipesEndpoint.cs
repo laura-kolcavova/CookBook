@@ -1,13 +1,13 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Contracts;
 using CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes.Mappers;
-using CookBook.Recipes.Application.Recipes.UseCases.SearchRecipes;
 using CookBook.Recipes.Domain.Recipes.ReadModels;
+using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Domain.Shared.Filtering;
 using CookBook.Recipes.Domain.Shared.Sorting;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.SearchRecipes;
 
-internal static class SearchRecipesEndpoint
+internal class SearchRecipesEndpoint
 {
     public static void Configure(
         IEndpointRouteBuilder builder)
@@ -26,46 +26,64 @@ internal static class SearchRecipesEndpoint
 
     private static async Task<IResult> HandleAsync(
         [AsParameters]
-        SearchRecipesEndpointParams request,
-        ISearchRecipesUseCase searchRecipesUseCase,
+        SearchRecipesParams request,
+        ISearchRecipesQuery searchRecipesQuery,
+        ILogger<SearchRecipesEndpoint> logger,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var offsetFilter =
-            request.Offset is not null ||
-            request.Limit is not null
-            ? new OffsetFilter
-            {
-                Offset = request.Offset ?? 0,
-                Limit = request.Limit ?? 100,
-            }
-            : null;
-
-        var sorting = new List<SortBy>()
+        using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
-            new SortBy()
-            {
-                PropertyName = nameof(RecipeSearchItemReadModel.CreatedAt),
-                Direction = SortingDirection.Descending
-            }
-        };
+            ["SearchTerm"] = request.SearchTerm
+        });
 
-        var recipes = await searchRecipesUseCase.SearchRecipes(
-            request.SearchTerm,
-            sorting,
-            offsetFilter,
-            cancellationToken);
-
-        if (recipes.Count == 0)
+        try
         {
-            return TypedResults.NoContent();
+            var offsetFilter =
+                request.Offset is not null ||
+                request.Limit is not null
+                ? new OffsetFilter
+                {
+                    Offset = request.Offset ?? 0,
+                    Limit = request.Limit ?? 100,
+                }
+                : null;
+
+            var sorting = new List<SortBy>()
+            {
+                new()
+                {
+                    PropertyName = nameof(RecipeSearchItemReadModel.CreatedAt),
+                    Direction = SortingDirection.Descending
+                }
+            };
+
+            var searchedRecipes = await searchRecipesQuery.Execute(
+                request.SearchTerm,
+                sorting,
+                offsetFilter,
+                cancellationToken);
+
+            if (searchedRecipes.Count == 0)
+            {
+                return TypedResults.NoContent();
+            }
+
+            var responseDto = new SearchRecipesResponseDto
+            {
+                Recipes = searchedRecipes.ToDtoCollection()
+            };
+
+            return TypedResults.Ok(responseDto);
         }
-
-        var responseDto = new SearchRecipesResponseDto
+        catch (Exception ex)
+        when (ex is not OperationCanceledException)
         {
-            Recipes = recipes.ToDtoCollection()
-        };
+            logger.LogError(
+                ex,
+                "An unexpected error occurred while searching for recipes");
 
-        return TypedResults.Ok(responseDto);
+            throw;
+        }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes.Contracts;
 using CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes.Mappers;
-using CookBook.Recipes.Application.Recipes.UseCases.GetLatestRecipes;
+using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes;
 
-internal static class GetLatestRecipesEndpoint
+internal class GetLatestRecipesEndpoint
 {
     public static void Configure(
         IEndpointRouteBuilder builder)
@@ -23,25 +23,43 @@ internal static class GetLatestRecipesEndpoint
 
     private static async Task<IResult> HandleAsync(
         [AsParameters]
-        GetLatestRecipesEndpointParams request,
-        IGetLatestRecipesUseCase getLatestRecipesUseCase,
+        GetLatestRecipesParams request,
+        IGetLatestRecipesQuery getLatestRecipesQuery,
+        ILogger<GetLatestRecipesEndpoint> logger,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var latestRecipes = await getLatestRecipesUseCase.GetLatestRecipes(
-            request.Count,
-            cancellationToken);
-
-        if (latestRecipes.Count == 0)
+        using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
-            return TypedResults.NoContent();
+            ["Count"] = request.Count
+        });
+
+        try
+        {
+            var latestRecipes = await getLatestRecipesQuery.Execute(
+                request.Count,
+                cancellationToken);
+
+            if (latestRecipes.Count == 0)
+            {
+                return TypedResults.NoContent();
+            }
+
+            var responseDto = new GetLatestRecipesResponseDto
+            {
+                LatestRecipes = latestRecipes.ToDtoCollection(),
+            };
+
+            return TypedResults.Ok(responseDto);
         }
-
-        var responseDto = new GetLatestRecipesResponseDto
+        catch (Exception ex)
+        when (ex is not OperationCanceledException)
         {
-            LatestRecipes = latestRecipes.ToDtoCollection(),
-        };
+            logger.LogError(
+                ex,
+                "An unexpected error occurred while getting latest recipes");
 
-        return TypedResults.Ok(responseDto);
+            throw;
+        }
     }
 }

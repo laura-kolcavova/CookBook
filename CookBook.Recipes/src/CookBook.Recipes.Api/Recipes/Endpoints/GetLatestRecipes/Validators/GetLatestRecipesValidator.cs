@@ -2,10 +2,10 @@
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.GetLatestRecipes.Validators;
 
-internal sealed class GetLatestRecipesEndpointValidator :
-    AbstractValidator<GetLatestRecipesEndpointParams>
+internal sealed class GetLatestRecipesValidator :
+    AbstractValidator<GetLatestRecipesParams>
 {
-    public GetLatestRecipesEndpointValidator()
+    public GetLatestRecipesValidator()
     {
         RuleFor(request => request.Count)
              .GreaterThanOrEqualTo(0)
