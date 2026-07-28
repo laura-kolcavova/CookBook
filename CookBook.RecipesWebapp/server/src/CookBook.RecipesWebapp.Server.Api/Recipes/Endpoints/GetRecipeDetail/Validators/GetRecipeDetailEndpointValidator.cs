@@ -3,7 +3,7 @@
 namespace CookBook.RecipesWebapp.Server.Api.Recipes.Endpoints.GetRecipeDetail.Validators;
 
 internal sealed class GetRecipeDetailEndpointValidator :
-    AbstractValidator<GetRecipeDetailEndpointParams>
+    AbstractValidator<GetRecipeDetailParams>
 {
     public GetRecipeDetailEndpointValidator()
     {
