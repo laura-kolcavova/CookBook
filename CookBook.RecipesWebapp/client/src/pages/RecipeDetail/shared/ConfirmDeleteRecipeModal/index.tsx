@@ -1,7 +1,6 @@
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
 import { FormattedMessage } from 'react-intl';
-import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
-import { useRemoveErrorMessage } from './hooks/useRemoveRecipeErrorMessage';
+import { useRemoveRecipeErrorMessage } from './hooks/useRemoveRecipeErrorMessage';
 import { useRemoveRecipeMutation } from './hooks/useRemoveRecipeMutation';
 import { useEffect, useState } from 'react';
 import { Alert } from '~/pages/shared/Alert';
@@ -10,37 +9,25 @@ import { Button } from '~/pages/shared/Button';
 import { useModals } from '~/modals/ModalProvider';
 import { HiXMark as XMarkIcon } from 'react-icons/hi2';
 import { messages } from '../../messages';
+import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
 
 export type ConfirmDeleteRecipeModalProps = {
   recipe: RecipeDetailDto;
-  onDelete: () => void;
 };
 
-export const ConfirmDeleteRecipeModal = ({ recipe, onDelete }: ConfirmDeleteRecipeModalProps) => {
+export const ConfirmDeleteRecipeModal = ({ recipe }: ConfirmDeleteRecipeModalProps) => {
   const { hideModal } = useModals();
 
   const [isOpen, setIsOpen] = useState(false);
 
   const {
     mutate: removeRecipeMutate,
-    isSuccess: removeRecieIsSuccess,
     isPending: removeRecipeIsPending,
     isError: removeRecipeIsError,
     error: removeRecipeError,
   } = useRemoveRecipeMutation(recipe.recipeId);
 
-  const { getErrorMessage } = useRemoveErrorMessage();
-
-  const deleteRecipe = () => {
-    removeRecipeMutate();
-  };
-
-  useEffect(() => {
-    if (removeRecieIsSuccess) {
-      hideModal();
-      onDelete();
-    }
-  }, [hideModal, onDelete, removeRecieIsSuccess]);
+  const { getErrorMessage } = useRemoveRecipeErrorMessage();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -95,7 +82,7 @@ export const ConfirmDeleteRecipeModal = ({ recipe, onDelete }: ConfirmDeleteReci
               </Button>
 
               <Button
-                onClick={deleteRecipe}
+                onClick={() => removeRecipeMutate}
                 className="flex items-center justify-center"
                 disabled={removeRecipeIsPending}
                 variant="danger">

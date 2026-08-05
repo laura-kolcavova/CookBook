@@ -9,7 +9,8 @@ namespace CookBook.IdentityProvider.Api.Pages.Account.LogIn;
 [AllowAnonymous]
 public sealed class IndexModel(
     UserManager<CustomIdentityUser> userManager,
-    SignInManager<CustomIdentityUser> signInManager) :
+    SignInManager<CustomIdentityUser> signInManager,
+    ILogger<IndexModel> logger) :
     PageModel
 {
     [BindProperty]
@@ -30,48 +31,65 @@ public sealed class IndexModel(
     public async Task<IActionResult> OnPostAsync(
         CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid)
+        using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
-            return Page();
-        }
+            ["Email"] = Input.Email
+        });
 
-        var user = await userManager.FindByEmailAsync(
-            Input.Email);
-
-        if (user is null)
+        try
         {
-            ModelState.AddModelError(
-               string.Empty,
-               "The email/password couple is invalid.");
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
-            return Page();
+            var user = await userManager.FindByEmailAsync(
+                Input.Email);
+
+            if (user is null)
+            {
+                ModelState.AddModelError(
+                   string.Empty,
+                   "The email/password couple is invalid.");
+
+                return Page();
+            }
+
+            var signInResult = await signInManager.PasswordSignInAsync(
+                user,
+                Input.Password!,
+                Input.RememberMe,
+                lockoutOnFailure: false);
+
+            if (!signInResult.Succeeded)
+            {
+                ModelState.AddModelError(
+                   string.Empty,
+                   "The email/password couple is invalid.");
+
+                return Page();
+            }
+
+            if (string.IsNullOrEmpty(Input.ReturnUrl))
+            {
+                return Redirect("~/");
+            }
+
+            if (!Url.IsLocalUrl(Input.ReturnUrl))
+            {
+                return Redirect("~/");
+            }
+
+            return LocalRedirect(Input.ReturnUrl);
         }
-
-        var signInResult = await signInManager.PasswordSignInAsync(
-            user,
-            Input.Password!,
-            Input.RememberMe,
-            lockoutOnFailure: false);
-
-        if (!signInResult.Succeeded)
+        catch (Exception ex)
+        when (ex is not OperationCanceledException)
         {
-            ModelState.AddModelError(
-               string.Empty,
-               "The email/password couple is invalid.");
+            logger.LogError(
+                ex,
+                "An unexpected error occurred while signing an user");
 
-            return Page();
+            throw;
         }
-
-        if (string.IsNullOrEmpty(Input.ReturnUrl))
-        {
-            return Redirect("~/");
-        }
-
-        if (!Url.IsLocalUrl(Input.ReturnUrl))
-        {
-            return Redirect("~/");
-        }
-
-        return LocalRedirect(Input.ReturnUrl);
     }
 }

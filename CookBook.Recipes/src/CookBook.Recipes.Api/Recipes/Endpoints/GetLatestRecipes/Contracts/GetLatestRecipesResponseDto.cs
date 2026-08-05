@@ -3,4 +3,17 @@
 internal sealed record GetLatestRecipesResponseDto
 {
     public required IReadOnlyCollection<LatestRecipeDto> LatestRecipes { get; init; }
+
+    public sealed record LatestRecipeDto
+    {
+        public required long RecipeId { get; init; }
+
+        public required string Title { get; init; }
+
+        public required string? Description { get; init; }
+
+        public required DateTimeOffset CreatedAt { get; init; }
+
+        public required string ImageUrl { get; init; }
+    }
 }

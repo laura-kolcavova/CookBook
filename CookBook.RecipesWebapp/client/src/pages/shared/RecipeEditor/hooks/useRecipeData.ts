@@ -1,11 +1,11 @@
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useCallback } from 'react';
-import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
 import { recipeDataAtom } from '../atoms/recipeDataAtom';
 import type { RecipeData } from '../models/RecipeData';
 import type { RecipeIngredientData } from '../models/RecipeIngredientData';
 import type { RecipeInstructionData } from '../models/RecipeInstructionData';
 import { atomWithReset, useResetAtom } from 'jotai/utils';
+import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
 
 const dataInitializedFromRecipeAtom = atomWithReset<boolean>(false);
 

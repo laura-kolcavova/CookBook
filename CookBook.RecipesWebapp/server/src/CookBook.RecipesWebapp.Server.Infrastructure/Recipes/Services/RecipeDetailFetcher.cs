@@ -136,9 +136,10 @@ internal sealed class RecipeDetailFetcher(
         }
     }
 
-    private async Task<Maybe<GetUserProfileInfoResponseDto.UserProfileInfoDto>> GetUserProfileInfoDto(
-        string userName,
-        CancellationToken cancellationToken)
+    private async Task<Maybe<GetUserProfileInfoResponseDto.UserProfileInfoDto>>
+        GetUserProfileInfoDto(
+            string userName,
+            CancellationToken cancellationToken)
     {
         using var loggerScope = logger.BeginScope(new Dictionary<string, object>
         {

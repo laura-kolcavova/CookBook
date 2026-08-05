@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaRegCircleXmark } from 'react-icons/fa6';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import type { RecipeSearchItemDto } from '~/api/recipes/dto/RecipeSearchItemDto';
+import type { RecipeSearchItemDto } from '~/api/recipes/dto/SearchRecipesResponseDto';
 import { pages } from '~/navigation/pages';
 import { sharedMessages } from '~/pages/shared/sharedMessages';
 

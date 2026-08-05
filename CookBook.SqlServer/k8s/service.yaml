@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cookbook-sql-server
+  namespace: cookbook
+spec:
+  type: LoadBalancer
+  selector:
+    statefulset.kubernetes.io/pod-name: cookbook-sql-server-0
+  ports:
+    - protocol: TCP
+      port: 1433
+      targetPort: 1433
+      name: sql-server

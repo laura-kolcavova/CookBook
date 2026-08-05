@@ -13,13 +13,13 @@ Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your c
 Run the following command to pull the BaGet server Docker image:
 
 ```Bash
-docker pull loicsharma/baget
+docker build -t cookbook-nuget-server-image .
 ```
 
 Or from the `deploy` folder run the following command:
 
 ```Bash
-01_Container_Build.bat
+01_Image_Build.bat
 ```
 
 ### Release
@@ -27,7 +27,7 @@ Or from the `deploy` folder run the following command:
 Run the following command to start a new Docker container using the `loicsharma/baget image`:
 
 ```Bash
-docker run --rm --name cookbook-nuget-repository -p 8005:80 --env-file "./src/CookBook.NugetRepository.Server/baget.env" -v "./baget-data:/var/baget" -d loicsharma/baget:latest
+docker run -it --rm -d -p 8005:80 --name cookbook-nuget-server-container --network cookbook-network --env-file "./baget.env" -v "baget-data:/var/baget" cookbook-nuget-server-image
 ```
 
 Or from the `deploy` folder run the following command:

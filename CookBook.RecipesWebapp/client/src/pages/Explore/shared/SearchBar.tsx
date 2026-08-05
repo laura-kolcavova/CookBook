@@ -12,7 +12,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSearch(searchTerm);
   };

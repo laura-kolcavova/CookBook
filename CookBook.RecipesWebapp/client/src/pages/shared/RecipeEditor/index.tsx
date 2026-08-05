@@ -15,10 +15,10 @@ import { FeedbackError } from '../forms/FeedbackError';
 import { InstructionsSetter } from './setters/InstructionsSetter';
 import { Button } from '../Button';
 import { SpinnerIcon } from '../icons/SpinnerIcon';
-import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
 import { useRecipeData } from './hooks/useRecipeData';
 import { useSaveRecipeSubmitHandler } from './hooks/useSaveRecipeSubmitHander';
 import { messages } from './messages';
+import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
 
 export type RecipeEditorProps = {
   recipe?: RecipeDetailDto;

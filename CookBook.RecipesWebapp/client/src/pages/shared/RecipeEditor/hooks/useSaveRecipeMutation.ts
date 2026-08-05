@@ -8,16 +8,15 @@ import { useAbortSignal } from '~/abort/useAbortSignal';
 import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 
 export const useSaveRecipeMutation = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { currentUser } = useCurrentUser();
 
-  const { createAbortSignal, finishAbortSignal } = useAbortSignal();
+  const { createSignal, finishSignal } = useAbortSignal();
 
   const recipeData = useAtomValue(recipeDataAtom);
 
   return useMutation({
     mutationFn: async () => {
-      const signal = createAbortSignal();
+      const signal = createSignal();
 
       const saveRecipeRequest: SaveRecipeRequestDto = {
         recipeId: recipeData.recipeId,
@@ -43,7 +42,7 @@ export const useSaveRecipeMutation = () => {
       return data;
     },
     onMutate: () => {
-      finishAbortSignal();
+      finishSignal();
     },
   });
 };

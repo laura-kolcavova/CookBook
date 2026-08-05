@@ -1,5 +1,5 @@
 ﻿using CookBook.RecipesWebapp.Server.Api.Recipes.Endpoints.GetRecipeDetail.Contracts;
-using CookBook.RecipesWebapp.Server.Application.Recipes.UseCases.GetRecipeDetail;
+using CookBook.RecipesWebapp.Server.Domain.Recipes.Services.Abastractions;
 
 namespace CookBook.RecipesWebapp.Server.Api.Recipes.Endpoints.GetRecipeDetail;
 
@@ -23,28 +23,46 @@ public sealed class GetRecipeDetailEndpoint :
 
     private static async Task<IResult> HandleAsync(
         [AsParameters]
-        GetRecipeDetailEndpointParams request,
-        IGetRecipeDetailUseCase getRecipeDetailUseCase,
+        GetRecipeDetailParams request,
+        IRecipeDetailFetcher recipeDetailFetcher,
+        ILogger<GetRecipeDetailEndpoint> logger,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var recipeDetailResult = await getRecipeDetailUseCase.GetRecipeDetail(
-            request.RecipeId,
-            cancellationToken);
-
-        if (recipeDetailResult.HasNoValue)
+        using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
-            return TypedResults.NoContent();
+            ["RecipeId"] = request.RecipeId,
+        });
+
+        try
+        {
+            var recipeDetailResult = await recipeDetailFetcher.FetchRecipeDetail(
+                request.RecipeId,
+                cancellationToken);
+
+            if (recipeDetailResult.HasNoValue)
+            {
+                return TypedResults.NoContent();
+            }
+
+            var recipeDetail = recipeDetailResult.Value;
+
+            var responseDto = new GetRecipeDetailResponseDto
+            {
+                RecipeDetail = recipeDetail
+                    .ToDto()
+            };
+
+            return TypedResults.Ok(responseDto);
         }
-
-        var recipeDetail = recipeDetailResult.Value;
-
-        var responseDto = new GetRecipeDetailResponseDto
+        catch (Exception ex)
+        when (ex is not OperationCanceledException)
         {
-            RecipeDetail = recipeDetail
-                .ToDto()
-        };
+            logger.LogError(
+                ex,
+                "An unexpected error occurred while getting recipe detail");
 
-        return TypedResults.Ok(responseDto);
+            throw;
+        }
     }
 }

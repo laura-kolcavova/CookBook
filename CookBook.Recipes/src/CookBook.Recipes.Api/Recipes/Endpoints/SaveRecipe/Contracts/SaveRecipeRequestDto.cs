@@ -16,20 +16,20 @@ internal sealed record SaveRecipeRequestDto
 
     public string? Notes { get; init; }
 
-    public required IReadOnlyCollection<IngredientItem> Ingredients { get; init; }
+    public required IReadOnlyCollection<IngredientItemDto> Ingredients { get; init; }
 
-    public required IReadOnlyCollection<InstructionItem> Instructions { get; init; }
+    public required IReadOnlyCollection<InstructionItemDto> Instructions { get; init; }
 
     public required IReadOnlyCollection<string> Tags { get; init; }
 
-    public sealed record IngredientItem
+    public sealed record IngredientItemDto
     {
         public int? LocalId { get; init; }
 
         public required string Note { get; init; }
     }
 
-    public sealed record InstructionItem
+    public sealed record InstructionItemDto
     {
         public int? LocalId { get; init; }
 

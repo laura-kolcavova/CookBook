@@ -35,7 +35,7 @@ internal sealed class RecipeStore(
         return recipe;
     }
 
-    public async Task Add(
+    public async Task Create(
         RecipeAggregate recipe,
         CancellationToken cancellationToken)
     {
@@ -61,7 +61,7 @@ internal sealed class RecipeStore(
             cancellationToken);
     }
 
-    public async Task Delete(
+    public async Task Remove(
         RecipeAggregate recipe,
         CancellationToken cancellationToken)
     {

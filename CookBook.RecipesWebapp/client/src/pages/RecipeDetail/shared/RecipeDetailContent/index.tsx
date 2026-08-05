@@ -1,4 +1,3 @@
-import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
 import { useFormatServings } from './hooks/useFormatServings';
 import { useFormatCookTime } from './hooks/useFormatCookTime';
 import { MetaItem } from './shared/MetaItem';
@@ -7,6 +6,7 @@ import { MetaValue } from './shared/MetaValue';
 import { Tag } from '~/pages/shared/Tag';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { messages } from '../../messages';
+import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
 
 export type RecipeDetailContentProps = {
   recipe: RecipeDetailDto;

@@ -1,6 +1,6 @@
-using CookBook.IdentityProvider.Application.Users.UseCases.RegisterUser;
 using CookBook.IdentityProvider.Domain.Users;
 using CookBook.IdentityProvider.Domain.Users.Models;
+using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +10,9 @@ namespace CookBook.IdentityProvider.Api.Pages.Account.Register;
 
 [AllowAnonymous]
 public class IndexModel(
-    IRegisterUserUseCase registerUserUseCase,
-    SignInManager<CustomIdentityUser> signInManager) :
+    IRegisterManager registerManager,
+    SignInManager<CustomIdentityUser> signInManager,
+    ILogger<IndexModel> logger) :
     PageModel
 {
     [BindProperty]
@@ -32,47 +33,65 @@ public class IndexModel(
     public async Task<IActionResult> OnPostAsync(
         CancellationToken cancellationToken)
     {
-        if (!ModelState.IsValid)
+        using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
-            return Page();
+            ["DisplayName"] = Input.DisplayName,
+            ["Email"] = Input.Email
+        });
+
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var registerUserRequest = new RegisterUserRequest
+            {
+                DisplayName = Input.DisplayName,
+                Email = Input.Email,
+                Password = Input.Password
+            };
+
+            var registerUserResult  = await registerManager.RegisterUser(
+                registerUserRequest,
+                cancellationToken);
+
+            if (registerUserResult.IsFailure)
+            {
+                ModelState.AddModelError(
+                    registerUserResult.Error.Code,
+                    registerUserResult.Error.Message);
+
+                return Page();
+            }
+
+            var identityUser = registerUserResult.Value.IdentityUser;
+
+            await signInManager.SignInAsync(
+                identityUser,
+                isPersistent: false);
+
+            if (string.IsNullOrEmpty(Input.ReturnUrl))
+            {
+                return Redirect("~/");
+            }
+
+            if (!Url.IsLocalUrl(Input.ReturnUrl))
+            {
+                return Redirect("~/");
+            }
+
+            return LocalRedirect(Input.ReturnUrl);
         }
-
-        var registerUserRequest = new RegisterUserRequest
+        catch (Exception ex)
+        when (ex is not OperationCanceledException)
         {
-            DisplayName = Input.DisplayName,
-            Email = Input.Email,
-            Password = Input.Password
-        };
+            logger.LogError(
+                ex,
+                "An unexpected error occurred while registering an user");
 
-        var registerUserResult = await registerUserUseCase.RegisterUser(
-            registerUserRequest,
-            cancellationToken);
-
-        if (registerUserResult.IsFailure)
-        {
-            ModelState.AddModelError(
-                registerUserResult.Error.Code,
-                registerUserResult.Error.Message);
-
-            return Page();
+            throw;
         }
-
-        var identityUser = registerUserResult.Value.IdentityUser;
-
-        await signInManager.SignInAsync(
-            identityUser,
-            isPersistent: false);
-
-        if (string.IsNullOrEmpty(Input.ReturnUrl))
-        {
-            return Redirect("~/");
-        }
-
-        if (!Url.IsLocalUrl(Input.ReturnUrl))
-        {
-            return Redirect("~/");
-        }
-
-        return LocalRedirect(Input.ReturnUrl);
     }
 }

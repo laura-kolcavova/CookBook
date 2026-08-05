@@ -1,14 +1,15 @@
 ﻿using CookBook.Extensions.AspNetCore.Errors.Extensions;
 using CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe.Contracts;
-using CookBook.Recipes.Api.Recipes.Features.SaveRecipe.Mappers;
-using CookBook.Recipes.Application.Recipes.UseCases.SaveRecipe;
+using CookBook.Recipes.Domain.Recipes;
+using CookBook.Recipes.Domain.Recipes.Models;
+using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Infrastructure.Shared.Configuration;
 using FluentValidation;
-using IResult = Microsoft.AspNetCore.Http.IResult;
+using RecipeErrors = CookBook.Recipes.Domain.Recipes.RecipeErrors;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe;
 
-internal static class SaveRecipeEndpoint
+internal class SaveRecipeEndpoint
 {
     public static void Configure(
         IEndpointRouteBuilder builder)
@@ -29,27 +30,124 @@ internal static class SaveRecipeEndpoint
 
     private static async Task<IResult> HandleAsync(
         [AsParameters]
-        SaveRecipeEndpointParams request,
-        ISaveRecipeUseCase saveRecipeUseCase,
+        SaveRecipeParams request,
+        IRecipeStore recipeStore,
+        ILogger<SaveRecipeEndpoint> logger,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        var saveRecipeParams = request
-            .SaveRecipeRequest
-            .ToSaveRecipeParams();
-
-        var saveRecipeResult = await saveRecipeUseCase.SaveRecipe(
-            saveRecipeParams,
-            cancellationToken);
-
-        if (saveRecipeResult.IsFailure)
+        using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
-            return TypedResults.Problem(
-                saveRecipeResult.Error.AsProblemDetails(httpContext));
+            ["RecipeId"] = request.SaveRecipeRequest.RecipeId,
+            ["UserName"] = request.SaveRecipeRequest.UserName,
+            ["Title"] = request.SaveRecipeRequest.Title,
+        });
+
+        try
+        {
+            if (request.SaveRecipeRequest.RecipeId is null ||
+                request.SaveRecipeRequest.RecipeId <= 0)
+            {
+                var newRecipe = new RecipeAggregate(
+                    request.SaveRecipeRequest.Title,
+                    request.SaveRecipeRequest.UserName);
+
+                SaveRecipeData(
+                    newRecipe,
+                    request.SaveRecipeRequest);
+
+                await recipeStore.Create(
+                    newRecipe,
+                    cancellationToken);
+
+                return TypedResults.Ok(
+                    new SaveRecipeResponseDto
+                    {
+                        RecipeId = newRecipe.Id
+                    });
+            }
+
+            var existingRecipe = await recipeStore.FindByRecipeId(
+                    request.SaveRecipeRequest.RecipeId.Value,
+                    cancellationToken);
+
+            if (existingRecipe is null)
+            {
+                return TypedResults.Problem(
+                    RecipeErrors
+                        .Recipe
+                        .NotFound(
+                            request.SaveRecipeRequest.RecipeId.Value)
+                        .AsProblemDetails(httpContext));
+            }
+
+            if (existingRecipe.UserName != request.SaveRecipeRequest.UserName)
+            {
+                return TypedResults.Problem(
+                    RecipeErrors
+                        .Recipe
+                        .NotOwnedByUser(
+                            existingRecipe.Id,
+                            existingRecipe.UserName)
+                        .AsProblemDetails(httpContext));
+            }
+
+            SaveRecipeData(
+                existingRecipe,
+                request.SaveRecipeRequest);
+
+            await recipeStore.Update(
+                existingRecipe,
+                cancellationToken);
+
+            return TypedResults.Ok(
+                new SaveRecipeResponseDto
+                {
+                    RecipeId = existingRecipe.Id
+                });
         }
+        catch (Exception ex)
+        when (ex is not OperationCanceledException)
+        {
+            logger.LogError(
+                ex,
+                "An unexpected error occurred while saving a recipe");
 
-        var responseDto = saveRecipeResult.Value.ToDto();
+            throw;
+        }
+    }
 
-        return TypedResults.Ok(responseDto);
+    private static void SaveRecipeData(
+        RecipeAggregate recipe,
+        SaveRecipeRequestDto saveRecipeRequest)
+    {
+        var saveIngredientItems = saveRecipeRequest
+            .Ingredients
+            .Select(ingredient =>
+                new SaveIngredientItemParams
+                {
+                    LocalId = ingredient.LocalId,
+                    Note = ingredient.Note
+                })
+            .ToList();
+
+        var saveInstructionItems = saveRecipeRequest
+            .Instructions
+            .Select(instruction =>
+                new SaveInstructionItemParams
+                {
+                    LocalId = instruction.LocalId,
+                    Note = instruction.Note
+                })
+            .ToList();
+
+        recipe.SetTitle(saveRecipeRequest.Title);
+        recipe.SetDescription(saveRecipeRequest.Description);
+        recipe.SetServings(saveRecipeRequest.Servings);
+        recipe.SetCookTime(saveRecipeRequest.CookTime);
+        recipe.SetNotes(saveRecipeRequest.Notes);
+        recipe.SaveIngredients(saveIngredientItems);
+        recipe.SaveInstructions(saveInstructionItems);
+        recipe.SaveTags(saveRecipeRequest.Tags);
     }
 }

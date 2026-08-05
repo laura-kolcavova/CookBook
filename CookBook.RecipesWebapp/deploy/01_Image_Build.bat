@@ -1,0 +1,1 @@
+docker build -t cookbook-recipes-webapp-image --network host ../
