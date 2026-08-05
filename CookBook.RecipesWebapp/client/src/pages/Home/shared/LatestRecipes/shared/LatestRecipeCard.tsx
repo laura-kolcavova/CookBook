@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaRegCircleXmark, FaArrowRight } from 'react-icons/fa6';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import type { LatestRecipeDto } from '~/api/recipes/dto/LatestRecipeDto';
+import type { LatestRecipeDto } from '~/api/recipes/dto/GetLatestRecipesResponseDto';
 import { pages } from '~/navigation/pages';
 import { messages } from '~/pages/Home/messages';
 import { sharedMessages } from '~/pages/shared/sharedMessages';

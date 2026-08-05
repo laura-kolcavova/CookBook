@@ -1,6 +1,5 @@
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
 import { FormattedMessage } from 'react-intl';
-import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
 import { useRemoveRecipeErrorMessage } from './hooks/useRemoveRecipeErrorMessage';
 import { useRemoveRecipeMutation } from './hooks/useRemoveRecipeMutation';
 import { useEffect, useState } from 'react';
@@ -10,6 +9,7 @@ import { Button } from '~/pages/shared/Button';
 import { useModals } from '~/modals/ModalProvider';
 import { HiXMark as XMarkIcon } from 'react-icons/hi2';
 import { messages } from '../../messages';
+import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
 
 export type ConfirmDeleteRecipeModalProps = {
   recipe: RecipeDetailDto;

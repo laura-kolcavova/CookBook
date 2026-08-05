@@ -8,7 +8,6 @@ import { useAbortSignal } from '~/abort/useAbortSignal';
 import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 
 export const useSaveRecipeMutation = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { currentUser } = useCurrentUser();
 
   const { createSignal, finishSignal } = useAbortSignal();

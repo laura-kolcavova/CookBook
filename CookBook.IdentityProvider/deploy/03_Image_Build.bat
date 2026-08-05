@@ -1,0 +1,1 @@
+docker build -t cookbook-identity-provider-image --network host ../

@@ -40,13 +40,13 @@ Ensure a [Recipes](../CookBook.Recipes/README.md/) container is running.
 Run the following command to create a Docker image and tag it with the name cookbook-recipes-webapp (host network must be used for building the image):
 
 ```Bash
-docker build -t cookbook-recipes-webapp --network host ../
+docker build -t cookbook-recipes-webapp-image --network host .
 ```
 
 Or from the `deploy` folder run the following command:
 
 ```Bash
-01_Container_Build.bat
+01_Image_Build.bat
 ```
 
 ### Release container
@@ -54,7 +54,7 @@ Or from the `deploy` folder run the following command:
 Run the following command to start a new Docker container using the cookbook-recipes-webapp image:
 
 ```Bash
-docker run -it --rm -p 8015:8015 --name cookbook-recipes-webapp-container -d cookbook-recipes-webapp
+docker run -it --rm -d -p 8015:8015 --name cookbook-recipes-webapp-container --network cookbook-network cookbook-recipes-webapp-image
 ```
 
 Or from the `deploy` folder run the following command:

@@ -13,13 +13,13 @@ Ensure [Docker Desktop](https://www.docker.com/) is installed and open on your c
 Run the following command to pull the Microsoft SQL server Docker image:
 
 ```Bash
-docker pull mcr.microsoft.com/mssql/server:2022-latest
+docker build -t cookbook-sql-server-image .
 ```
 
 Or from the `deploy` folder run the following command:
 
 ```Bash
-01_Container_Build.bat
+01_Image_Build.bat
 ```
 
 ### Release
@@ -27,7 +27,7 @@ Or from the `deploy` folder run the following command:
 Run the following command to start a new Docker container using the Microsoft SQL server Docker image:
 
 ```Bash
-docker run --rm --name cookbook-mssql-server -p 8000:1433 --env-file "./src/CookBook.MsSqlServer.Server/server.env" -d mcr.microsoft.com/mssql/server:2022-latest
+docker run -it --rm -d -p 8000:1433 --name cookbook-sql-server-container --network cookbook-network --env-file "./server.env" cookbook-sql-server-image
 ```
 
 Or from the `deploy` folder run the following command:

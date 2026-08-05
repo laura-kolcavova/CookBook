@@ -59,13 +59,13 @@ Or from the `deploy` folder run the following command:
 Run the following command to create a Docker image and tag it with the name book-recipes (host network must be used for building the image):
 
 ```Bash
-docker build -t cookbook-recipes --network host .
+docker build -t cookbook-recipes-image --network host .
 ```
 
 Or from the `deploy` folder run the following command:
 
 ```Bash
-03_Container_Build.bat
+03_Image_Build.bat
 ```
 
 ### Release container
@@ -73,7 +73,8 @@ Or from the `deploy` folder run the following command:
 Run the following command to start a new Docker container using the book-catalog image:
 
 ```Bash
-docker run -it --rm -p 8010:8010 --name cookbook-recipes-container -d cookbook-recipes
+docker run -it --rm  -d -p 8010:8010 --name cookbook-recipes-container --network cookbook-network cookbook-recipes-image
+
 ```
 
 Or from the `deploy` folder run the following command:

@@ -1,4 +1,4 @@
-import type { RecipeDetailDto } from '~/api/recipes/dto/RecipeDetailDto';
+import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
 import { DeleteRecipeButton } from './shared/DeleteRecipeButton';
 import { EditRecipeButton } from './shared/EditRecipeButton';
 import { useCurrentUser } from '~/authentication/CurrentUserProvider';
