@@ -15,17 +15,10 @@ COPY ./CookBook.RecipesWebapp.Server.sln ./
 COPY ./NuGet.Config ./
 COPY ./global.json ./
 COPY ./Directory.Build.props ./
-
-COPY ./server/src/CookBook.RecipesWebapp.Server.Domain/*.csproj ./server/src/CookBook.RecipesWebapp.Server.Domain/
-COPY ./server/src/CookBook.RecipesWebapp.Server.Application/*.csproj ./server/src/CookBook.RecipesWebapp.Server.Application/
-COPY ./server/src/CookBook.RecipesWebapp.Server.Infrastructure/*.csproj ./server/src/CookBook.RecipesWebapp.Server.Infrastructure/
-COPY ./server/src/CookBook.RecipesWebapp.Server.Api/*.csproj ./server/src/CookBook.RecipesWebapp.Server.Api/
+COPY ./server/src ./server/src/
 
 # Restore dependencies
 RUN dotnet restore ./server/src/CookBook.RecipesWebapp.Server.Api/ -v diag -r linux-x64
-
-# Copy sources and build
-COPY ./server/src ./server/src/
 
 # Build
 RUN dotnet publish ./server/src/CookBook.RecipesWebapp.Server.Api/CookBook.RecipesWebapp.Server.Api.csproj -v diag -c Release --no-restore -o out -r linux-x64 --self-contained false /p:PublishSingleFile=true
@@ -34,7 +27,7 @@ RUN dotnet publish ./server/src/CookBook.RecipesWebapp.Server.Api/CookBook.Recip
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-bookworm-slim
 WORKDIR /app
 
-ENV TZ Europe/Prague
+ENV TZ=Europe/Prague
 EXPOSE 8015
 ENV ASPNETCORE_URLS=http://*:8015
 
