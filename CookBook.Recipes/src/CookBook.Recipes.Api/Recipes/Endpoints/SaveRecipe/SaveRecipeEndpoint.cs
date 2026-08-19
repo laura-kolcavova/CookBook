@@ -1,10 +1,12 @@
 ﻿using CookBook.Extensions.AspNetCore.Errors.Extensions;
 using CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe.Contracts;
+using CookBook.Recipes.Api.Shared.Extensions;
 using CookBook.Recipes.Domain.Recipes;
 using CookBook.Recipes.Domain.Recipes.Models;
 using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Infrastructure.Shared.Configuration;
 using FluentValidation;
+using System.Security.Claims;
 using RecipeErrors = CookBook.Recipes.Domain.Recipes.RecipeErrors;
 
 namespace CookBook.Recipes.Api.Recipes.Endpoints.SaveRecipe;
@@ -31,26 +33,29 @@ internal class SaveRecipeEndpoint
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         SaveRecipeParams request,
+        ClaimsPrincipal claimsPrincipal,
         IRecipeStore recipeStore,
         ILogger<SaveRecipeEndpoint> logger,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
+
         using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
             ["RecipeId"] = request.SaveRecipeRequest.RecipeId,
-            ["UserName"] = request.SaveRecipeRequest.UserName,
             ["Title"] = request.SaveRecipeRequest.Title,
         });
 
         try
         {
+            var userName = claimsPrincipal.GetUserName();
+
             if (request.SaveRecipeRequest.RecipeId is null ||
                 request.SaveRecipeRequest.RecipeId <= 0)
             {
                 var newRecipe = new RecipeAggregate(
                     request.SaveRecipeRequest.Title,
-                    request.SaveRecipeRequest.UserName);
+                    userName);
 
                 SaveRecipeData(
                     newRecipe,
@@ -81,7 +86,7 @@ internal class SaveRecipeEndpoint
                         .AsProblemDetails(httpContext));
             }
 
-            if (existingRecipe.UserName != request.SaveRecipeRequest.UserName)
+            if (existingRecipe.UserName != userName)
             {
                 return TypedResults.Problem(
                     RecipeErrors

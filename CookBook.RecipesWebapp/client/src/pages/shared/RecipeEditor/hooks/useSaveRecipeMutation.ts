@@ -5,11 +5,8 @@ import { useAtomValue } from 'jotai';
 import { recipesService } from '~/api/recipes/recipesService';
 import type { SaveRecipeRequestDto } from '~/api/recipes/dto/SaveRecipeRequestDto';
 import { useAbortSignal } from '~/abort/useAbortSignal';
-import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 
 export const useSaveRecipeMutation = () => {
-  const { currentUser } = useCurrentUser();
-
   const { createSignal, finishSignal } = useAbortSignal();
 
   const recipeData = useAtomValue(recipeDataAtom);
@@ -20,7 +17,6 @@ export const useSaveRecipeMutation = () => {
 
       const saveRecipeRequest: SaveRecipeRequestDto = {
         recipeId: recipeData.recipeId,
-        userName: currentUser.userName,
         title: recipeData.title,
         description: recipeData.description,
         servings: recipeData.servings,

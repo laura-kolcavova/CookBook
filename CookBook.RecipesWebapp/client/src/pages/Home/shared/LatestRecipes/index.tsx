@@ -11,7 +11,7 @@ export const LatestRecipes = () => {
 
   return (
     <div className="bg-content-background-color-tertiary">
-      <div className="container mx-auto py-10 px-4">
+      <div className="page-container mx-auto py-10 px-4">
         <h2 className="text-3xl mb-6 text-center font-handwritten">
           <FormattedMessage {...messages.latestRecipesTitle} />
         </h2>

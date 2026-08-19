@@ -21,7 +21,7 @@ export const EditRecipe = () => {
 
   return (
     <div className="bg-content-background-color-primary">
-      <div className="container mx-auto py-10 px-4">
+      <div className="page-container mx-auto py-10 px-4">
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
             <LoadingSpinner text={<FormattedMessage {...sharedMessages.loading} />} />

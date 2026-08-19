@@ -10,7 +10,7 @@ export const Home = () => {
   return (
     <>
       <div className="bg-content-background-color-primary mb-10">
-        <div className="container mx-auto py-20 px-4 flex flex-col items-center justify-center">
+        <div className="page-container mx-auto py-20 px-4 flex flex-col items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-bold text-text-color-primary mb-4">
             <FormattedMessage {...messages.welcomeTitle} />
           </h1>
