@@ -1,6 +1,5 @@
 export type SaveRecipeRequestDto = {
   recipeId: number | null;
-  userName: string;
   title: string;
   description: string | null;
   servings: number;

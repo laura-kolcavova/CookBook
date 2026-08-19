@@ -12,10 +12,6 @@ internal sealed class SaveRecipeRequestDtoValidator :
         RuleFor(request => request.RecipeId)
             .GreaterThan(0);
 
-        RuleFor(request => request.UserName)
-            .NotNull()
-            .Length(0, 256);
-
         RuleFor(request => request.Title)
             .NotNull()
             .RecipeTitle();
