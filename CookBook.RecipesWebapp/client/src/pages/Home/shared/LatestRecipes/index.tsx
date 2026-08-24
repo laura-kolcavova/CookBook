@@ -1,10 +1,10 @@
 import { FormattedMessage } from 'react-intl';
-import { LoadingSpinner } from '~/pages/shared/LoadingSpinner';
-import { useLatestRecipesQuery } from './hooks/useGetLatestRecipesQuery';
-import { Alert } from '~/pages/shared/Alert';
-import { LatestRecipeCard } from './shared/LatestRecipeCard';
-import { sharedMessages } from '~/pages/shared/sharedMessages';
 import { messages } from '../../messages';
+import { useLatestRecipesQuery } from './hooks/useGetLatestRecipesQuery';
+import { LatestRecipeCard } from './shared/LatestRecipeCard';
+import { Alert } from '~/pages/shared/Alert';
+import { LoadingSpinner } from '~/pages/shared/LoadingSpinner';
+import { sharedMessages } from '~/pages/shared/sharedMessages';
 
 export const LatestRecipes = () => {
   const { isLoading, isError, data } = useLatestRecipesQuery();

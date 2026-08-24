@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { getCsrfToken } from '../utils/csrfToken';
 import { appConfig } from '~/config/appConfig';
 import { ANTIFORGERY_REQUEST_VERIFICATION_TOKEN_HEADER_NAME, REQUEST_TIMEOUT } from '~/constants';
-import { getCsrfToken } from '../utils/csrfToken';
 
 export const apiClient = axios.create({
   baseURL: appConfig.API_URL,

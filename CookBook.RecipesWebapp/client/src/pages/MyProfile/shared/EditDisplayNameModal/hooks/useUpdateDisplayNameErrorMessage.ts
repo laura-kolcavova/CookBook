@@ -1,9 +1,9 @@
 import { isAxiosError } from 'axios';
 import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
-import { sharedMessages } from '../../sharedMessages';
+import { sharedMessages } from '~/pages/shared/sharedMessages';
 
-export const useSaveRecipeErrorMessage = () => {
+export const useUpdateDisplayNameErrorMessage = () => {
   const { formatMessage } = useIntl();
 
   const getErrorMessage = useCallback(

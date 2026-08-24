@@ -1,15 +1,15 @@
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react';
+import { useEffect, useState } from 'react';
+import { HiXMark as XMarkIcon } from 'react-icons/hi2';
 import { FormattedMessage } from 'react-intl';
+import { messages } from '../../messages';
 import { useRemoveRecipeErrorMessage } from './hooks/useRemoveRecipeErrorMessage';
 import { useRemoveRecipeMutation } from './hooks/useRemoveRecipeMutation';
-import { useEffect, useState } from 'react';
-import { Alert } from '~/pages/shared/Alert';
-import { SpinnerIcon } from '~/pages/shared/icons/SpinnerIcon';
-import { Button } from '~/pages/shared/Button';
-import { useModals } from '~/modals/ModalProvider';
-import { HiXMark as XMarkIcon } from 'react-icons/hi2';
-import { messages } from '../../messages';
 import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
+import { useModals } from '~/modals/ModalProvider';
+import { Alert } from '~/pages/shared/Alert';
+import { Button } from '~/pages/shared/Button';
+import { SpinnerIcon } from '~/pages/shared/icons/SpinnerIcon';
 
 export type ConfirmDeleteRecipeModalProps = {
   recipe: RecipeDetailDto;

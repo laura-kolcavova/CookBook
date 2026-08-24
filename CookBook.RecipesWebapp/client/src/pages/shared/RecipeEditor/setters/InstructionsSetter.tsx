@@ -1,13 +1,13 @@
+import { useAtom } from 'jotai';
 import { FaPlus, FaTrash } from 'react-icons/fa6';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { instructionsAtom } from '../atoms/recipeDataAtom';
-import { useAtom } from 'jotai';
-import { FormLabel } from '~/pages/shared/forms/FormLabel';
-import { Button } from '~/pages/shared/Button';
-import { FormTextArea } from '~/pages/shared/forms/FormTextArea';
-import type { RecipeInstructionData } from '../models/RecipeInstructionData';
 import { messages } from '../messages';
+import type { RecipeInstructionData } from '../models/RecipeInstructionData';
+import { Button } from '~/pages/shared/Button';
+import { FormLabel } from '~/pages/shared/forms/FormLabel';
+import { FormTextArea } from '~/pages/shared/forms/FormTextArea';
 
 export const InstructionsSetter = () => {
   const { formatMessage } = useIntl();

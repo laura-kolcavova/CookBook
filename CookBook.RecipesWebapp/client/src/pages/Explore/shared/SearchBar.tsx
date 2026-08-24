@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
 import { FaSearch, FaTimes } from 'react-icons/fa';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { messages } from '../messages';
 
 export type SearchBarProps = {

@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react';
 import { createContext, useContext, useMemo, useState } from 'react';
-import type { Locale } from './Locale';
 import { IntlProvider } from 'react-intl';
+import type { Locale } from './Locale';
 
 import messages_en_gb from '~/i18n/en-gb.json';
 

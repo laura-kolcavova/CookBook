@@ -1,12 +1,12 @@
+import { useAtom } from 'jotai';
 import { FaPlus, FaTrash } from 'react-icons/fa6';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { ingredientsAtom } from '../atoms/recipeDataAtom';
-import { useAtom } from 'jotai';
+import { messages } from '../messages';
+import type { RecipeIngredientData } from '../models/RecipeIngredientData';
+import { Button } from '~/pages/shared/Button';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
-import { Button } from '~/pages/shared/Button';
-import type { RecipeIngredientData } from '../models/RecipeIngredientData';
-import { messages } from '../messages';
 
 export const IngredientsSetter = () => {
   const { formatMessage } = useIntl();

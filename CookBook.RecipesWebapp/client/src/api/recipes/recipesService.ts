@@ -1,11 +1,11 @@
 import type { AxiosPromise, GenericAbortSignal } from 'axios';
 
+import type { GetLatestRecipesResponseDto } from './dto/GetLatestRecipesResponseDto';
 import type { GetRecipeDetailResponseDto } from './dto/GetRecipeDetailResponseDto';
 import type { SaveRecipeRequestDto } from './dto/SaveRecipeRequestDto';
 import type { SaveRecipeResponseDto } from './dto/SaveRecipeResponseDto';
-import { apiClient } from '~/api/apiClient';
-import type { GetLatestRecipesResponseDto } from './dto/GetLatestRecipesResponseDto';
 import type { SearchRecipesResponseDto } from './dto/SearchRecipesResponseDto';
+import { apiClient } from '~/api/apiClient';
 
 const getLatestRecipes = (
   count: number,

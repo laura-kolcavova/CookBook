@@ -1,11 +1,11 @@
 import { forwardRef, useImperativeHandle } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { LoadingSpinner } from '~/pages/shared/LoadingSpinner';
+import { messages } from '../../messages';
 import { useSearchRecipesQuery } from './hooks/useSearchRecipesQuery';
+import { RecipeSearchItemCard } from './shared/RecipeSearchItemCard';
 import { Alert } from '~/pages/shared/Alert';
 import { Button } from '~/pages/shared/Button';
-import { messages } from '../../messages';
-import { RecipeSearchItemCard } from './shared/RecipeSearchItemCard';
+import { LoadingSpinner } from '~/pages/shared/LoadingSpinner';
 
 export type RecipesSearchGridProps = {
   searchTerm: string;

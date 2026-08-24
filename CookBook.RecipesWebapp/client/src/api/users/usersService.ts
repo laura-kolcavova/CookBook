@@ -1,6 +1,7 @@
 import type { AxiosPromise, GenericAbortSignal } from 'axios';
-import type { CurrentUserDto } from './dto/CurrentUserDto';
 import { apiClient } from '../apiClient';
+import type { CurrentUserDto } from './dto/CurrentUserDto';
+import type { UpdateDisplayNameRequestDto } from './dto/UpdateDisplayNameRequestDto';
 
 const getLogInUserUrl = (returnUrl?: string): string => {
   const basePath = '/api/users/login';
@@ -30,6 +31,18 @@ const getCurrentUser = (signal?: GenericAbortSignal): AxiosPromise<CurrentUserDt
   });
 };
 
+const updateDisplayName = (
+  updateDisplayNameRequest: UpdateDisplayNameRequestDto,
+  signal?: GenericAbortSignal,
+): AxiosPromise<void> => {
+  return apiClient({
+    url: '/api/users/current/display-name',
+    method: 'PUT',
+    data: updateDisplayNameRequest,
+    signal: signal,
+  });
+};
+
 const redirectTologInUser = (returnUrl?: string): void => {
   const url = getLogInUserUrl(returnUrl);
 
@@ -44,6 +57,7 @@ const redirectTologOutUser = (returnUrl?: string): void => {
 
 export const usersService = {
   getCurrentUser,
+  updateDisplayName,
   redirectTologInUser,
   redirectTologOutUser,
 };

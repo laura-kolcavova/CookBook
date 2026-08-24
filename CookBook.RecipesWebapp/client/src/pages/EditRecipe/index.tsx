@@ -1,12 +1,12 @@
-import { useParams } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
-import { RecipeEditor } from '../shared/RecipeEditor';
 import { useMemo } from 'react';
-import { LoadingSpinner } from '../shared/LoadingSpinner';
+import { FormattedMessage } from 'react-intl';
+import { useParams } from 'react-router-dom';
 import { Alert } from '../shared/Alert';
-import { messages } from './messages';
+import { LoadingSpinner } from '../shared/LoadingSpinner';
+import { RecipeEditor } from '../shared/RecipeEditor';
 import { sharedMessages } from '../shared/sharedMessages';
 import { useGetRecipeDetailQuery } from './hooks/useGetRecipeDetailQuery';
+import { messages } from './messages';
 
 export const EditRecipe = () => {
   const { recipeId: recipeIdParam } = useParams();
