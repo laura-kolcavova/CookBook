@@ -1,4 +1,3 @@
-using CookBook.IdentityProvider.Api.Endpoints.Users.ChangeDisplayName.Contracts;
 using CookBook.IdentityProvider.Domain.Users;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
 using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
@@ -34,25 +33,18 @@ public sealed class ChangeDisplayNameModule :
         ILogger<ChangeDisplayNameModule> logger,
         CancellationToken cancellationToken)
     {
-        var displayName = request.ChangeDisplayNameRequest.DisplayName;
-
-        if (displayName.Length > 256)
-        {
-            return TypedResults.ValidationProblem(new Dictionary<string, string[]>
-            {
-                [nameof(ChangeDisplayNameRequestDto.DisplayName)] =
-                    ["The display name must be less than 256 characters."]
-            });
-        }
-
-        var identityUserId = userManager.GetUserId(claimsPrincipal)
-            ?? throw new InvalidOperationException("Authenticated user must have a subject claim.");
-
         try
         {
+            var identityUser = await userManager.GetUserAsync(claimsPrincipal);
+
+            if (identityUser is null)
+            {
+                throw new InvalidOperationException("Identity user not found.");
+            }
+
             await changeDisplayNameManager.ChangeDisplayName(
-                int.Parse(identityUserId),
-                displayName,
+                identityUser,
+                request.ChangeDisplayNameRequest.DisplayName,
                 cancellationToken);
 
             return TypedResults.NoContent();

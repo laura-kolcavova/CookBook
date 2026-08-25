@@ -65,8 +65,8 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddScoped<IRegisterManager, RegisterManager>()
-            .AddScoped<IGetUserProfileInfoQuery, GetUserProfileInfoQuery>()
-            .AddScoped<IChangeDisplayNameManager, ChangeDisplayNameManager>();
+            .AddScoped<IChangeDisplayNameManager, ChangeDisplayNameManager>()
+            .AddScoped<IGetUserProfileInfoQuery, GetUserProfileInfoQuery>();
 
         return services;
     }

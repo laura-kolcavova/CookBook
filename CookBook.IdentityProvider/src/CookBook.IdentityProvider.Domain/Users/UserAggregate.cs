@@ -33,9 +33,15 @@ public sealed class UserAggregate :
         return Id;
     }
 
-    public void SetDisplayName(
+    public void ChangeDisplayName(
         string displayName)
     {
+        if (displayName == DisplayName)
+        {
+            throw new InvalidOperationException(
+                "The new display name must be different from the current display name.");
+        }
+
         DisplayName = displayName;
     }
 }

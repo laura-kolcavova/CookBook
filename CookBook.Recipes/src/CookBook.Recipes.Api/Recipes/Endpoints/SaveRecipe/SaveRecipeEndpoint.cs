@@ -48,7 +48,7 @@ internal class SaveRecipeEndpoint
 
         try
         {
-            var userName = claimsPrincipal.GetUserName();
+            var userName = claimsPrincipal.GetUserNameClaim().Value;
 
             if (request.SaveRecipeRequest.RecipeId is null ||
                 request.SaveRecipeRequest.RecipeId <= 0)

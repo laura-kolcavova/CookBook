@@ -14,7 +14,7 @@ internal sealed class ChangeDisplayNameManager(
     IChangeDisplayNameManager
 {
     public async Task ChangeDisplayName(
-        int identityUserId,
+        CustomIdentityUser identityUser,
         string displayName,
         CancellationToken cancellationToken)
     {
@@ -22,13 +22,9 @@ internal sealed class ChangeDisplayNameManager(
             TransactionScopeOption.Required,
             TransactionScopeAsyncFlowOption.Enabled);
 
-        var identityUser = await userManager.FindByIdAsync(
-                identityUserId.ToString())
-            ?? throw new InvalidOperationException("Identity user not found.");
-
         var preferredUsernameClaim = (await userManager.GetClaimsAsync(identityUser))
-            .FirstOrDefault(claim => claim.Type == OpenIddictConstants.Claims.PreferredUsername)
-            ?? throw new InvalidOperationException("Preferred user name is not set.");
+           .Single(claim => claim.Type == OpenIddictConstants.Claims.PreferredUsername)
+           ?? throw new InvalidOperationException("Preferred user name is not set.");
 
         await userManager.ReplaceClaimAsync(
             identityUser,
@@ -38,10 +34,10 @@ internal sealed class ChangeDisplayNameManager(
         var user = await usersContext
             .Users
             .SingleAsync(
-                user => user.IdentityUserId == identityUserId,
+                user => user.IdentityUserId == identityUser.Id,
                 cancellationToken);
 
-        user.SetDisplayName(displayName);
+        user.ChangeDisplayName(displayName);
 
         await usersContext.SaveChangesAsync(
             cancellationToken);
