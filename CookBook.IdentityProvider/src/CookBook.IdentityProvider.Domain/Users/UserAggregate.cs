@@ -12,7 +12,7 @@ public sealed class UserAggregate :
 
     public string UserName { get; }
 
-    public string DisplayName { get; }
+    public string DisplayName { get; private set; }
 
     public DateTimeOffset? CreatedAt { get; }
 
@@ -31,5 +31,11 @@ public sealed class UserAggregate :
     public override object GetPrimaryKey()
     {
         return Id;
+    }
+
+    public void SetDisplayName(
+        string displayName)
+    {
+        DisplayName = displayName;
     }
 }

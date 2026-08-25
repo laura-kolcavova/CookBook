@@ -116,6 +116,7 @@ internal static class ServiceCollectionExtensions
                     options.Scope.Add(OpenIddictConstants.Scopes.Profile);
                     options.Scope.Add(OpenIddictConstants.Scopes.Roles);
                     options.Scope.Add(openIdConnectAppConfiguration.Scopes.CookBookRecipesReadWrite);
+                    options.Scope.Add(openIdConnectAppConfiguration.Scopes.CookBookIdentityProviderReadWrite);
 
                     //if (isDevelopment)
                     //{

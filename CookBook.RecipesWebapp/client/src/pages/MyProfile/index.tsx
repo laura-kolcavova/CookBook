@@ -1,7 +1,7 @@
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { FormattedMessage } from 'react-intl';
 import { messages } from './messages';
-import { EditDisplayNameModal } from './shared/EditDisplayNameModal';
+import { ChangeDisplayNameModal } from './shared/ChangeDisplayNameModal';
 import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 import { useModals } from '~/modals/ModalProvider';
 import { Button } from '~/pages/shared/Button';
@@ -13,7 +13,7 @@ export const MyProfile = () => {
   const { openModal } = useModals();
 
   const handleChangeDisplayName = () => {
-    openModal(<EditDisplayNameModal currentDisplayName={currentUser.displayName} />);
+    openModal(<ChangeDisplayNameModal currentDisplayName={currentUser.displayName} />);
   };
 
   return (
@@ -37,7 +37,7 @@ export const MyProfile = () => {
                 <p className="text-base text-text-color-primary">{currentUser.displayName}</p>
 
                 <Button onClick={handleChangeDisplayName} variant="primary">
-                  <FormattedMessage {...messages.changeDisplayNameButton} />
+                  <FormattedMessage {...messages.changeButton} />
                 </Button>
               </div>
             </div>

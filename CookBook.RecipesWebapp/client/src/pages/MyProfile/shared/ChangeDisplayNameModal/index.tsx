@@ -3,8 +3,7 @@ import { useEffect, useState } from 'react';
 import { HiXMark as XMarkIcon } from 'react-icons/hi2';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { validateDisplayName } from '../../utils/displayNameValidator';
-import { useUpdateDisplayNameErrorMessage } from './hooks/useUpdateDisplayNameErrorMessage';
-import { useUpdateDisplayNameMutation } from './hooks/useUpdateDisplayNameMutation';
+import { useChangeDisplayNameErrorMessage } from './hooks/useChangeDisplayNameErrorMessage';
 import { messages } from './messages';
 import { useModals } from '~/modals/ModalProvider';
 import { Alert } from '~/pages/shared/Alert';
@@ -13,12 +12,13 @@ import { FeedbackError } from '~/pages/shared/forms/FeedbackError';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
 import { SpinnerIcon } from '~/pages/shared/icons/SpinnerIcon';
+import { useChangeDisplayNameMutation } from './hooks/useChangeDisplayNameMutation';
 
-export type EditDisplayNameModalProps = {
+export type ChangeDisplayNameModalProps = {
   currentDisplayName: string;
 };
 
-export const EditDisplayNameModal = ({ currentDisplayName }: EditDisplayNameModalProps) => {
+export const ChangeDisplayNameModal = ({ currentDisplayName }: ChangeDisplayNameModalProps) => {
   const { formatMessage } = useIntl();
 
   const { hideModal } = useModals();
@@ -30,13 +30,13 @@ export const EditDisplayNameModal = ({ currentDisplayName }: EditDisplayNameModa
   const [validationErrorMessage, setValidationErrorMessage] = useState<string | undefined>();
 
   const {
-    mutate: updateDisplayNameMutate,
-    isPending: updateDisplayNameIsPending,
-    isError: updateDisplayNameIsError,
-    error: updateDisplayNameError,
-  } = useUpdateDisplayNameMutation();
+    mutate: changeDisplayNameMutate,
+    isPending: changeDisplayNameIsPending,
+    isError: changeDisplayNameIsError,
+    error: changeDisplayNameError,
+  } = useChangeDisplayNameMutation();
 
-  const { getErrorMessage } = useUpdateDisplayNameErrorMessage();
+  const { getErrorMessage } = useChangeDisplayNameErrorMessage();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -54,7 +54,7 @@ export const EditDisplayNameModal = ({ currentDisplayName }: EditDisplayNameModa
 
     setValidationErrorMessage(undefined);
 
-    updateDisplayNameMutate(displayName.trim());
+    changeDisplayNameMutate(displayName.trim());
   };
 
   return (
@@ -77,9 +77,9 @@ export const EditDisplayNameModal = ({ currentDisplayName }: EditDisplayNameModa
             </div>
 
             <div className="flex-1 py-4">
-              {updateDisplayNameIsError && (
+              {changeDisplayNameIsError && (
                 <Alert color="danger" isDismissible={true}>
-                  {getErrorMessage(updateDisplayNameError)}
+                  {getErrorMessage(changeDisplayNameError)}
                 </Alert>
               )}
 
@@ -109,13 +109,13 @@ export const EditDisplayNameModal = ({ currentDisplayName }: EditDisplayNameModa
               <Button
                 onClick={handleSave}
                 className="flex items-center justify-center"
-                disabled={updateDisplayNameIsPending}
+                disabled={changeDisplayNameIsPending}
                 variant="primary">
                 <span>
                   <FormattedMessage {...messages.saveButton} />
                 </span>
 
-                {updateDisplayNameIsPending && <SpinnerIcon className="animate-spin size-4 ml-2" />}
+                {changeDisplayNameIsPending && <SpinnerIcon className="animate-spin size-4 ml-2" />}
               </Button>
             </div>
           </DialogPanel>

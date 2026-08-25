@@ -20,5 +20,7 @@ public sealed class OpenIdConnectAppConfiguration
     public sealed record OpenIdConnectScopes
     {
         public string CookBookRecipesReadWrite { get; set; } = string.Empty;
+
+        public string CookBookIdentityProviderReadWrite { get; set; } = string.Empty;
     }
 }
