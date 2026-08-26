@@ -18,7 +18,7 @@ public static class ConfigurationConstants
 
     public static class AuthenticationPolicies
     {
-        public const string Cookie = "CookieAuthenticationPolicy";
+        public const string Cookie = "Cookie";
     }
 
     public static class ReverseProxy
