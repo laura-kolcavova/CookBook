@@ -13,7 +13,6 @@ internal class GetRecipeDetailEndpoint
             .MapGet("/{recipeId}/detail", HandleAsync)
             .WithName("GetRecipeDetail")
             .WithSummary("Gets recipe detail by its id")
-            .WithDescription("Returns a DTO containing recipe detail")
             .Produces<GetRecipeDetailResponseDto>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()

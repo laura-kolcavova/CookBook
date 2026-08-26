@@ -1,3 +1,4 @@
+using CookBook.Extensions.AspNetCore.Errors.Extensions;
 using CookBook.IdentityProvider.Domain.Users;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
 using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
@@ -15,12 +16,10 @@ public sealed class ChangeDisplayNameModule :
             .MapPatch("/current/display-name", HandleAsync)
             .WithName("ChangeDisplayName")
             .WithSummary("Changes the display name of the current user")
-            .WithDescription("")
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .DisableAntiforgery()
             .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.ReadWrite);
     }
 
@@ -31,6 +30,7 @@ public sealed class ChangeDisplayNameModule :
         UserManager<CustomIdentityUser> userManager,
         IChangeDisplayNameManager changeDisplayNameManager,
         ILogger<ChangeDisplayNameModule> logger,
+        HttpContext httpContext,
         CancellationToken cancellationToken)
     {
         try
@@ -39,7 +39,10 @@ public sealed class ChangeDisplayNameModule :
 
             if (identityUser is null)
             {
-                throw new InvalidOperationException("Identity user not found.");
+                return TypedResults.Problem(UserErrors
+                    .User
+                    .NotFound()
+                    .AsProblemDetails(httpContext));
             }
 
             await changeDisplayNameManager.ChangeDisplayName(

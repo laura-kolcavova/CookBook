@@ -1,46 +1,48 @@
-﻿using CookBook.Extensions.AspNetCore.FluentValidation.Extensions;
+﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
+using CookBook.Extensions.AspNetCore.FluentValidation.Extensions;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
-namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogIn;
+namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogOut;
 
-public sealed class LogInEndpointModule :
+public sealed class LogOutModule :
     UsersModule
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
         app
-            .MapGet("/login", Handle)
-            .WithName("LogIn")
-            .WithSummary("Signs in an user")
-            .WithDescription("")
-            .Produces(StatusCodes.Status307TemporaryRedirect)
-            .ProducesValidationProblem()
-            .ProducesProblem(StatusCodes.Status401Unauthorized)
-            .ProducesProblem(StatusCodes.Status403Forbidden)
+            .MapGet("/logout", HandleAsync)
+            .WithName("LogOut")
+            .WithSummary("Signs out an user")
+            .Produces(StatusCodes.Status302Found)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .AddFluentValidation()
-            .AllowAnonymous()
+            .AddClosedRequest()
+            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.Cookie)
             .DisableAntiforgery();
     }
 
-    private static IResult Handle(
-        [AsParameters] LogInEndpointParams request)
+    private static IResult HandleAsync(
+        [AsParameters] LogOutParams request,
+        CancellationToken cancellationToken)
     {
-        var properties = new AuthenticationProperties
+        var authProperties = new AuthenticationProperties
         {
             RedirectUri = BuildReturnUrl(request.ReturnUrl),
         };
 
-        return TypedResults.Challenge(
-            properties,
+        return TypedResults.SignOut(
+            properties: authProperties,
             authenticationSchemes: [
+                CookieAuthenticationDefaults.AuthenticationScheme,
                 OpenIdConnectDefaults.AuthenticationScheme
             ]);
     }
 
     private static string BuildReturnUrl(
-        string? returnUrl)
+       string? returnUrl)
     {
         const string pathBase = "/";
 

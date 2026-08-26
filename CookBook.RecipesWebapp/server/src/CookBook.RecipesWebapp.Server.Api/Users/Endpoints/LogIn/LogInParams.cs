@@ -2,7 +2,7 @@
 
 namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogIn;
 
-internal sealed record LogInEndpointParams
+internal sealed record LogInParams
 {
     [FromQuery]
     public string? ReturnUrl { get; init; }

@@ -15,7 +15,6 @@ internal class RemoveRecipeEndpoint
             .MapDelete("/{recipeId}/remove", HandleAsync)
             .WithName("RemoveRecipe")
             .WithSummary("Removes a recipe by its id")
-            .WithDescription("This endpoint returns Status 204 OK response if recipe was successfully removed.")
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status400BadRequest)

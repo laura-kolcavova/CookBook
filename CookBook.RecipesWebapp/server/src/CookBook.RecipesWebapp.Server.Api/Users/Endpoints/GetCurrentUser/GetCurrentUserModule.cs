@@ -15,7 +15,6 @@ public sealed class GetCurrentUserEndpointModule :
             .MapGet("/current", Handle)
             .WithName("GetCurrentUser")
             .WithSummary("Gets current user info")
-            .WithDescription("")
             .Produces(StatusCodes.Status200OK, typeof(CurrentUserDto))
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .AddClosedRequest()

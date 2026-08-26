@@ -53,7 +53,7 @@ internal static class ServiceCollectionExtensions
                     builder
                         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                         .RequireAuthenticatedUser()
-                        .RequireScope(ConfigurationConstants.AuthenticationScopes.CookBookRecipesReadWrite);
+                        .RequireClaim("scope", ConfigurationConstants.AuthenticationScopes.CookBookRecipesReadWrite);
                 });
 
         services

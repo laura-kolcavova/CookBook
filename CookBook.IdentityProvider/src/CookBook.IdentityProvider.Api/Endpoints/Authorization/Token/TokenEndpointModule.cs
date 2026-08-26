@@ -21,8 +21,6 @@ public sealed class TokenEndpointModule :
         app
             .MapPost("/token", HandleAsync)
             .WithName("Token")
-            .WithSummary("OpenID Connect token endpoint")
-            .WithDescription("")
             .Accepts<IFormCollection>("application/x-www-form-urlencoded")
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status403Forbidden)

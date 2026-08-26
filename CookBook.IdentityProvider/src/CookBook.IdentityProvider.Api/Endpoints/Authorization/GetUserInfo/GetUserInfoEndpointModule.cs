@@ -19,7 +19,6 @@ public sealed class GetUserInfoEndpointModule :
             .MapGet("/userinfo", HandleAsync)
             .WithName("GetUserInfo")
             .WithSummary("OpenID Connect userinfo endpoint")
-            .WithDescription("")
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status403Forbidden)

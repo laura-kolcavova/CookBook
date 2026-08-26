@@ -1,8 +1,8 @@
 ﻿using Carter;
 using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Abstractions;
-using OpenIddict.Validation.AspNetCore;
 using System.Text.Json.Serialization;
 
 namespace CookBook.IdentityProvider.Api.Shared.Extensions;
@@ -23,6 +23,33 @@ internal static class ServiceCollectionExtensions
                 options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
             });
 
+        //services
+        //   .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        //   .AddJwtBearer(
+        //       options =>
+        //       {
+        //           options.Authority = openIdConnectAppConfiguration.Authority;
+
+        //           options.MapInboundClaims = false;
+
+        //           //if (isDevelopment)
+        //           //{
+        //           //    options.RequireHttpsMetadata = false;
+        //           //}
+
+        //           options.RequireHttpsMetadata = false;
+
+        //           options.TokenValidationParameters = new TokenValidationParameters
+        //           {
+        //               ValidateIssuer = true,
+        //               ValidateAudience = false,
+        //               ValidIssuers = openIdConnectAppConfiguration.Issuers,
+        //               ValidTypes = [
+        //                   "at+jwt"
+        //               ]
+        //           };
+        //       });
+
         services
             .AddAuthorizationBuilder()
             .AddPolicy(
@@ -30,7 +57,7 @@ internal static class ServiceCollectionExtensions
                 builder =>
                 {
                     builder
-                        .AddAuthenticationSchemes(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)
+                        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                         .RequireAuthenticatedUser()
                         .RequireAssertion(context => context.User.HasScope(ConfigurationConstants.AuthenticationScopes.CookBookIdentityProviderReadWrite));
                 });

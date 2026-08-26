@@ -21,7 +21,7 @@ public static class ConfigurationConstants
 
     public static class AuthenticationPolicies
     {
-        public const string ReadWrite = "ReadWriteAuthenticationPolicy";
+        public const string ReadWrite = "ReadWrite";
     }
 
     public static class AuthenticationScopes

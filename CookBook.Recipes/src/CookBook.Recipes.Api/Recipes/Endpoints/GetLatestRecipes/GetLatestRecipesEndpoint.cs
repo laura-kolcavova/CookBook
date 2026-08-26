@@ -13,7 +13,6 @@ internal class GetLatestRecipesEndpoint
             .MapGet("/latest", HandleAsync)
             .WithName("GetLatestRecipes")
             .WithSummary("Gets latest recipes")
-            .WithDescription("Returns a collection of latest recipes")
             .Produces<GetLatestRecipesResponseDto>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()

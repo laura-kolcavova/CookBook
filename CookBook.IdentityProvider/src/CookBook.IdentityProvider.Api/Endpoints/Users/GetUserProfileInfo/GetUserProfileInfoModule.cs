@@ -12,8 +12,7 @@ public sealed class GetUserProfileInfoModule :
         app
             .MapGet("/{userName}/profile-info", HandleAsync)
             .WithName("GetUserProfileInfo")
-            .WithSummary("Retrieves user profile information by username")
-            .WithDescription("Gets the public profile information for a user including their display name and username. Returns 204 No Content if the user is not found.")
+            .WithSummary("Gets the public profile information for user by username")
             .Produces<GetUserProfileInfoResponseDto>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()

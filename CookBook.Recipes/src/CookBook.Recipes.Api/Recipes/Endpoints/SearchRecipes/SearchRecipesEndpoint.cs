@@ -16,7 +16,6 @@ internal class SearchRecipesEndpoint
             .MapGet("/search", HandleAsync)
             .WithName("SearchRecipes")
             .WithSummary("Search for existing recipes")
-            .WithDescription("Returns a DTO containing a collection of recipe listing item DTOs.")
             .Produces<SearchRecipesResponseDto>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()

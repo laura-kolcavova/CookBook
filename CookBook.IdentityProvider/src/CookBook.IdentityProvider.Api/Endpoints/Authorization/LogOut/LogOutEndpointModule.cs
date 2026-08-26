@@ -19,7 +19,6 @@ public class LogOutEndpointModule :
                 HandleAsync)
             .WithName("LogOut")
             .WithSummary("OpenID Connect logout endpoint")
-            .WithDescription("")
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .AddClosedRequest();
