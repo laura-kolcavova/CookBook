@@ -189,18 +189,7 @@ public sealed class TokenEndpointModule :
             .SetClaim(OpenIddictConstants.Claims.PreferredUsername, preferredUsernameClaimValue)
             .SetClaims(OpenIddictConstants.Claims.Role, (await userManager.GetRolesAsync(user)).ToImmutableArray());
 
-        var restrictedScopes = new string[]
-        {
-            OpenIddictConstants.Scopes.OpenId,
-            OpenIddictConstants.Scopes.Email,
-            OpenIddictConstants.Scopes.Profile,
-        };
-
-        var requestScopes = openIddictRequest.GetScopes();
-
-        var scopes = requestScopes
-            .Intersect(requestScopes)
-            .ToImmutableArray();
+        var scopes = openIddictRequest.GetScopes();
 
         identity
             .SetScopes(scopes);
