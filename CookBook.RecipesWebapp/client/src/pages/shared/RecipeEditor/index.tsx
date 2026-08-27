@@ -1,43 +1,57 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { ServingsSetter } from './setters/ServingsSetter';
-import { CookTimeSetter } from './setters/CookingTimeSetter';
-import { TagsSetter } from './setters/TagsSetters';
-import { TitleSetter } from './setters/TitleSetter';
-import { DescriptionSetter } from './setters/DescriptionSetter';
-import { NotesSetter } from './setters/NotesSetter';
-import { IngredientsSetter } from './setters/IngredientsSetter';
-import { useNavigate } from 'react-router-dom';
-import { useSaveRecipeErrorMessage } from './hooks/useSaveRecipeErrorMessage';
-import { pages } from '~/navigation/pages';
 import { Alert } from '../Alert';
-import { FeedbackError } from '../forms/FeedbackError';
-import { InstructionsSetter } from './setters/InstructionsSetter';
 import { Button } from '../Button';
+import { FeedbackError } from '../forms/FeedbackError';
 import { SpinnerIcon } from '../icons/SpinnerIcon';
 import { useRecipeData } from './hooks/useRecipeData';
-import { useSaveRecipeSubmitHandler } from './hooks/useSaveRecipeSubmitHander';
+import { useRecipeValidator } from './hooks/useRecipeValidator';
+import { useSaveRecipeErrorMessage } from './hooks/useSaveRecipeErrorMessage';
+import { useSaveRecipeMutation } from './hooks/useSaveRecipeMutation';
 import { messages } from './messages';
+import { CookTimeSetter } from './setters/CookingTimeSetter';
+import { DescriptionSetter } from './setters/DescriptionSetter';
+import { IngredientsSetter } from './setters/IngredientsSetter';
+import { InstructionsSetter } from './setters/InstructionsSetter';
+import { NotesSetter } from './setters/NotesSetter';
+import { ServingsSetter } from './setters/ServingsSetter';
+import { TagsSetter } from './setters/TagsSetters';
+import { TitleSetter } from './setters/TitleSetter';
 import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
+import type { FieldValidations } from '~/forms/FieldValidations';
+import { areValid } from '~/utils/forms/fieldValidationUtils';
 
 export type RecipeEditorProps = {
   recipe?: RecipeDetailDto;
 };
 
 export const RecipeEditor = ({ recipe }: RecipeEditorProps) => {
-  const navigate = useNavigate();
-
   const { initializeDataFromRecipe, resetData, dataInitializedFromRecipe } = useRecipeData();
 
   const {
-    validations,
-    saveRecipeIsPending,
-    saveRecipeIsSuccess,
-    saveRecipeIsError,
-    saveRecipeData,
-    saveRecipeError,
-    handleSubmit,
-  } = useSaveRecipeSubmitHandler();
+    mutate: saveRecipeMutate,
+    isPending: saveRecipeIsPending,
+    isError: saveRecipeIsError,
+    error: saveRecipeError,
+  } = useSaveRecipeMutation();
+
+  const { validate } = useRecipeValidator();
+
+  const [validations, setValidations] = useState<FieldValidations>({});
+
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const validationResults = validate();
+
+    setValidations(validationResults);
+
+    if (!areValid(validationResults)) {
+      return;
+    }
+
+    saveRecipeMutate();
+  };
 
   const { getErrorMessage } = useSaveRecipeErrorMessage();
 
@@ -52,19 +66,6 @@ export const RecipeEditor = ({ recipe }: RecipeEditorProps) => {
       resetData();
     };
   }, [resetData]);
-
-  useEffect(() => {
-    if (saveRecipeIsSuccess && saveRecipeData) {
-      resetData();
-
-      const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
-        ':recipeId',
-        saveRecipeData.recipeId.toString(),
-      );
-
-      navigate(recipeDetailPath);
-    }
-  }, [navigate, resetData, saveRecipeData, saveRecipeIsSuccess]);
 
   return (
     <>

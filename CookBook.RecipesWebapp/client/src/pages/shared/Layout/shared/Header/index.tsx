@@ -1,15 +1,15 @@
 import React from 'react';
+import { FaHouse, FaMagnifyingGlass, FaPlus } from 'react-icons/fa6';
 import { FormattedMessage } from 'react-intl';
 
-import { FaHouse, FaMagnifyingGlass, FaPlus } from 'react-icons/fa6';
-import { NavIconLink } from './NavIconLink';
-import { useRouter } from '~/navigation/hooks/useRouter';
 import { Link } from 'react-router-dom';
-import { UserIconButton } from './UserIconButton';
-import { pages } from '~/navigation/pages';
-import { messages } from './messages';
-import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 import { LogInIconButton } from './LogInIconButton';
+import { messages } from './messages';
+import { NavIconLink } from './NavIconLink';
+import { UserIconButton } from './UserIconButton';
+import { useCurrentUser } from '~/authentication/CurrentUserProvider';
+import { useRouter } from '~/navigation/hooks/useRouter';
+import { pages } from '~/navigation/pages';
 
 export const Header: React.FC = () => {
   const { currentUser } = useCurrentUser();

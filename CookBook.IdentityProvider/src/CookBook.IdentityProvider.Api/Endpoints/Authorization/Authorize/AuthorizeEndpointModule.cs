@@ -26,12 +26,11 @@ public sealed class AuthorizeEndpointModule :
                 HandleAsync)
             .WithName("Authorize")
             .WithSummary("OpenID Connect authorization endpoint")
-            .WithDescription("")
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .AddClosedRequest()
-            .AllowAnonymous();
+            .DisableAntiforgery()
+            .AddClosedRequest();
     }
 
     private static async Task<IResult> HandleAsync(
@@ -197,20 +196,10 @@ public sealed class AuthorizeEndpointModule :
                             OpenIddictConstants.Claims.Role,
                             (await userManager.GetRolesAsync(user)).ToImmutableArray());
 
-                    var restrictedScopes = new string[]
-                    {
-                        OpenIddictConstants.Scopes.OpenId,
-                        OpenIddictConstants.Scopes.Email,
-                        OpenIddictConstants.Scopes.Profile,
-                    };
+                    var scopes = openIddictRequest.GetScopes();
 
-                    var requestScopes = openIddictRequest.GetScopes();
-
-                    var scopes = requestScopes
-                        .Intersect(requestScopes)
-                        .ToImmutableArray();
-
-                    identity.SetScopes(scopes);
+                    identity
+                        .SetScopes(scopes);
 
                     var resources = await scopeManager
                         .ListResourcesAsync(scopes, cancellationToken)

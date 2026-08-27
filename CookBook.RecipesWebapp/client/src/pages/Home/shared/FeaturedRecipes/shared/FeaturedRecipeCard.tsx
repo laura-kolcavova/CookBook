@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
 import { FaRegCircleXmark } from 'react-icons/fa6';
+import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import type { FeaturedRecipe } from '../models/FeaturedRecipe';
 import { pages } from '~/navigation/pages';
-import { FormattedMessage } from 'react-intl';
 import { sharedMessages } from '~/pages/shared/sharedMessages';
 
 export type FeaturedRecipeProps = {

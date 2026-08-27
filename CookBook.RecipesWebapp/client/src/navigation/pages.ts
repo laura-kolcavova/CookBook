@@ -1,14 +1,14 @@
-import { Home } from '~/pages/Home';
 
-import { Explore } from '~/pages/Explore';
-import { Saved } from '~/pages/Saved';
-import { MyProfile } from '~/pages/MyProfile';
-import { MyRecipes } from '~/pages/MyRecipes';
-import { RecipeDetail } from '~/pages/RecipeDetail';
 import { Page } from './Page';
-import { NotFound } from '~/pages/NotFound';
 import { AddRecipe } from '~/pages/AddRecipe';
 import { EditRecipe } from '~/pages/EditRecipe';
+import { Explore } from '~/pages/Explore';
+import { Home } from '~/pages/Home';
+import { MyProfile } from '~/pages/MyProfile';
+import { MyRecipes } from '~/pages/MyRecipes';
+import { NotFound } from '~/pages/NotFound';
+import { RecipeDetail } from '~/pages/RecipeDetail';
+import { Saved } from '~/pages/Saved';
 
 export const pages = {
   [Page.Home]: {

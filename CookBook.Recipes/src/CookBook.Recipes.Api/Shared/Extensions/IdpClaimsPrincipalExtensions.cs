@@ -6,12 +6,12 @@ internal static class IdpClaimsPrincipalExtensions
 {
     private const string ClaimTypeName = "name";
 
-    public static string GetUserName(
+    public static Claim GetUserNameClaim(
         this ClaimsPrincipal idpClaimsPrincipal)
     {
         return idpClaimsPrincipal
             .Claims
-            .First(claim => claim.Type == ClaimTypeName)
-            .Value;
+            .FirstOrDefault(claim => claim.Type == ClaimTypeName)
+            ?? throw new InvalidOperationException("User name is not set.");
     }
 }

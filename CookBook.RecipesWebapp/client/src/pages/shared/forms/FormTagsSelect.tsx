@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { FormTextInput } from './FormTextInput';
 import { FaPlus } from 'react-icons/fa6';
 import { Button } from '../Button';
 import { Tag } from '../Tag';
+import { FormTextInput } from './FormTextInput';
 
 export type FormTagsSelectProps = {
   tags: string[];

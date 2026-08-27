@@ -18,4 +18,14 @@ public static class ConfigurationConstants
 
         public const string RequestVerificationTokenFormFieldName = "CookBook.RecipesWebapp.Antiforgery.RequestVerificationToken";
     }
+
+    public static class AuthenticationPolicies
+    {
+        public const string ReadWrite = "ReadWrite";
+    }
+
+    public static class AuthenticationScopes
+    {
+        public const string CookBookIdentityProviderReadWrite = "CookBook.IdentityProvider.ReadWrite";
+    }
 }

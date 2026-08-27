@@ -1,10 +1,10 @@
 import { FormattedMessage } from 'react-intl';
 import { LinkAsButton } from '../shared/LinkAsButton';
 
-import { pages } from '~/navigation/pages';
 import { messages } from './messages';
 import { FeaturedRecipes } from './shared/FeaturedRecipes';
 import { LatestRecipes } from './shared/LatestRecipes';
+import { pages } from '~/navigation/pages';
 
 export const Home = () => {
   return (

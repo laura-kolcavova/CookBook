@@ -1,9 +1,9 @@
-import { descriptionAtom } from '../atoms/recipeDataAtom';
-import { FormattedMessage, useIntl } from 'react-intl';
 import { useAtom } from 'jotai';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { descriptionAtom } from '../atoms/recipeDataAtom';
+import { messages } from '../messages';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
 import { FormTextInput } from '~/pages/shared/forms/FormTextInput';
-import { messages } from '../messages';
 
 export const DescriptionSetter = () => {
   const { formatMessage } = useIntl();

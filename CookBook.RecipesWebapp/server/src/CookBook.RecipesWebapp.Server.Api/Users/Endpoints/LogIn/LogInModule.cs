@@ -1,49 +1,41 @@
 ﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
-using CookBook.Extensions.AspNetCore.FluentValidation.Extensions;
-using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
-namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogOut;
+namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.LogIn;
 
-public sealed class LogOutEndpointModule :
+public sealed class LogInEndpointModule :
     UsersModule
 {
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
         app
-            .MapGet("/logout", HandleAsync)
-            .WithName("LogOut")
-            .WithSummary("Signs out an user")
-            .WithDescription("")
-            .Produces(StatusCodes.Status302Found)
+            .MapGet("/login", Handle)
+            .WithName("LogIn")
+            .WithSummary("Signs in an user")
+            .Produces(StatusCodes.Status307TemporaryRedirect)
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .AddFluentValidation()
-            .AddClosedRequest()
-            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.Cookie)
-            .DisableAntiforgery();
+            .AddClosedRequest();
     }
 
-    private static IResult HandleAsync(
-        [AsParameters] LogOutEndpointParams request,
-        CancellationToken cancellationToken)
+    private static IResult Handle(
+        [AsParameters] LogInParams request)
     {
-        var authProperties = new AuthenticationProperties
+        var properties = new AuthenticationProperties
         {
             RedirectUri = BuildReturnUrl(request.ReturnUrl),
         };
 
-        return TypedResults.SignOut(
-            properties: authProperties,
+        return TypedResults.Challenge(
+            properties,
             authenticationSchemes: [
-                CookieAuthenticationDefaults.AuthenticationScheme,
                 OpenIdConnectDefaults.AuthenticationScheme
             ]);
     }
 
     private static string BuildReturnUrl(
-       string? returnUrl)
+        string? returnUrl)
     {
         const string pathBase = "/";
 

@@ -1,4 +1,6 @@
-﻿using CookBook.RecipesWebapp.Server.Api.Recipes.Endpoints.GetRecipeDetail.Contracts;
+﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
+using CookBook.Extensions.AspNetCore.FluentValidation.Extensions;
+using CookBook.RecipesWebapp.Server.Api.Recipes.Endpoints.GetRecipeDetail.Contracts;
 using CookBook.RecipesWebapp.Server.Domain.Recipes.Services.Abastractions;
 
 namespace CookBook.RecipesWebapp.Server.Api.Recipes.Endpoints.GetRecipeDetail;
@@ -18,7 +20,8 @@ public sealed class GetRecipeDetailEndpoint :
            .Produces(StatusCodes.Status204NoContent)
            .ProducesValidationProblem()
            .ProducesProblem(StatusCodes.Status500InternalServerError)
-           .AllowAnonymous();
+           .AddFluentValidation()
+           .AddClosedRequest();
     }
 
     private static async Task<IResult> HandleAsync(

@@ -1,9 +1,9 @@
 import { useAtom } from 'jotai';
 import { FormattedMessage } from 'react-intl';
 import { servingsAtom } from '../atoms/recipeDataAtom';
+import { messages } from '../messages';
 import { FormExtendedNumberInput } from '~/pages/shared/forms/FormExtenedNumberInput';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
-import { messages } from '../messages';
 
 const MIN: number = 0;
 const MAX: number = 255;

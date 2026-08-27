@@ -1,9 +1,9 @@
 import { FormattedMessage } from 'react-intl';
-import { Button } from '~/pages/shared/Button';
-import { useModals } from '~/modals/ModalProvider';
 import { ConfirmDeleteRecipeModal } from '../../ConfirmDeleteRecipeModal';
-import { messages } from '~/pages/RecipeDetail/messages';
 import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
+import { useModals } from '~/modals/ModalProvider';
+import { messages } from '~/pages/RecipeDetail/messages';
+import { Button } from '~/pages/shared/Button';
 
 export type DeleteRecipeButtonProps = {
   recipe: RecipeDetailDto;

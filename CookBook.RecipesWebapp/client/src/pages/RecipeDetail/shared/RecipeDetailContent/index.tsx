@@ -1,12 +1,12 @@
-import { useFormatServings } from './hooks/useFormatServings';
+import { FormattedDate, FormattedMessage } from 'react-intl';
+import { messages } from '../../messages';
 import { useFormatCookTime } from './hooks/useFormatCookTime';
+import { useFormatServings } from './hooks/useFormatServings';
 import { MetaItem } from './shared/MetaItem';
 import { MetaLabel } from './shared/MetaLabel';
 import { MetaValue } from './shared/MetaValue';
-import { Tag } from '~/pages/shared/Tag';
-import { FormattedDate, FormattedMessage } from 'react-intl';
-import { messages } from '../../messages';
 import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
+import { Tag } from '~/pages/shared/Tag';
 
 export type RecipeDetailContentProps = {
   recipe: RecipeDetailDto;

@@ -15,12 +15,10 @@ public sealed class GetCurrentUserEndpointModule :
             .MapGet("/current", Handle)
             .WithName("GetCurrentUser")
             .WithSummary("Gets current user info")
-            .WithDescription("")
             .Produces(StatusCodes.Status200OK, typeof(CurrentUserDto))
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .AddClosedRequest()
-            .AllowAnonymous()
-            .DisableAntiforgery();
+            .AddClosedRequest();
     }
 
     private static IResult Handle(

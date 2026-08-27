@@ -10,13 +10,13 @@ import {
   instructionsAtom,
 } from '../atoms/recipeDataAtom';
 
-import { validateRecipeTitle } from '../utils/recipeTitleValidator';
-import { validateRecipeDescription } from '../utils/recipeDescriptionValidator';
-import { validateRecipeServings } from '../utils/recipeServingsValidator';
 import { validateRecipeCookTime } from '../utils/recipeCookTimeValidator';
-import { validateRecipeNotes } from '../utils/recipeNotesValidator';
+import { validateRecipeDescription } from '../utils/recipeDescriptionValidator';
 import { validateRecipeIngredients } from '../utils/recipeIngredientValidator';
 import { validateRecipeInstructions } from '../utils/recipeInstructionValidator';
+import { validateRecipeNotes } from '../utils/recipeNotesValidator';
+import { validateRecipeServings } from '../utils/recipeServingsValidator';
+import { validateRecipeTitle } from '../utils/recipeTitleValidator';
 import type { FieldValidations } from '~/forms/FieldValidations';
 
 export const useRecipeValidator = () => {

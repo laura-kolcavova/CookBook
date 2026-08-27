@@ -10,9 +10,5 @@ internal sealed class RemoveRecipeValidator :
         RuleFor(request => request.RecipeId)
             .NotNull()
             .GreaterThan(0);
-
-        RuleFor(request => request.UserName)
-          .NotNull()
-          .Length(0, 256);
     }
 }

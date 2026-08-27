@@ -21,14 +21,12 @@ public sealed class TokenEndpointModule :
         app
             .MapPost("/token", HandleAsync)
             .WithName("Token")
-            .WithSummary("OpenID Connect token endpoint")
-            .WithDescription("")
             .Accepts<IFormCollection>("application/x-www-form-urlencoded")
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .AddClosedRequest()
-            .AllowAnonymous();
+            .DisableAntiforgery()
+            .AddClosedRequest();
     }
 
     private static async Task<IResult> HandleAsync(
@@ -191,18 +189,7 @@ public sealed class TokenEndpointModule :
             .SetClaim(OpenIddictConstants.Claims.PreferredUsername, preferredUsernameClaimValue)
             .SetClaims(OpenIddictConstants.Claims.Role, (await userManager.GetRolesAsync(user)).ToImmutableArray());
 
-        var restrictedScopes = new string[]
-        {
-            OpenIddictConstants.Scopes.OpenId,
-            OpenIddictConstants.Scopes.Email,
-            OpenIddictConstants.Scopes.Profile,
-        };
-
-        var requestScopes = openIddictRequest.GetScopes();
-
-        var scopes = requestScopes
-            .Intersect(requestScopes)
-            .ToImmutableArray();
+        var scopes = openIddictRequest.GetScopes();
 
         identity
             .SetScopes(scopes);

@@ -1,12 +1,12 @@
+import { useAtom } from 'jotai';
 import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { getTimeParts, getTotalMinutes } from '~/utils/timeHelper';
-import { useAtom } from 'jotai';
 import { cookTimeAtom } from '../atoms/recipeDataAtom';
+import { messages } from '../messages';
 import { FormExtendedNumberInput } from '~/pages/shared/forms/FormExtenedNumberInput';
 import { FormLabel } from '~/pages/shared/forms/FormLabel';
-import { messages } from '../messages';
+import { getTimeParts, getTotalMinutes } from '~/utils/timeHelper';
 
 const MINUTES_MIN = 0;
 const MINUTES_MAX = 60;

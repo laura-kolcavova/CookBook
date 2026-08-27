@@ -1,13 +1,20 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { recipeDataAtom } from '../atoms/recipeDataAtom';
 import { useAtomValue } from 'jotai';
-import { recipesService } from '~/api/recipes/recipesService';
-import type { SaveRecipeRequestDto } from '~/api/recipes/dto/SaveRecipeRequestDto';
+import { useNavigate } from 'react-router-dom';
+import { recipeDataAtom } from '../atoms/recipeDataAtom';
+import { useRecipeData } from './useRecipeData';
 import { useAbortSignal } from '~/abort/useAbortSignal';
+import type { SaveRecipeRequestDto } from '~/api/recipes/dto/SaveRecipeRequestDto';
+import { recipesService } from '~/api/recipes/recipesService';
+import { pages } from '~/navigation/pages';
 
 export const useSaveRecipeMutation = () => {
   const { createSignal, finishSignal } = useAbortSignal();
+
+  const navigate = useNavigate();
+
+  const { resetData } = useRecipeData();
 
   const recipeData = useAtomValue(recipeDataAtom);
 
@@ -36,6 +43,16 @@ export const useSaveRecipeMutation = () => {
       const { data } = await recipesService.saveRecipe(saveRecipeRequest, signal);
 
       return data;
+    },
+    onSuccess: (data) => {
+      resetData();
+
+      const recipeDetailPath = pages.RecipeDetail.paths[0].replace(
+        ':recipeId',
+        data.recipeId.toString(),
+      );
+
+      navigate(recipeDetailPath);
     },
     onMutate: () => {
       finishSignal();

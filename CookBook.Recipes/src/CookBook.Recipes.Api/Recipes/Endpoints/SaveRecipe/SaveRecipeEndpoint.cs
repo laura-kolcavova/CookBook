@@ -20,22 +20,21 @@ internal class SaveRecipeEndpoint
             .MapPut("/save", HandleAsync)
             .WithName("SaveRecipe")
             .WithSummary("Updates a recipe or creates a new one if it does not exist")
-            .WithDescription("This endpoint returns a DTO containing an id of created or edited recipe.")
+            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.ReadWrite)
             .Produces<SaveRecipeResponseDto>(StatusCodes.Status200OK)
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)
-            .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.ReadWrite);
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
     }
 
     private static async Task<IResult> HandleAsync(
         [AsParameters]
         SaveRecipeParams request,
-        ClaimsPrincipal claimsPrincipal,
         IRecipeStore recipeStore,
         ILogger<SaveRecipeEndpoint> logger,
+        ClaimsPrincipal claimsPrincipal,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
@@ -48,7 +47,7 @@ internal class SaveRecipeEndpoint
 
         try
         {
-            var userName = claimsPrincipal.GetUserName();
+            var userName = claimsPrincipal.GetUserNameClaim().Value;
 
             if (request.SaveRecipeRequest.RecipeId is null ||
                 request.SaveRecipeRequest.RecipeId <= 0)

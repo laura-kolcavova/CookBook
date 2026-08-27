@@ -19,17 +19,16 @@ public sealed class GetUserInfoEndpointModule :
             .MapGet("/userinfo", HandleAsync)
             .WithName("GetUserInfo")
             .WithSummary("OpenID Connect userinfo endpoint")
-            .WithDescription("")
+            .RequireAuthorization(
+                new AuthorizeAttribute
+                {
+                    AuthenticationSchemes = OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
+                })
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .DisableAntiforgery()
-            .AddClosedRequest()
-            .RequireAuthorization(new AuthorizeAttribute
-            {
-                AuthenticationSchemes = OpenIddictServerAspNetCoreDefaults.AuthenticationScheme
-            });
+            .AddClosedRequest();
     }
 
     private static async Task<IResult> HandleAsync(

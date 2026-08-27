@@ -7,8 +7,8 @@ import {
   type PropsWithChildren,
 } from 'react';
 
-import type { CurrentUserDto } from '~/api/users/dto/CurrentUserDto';
 import { useGetCurrentUserQuery } from './hooks/useGetCurrentUserQuery';
+import type { CurrentUserDto } from '~/api/users/dto/CurrentUserDto';
 import { SpinnerIcon } from '~/pages/shared/icons/SpinnerIcon';
 
 export type CurrentUserContextValue = {

@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
 import { FaRegCircleUser } from 'react-icons/fa6';
+import { FormattedMessage } from 'react-intl';
 import { useNavigate } from 'react-router-dom';
-import { pages } from '~/navigation/pages';
 import { messages } from '../messages';
-import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 import { usersService } from '~/api/users/usersService';
+import { useCurrentUser } from '~/authentication/CurrentUserProvider';
+import { pages } from '~/navigation/pages';
 
 export const UserIconButton = () => {
   const navigate = useNavigate();

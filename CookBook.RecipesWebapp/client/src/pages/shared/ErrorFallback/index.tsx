@@ -1,15 +1,15 @@
-import { FaTriangleExclamation } from 'react-icons/fa6';
-import { FormattedMessage } from 'react-intl';
 
 import type { ReactNode } from 'react';
 import type { FallbackProps } from 'react-error-boundary';
 import { getErrorMessage } from 'react-error-boundary';
+import { FaTriangleExclamation } from 'react-icons/fa6';
+import { FormattedMessage } from 'react-intl';
 
 import { useNavigate } from 'react-router-dom';
-import { pages } from '~/navigation/pages';
 import { Alert } from '../Alert';
 import { Button } from '../Button';
 import { messages } from './messages';
+import { pages } from '~/navigation/pages';
 
 export type ErrorFallbackProps = FallbackProps;
 

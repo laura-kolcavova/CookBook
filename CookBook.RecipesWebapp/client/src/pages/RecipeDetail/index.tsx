@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useParams } from 'react-router-dom';
-import { useGetRecipeDetailQuery } from './hooks/useGetRecipeDetailQuery';
-import { LoadingSpinner } from '../shared/LoadingSpinner';
 import { Alert } from '../shared/Alert';
+import { LoadingSpinner } from '../shared/LoadingSpinner';
+import { sharedMessages } from '../shared/sharedMessages';
+import { useGetRecipeDetailQuery } from './hooks/useGetRecipeDetailQuery';
+import { messages } from './messages';
 import { RecipeDetailContent } from './shared/RecipeDetailContent';
 import { RecipeDetailHeader } from './shared/RecipeDetailHeader';
-import { messages } from './messages';
-import { sharedMessages } from '../shared/sharedMessages';
 
 export const RecipeDetail = () => {
   const { recipeId: recipeIdParam } = useParams();

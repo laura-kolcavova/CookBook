@@ -1,6 +1,6 @@
-import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
 import { DeleteRecipeButton } from './shared/DeleteRecipeButton';
 import { EditRecipeButton } from './shared/EditRecipeButton';
+import type { RecipeDetailDto } from '~/api/recipes/dto/GetRecipeDetailResponseDto';
 import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 
 export type RecipeDetailHeaderProps = {

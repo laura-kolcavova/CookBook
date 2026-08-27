@@ -18,6 +18,8 @@ internal sealed class OpenIddictServerSeeder(
 
     private const string COOKBOOK_RECIPES__READ_WRITE__RESOURCE = "CookBook.Recipes.ReadWrite";
 
+    private const string COOKBOOK_IDENTITYPROVIDER__READ_WRITE__RESOURCE = "CookBook.IdentityProvider.ReadWrite";
+
     public async Task SeedApplications(
         CancellationToken cancellationToken)
     {
@@ -79,7 +81,8 @@ internal sealed class OpenIddictServerSeeder(
                     OpenIddictConstants.Permissions.Scopes.Email,
                     OpenIddictConstants.Permissions.Scopes.Profile,
                     OpenIddictConstants.Permissions.Scopes.Roles,
-                    OpenIddictConstants.Permissions.Prefixes.Scope + COOKBOOK_RECIPES__READ_WRITE__RESOURCE
+                    OpenIddictConstants.Permissions.Prefixes.Scope + COOKBOOK_RECIPES__READ_WRITE__RESOURCE,
+                    OpenIddictConstants.Permissions.Prefixes.Scope + COOKBOOK_IDENTITYPROVIDER__READ_WRITE__RESOURCE
                 },
                 Requirements =
                 {
@@ -114,6 +117,23 @@ internal sealed class OpenIddictServerSeeder(
 
             await openIddictScopeManager.CreateAsync(
                 cookBookRecipesReadWriteResourceDescriptor,
+                cancellationToken);
+        }
+
+        var createCookBookIdentityProviderReadWriteResource = await openIddictScopeManager.FindByNameAsync(
+            COOKBOOK_IDENTITYPROVIDER__READ_WRITE__RESOURCE,
+            cancellationToken) is null;
+
+        if (createCookBookIdentityProviderReadWriteResource)
+        {
+            var cookBookIdentityProviderReadWriteResourceDescriptor = new OpenIddictScopeDescriptor
+            {
+                DisplayName = "Identity Provider API Read&Write permission",
+                Name = COOKBOOK_IDENTITYPROVIDER__READ_WRITE__RESOURCE
+            };
+
+            await openIddictScopeManager.CreateAsync(
+                cookBookIdentityProviderReadWriteResourceDescriptor,
                 cancellationToken);
         }
     }

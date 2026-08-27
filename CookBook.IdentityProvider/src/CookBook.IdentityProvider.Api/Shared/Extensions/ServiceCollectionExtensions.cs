@@ -1,6 +1,9 @@
 ﻿using Carter;
 using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
+using FluentValidation;
 using Microsoft.OpenApi.Models;
+using OpenIddict.Abstractions;
+using OpenIddict.Validation.AspNetCore;
 using System.Text.Json.Serialization;
 
 namespace CookBook.IdentityProvider.Api.Shared.Extensions;
@@ -22,7 +25,16 @@ internal static class ServiceCollectionExtensions
             });
 
         services
-            .AddAuthorization();
+            .AddAuthorizationBuilder()
+            .AddPolicy(
+                ConfigurationConstants.AuthenticationPolicies.ReadWrite,
+                builder =>
+                {
+                    builder
+                        .AddAuthenticationSchemes(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)
+                        .RequireAuthenticatedUser()
+                        .RequireAssertion(context => context.User.HasScope(ConfigurationConstants.AuthenticationScopes.CookBookIdentityProviderReadWrite));
+                });
 
         services
             .ConfigureHttpJsonOptions(options =>
@@ -49,6 +61,12 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddProblemDetails();
+
+        services
+            .AddValidatorsFromAssembly(
+                typeof(Program).Assembly,
+                ServiceLifetime.Singleton,
+                includeInternalTypes: true);
 
         services
             .AddCarter(

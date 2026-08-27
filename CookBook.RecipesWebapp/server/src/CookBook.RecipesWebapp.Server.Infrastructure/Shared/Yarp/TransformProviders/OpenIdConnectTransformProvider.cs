@@ -43,6 +43,11 @@ public sealed class OpenIdConnectTransformProvider :
                     .HttpContext
                     .GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
 
+                if (accessToken is null)
+                {
+                    return;
+                }
+
                 transformContext
                     .ProxyRequest
                     .Headers

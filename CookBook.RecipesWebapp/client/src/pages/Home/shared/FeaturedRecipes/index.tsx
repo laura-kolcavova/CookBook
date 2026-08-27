@@ -1,24 +1,24 @@
 import { FormattedMessage } from 'react-intl';
+import { messages } from '../../messages';
 import type { FeaturedRecipe } from './models/FeaturedRecipe';
 import { FeaturedRecipeCard } from './shared/FeaturedRecipeCard';
-import { messages } from '../../messages';
 
 // Dummy featured recipes data for demonstration
 const featuredRecipes: FeaturedRecipe[] = [
   {
     id: 1,
     title: 'Classic Lasagna',
-    imageUrl: '/public/lasagna.jpg',
+    imageUrl: '/lasagna.jpg',
   },
   {
     id: 2,
     title: 'Vegan Buddha Bowl',
-    imageUrl: '/public/buddha-bowl.jpg',
+    imageUrl: '/buddha-bowl.jpg',
   },
   {
     id: 3,
     title: 'Chocolate Chip Cookies',
-    imageUrl: '/public/cookies.jpg',
+    imageUrl: '/cookies.jpg',
   },
 ];
 
