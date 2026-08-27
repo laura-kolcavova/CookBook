@@ -21,6 +21,7 @@ public class LogOutEndpointModule :
             .WithSummary("OpenID Connect logout endpoint")
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .DisableAntiforgery()
             .AddClosedRequest();
     }
 

@@ -25,6 +25,7 @@ public sealed class TokenEndpointModule :
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .DisableAntiforgery()
             .AddClosedRequest();
     }
 

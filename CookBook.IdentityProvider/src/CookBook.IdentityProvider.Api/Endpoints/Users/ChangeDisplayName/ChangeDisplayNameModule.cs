@@ -51,19 +51,18 @@ public sealed class ChangeDisplayNameModule :
                         .AsProblemDetails(httpContext));
             }
 
-            if (request.ChangeDisplayNameRequest.DisplayName == identityUser.UserName)
-            {
-                return TypedResults.Problem(
-                    UserErrors
-                        .User
-                        .DisplayNameUnchanged()
-                        .AsProblemDetails(httpContext));
-            }
-
-            await changeDisplayNameManager.ChangeDisplayName(
+            var result = await changeDisplayNameManager.ChangeDisplayName(
                 identityUser,
                 request.ChangeDisplayNameRequest.DisplayName,
                 cancellationToken);
+
+            if (result.IsFailure)
+            {
+                return TypedResults.Problem(
+                    result
+                        .Error
+                        .AsProblemDetails(httpContext));
+            }
 
             return TypedResults.NoContent();
         }

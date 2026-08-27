@@ -1,5 +1,7 @@
+using CookBook.Extensions.CSharpExtended.Errors;
 using CookBook.IdentityProvider.Domain.Users;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
+using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OpenIddict.Abstractions;
@@ -13,7 +15,7 @@ internal sealed class ChangeDisplayNameManager(
     UsersContext usersContext) :
     IChangeDisplayNameManager
 {
-    public async Task ChangeDisplayName(
+    public async Task<UnitResult<Error>> ChangeDisplayName(
         CustomIdentityUser identityUser,
         string displayName,
         CancellationToken cancellationToken)
@@ -25,6 +27,14 @@ internal sealed class ChangeDisplayNameManager(
         var preferredUsernameClaim = (await userManager.GetClaimsAsync(identityUser))
            .Single(claim => claim.Type == OpenIddictConstants.Claims.PreferredUsername)
            ?? throw new InvalidOperationException("Preferred user name is not set.");
+
+
+        if (preferredUsernameClaim.Value == displayName)
+        {
+            return UserErrors
+                .User
+                .DisplayNameUnchanged();
+        }
 
         await userManager.ReplaceClaimAsync(
             identityUser,
@@ -43,5 +53,7 @@ internal sealed class ChangeDisplayNameManager(
             cancellationToken);
 
         transaction.Complete();
+
+        return UnitResult.Success<Error>();
     }
 }

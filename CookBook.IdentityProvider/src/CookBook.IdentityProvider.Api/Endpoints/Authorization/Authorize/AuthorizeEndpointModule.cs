@@ -29,6 +29,7 @@ public sealed class AuthorizeEndpointModule :
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .DisableAntiforgery()
             .AddClosedRequest();
     }
 

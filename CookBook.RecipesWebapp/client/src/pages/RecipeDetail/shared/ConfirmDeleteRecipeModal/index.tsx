@@ -82,7 +82,7 @@ export const ConfirmDeleteRecipeModal = ({ recipe }: ConfirmDeleteRecipeModalPro
               </Button>
 
               <Button
-                onClick={() => removeRecipeMutate}
+                onClick={() => removeRecipeMutate()}
                 className="flex items-center justify-center"
                 disabled={removeRecipeIsPending}
                 variant="danger">
