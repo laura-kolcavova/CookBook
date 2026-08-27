@@ -1,5 +1,4 @@
 ﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
-using CookBook.Extensions.AspNetCore.FluentValidation.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Configuration;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -16,12 +15,13 @@ public sealed class LogOutModule :
             .MapGet("/logout", HandleAsync)
             .WithName("LogOut")
             .WithSummary("Signs out an user")
-            .Produces(StatusCodes.Status302Found)
-            .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .AddFluentValidation()
-            .AddClosedRequest()
             .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.Cookie)
-            .DisableAntiforgery();
+            .Produces(StatusCodes.Status302Found)
+            .ProducesValidationProblem()
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status403Forbidden)
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .AddClosedRequest();
     }
 
     private static IResult HandleAsync(

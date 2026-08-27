@@ -1,4 +1,5 @@
-﻿using CookBook.IdentityProvider.Api.Endpoints.Users.GetUserProfileInfo.Contracts;
+﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
+using CookBook.IdentityProvider.Api.Endpoints.Users.GetUserProfileInfo.Contracts;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
 
 namespace CookBook.IdentityProvider.Api.Endpoints.Users.GetUserProfileInfo;
@@ -17,7 +18,7 @@ public sealed class GetUserProfileInfoModule :
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .AllowAnonymous();
+            .AddClosedRequest();
     }
 
     private static async Task<IResult> HandleAsync(

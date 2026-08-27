@@ -16,10 +16,9 @@ public sealed class GetCurrentUserEndpointModule :
             .WithName("GetCurrentUser")
             .WithSummary("Gets current user info")
             .Produces(StatusCodes.Status200OK, typeof(CurrentUserDto))
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .AddClosedRequest()
-            .AllowAnonymous()
-            .DisableAntiforgery();
+            .AddClosedRequest();
     }
 
     private static IResult Handle(

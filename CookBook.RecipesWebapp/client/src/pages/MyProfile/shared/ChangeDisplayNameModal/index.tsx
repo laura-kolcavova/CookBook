@@ -54,7 +54,7 @@ export const ChangeDisplayNameModal = ({ currentDisplayName }: ChangeDisplayName
 
     setValidationErrorMessage(undefined);
 
-    changeDisplayNameMutate(displayName.trim());
+    changeDisplayNameMutate(displayName);
   };
 
   return (
@@ -109,7 +109,7 @@ export const ChangeDisplayNameModal = ({ currentDisplayName }: ChangeDisplayName
               <Button
                 onClick={handleSave}
                 className="flex items-center justify-center"
-                disabled={changeDisplayNameIsPending}
+                disabled={changeDisplayNameIsPending || displayName === currentDisplayName}
                 variant="primary">
                 <span>
                   <FormattedMessage {...messages.saveButton} />

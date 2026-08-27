@@ -1,5 +1,6 @@
 ﻿using Carter;
 using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
+using FluentValidation;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Abstractions;
 using OpenIddict.Validation.AspNetCore;
@@ -60,6 +61,12 @@ internal static class ServiceCollectionExtensions
 
         services
             .AddProblemDetails();
+
+        services
+            .AddValidatorsFromAssembly(
+                typeof(Program).Assembly,
+                ServiceLifetime.Singleton,
+                includeInternalTypes: true);
 
         services
             .AddCarter(

@@ -62,17 +62,10 @@ const saveRecipe = (
   });
 };
 
-const removeRecipe = (
-  recipeId: number,
-  userName: string,
-  signal?: GenericAbortSignal,
-): AxiosPromise<void> => {
+const removeRecipe = (recipeId: number, signal?: GenericAbortSignal): AxiosPromise<void> => {
   return apiClient({
     url: `/api/recipes/${recipeId}/remove`,
     method: 'DELETE',
-    params: {
-      userName,
-    },
     signal: signal,
   });
 };

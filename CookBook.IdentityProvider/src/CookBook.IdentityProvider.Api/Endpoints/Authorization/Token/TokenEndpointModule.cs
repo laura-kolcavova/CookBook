@@ -25,8 +25,7 @@ public sealed class TokenEndpointModule :
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .AddClosedRequest()
-            .AllowAnonymous();
+            .AddClosedRequest();
     }
 
     private static async Task<IResult> HandleAsync(

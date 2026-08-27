@@ -1,4 +1,6 @@
+using CookBook.Extensions.AspNetCore.Abort.Extensions;
 using CookBook.Extensions.AspNetCore.Errors.Extensions;
+using CookBook.Extensions.AspNetCore.FluentValidation.Extensions;
 using CookBook.IdentityProvider.Domain.Users;
 using CookBook.IdentityProvider.Domain.Users.Services.Abstractions;
 using CookBook.IdentityProvider.Infrastructure.Shared.Configuration;
@@ -16,11 +18,14 @@ public sealed class ChangeDisplayNameModule :
             .MapPatch("/current/display-name", HandleAsync)
             .WithName("ChangeDisplayName")
             .WithSummary("Changes the display name of the current user")
+            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.ReadWrite)
+            .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.ReadWrite);
+            .AddFluentValidation()
+            .AddClosedRequest();
     }
 
     private static async Task<IResult> HandleAsync(
@@ -39,10 +44,20 @@ public sealed class ChangeDisplayNameModule :
 
             if (identityUser is null)
             {
-                return TypedResults.Problem(UserErrors
-                    .User
-                    .NotFound()
-                    .AsProblemDetails(httpContext));
+                return TypedResults.Problem(
+                    UserErrors
+                        .User
+                        .NotFound()
+                        .AsProblemDetails(httpContext));
+            }
+
+            if (request.ChangeDisplayNameRequest.DisplayName == identityUser.UserName)
+            {
+                return TypedResults.Problem(
+                    UserErrors
+                        .User
+                        .DisplayNameUnchanged()
+                        .AsProblemDetails(httpContext));
             }
 
             await changeDisplayNameManager.ChangeDisplayName(

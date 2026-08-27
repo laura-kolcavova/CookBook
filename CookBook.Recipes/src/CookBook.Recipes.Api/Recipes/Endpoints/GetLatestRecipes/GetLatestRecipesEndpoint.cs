@@ -16,8 +16,7 @@ internal class GetLatestRecipesEndpoint
             .Produces<GetLatestRecipesResponseDto>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()
-            .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .AllowAnonymous();
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
     }
 
     private static async Task<IResult> HandleAsync(

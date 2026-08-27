@@ -3,14 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useAbortSignal } from '~/abort/useAbortSignal';
 
 import { recipesService } from '~/api/recipes/recipesService';
-import { useCurrentUser } from '~/authentication/CurrentUserProvider';
 import { useModals } from '~/modals/ModalProvider';
 import { pages } from '~/navigation/pages';
 
 export const useRemoveRecipeMutation = (recipeId: number) => {
   const navigate = useNavigate();
-
-  const { currentUser } = useCurrentUser();
 
   const { hideModal } = useModals();
 
@@ -24,7 +21,7 @@ export const useRemoveRecipeMutation = (recipeId: number) => {
     mutationFn: async () => {
       const signal = createSignal();
 
-      await recipesService.removeRecipe(recipeId, currentUser.userName, signal);
+      await recipesService.removeRecipe(recipeId, signal);
     },
     onSuccess: () => {
       hideModal();

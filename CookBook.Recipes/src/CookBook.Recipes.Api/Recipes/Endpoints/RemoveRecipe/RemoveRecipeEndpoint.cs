@@ -1,6 +1,8 @@
 ﻿using CookBook.Extensions.AspNetCore.Errors.Extensions;
+using CookBook.Recipes.Api.Shared.Extensions;
 using CookBook.Recipes.Domain.Recipes.Services.Abstractions;
 using CookBook.Recipes.Infrastructure.Shared.Configuration;
+using System.Security.Claims;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 using RecipeErrors = CookBook.Recipes.Domain.Recipes.RecipeErrors;
 
@@ -15,13 +17,13 @@ internal class RemoveRecipeEndpoint
             .MapDelete("/{recipeId}/remove", HandleAsync)
             .WithName("RemoveRecipe")
             .WithSummary("Removes a recipe by its id")
+            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.ReadWrite)
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)
-            .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.ReadWrite);
+            .ProducesProblem(StatusCodes.Status500InternalServerError);
     }
 
     private static async Task<IResult> HandleAsync(
@@ -29,17 +31,19 @@ internal class RemoveRecipeEndpoint
         RemoveRecipeParams request,
         IRecipeStore recipeStore,
         ILogger<RemoveRecipeEndpoint> logger,
+        ClaimsPrincipal claimsPrincipal,
         HttpContext httpContext,
         CancellationToken cancellationToken)
     {
         using var loggerScope = logger.BeginScope(new Dictionary<string, object?>
         {
             ["RecipeId"] = request.RecipeId,
-            ["UserName"] = request.UserName,
         });
 
         try
         {
+            var userName = claimsPrincipal.GetUserNameClaim().Value;
+
             var recipe = await recipeStore.FindByRecipeId(
                 request.RecipeId,
                 cancellationToken);
@@ -54,14 +58,14 @@ internal class RemoveRecipeEndpoint
                         .AsProblemDetails(httpContext));
             }
 
-            if (recipe.UserName != request.UserName)
+            if (recipe.UserName != userName)
             {
                 return TypedResults.Problem(
                     RecipeErrors
                         .Recipe
                         .NotOwnedByUser(
                             request.RecipeId,
-                            request.UserName)
+                            userName)
                         .AsProblemDetails(httpContext));
             }
 

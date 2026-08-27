@@ -1,4 +1,4 @@
-﻿using CookBook.Extensions.AspNetCore.FluentValidation.Extensions;
+﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
@@ -15,12 +15,8 @@ public sealed class LogInEndpointModule :
             .WithSummary("Signs in an user")
             .Produces(StatusCodes.Status307TemporaryRedirect)
             .ProducesValidationProblem()
-            .ProducesProblem(StatusCodes.Status401Unauthorized)
-            .ProducesProblem(StatusCodes.Status403Forbidden)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .AddFluentValidation()
-            .AllowAnonymous()
-            .DisableAntiforgery();
+            .AddClosedRequest();
     }
 
     private static IResult Handle(
