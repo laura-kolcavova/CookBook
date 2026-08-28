@@ -10,10 +10,20 @@ internal static class ClaimExtensions
     {
         switch (claim.Type)
         {
-            case OpenIddictConstants.Claims.Name or OpenIddictConstants.Claims.PreferredUsername:
+            case OpenIddictConstants.Claims.Name:
                 {
                     yield return OpenIddictConstants.Destinations.AccessToken;
 
+                    if (claim.Subject!.HasScope(OpenIddictConstants.Scopes.Profile))
+                    {
+                        yield return OpenIddictConstants.Destinations.IdentityToken;
+                    }
+
+                    yield break;
+                }
+            case OpenIddictConstants.Claims.PreferredUsername:
+                {
+                    // Display name is mutable, so it must not be cached in the long-lived access token - it is fetched live from the Identity Provider instead
                     if (claim.Subject!.HasScope(OpenIddictConstants.Scopes.Profile))
                     {
                         yield return OpenIddictConstants.Destinations.IdentityToken;
