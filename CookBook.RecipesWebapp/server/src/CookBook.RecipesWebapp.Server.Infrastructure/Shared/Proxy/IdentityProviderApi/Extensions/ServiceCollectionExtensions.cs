@@ -1,4 +1,5 @@
 ﻿using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.IdentityProviderApi.Clients;
+using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.IdentityProviderApi.Handlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
@@ -15,13 +16,18 @@ internal static class ServiceCollectionExtensions
             .GetRequiredSection(nameof(IdentityProviderApiConfiguration))
             .Get<IdentityProviderApiConfiguration>()!;
 
+        services.AddHttpContextAccessor();
+
+        services.AddTransient<AccessTokenDelegatingHandler>();
+
         services
             .AddRefitClient<IIdentityProviderApiClient>()
             .ConfigureHttpClient(configureClient =>
             {
                 configureClient.BaseAddress = new Uri(
                     identityProviderApiConfiguration.BaseAddress);
-            });
+            })
+            .AddHttpMessageHandler<AccessTokenDelegatingHandler>();
 
         return services;
     }

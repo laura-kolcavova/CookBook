@@ -12,13 +12,11 @@ internal sealed class CurrentUserProfileFetcher(
     ICurrentUserProfileFetcher
 {
     public async Task<CurrentUserProfileModel> FetchCurrentUserProfile(
-        string accessToken,
         CancellationToken cancellationToken)
     {
         try
         {
             var response = await identityProviderApiClient.GetCurrentUserProfile(
-                $"Bearer {accessToken}",
                 cancellationToken);
 
             if (!response.IsSuccessful)
@@ -26,10 +24,11 @@ internal sealed class CurrentUserProfileFetcher(
                 throw response.Error!;
             }
 
-            var currentUserProfile = response.Content!.CurrentUserProfile;
+            var currentUserProfile = response.Content!;
 
             return new CurrentUserProfileModel
             {
+                UserName = currentUserProfile.UserName,
                 DisplayName = currentUserProfile.DisplayName,
                 Email = currentUserProfile.Email
             };
@@ -45,6 +44,14 @@ internal sealed class CurrentUserProfileFetcher(
                 "Getting current user profile from Identity Provider API failed with [{StatusCode}], [{Message}]",
                 ex.StatusCode,
                 ex.Message);
+
+            throw;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(
+                ex,
+                "An unexpected error occurred while getting current user profile from Identity Provider API");
 
             throw;
         }

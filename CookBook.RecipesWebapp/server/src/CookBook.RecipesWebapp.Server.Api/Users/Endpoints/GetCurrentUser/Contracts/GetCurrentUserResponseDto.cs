@@ -1,6 +1,6 @@
 ﻿namespace CookBook.RecipesWebapp.Server.Api.Users.Endpoints.GetCurrentUser.Contracts;
 
-public sealed record CurrentUserDto
+public sealed record GetCurrentUserResponseDto
 {
     public required bool IsAuthenticated { get; init; }
 
@@ -10,7 +10,7 @@ public sealed record CurrentUserDto
 
     public required string Email { get; init; }
 
-    public static CurrentUserDto Anonymous => new()
+    public static GetCurrentUserResponseDto Anonymous => new()
     {
         IsAuthenticated = false,
         UserName = string.Empty,

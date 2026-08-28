@@ -6,7 +6,7 @@ using Yarp.ReverseProxy.Transforms.Builder;
 
 namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.Yarp.TransformProviders;
 
-public sealed class OpenIdConnectTransformProvider :
+public sealed class AccessTokenTransformProvider :
     ITransformProvider
 {
     private const string UseOpenIdConnectMetaDataName = "UseOpenIdConnect";

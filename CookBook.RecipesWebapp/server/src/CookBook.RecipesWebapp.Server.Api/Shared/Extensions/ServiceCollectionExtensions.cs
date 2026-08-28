@@ -197,7 +197,7 @@ internal static class ServiceCollectionExtensions
             .AddReverseProxy()
             .LoadFromConfig(reverseProxyConfiguration)
             .AddTransforms<AntiforgeryValidationTransformProvider>()
-            .AddTransforms<OpenIdConnectTransformProvider>();
+            .AddTransforms<AccessTokenTransformProvider>();
 
         services.AddValidatorsFromAssembly(
             typeof(Program).Assembly,

@@ -2,6 +2,8 @@ namespace CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.IdentityProv
 
 internal sealed record GetCurrentUserProfileResponseDto
 {
+    public required string UserName { get; init; }
+
     public required string DisplayName { get; init; }
 
     public required string Email { get; init; }

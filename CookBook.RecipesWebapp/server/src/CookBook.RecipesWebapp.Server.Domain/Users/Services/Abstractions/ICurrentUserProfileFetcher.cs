@@ -5,6 +5,5 @@ namespace CookBook.RecipesWebapp.Server.Domain.Users.Services.Abstractions;
 public interface ICurrentUserProfileFetcher
 {
     public Task<CurrentUserProfileModel> FetchCurrentUserProfile(
-        string accessToken,
         CancellationToken cancellationToken);
 }
