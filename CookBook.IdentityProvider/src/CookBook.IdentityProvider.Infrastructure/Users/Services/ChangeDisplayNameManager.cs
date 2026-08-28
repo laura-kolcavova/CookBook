@@ -28,7 +28,6 @@ internal sealed class ChangeDisplayNameManager(
            .Single(claim => claim.Type == OpenIddictConstants.Claims.PreferredUsername)
            ?? throw new InvalidOperationException("Preferred user name is not set.");
 
-
         if (preferredUsernameClaim.Value == displayName)
         {
             return UserErrors

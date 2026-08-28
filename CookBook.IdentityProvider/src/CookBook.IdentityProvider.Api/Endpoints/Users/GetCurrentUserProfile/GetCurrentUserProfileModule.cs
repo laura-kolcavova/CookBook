@@ -20,7 +20,7 @@ public sealed class GetCurrentUserProfileModule :
             .WithName("GetCurrentUserProfile")
             .WithSummary("Gets the profile information of the current user")
             .RequireAuthorization(ConfigurationConstants.AuthenticationPolicies.ReadWrite)
-            .Produces<CurrentUserProfileDto>(StatusCodes.Status200OK)
+            .Produces<GetCurrentUserProfileResponseDto>(StatusCodes.Status200OK)
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)
@@ -59,7 +59,7 @@ public sealed class GetCurrentUserProfileModule :
                 .Single(claim => claim.Type == OpenIddictConstants.Claims.PreferredUsername)
                  ?? throw new InvalidOperationException("Preferred user name is not set.");
 
-            var responseDto = new CurrentUserProfileDto
+            var responseDto = new GetCurrentUserProfileResponseDto
             {
                 UserName = userName,
                 DisplayName = preferredUsernameClaim.Value,

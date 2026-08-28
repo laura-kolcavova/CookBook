@@ -14,7 +14,7 @@ public sealed class GetUserProfileInfoModule :
             .MapGet("/{userName}/profile-info", HandleAsync)
             .WithName("GetUserProfileInfo")
             .WithSummary("Gets the public profile information for user by username")
-            .Produces<UserProfileInfoDto>(StatusCodes.Status200OK)
+            .Produces<GetUserProfileInfoResponseDto>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status500InternalServerError)
@@ -44,7 +44,7 @@ public sealed class GetUserProfileInfoModule :
                 return TypedResults.NoContent();
             }
 
-            var responseDto = new UserProfileInfoDto
+            var responseDto = new GetUserProfileInfoResponseDto
             {
                 DisplayName = userProfileInfo.DisplayName,
                 UserName = userProfileInfo.UserName,

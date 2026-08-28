@@ -1,6 +1,6 @@
 ﻿namespace CookBook.IdentityProvider.Api.Endpoints.Users.GetUserProfileInfo.Contracts;
 
-public sealed record UserProfileInfoDto
+public sealed record GetUserProfileInfoResponseDto
 {
     public required string DisplayName { get; init; }
 
