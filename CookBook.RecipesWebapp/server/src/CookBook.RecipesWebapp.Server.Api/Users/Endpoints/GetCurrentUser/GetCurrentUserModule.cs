@@ -1,5 +1,8 @@
 ﻿using CookBook.Extensions.AspNetCore.Abort.Extensions;
 using CookBook.RecipesWebapp.Server.Api.Users.Endpoints.GetCurrentUser.Contracts;
+using CookBook.RecipesWebapp.Server.Domain.Users.Services.Abstractions;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using OpenIddict.Abstractions;
 using System.Security.Claims;
 using static OpenIddict.Abstractions.OpenIddictConstants;
@@ -12,7 +15,7 @@ public sealed class GetCurrentUserEndpointModule :
     public override void AddRoutes(IEndpointRouteBuilder app)
     {
         app
-            .MapGet("/current", Handle)
+            .MapGet("/current", HandleAsync)
             .WithName("GetCurrentUser")
             .WithSummary("Gets current user info")
             .Produces(StatusCodes.Status200OK, typeof(CurrentUserDto))
@@ -21,8 +24,11 @@ public sealed class GetCurrentUserEndpointModule :
             .AddClosedRequest();
     }
 
-    private static IResult Handle(
-        ClaimsPrincipal? claimsPrincipal)
+    private static async Task<IResult> HandleAsync(
+        ClaimsPrincipal? claimsPrincipal,
+        HttpContext httpContext,
+        ICurrentUserProfileFetcher currentUserProfileFetcher,
+        CancellationToken cancellationToken)
     {
         var isAuthenticated = claimsPrincipal
             ?.Identity
@@ -35,18 +41,22 @@ public sealed class GetCurrentUserEndpointModule :
                 CurrentUserDto.Anonymous);
         }
 
+        var accessToken = await httpContext
+            .GetTokenAsync(OpenIdConnectParameterNames.AccessToken)
+            ?? throw new InvalidOperationException("Authenticated user must have an access token.");
+
+        var currentUserProfile = await currentUserProfileFetcher.FetchCurrentUserProfile(
+            accessToken,
+            cancellationToken);
+
         var currentUserDto = new CurrentUserDto
         {
             IsAuthenticated = true,
             UserName = claimsPrincipal!
                 .GetClaim(Claims.Name)
                 ?? throw new InvalidOperationException("Authenticated user must have a name claim."),
-            DisplayName = claimsPrincipal!
-                .GetClaim(Claims.PreferredUsername)
-                ?? throw new InvalidOperationException("Authenticated user must have a preferred_username claim."),
-            Email = claimsPrincipal!
-                .GetClaim(Claims.Email)
-                ?? throw new InvalidOperationException("Authenticated user must have an email claim.")
+            DisplayName = currentUserProfile.DisplayName,
+            Email = currentUserProfile.Email
         };
 
         return TypedResults.Ok(

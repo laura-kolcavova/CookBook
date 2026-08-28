@@ -92,6 +92,23 @@ internal static class ServiceCollectionExtensions
                                 context.ProtocolMessage.IssuerAddress = $"{openIdConnectAppConfiguration.Authority}/connect/logout";
 
                                 return Task.CompletedTask;
+                            },
+
+                            // Display name is mutable, so it must not be cached in the cookie - it is fetched live from the Identity Provider on every current-user request instead
+                            OnTicketReceived = context =>
+                            {
+                                var preferredUsernameClaim = context
+                                    .Principal
+                                    ?.Identities
+                                    .FirstOrDefault()
+                                    ?.FindFirst(OpenIddictConstants.Claims.PreferredUsername);
+
+                                if (preferredUsernameClaim is not null)
+                                {
+                                    preferredUsernameClaim.Subject!.RemoveClaim(preferredUsernameClaim);
+                                }
+
+                                return Task.CompletedTask;
                             }
                         };
 

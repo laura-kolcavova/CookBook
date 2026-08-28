@@ -5,5 +5,4 @@ public sealed record UserProfileInfoReadModel
     public required string UserName { get; init; }
 
     public required string DisplayName { get; init; }
-
 }

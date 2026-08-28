@@ -136,7 +136,7 @@ internal sealed class RecipeDetailFetcher(
         }
     }
 
-    private async Task<Maybe<GetUserProfileInfoResponseDto.UserProfileInfoDto>>
+    private async Task<Maybe<GetUserProfileInfoResponseDto>>
         GetUserProfileInfoDto(
             string userName,
             CancellationToken cancellationToken)
@@ -165,7 +165,7 @@ internal sealed class RecipeDetailFetcher(
                 throw response.Error;
             }
 
-            return response.Content.UserProfileInfo;
+            return response.Content;
         }
         catch (OperationCanceledException)
         {

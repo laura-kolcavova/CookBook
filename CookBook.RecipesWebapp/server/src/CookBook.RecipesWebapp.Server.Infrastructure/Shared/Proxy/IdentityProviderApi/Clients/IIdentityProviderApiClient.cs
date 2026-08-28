@@ -9,4 +9,9 @@ internal interface IIdentityProviderApiClient
     public Task<IApiResponse<GetUserProfileInfoResponseDto>> GetUserProfileInfo(
         string userName,
         CancellationToken cancellationToken);
+
+    [Get("/api/users/current/profile")]
+    public Task<IApiResponse<GetCurrentUserProfileResponseDto>> GetCurrentUserProfile(
+        [Header("Authorization")] string authorization,
+        CancellationToken cancellationToken);
 }

@@ -2,12 +2,7 @@
 
 internal sealed record GetUserProfileInfoResponseDto
 {
-    public required UserProfileInfoDto UserProfileInfo { get; init; }
+    public required string DisplayName { get; init; }
 
-    public sealed record UserProfileInfoDto
-    {
-        public required string DisplayName { get; init; }
-
-        public required string UserName { get; init; }
-    }
+    public required string UserName { get; init; }
 }

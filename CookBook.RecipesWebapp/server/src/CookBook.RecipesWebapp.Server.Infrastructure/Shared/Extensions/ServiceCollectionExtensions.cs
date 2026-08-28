@@ -1,6 +1,7 @@
 ﻿using CookBook.RecipesWebapp.Server.Infrastructure.Recipes.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.IdentityProviderApi.Extensions;
 using CookBook.RecipesWebapp.Server.Infrastructure.Shared.Proxy.RecipesApi.Extensions;
+using CookBook.RecipesWebapp.Server.Infrastructure.Users.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +19,9 @@ public static class ServiceCollectionExtensions
 
         services
             .AddRecipes();
+
+        services
+            .AddUsers();
 
         return services;
     }
